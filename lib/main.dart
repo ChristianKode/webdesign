@@ -1,3 +1,5 @@
+import 'dart:js';
+
 import 'package:flutter/material.dart';
 import 'package:webdesign/widgets/navbar.dart';
 void main() {
@@ -25,6 +27,7 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      color: Colors.transparent,
       child: SingleChildScrollView(
         child: Column(
           children: <Widget>[
