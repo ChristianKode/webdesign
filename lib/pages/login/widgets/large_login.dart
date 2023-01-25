@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:get/get.dart';
+import 'package:webdesign/app_logic/services/firebase_auth.dart';
 
 import '../../register/register.dart';
 
@@ -146,6 +147,8 @@ class LoginBox extends StatelessWidget {
             height: 40,
             child: ElevatedButton(
               onPressed: () {
+                FirebaseAuthClass();
+
                 print(mail.text);
               },
               style: ElevatedButton.styleFrom(
@@ -160,9 +163,7 @@ class LoginBox extends StatelessWidget {
             ),
           ),
           TextButton(
-              onPressed: () {
-                
-              },
+              onPressed: () {},
               child: (Text(
                 'Glemt passord?',
                 style: GoogleFonts.tinos(fontSize: 20),

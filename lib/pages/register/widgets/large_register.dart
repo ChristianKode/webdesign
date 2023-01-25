@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class LargeRegister extends StatelessWidget {
   const LargeRegister({super.key});
@@ -23,8 +25,25 @@ class RegisterBox extends StatelessWidget {
     super.key,
   });
 
-  final TextEditingController emailController = TextEditingController();
-  final TextEditingController passwordController = TextEditingController();
+  final TextEditingController fornavnCon = TextEditingController();
+  final TextEditingController etternavnCon = TextEditingController();
+  final TextEditingController emailCon = TextEditingController();
+  final TextEditingController passwordCon = TextEditingController();
+  final TextEditingController telefonCon = TextEditingController();
+
+  bool ValidCredentials() {
+    if (fornavnCon.text.isNotEmpty &
+        etternavnCon.text.isNotEmpty &
+        emailCon.text.contains('@')) {}
+
+    bool asd = true;
+    return asd;
+  }
+
+  RegisterMethod() async {
+    await FirebaseAuth.instance.createUserWithEmailAndPassword(
+        email: emailCon.text, password: passwordCon.text);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -96,12 +115,12 @@ class RegisterBox extends StatelessWidget {
             const SizedBox(
               height: 10,
             ),
-            const Padding(
+            Padding(
               padding: EdgeInsets.symmetric(horizontal: 2, vertical: 0),
               child: SizedBox(
                 child: TextField(
-                  //controller: emailController,
-                  decoration: InputDecoration(
+                  controller: emailCon,
+                  decoration: const InputDecoration(
                       focusedBorder: OutlineInputBorder(
                           borderSide: BorderSide(
                               color: Color.fromRGBO(102, 82, 143, 1.0),
@@ -117,15 +136,16 @@ class RegisterBox extends StatelessWidget {
               height: 10,
             ),
             Row(
-              children: const [
+              children: [
                 Expanded(
                   child: Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 2, vertical: 0),
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 2, vertical: 0),
                     child: SizedBox(
                       child: TextField(
-                          //controller: passwordController,
+                          controller: passwordCon,
                           obscureText: true,
-                          decoration: InputDecoration(
+                          decoration: const InputDecoration(
                             focusedBorder: OutlineInputBorder(
                                 borderSide: BorderSide(
                                     color: Color.fromRGBO(102, 82, 143, 1.0),
@@ -142,7 +162,7 @@ class RegisterBox extends StatelessWidget {
                     ),
                   ),
                 ),
-                Expanded(
+                const Expanded(
                   child: Padding(
                     padding: EdgeInsets.symmetric(horizontal: 2, vertical: 0),
                     child: SizedBox(
@@ -172,28 +192,22 @@ class RegisterBox extends StatelessWidget {
             SizedBox(
               width: 160,
               height: 40,
-              child: newMethod(),
+              child: ElevatedButton(
+                  onPressed: () {
+                    RegisterMethod();
+                  },
+                  style: ElevatedButton.styleFrom(
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(100)),
+                      backgroundColor: const Color.fromRGBO(102, 82, 143, 1.0)),
+                  child: const Text(
+                    'Lag bruker',
+                    style: TextStyle(fontSize: 15),
+                  )),
             ),
           ],
         ),
       ),
     );
-  }
-
-  ElevatedButton newMethod() {
-    return ElevatedButton(
-                onPressed: () {
-                  /*FirebaseAuth.instance.createUserWithEmailAndPassword(
-                      email: emailController.text,
-                      password: passwordController.text);*/
-                },
-                style: ElevatedButton.styleFrom(
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(100)),
-                    backgroundColor: const Color.fromRGBO(102, 82, 143, 1.0)),
-                child: const Text(
-                  'Lag bruker',
-                  style: TextStyle(fontSize: 15),
-                ));
   }
 }
