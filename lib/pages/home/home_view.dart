@@ -2,6 +2,7 @@ import 'dart:html';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:webdesign/pages/home/widgets/home_info.dart';
 import 'package:webdesign/widgets/navbar.dart';
 
 class Home extends StatelessWidget {
@@ -23,7 +24,9 @@ class Home extends StatelessWidget {
 
           child: Column(
             children: <Widget>[
-              NavBar()
+              NavBar(), 
+              HomeInfo(
+              )
           ],
         ),
     ),
