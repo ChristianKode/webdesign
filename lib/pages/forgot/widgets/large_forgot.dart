@@ -1,0 +1,96 @@
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
+
+import '../../login/login.dart';
+
+class LargeForgot extends StatelessWidget {
+  const LargeForgot({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Container(
+        decoration: const BoxDecoration(
+            image: DecorationImage(
+                image: AssetImage('assets/forgot_background.jpg'),
+                fit: BoxFit.cover)),
+        child: const ForgotPassBox(),
+      ),
+    );
+  }
+}
+
+class ForgotPassBox extends StatelessWidget {
+  const ForgotPassBox({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      alignment: Alignment.center,
+      child: Column(
+        children: [
+          const SizedBox(
+            height: 150,
+          ),
+          Text(
+            'Tilbakestill Passord',
+            style: GoogleFonts.tinos(
+              fontSize: 50,
+              color: const Color.fromRGBO(102, 82, 143, 1.0),
+            ),
+          ),
+          const SizedBox(
+            height: 30,
+          ),
+          const Padding(
+            padding: EdgeInsets.symmetric(horizontal: 2, vertical: 0),
+            child: SizedBox(
+              width: 360,
+              child: TextField(
+                decoration: InputDecoration(
+                    focusedBorder: OutlineInputBorder(
+                        borderSide: BorderSide(
+                            color: Color.fromRGBO(102, 82, 143, 1.0), width: 2),
+                        borderRadius: BorderRadius.all(Radius.circular(100))),
+                    border: OutlineInputBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(100))),
+                    hintText: 'Epost'),
+              ),
+            ),
+          ),
+          const SizedBox(
+            height: 30,
+          ),
+          SizedBox(
+            width: 160,
+            height: 40,
+            child: ElevatedButton(
+                onPressed: () {},
+                style: ElevatedButton.styleFrom(
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(100)),
+                    backgroundColor: const Color.fromRGBO(102, 82, 143, 1.0)),
+                child: const Text(
+                  'Send Epost',
+                  style: TextStyle(fontSize: 15),
+                )),
+          ),
+          TextButton(
+              onPressed: () {
+                Get.to(const Login());
+              },
+              child: Text.rich(
+                  TextSpan(style: const TextStyle(fontSize: 15), children: [
+                TextSpan(text: 'Ferdig? ', style: GoogleFonts.tinos()),
+                TextSpan(
+                    text: 'Logg på',
+                    style: GoogleFonts.tinos(fontWeight: FontWeight.bold))
+              ]))),
+        ],
+      ),
+    );
+  }
+}

@@ -28,13 +28,14 @@ environment:
 # the latest version available on pub.dev. To see which dependencies have newer
 # versions available, run `flutter pub outdated`.
 dependencies:
+  firebase_auth: ^4.2.5
+  firebase_core: ^2.4.1
   flutter:
     sdk: flutter
+  get: ^4.6.5
+  google_fonts: ^3.0.1
 
 
-  # The following adds the Cupertino Icons font to your application.
-  # Use with the CupertinoIcons class for iOS style icons.
-  cupertino_icons: ^1.0.2
 
 dev_dependencies:
   flutter_test:
@@ -60,7 +61,15 @@ flutter:
 
   # To add assets to your application, add an assets section, like this:
   assets:
-    - assets/images/UngLogo.png
+    - assets/images/LogoUng.png
+    - assets/images/menu.png
+    - assets/images/register_background.jpg
+    - assets/images/hvitlogo.png
+    - assets/images/home_background.jpg
+    - assets/images/forgot_background.jpg
+    - assets/images/Bakgrunn.jpg
+    - assets/images/Background.png
+    - assets/images/Background_login.jpg
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
