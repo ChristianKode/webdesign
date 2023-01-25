@@ -8,7 +8,6 @@ import 'package:webdesign/pages/login/login.dart';
 import 'package:webdesign/pages/register/register.dart';
 import 'package:webdesign/utils/responsive.dart';
 import 'package:get/get.dart';
-import 'package:google_fonts/google_fonts.dart';
 
     ChatItem(){
     return SizedBox(
