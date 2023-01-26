@@ -3,7 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:webdesign/main.dart';
-import 'package:webdesign/pages/home/home_view.dart';
+import 'package:webdesign/pages/home/home_viewLoggedOut.dart';
 import 'package:webdesign/pages/login/login.dart';
 import 'package:webdesign/pages/register/register.dart';
 import 'package:webdesign/utils/responsive.dart';
@@ -50,7 +50,7 @@ import 'package:get/get.dart';
     );
   }
 
-class NavBar extends StatelessWidget {
+class NavBarOut extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
