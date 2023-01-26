@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:provider/provider.dart';
+import 'package:webdesign/app_logic/services/firebase_auth.dart';
 
 class LargeRegister extends StatelessWidget {
   const LargeRegister({super.key});
@@ -194,8 +196,12 @@ class RegisterBox extends StatelessWidget {
               height: 40,
               child: ElevatedButton(
                   onPressed: () {
-                    RegisterMethod();
+                    context
+                        .read<AuthService>()
+                        .signUp(emailCon.text.trim(), passwordCon.text.trim());
+
                   },
+
                   style: ElevatedButton.styleFrom(
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(100)),

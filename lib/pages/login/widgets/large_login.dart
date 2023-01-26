@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:get/get.dart';
+import 'package:provider/provider.dart';
 import 'package:webdesign/app_logic/services/firebase_auth.dart';
 
 import '../../register/register.dart';
@@ -147,7 +148,9 @@ class LoginBox extends StatelessWidget {
             height: 40,
             child: ElevatedButton(
               onPressed: () {
-                FirebaseAuthClass();
+                context
+                    .read<AuthService>()
+                    .login(mail.text.trim(), pass.text.trim());
 
                 print(mail.text);
               },
