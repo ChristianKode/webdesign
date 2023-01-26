@@ -44,13 +44,14 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyCvh7tWLOJRWsx23WUEULBvlFBUFhMxY7w',
-    appId: '1:541591020969:web:473709f826b641572190b8',
-    messagingSenderId: '541591020969',
-    projectId: 'ungansatt123',
-    authDomain: 'ungansatt123.firebaseapp.com',
-    storageBucket: 'ungansatt123.appspot.com',
-  );
+      apiKey: "AIzaSyCvh7tWLOJRWsx23WUEULBvlFBUFhMxY7w",
+      authDomain: "ungansatt123.firebaseapp.com",
+      databaseURL:
+          "https://ungansatt123-default-rtdb.europe-west1.firebasedatabase.app",
+      projectId: "ungansatt123",
+      storageBucket: "ungansatt123.appspot.com",
+      messagingSenderId: "541591020969",
+      appId: "1:541591020969:web:473709f826b641572190b8");
 
   static const FirebaseOptions android = FirebaseOptions(
     apiKey: 'AIzaSyCHfsdczq-kB355xr7G56WrAzChJodaTe8',
@@ -66,7 +67,8 @@ class DefaultFirebaseOptions {
     messagingSenderId: '541591020969',
     projectId: 'ungansatt123',
     storageBucket: 'ungansatt123.appspot.com',
-    iosClientId: '541591020969-cjson7b7guo79u4ukatic4o9km1b15uf.apps.googleusercontent.com',
+    iosClientId:
+        '541591020969-cjson7b7guo79u4ukatic4o9km1b15uf.apps.googleusercontent.com',
     iosBundleId: 'com.example.webdesign',
   );
 
@@ -76,7 +78,8 @@ class DefaultFirebaseOptions {
     messagingSenderId: '541591020969',
     projectId: 'ungansatt123',
     storageBucket: 'ungansatt123.appspot.com',
-    iosClientId: '541591020969-clhusgarjpvq55i4frcf5477q8l4mqpi.apps.googleusercontent.com',
+    iosClientId:
+        '541591020969-clhusgarjpvq55i4frcf5477q8l4mqpi.apps.googleusercontent.com',
     iosBundleId: 'com.example.webdesign.RunnerTests',
   );
 }

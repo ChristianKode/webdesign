@@ -4,6 +4,9 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:provider/provider.dart';
 import 'package:webdesign/app_logic/services/firebase_auth.dart';
+import 'package:get/get.dart';
+import 'package:webdesign/pages/login/login.dart';
+import 'package:firebase_database/firebase_database.dart';
 
 class LargeRegister extends StatelessWidget {
   const LargeRegister({super.key});
@@ -34,17 +37,27 @@ class RegisterBox extends StatelessWidget {
   final TextEditingController telefonCon = TextEditingController();
 
   bool ValidCredentials() {
-    if (fornavnCon.text.isNotEmpty &
-        etternavnCon.text.isNotEmpty &
-        emailCon.text.contains('@')) {}
-
-    bool asd = true;
-    return asd;
-  }
-
-  RegisterMethod() async {
-    await FirebaseAuth.instance.createUserWithEmailAndPassword(
-        email: emailCon.text, password: passwordCon.text);
+    bool valid = false;
+    if (fornavnCon.text.isNotEmpty & etternavnCon.text.isNotEmpty) {
+      if (emailCon.text.contains('@')) {
+        if (passwordCon.text.length > 6) {
+          if (telefonCon.text.length > 8) {
+            valid = true;
+            print('true');
+          }
+        } else {
+          //feil pass
+          //valid = false;
+        }
+      } else {
+        //feil epost
+        //valid = false;
+      }
+    } else {
+      //feil navn
+      //valid = false;
+    }
+    return valid;
   }
 
   @override
@@ -67,26 +80,27 @@ class RegisterBox extends StatelessWidget {
               height: 30,
             ),
             Row(
-              children: const [
+              children: [
                 Expanded(
                   child: Padding(
                     padding: EdgeInsets.symmetric(horizontal: 2, vertical: 0),
                     child: SizedBox(
                       child: TextField(
-                          decoration: InputDecoration(
-                        focusedBorder: OutlineInputBorder(
-                            borderSide: BorderSide(
-                                color: Color.fromRGBO(102, 82, 143, 1.0),
-                                width: 2),
-                            borderRadius: BorderRadius.all(
+                          controller: fornavnCon,
+                          decoration: const InputDecoration(
+                            focusedBorder: OutlineInputBorder(
+                                borderSide: BorderSide(
+                                    color: Color.fromRGBO(102, 82, 143, 1.0),
+                                    width: 2),
+                                borderRadius: BorderRadius.all(
+                                  Radius.circular(100),
+                                )),
+                            border: OutlineInputBorder(
+                                borderRadius: BorderRadius.all(
                               Radius.circular(100),
                             )),
-                        border: OutlineInputBorder(
-                            borderRadius: BorderRadius.all(
-                          Radius.circular(100),
-                        )),
-                        hintText: 'Fornavn',
-                      )),
+                            hintText: 'Fornavn',
+                          )),
                     ),
                   ),
                 ),
@@ -95,20 +109,21 @@ class RegisterBox extends StatelessWidget {
                     padding: EdgeInsets.symmetric(horizontal: 2, vertical: 0),
                     child: SizedBox(
                       child: TextField(
-                          decoration: InputDecoration(
-                        focusedBorder: OutlineInputBorder(
-                            borderSide: BorderSide(
-                                color: Color.fromRGBO(102, 82, 143, 1.0),
-                                width: 2),
-                            borderRadius: BorderRadius.all(
+                          controller: etternavnCon,
+                          decoration: const InputDecoration(
+                            focusedBorder: OutlineInputBorder(
+                                borderSide: BorderSide(
+                                    color: Color.fromRGBO(102, 82, 143, 1.0),
+                                    width: 2),
+                                borderRadius: BorderRadius.all(
+                                  Radius.circular(100),
+                                )),
+                            border: OutlineInputBorder(
+                                borderRadius: BorderRadius.all(
                               Radius.circular(100),
                             )),
-                        border: OutlineInputBorder(
-                            borderRadius: BorderRadius.all(
-                          Radius.circular(100),
-                        )),
-                        hintText: 'Etternavn',
-                      )),
+                            hintText: 'Etternavn',
+                          )),
                     ),
                   ),
                 ),
@@ -164,25 +179,26 @@ class RegisterBox extends StatelessWidget {
                     ),
                   ),
                 ),
-                const Expanded(
+                Expanded(
                   child: Padding(
                     padding: EdgeInsets.symmetric(horizontal: 2, vertical: 0),
                     child: SizedBox(
                       child: TextField(
-                          decoration: InputDecoration(
-                        focusedBorder: OutlineInputBorder(
-                            borderSide: BorderSide(
-                                color: Color.fromRGBO(102, 82, 143, 1.0),
-                                width: 2),
-                            borderRadius: BorderRadius.all(
+                          controller: telefonCon,
+                          decoration: const InputDecoration(
+                            focusedBorder: OutlineInputBorder(
+                                borderSide: BorderSide(
+                                    color: Color.fromRGBO(102, 82, 143, 1.0),
+                                    width: 2),
+                                borderRadius: BorderRadius.all(
+                                  Radius.circular(100),
+                                )),
+                            border: OutlineInputBorder(
+                                borderRadius: BorderRadius.all(
                               Radius.circular(100),
                             )),
-                        border: OutlineInputBorder(
-                            borderRadius: BorderRadius.all(
-                          Radius.circular(100),
-                        )),
-                        hintText: 'Telefon',
-                      )),
+                            hintText: 'Telefon',
+                          )),
                     ),
                   ),
                 ),
@@ -196,12 +212,31 @@ class RegisterBox extends StatelessWidget {
               height: 40,
               child: ElevatedButton(
                   onPressed: () {
+                    final String fornavn = fornavnCon.text;
+                    final String etternavn = etternavnCon.text;
+                    final String telefon = telefonCon.text;
+
+                    DatabaseReference ref =
+                        FirebaseDatabase.instance.ref("users");
+
                     context
                         .read<AuthService>()
-                        .signUp(emailCon.text.trim(), passwordCon.text.trim());
+                        .signUp(emailCon.text.trim(), passwordCon.text.trim())
+                        .then((value) async {
+                      User? user = FirebaseAuth.instance.currentUser;
 
+                      String uid = FirebaseAuth.instance.currentUser!.uid;
+
+                      await ref.child(uid).set({
+                        "fornavn": fornavn,
+                        "etternavn": etternavn,
+                        "telefon": telefon,
+                        "uid": uid
+                      });
+
+                      Get.to(() => const Login());
+                    });
                   },
-
                   style: ElevatedButton.styleFrom(
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(100)),

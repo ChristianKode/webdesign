@@ -3,6 +3,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 import 'package:webdesign/app_logic/services/firebase_auth.dart';
+import 'package:webdesign/pages/forgot/forgot.dart';
 
 import '../../register/register.dart';
 
@@ -50,7 +51,7 @@ class LoginInfo extends StatelessWidget {
               ),
               TextButton(
                   onPressed: () {
-                    Get.to(const Register());
+                    Get.to(() => const Register());
                   },
                   child: (Text(
                     'Lag ny bruker her',
@@ -166,7 +167,9 @@ class LoginBox extends StatelessWidget {
             ),
           ),
           TextButton(
-              onPressed: () {},
+              onPressed: () {
+                Get.to(() => const Forgot());
+              },
               child: (Text(
                 'Glemt passord?',
                 style: GoogleFonts.tinos(fontSize: 20),
