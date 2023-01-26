@@ -3,7 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:webdesign/pages/home/widgets/home_info.dart';
-import 'package:webdesign/widgets/navbar.dart';
+import 'package:webdesign/widgets/navbarLoggedIn.dart';
+import 'package:webdesign/widgets/navbarLoggedOut.dart';
 
 class Home extends StatelessWidget {
   final TextEditingController mail = TextEditingController();
@@ -24,7 +25,7 @@ class Home extends StatelessWidget {
 
           child: Column(
             children: <Widget>[
-              NavBar(), 
+              NavBarIn(), 
               HomeInfo(
               )
           ],

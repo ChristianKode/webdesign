@@ -72,6 +72,7 @@ flutter:
     - assets/images/Bakgrunn.jpg
     - assets/images/Background.png
     - assets/images/Background_login.jpg
+    - assets/images/Profile.jpg
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
