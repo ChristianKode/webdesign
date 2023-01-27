@@ -6,7 +6,7 @@ import 'package:webdesign/pages/home/widgets/home_info.dart';
 import 'package:webdesign/widgets/navbarLoggedIn.dart';
 import 'package:webdesign/widgets/navbarLoggedOut.dart';
 
-class HomeIn extends StatelessWidget {
+class LargeHomeIn extends StatelessWidget {
   final TextEditingController mail = TextEditingController();
   final TextEditingController pass = TextEditingController();
 

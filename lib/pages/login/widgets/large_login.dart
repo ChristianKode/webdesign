@@ -4,7 +4,8 @@ import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 import 'package:webdesign/app_logic/services/firebase_auth.dart';
 import 'package:webdesign/pages/forgot/forgot.dart';
-import 'package:webdesign/pages/home/home_viewULoggetInn.dart';
+import 'package:webdesign/pages/home/homeIn.dart';
+import 'package:webdesign/pages/home/widgets/Large_homeULoggetInn.dart';
 
 import '../../register/register.dart';
 

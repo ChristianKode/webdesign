@@ -3,40 +3,66 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:webdesign/main.dart';
-import 'package:webdesign/pages/home/home_viewLoggedOut.dart';
+import 'package:webdesign/pages/chat/widgets/LargeChat.dart';
+import 'package:webdesign/pages/home/widgets/Large_homeLoggedOut.dart';
 import 'package:webdesign/pages/login/login.dart';
 import 'package:webdesign/pages/register/register.dart';
 import 'package:webdesign/utils/responsive.dart';
 import 'package:get/get.dart';
 
     Profil(){
-    return SizedBox(
-      width: 90,
-      height: 35,
-      child: ElevatedButton(
-          onPressed: () {
-            Get.to(const Login());
-          },
-          style: ElevatedButton.styleFrom(
-              shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(100)),
-              backgroundColor: const Color.fromRGBO(102, 82, 143, 1.0)),
-          child: const Text(
-            'Profil',
-            style: TextStyle(fontSize: 15, letterSpacing: 1.5),
-          )),
-    );
-  }
-
-  JobbItem(){
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 9),
+      padding: const EdgeInsets.symmetric(horizontal: 7),
       child: SizedBox(
         width: 90,
         height: 35,
         child: ElevatedButton(
             onPressed: () {
-              Get.to(const Register());
+              Get.to(const Login());
+            },
+            style: ElevatedButton.styleFrom(
+                shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(100)),
+                backgroundColor: const Color.fromRGBO(102, 82, 143, 1.0)),
+            child: const Text(
+              'Profil',
+              style: TextStyle(fontSize: 15, letterSpacing: 1.5),
+            )),
+      ),
+    );
+  }
+
+    NyAnnonse(){
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 7),
+      child: SizedBox(
+        width: 120,
+        height: 35,
+        child: ElevatedButton(
+            onPressed: () {
+              Get.to(ChatView());
+            },
+            style: ElevatedButton.styleFrom(
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(100)),
+                backgroundColor: const Color.fromRGBO(102, 82, 143, 1.0)),
+            child: const Text(
+              'Ny Annonse ',
+              style: TextStyle(fontSize: 15),
+            )),
+      ),
+    );
+  }
+
+  ChatItem(){
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 7),
+      child: SizedBox(
+        width: 90,
+        height: 35,
+        child: ElevatedButton(
+            onPressed: () {
+              Get.to(ChatView());
             },
             style: ElevatedButton.styleFrom(
                 shape: RoundedRectangleBorder(
@@ -83,7 +109,7 @@ class NavBarIn extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: <Widget>[
-              JobbItem(), Profil()]
+              NyAnnonse(), ChatItem(), Profil()]
           )
           else
           Image.asset("images/menu.png", width: 26, height: 26,)

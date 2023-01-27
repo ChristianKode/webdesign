@@ -3,7 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:webdesign/main.dart';
-import 'package:webdesign/pages/home/home_viewLoggedOut.dart';
+import 'package:webdesign/pages/home/widgets/Large_homeLoggedOut.dart';
 import 'package:webdesign/pages/login/login.dart';
 import 'package:webdesign/pages/register/register.dart';
 import 'package:webdesign/utils/responsive.dart';
