@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
+import 'package:webdesign/app_logic/services/firebase_auth.dart';
 
 import '../../login/login.dart';
 
@@ -13,18 +15,20 @@ class LargeForgot extends StatelessWidget {
       body: Container(
         decoration: const BoxDecoration(
             image: DecorationImage(
-                image: AssetImage('assets/forgot_background.jpg'),
+                image: AssetImage('assets/images/forgot_background.jpg'),
                 fit: BoxFit.cover)),
-        child: const ForgotPassBox(),
+        child: ForgotPassBox(),
       ),
     );
   }
 }
 
 class ForgotPassBox extends StatelessWidget {
-  const ForgotPassBox({
+  ForgotPassBox({
     super.key,
   });
+
+  final TextEditingController mailCon = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -45,12 +49,13 @@ class ForgotPassBox extends StatelessWidget {
           const SizedBox(
             height: 30,
           ),
-          const Padding(
-            padding: EdgeInsets.symmetric(horizontal: 2, vertical: 0),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 2, vertical: 0),
             child: SizedBox(
               width: 360,
               child: TextField(
-                decoration: InputDecoration(
+                controller: mailCon,
+                decoration: const InputDecoration(
                     focusedBorder: OutlineInputBorder(
                         borderSide: BorderSide(
                             color: Color.fromRGBO(102, 82, 143, 1.0), width: 2),
@@ -68,7 +73,11 @@ class ForgotPassBox extends StatelessWidget {
             width: 160,
             height: 40,
             child: ElevatedButton(
-                onPressed: () {},
+                onPressed: () {
+                  final String mail = mailCon.text;
+
+                  context.read<AuthService>().forgotPass(mail);
+                },
                 style: ElevatedButton.styleFrom(
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(100)),

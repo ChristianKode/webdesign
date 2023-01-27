@@ -7,6 +7,7 @@ import 'package:webdesign/pages/home/homeOut.dart';
 import 'package:webdesign/pages/home/widgets/Large_homeLoggedOut.dart';
 import 'package:webdesign/pages/home/widgets/Large_homeULoggetInn.dart';
 import 'package:webdesign/pages/login/login.dart';
+import 'package:webdesign/pages/newJob/newjob.dart';
 import 'package:webdesign/pages/register/register.dart';
 import 'package:webdesign/widgets/navbarLoggedIn.dart';
 import 'package:get/get.dart';
@@ -43,6 +44,7 @@ class MyApp extends StatelessWidget {
               GetPage(name: '/Register', page: () => Register()),
               GetPage(name: '/Login', page: () => Login()),
               GetPage(name: '/Forgot', page: () => Forgot()),
+                            GetPage(name: '/NewJob', page: () => NewJob()),
             ],
             theme: ThemeData(
               primarySwatch: Colors.blue,
