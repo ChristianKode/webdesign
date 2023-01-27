@@ -6,6 +6,9 @@ import 'package:webdesign/main.dart';
 import 'package:webdesign/pages/chat/widgets/LargeChat.dart';
 import 'package:webdesign/pages/home/widgets/Large_homeLoggedOut.dart';
 import 'package:webdesign/pages/login/login.dart';
+import 'package:webdesign/pages/newJob/newjob.dart';
+import 'package:webdesign/pages/profile/profile.dart';
+import 'package:webdesign/pages/profile/widgets/Large_profile.dart';
 import 'package:webdesign/pages/register/register.dart';
 import 'package:webdesign/utils/responsive.dart';
 import 'package:get/get.dart';
@@ -16,18 +19,14 @@ import 'package:get/get.dart';
       child: SizedBox(
         width: 90,
         height: 35,
-        child: ElevatedButton(
+        child: TextButton(
             onPressed: () {
-              Get.to(const Login());
-            },
-            style: ElevatedButton.styleFrom(
-                shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(100)),
-                backgroundColor: const Color.fromRGBO(102, 82, 143, 1.0)),
-            child: const Text(
-              'Profil',
-              style: TextStyle(fontSize: 15, letterSpacing: 1.5),
-            )),
+              Get.to(Profile());
+            }, child: const Text(
+              'Profile ',
+              style: TextStyle(fontSize: 15, color: Colors.black, fontWeight: FontWeight.bold),
+          ),
+        ),
       ),
     );
   }
@@ -38,18 +37,14 @@ import 'package:get/get.dart';
       child: SizedBox(
         width: 120,
         height: 35,
-        child: ElevatedButton(
+        child: TextButton(
             onPressed: () {
-              Get.to(ChatView());
-            },
-            style: ElevatedButton.styleFrom(
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(100)),
-                backgroundColor: const Color.fromRGBO(102, 82, 143, 1.0)),
-            child: const Text(
+              Get.to(NewJob());
+            }, child: const Text(
               'Ny Annonse ',
-              style: TextStyle(fontSize: 15),
-            )),
+              style: TextStyle(fontSize: 15, color: Colors.black, fontWeight: FontWeight.bold),
+          ),
+        ),
       ),
     );
   }
@@ -60,19 +55,15 @@ import 'package:get/get.dart';
       child: SizedBox(
         width: 90,
         height: 35,
-        child: ElevatedButton(
+        child: TextButton(
             onPressed: () {
               Get.to(ChatView());
-            },
-            style: ElevatedButton.styleFrom(
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(100)),
-                backgroundColor: const Color.fromRGBO(102, 82, 143, 1.0)),
-            child: const Text(
+            }, child: const Text(
               'Chat ',
-              style: TextStyle(fontSize: 15),
-            )),
-      ),
+              style: TextStyle(fontSize: 15, color: Colors.black, fontWeight: FontWeight.bold),
+          ),
+        ),
+      )
     );
   }
 
@@ -80,40 +71,43 @@ class NavBarIn extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 45, vertical: 25),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Row(
-            children: <Widget>[
-              SizedBox(
-                height: 80,
-                width: 80,
-                child: Image.asset("/images/hvitlogo.png"),
-                ),
-                const SizedBox(
-                  width: 16,
-                ),
-                  Text.rich(TextSpan(style: const TextStyle(fontSize: 40), children: [
-                    TextSpan(
-                      text: 'UNG',
-                      style: GoogleFonts.tinos(fontWeight: FontWeight.bold)),
-                  TextSpan(text: 'ANSATT', style: GoogleFonts.tinos())
-                  ]
+    return Container(
+      color: Colors.white,
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 45),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Row(
+              children: <Widget>[
+                SizedBox(
+                  height: 80,
+                  width: 80,
+                  child: Image.asset("/images/LogoUng.png"),
+                  ),
+                  const SizedBox(
+                    width: 16,
+                  ),
+                    Text.rich(TextSpan(style: const TextStyle(fontSize: 40), children: [
+                      TextSpan(
+                        text: 'UNG',
+                        style: GoogleFonts.tinos(fontWeight: FontWeight.bold)),
+                    TextSpan(text: 'ANSATT', style: GoogleFonts.tinos())
+                    ]
+                  )
                 )
-              )
-            ],
-          ),
-          if(!ResponsiveLayout.isSmallScreen(context))
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: <Widget>[
-              NyAnnonse(), ChatItem(), Profil()]
-          )
-          else
-          Image.asset("images/menu.png", width: 26, height: 26,)
-        ],
+              ],
+            ),
+            if(!ResponsiveLayout.isSmallScreen(context))
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: <Widget>[
+                NyAnnonse(), ChatItem(), Profil()]
+            )
+            else
+            Image.asset("images/menu.png", width: 26, height: 26,)
+          ],
+        ),
       ),
     );
   }

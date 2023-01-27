@@ -7,8 +7,6 @@ import 'package:webdesign/widgets/navbarLoggedIn.dart';
 import 'package:webdesign/widgets/navbarLoggedOut.dart';
 
 class LargeHomeOut extends StatelessWidget {
-  final TextEditingController mail = TextEditingController();
-  final TextEditingController pass = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
