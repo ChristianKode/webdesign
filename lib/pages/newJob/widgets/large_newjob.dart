@@ -131,7 +131,6 @@ class FillOut1 extends StatelessWidget {
                 height: 50,
                 child: ElevatedButton(
                     onPressed: () {
-                      currentWidget = 2;
                     },
                     style: ElevatedButton.styleFrom(
                         shape: RoundedRectangleBorder(
