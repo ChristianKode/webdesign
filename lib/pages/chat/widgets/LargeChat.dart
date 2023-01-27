@@ -52,16 +52,35 @@ class ChatContent extends StatelessWidget {
           ),
           Container(
             height: 480,
-            width: 176,
+            width: 186,
             color: Colors.black,
           ),
           Container(
             height: 480,
-            width: 175,
+            width: 185,
             color: Colors.white,
-          )
+          ),
+          Padding(
+            padding: const EdgeInsets.only(left: 30, top: 50)),
+            Container(
+              height: 50,
+              width: 50,
+              child: ClipRRect(
+                child: Image(image: AssetImage("images/Profile.jpg")),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.only(left: 55, top: 10),
+            child: TextButton(
+             onPressed: () { 
+              
+              },
+              child: Text("Benjamin Csaplar")
+            )
+          ),
         ]
-        ),
-      );
+      ),
+    );
   }
 }
+
