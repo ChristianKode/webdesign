@@ -26,4 +26,9 @@ class AuthService {
       return e.toString();
     }
   }
+
+  Future userin() async{
+    
+  }
+
 }
