@@ -29,24 +29,38 @@ class ChatContent extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(20.0),
-      child: Container(
-          alignment: Alignment.centerRight,
-          height: 480,
-          width: 700,
-          color: Colors.white,
-          child: Column(
-            children: [
-              Padding(
-                padding: const EdgeInsets.only(right: 1035, top: 20),
-                child: Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(80),
-                    color: Colors.black
+      child: Stack(
+        children: [
+          Container(
+            alignment: Alignment.centerRight,
+            height: 480,
+            width: 900,
+            color: Colors.white,
+            child: Column(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(right: 1035, top: 20),
+                  child: Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(80),
+                      color: Colors.black
+                    ),
                   ),
-                ),
-              )
-            ],
+                )
+              ],
+            )
+          ),
+          Container(
+            height: 480,
+            width: 176,
+            color: Colors.black,
+          ),
+          Container(
+            height: 480,
+            width: 175,
+            color: Colors.white,
           )
+        ]
         ),
       );
   }
