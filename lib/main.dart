@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:webdesign/app_logic/services/firebase_auth.dart';
+import 'package:webdesign/pages/chat/chat.dart';
 import 'package:webdesign/pages/forgot/forgot.dart';
 import 'package:webdesign/pages/home/homeIn.dart';
 import 'package:webdesign/pages/home/homeOut.dart';
@@ -8,6 +9,7 @@ import 'package:webdesign/pages/home/widgets/Large_homeLoggedOut.dart';
 import 'package:webdesign/pages/home/widgets/Large_homeULoggetInn.dart';
 import 'package:webdesign/pages/login/login.dart';
 import 'package:webdesign/pages/newJob/newjob.dart';
+import 'package:webdesign/pages/profile/profile.dart';
 import 'package:webdesign/pages/register/register.dart';
 import 'package:webdesign/widgets/navbarLoggedIn.dart';
 import 'package:get/get.dart';
@@ -44,7 +46,10 @@ class MyApp extends StatelessWidget {
               GetPage(name: '/Register', page: () => Register()),
               GetPage(name: '/Login', page: () => Login()),
               GetPage(name: '/Forgot', page: () => Forgot()),
-                            GetPage(name: '/NewJob', page: () => NewJob()),
+              GetPage(name: '/NewJob', page: () => NewJob()),
+              GetPage(name: '/Profile', page: () => Profile()),
+              GetPage(name: '/Chat', page: () => Chat()),
+
             ],
             theme: ThemeData(
               primarySwatch: Colors.blue,

@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:webdesign/main.dart';
+import 'package:webdesign/pages/chat/chat.dart';
 import 'package:webdesign/pages/chat/widgets/LargeChat.dart';
 import 'package:webdesign/pages/home/widgets/Large_homeLoggedOut.dart';
 import 'package:webdesign/pages/login/login.dart';
@@ -23,7 +24,7 @@ import 'package:get/get.dart';
             onPressed: () {
               Get.to(Profile());
             }, child: const Text(
-              'Profile ',
+              'Profil ',
               style: TextStyle(fontSize: 15, color: Colors.black, fontWeight: FontWeight.bold),
           ),
         ),
@@ -57,7 +58,7 @@ import 'package:get/get.dart';
         height: 35,
         child: TextButton(
             onPressed: () {
-              Get.to(ChatView());
+              Get.to(Chat());
             }, child: const Text(
               'Chat ',
               style: TextStyle(fontSize: 15, color: Colors.black, fontWeight: FontWeight.bold),
