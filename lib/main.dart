@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:webdesign/app_logic/services/firebase_auth.dart';
+import 'package:webdesign/pages/forgot/forgot.dart';
 import 'package:webdesign/pages/home/home_viewLoggedOut.dart';
+import 'package:webdesign/pages/home/home_viewULoggetInn.dart';
+import 'package:webdesign/pages/login/login.dart';
+import 'package:webdesign/pages/register/register.dart';
 import 'package:webdesign/widgets/navbarLoggedIn.dart';
 import 'package:get/get.dart';
 import 'firebase_options.dart';
@@ -30,6 +34,14 @@ class MyApp extends StatelessWidget {
         child: GetMaterialApp(
             debugShowCheckedModeBanner: false,
             title: 'UngAnsatt',
+            initialRoute: '/',
+            getPages: [
+              GetPage(name: '/', page: () => HomeOut()),
+              GetPage(name: '/HomeIn', page: () => HomeIn()),
+              GetPage(name: '/Register', page: () => Register()),
+              GetPage(name: '/Login', page: () => Login()),
+              GetPage(name: '/Forgot', page: () => Forgot()),
+            ],
             theme: ThemeData(
               primarySwatch: Colors.blue,
             ),
