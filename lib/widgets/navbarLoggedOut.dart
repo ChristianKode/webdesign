@@ -2,14 +2,12 @@
 
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:webdesign/main.dart';
-import 'package:webdesign/pages/home/widgets/Large_homeLoggedOut.dart';
 import 'package:webdesign/pages/login/login.dart';
 import 'package:webdesign/pages/register/register.dart';
 import 'package:webdesign/utils/responsive.dart';
 import 'package:get/get.dart';
 
-    ChatItem(){
+    LogInItem(){
     return SizedBox(
       width: 100,
       height: 50,
@@ -28,7 +26,7 @@ import 'package:get/get.dart';
     );
   }
 
-  JobbItem(){
+  RegisterItem(){
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 9),
       child: SizedBox(
@@ -85,7 +83,7 @@ class NavBarOut extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: <Widget>[
-                ChatItem(), JobbItem()]
+                LogInItem(), RegisterItem()]
             )
             else
             Image.asset("images/menu.png", width: 26, height: 26,)

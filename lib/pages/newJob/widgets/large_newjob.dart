@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:get/get.dart';
 
-
 class LargeNewJob extends StatelessWidget {
   const LargeNewJob({super.key});
 
@@ -14,16 +13,13 @@ class LargeNewJob extends StatelessWidget {
             image: DecorationImage(
                 image: AssetImage('assets/images/newjob_background.jpg'),
                 fit: BoxFit.cover)),
-        child: SingleChildScrollView(
-          child: Column(
-            children: [Nav(), FillOut1()],
-          ),
+        child: Column(
+          children: [Nav(), FillOut1()],
         ),
       ),
     );
   }
 }
-
 
 class Nav extends StatelessWidget {
   const Nav({super.key});
@@ -69,7 +65,7 @@ class FillOut1 extends StatelessWidget {
           height: 100,
         ),
         Container(
-          height: 500,
+          height: 470,
           width: 450,
           decoration: BoxDecoration(
               color: Colors.white, borderRadius: BorderRadius.circular(2)),
@@ -130,8 +126,7 @@ class FillOut1 extends StatelessWidget {
                 width: 350,
                 height: 50,
                 child: ElevatedButton(
-                    onPressed: () {
-                    },
+                    onPressed: () {},
                     style: ElevatedButton.styleFrom(
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(2)),

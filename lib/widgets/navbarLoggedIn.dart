@@ -1,16 +1,8 @@
-// ignore_for_file: non_constant_identifier_names
-
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:webdesign/main.dart';
 import 'package:webdesign/pages/chat/chat.dart';
-import 'package:webdesign/pages/chat/widgets/LargeChat.dart';
-import 'package:webdesign/pages/home/widgets/Large_homeLoggedOut.dart';
-import 'package:webdesign/pages/login/login.dart';
 import 'package:webdesign/pages/newJob/newjob.dart';
 import 'package:webdesign/pages/profile/profile.dart';
-import 'package:webdesign/pages/profile/widgets/Large_profile.dart';
-import 'package:webdesign/pages/register/register.dart';
 import 'package:webdesign/utils/responsive.dart';
 import 'package:get/get.dart';
 
