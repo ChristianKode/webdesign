@@ -17,10 +17,12 @@ import 'package:firebase_auth/firebase_auth.dart';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
@@ -38,19 +40,19 @@ class MyApp extends StatelessWidget {
             title: 'UngAnsatt',
             initialRoute: '/',
             getPages: [
-              GetPage(name: '/', page: () => HomeOut()),
-              GetPage(name: '/HomeIn', page: () => HomeIn()),
-              GetPage(name: '/Register', page: () => Register()),
-              GetPage(name: '/Login', page: () => Login()),
-              GetPage(name: '/Forgot', page: () => Forgot()),
-              GetPage(name: '/NewJob', page: () => NewJob()),
-              GetPage(name: '/Profile', page: () => Profile()),
-              GetPage(name: '/Chat', page: () => Chat()),
+              GetPage(name: '/', page: () => const HomeOut()),
+              GetPage(name: '/HomeIn', page: () => const HomeIn()),
+              GetPage(name: '/Register', page: () => const Register()),
+              GetPage(name: '/Login', page: () => const Login()),
+              GetPage(name: '/Forgot', page: () => const Forgot()),
+              GetPage(name: '/NewJob', page: () => const NewJob()),
+              GetPage(name: '/Profile', page: () => const Profile()),
+              GetPage(name: '/Chat', page: () => const Chat()),
 
             ],
             theme: ThemeData(
               primarySwatch: Colors.blue,
             ),
-            home: HomeOut()));
+            home: const HomeOut()));
   }
 }

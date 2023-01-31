@@ -1,3 +1,5 @@
+// ignore_for_file: file_names, non_constant_identifier_names
+
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:webdesign/pages/chat/chat.dart';
@@ -14,7 +16,7 @@ import 'package:get/get.dart';
         height: 35,
         child: TextButton(
             onPressed: () {
-              Get.to(Profile());
+              Get.to(const Profile());
             }, child: const Text(
               'Profil ',
               style: TextStyle(fontSize: 15, color: Colors.black, fontWeight: FontWeight.bold),
@@ -32,7 +34,7 @@ import 'package:get/get.dart';
         height: 35,
         child: TextButton(
             onPressed: () {
-              Get.to(NewJob());
+              Get.to(const NewJob());
             }, child: const Text(
               'Ny Annonse ',
               style: TextStyle(fontSize: 15, color: Colors.black, fontWeight: FontWeight.bold),
@@ -50,7 +52,7 @@ import 'package:get/get.dart';
         height: 35,
         child: TextButton(
             onPressed: () {
-              Get.to(Chat());
+              Get.to(const Chat());
             }, child: const Text(
               'Chat ',
               style: TextStyle(fontSize: 15, color: Colors.black, fontWeight: FontWeight.bold),
@@ -61,6 +63,8 @@ import 'package:get/get.dart';
   }
 
 class NavBarIn extends StatelessWidget {
+  const NavBarIn({super.key});
+
 
   @override
   Widget build(BuildContext context) {

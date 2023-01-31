@@ -1,3 +1,7 @@
+// ignore: file_names
+// ignore: file_names
+// ignore_for_file: file_names, duplicate_ignore, use_key_in_widget_constructors
+
 import 'package:flutter/material.dart';
 import 'package:webdesign/widgets/navbarLoggedIn.dart';
 
@@ -60,9 +64,9 @@ class ChatContent extends StatelessWidget {
             width: 185,
             color: Colors.white,
           ),
-          Padding(
-            padding: const EdgeInsets.only(left: 30, top: 50)),
-            Container(
+          const Padding(
+            padding: EdgeInsets.only(left: 30, top: 50)),
+            const SizedBox(
               height: 50,
               width: 50,
               child: ClipRRect(
@@ -75,7 +79,7 @@ class ChatContent extends StatelessWidget {
              onPressed: () { 
               
               },
-              child: Text("Benjamin Csaplar")
+              child: const Text("Benjamin Csaplar")
             )
           ),
         ]

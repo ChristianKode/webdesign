@@ -1,3 +1,5 @@
+// ignore_for_file: unused_import, non_constant_identifier_names
+
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -83,7 +85,7 @@ class RegisterBox extends StatelessWidget {
               children: [
                 Expanded(
                   child: Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 2, vertical: 0),
+                    padding: const EdgeInsets.symmetric(horizontal: 2, vertical: 0),
                     child: SizedBox(
                       child: TextField(
                           controller: fornavnCon,
@@ -106,7 +108,7 @@ class RegisterBox extends StatelessWidget {
                 ),
                 Expanded(
                   child: Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 2, vertical: 0),
+                    padding: const EdgeInsets.symmetric(horizontal: 2, vertical: 0),
                     child: SizedBox(
                       child: TextField(
                           controller: etternavnCon,
@@ -133,7 +135,7 @@ class RegisterBox extends StatelessWidget {
               height: 10,
             ),
             Padding(
-              padding: EdgeInsets.symmetric(horizontal: 2, vertical: 0),
+              padding: const EdgeInsets.symmetric(horizontal: 2, vertical: 0),
               child: SizedBox(
                 child: TextField(
                   controller: emailCon,
@@ -181,7 +183,7 @@ class RegisterBox extends StatelessWidget {
                 ),
                 Expanded(
                   child: Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 2, vertical: 0),
+                    padding: const EdgeInsets.symmetric(horizontal: 2, vertical: 0),
                     child: SizedBox(
                       child: TextField(
                           controller: telefonCon,
@@ -223,7 +225,6 @@ class RegisterBox extends StatelessWidget {
                         .read<AuthService>()
                         .signUp(emailCon.text.trim(), passwordCon.text.trim())
                         .then((value) async {
-                      User? user = FirebaseAuth.instance.currentUser;
 
                       String uid = FirebaseAuth.instance.currentUser!.uid;
 

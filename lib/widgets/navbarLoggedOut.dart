@@ -1,4 +1,4 @@
-// ignore_for_file: non_constant_identifier_names
+// ignore_for_file: non_constant_identifier_names, file_names, use_key_in_widget_constructors
 
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -64,7 +64,7 @@ class NavBarOut extends StatelessWidget {
                 SizedBox(
                   height: 80,
                   width: 80,
-                  child: Image.asset("/images/hvitlogo.png"),
+                  child: Image.asset("/images/UngLogo.png"),
                   ),
                   const SizedBox(
                     width: 16,

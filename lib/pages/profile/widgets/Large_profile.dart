@@ -48,7 +48,7 @@ class ProfileContent extends StatelessWidget {
                   height: 120,
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(60),
-                    child: Image(image: AssetImage("images/Profile.jpg"))),
+                    child: Image(image: const AssetImage("images/Profile.jpg"))),
                 ),
               )
             ],
