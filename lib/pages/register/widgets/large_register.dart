@@ -218,22 +218,10 @@ class RegisterBox extends StatelessWidget {
                     final String etternavn = etternavnCon.text;
                     final String telefon = telefonCon.text;
 
-                    DatabaseReference ref =
-                        FirebaseDatabase.instance.ref("users");
-
                     context
                         .read<AuthService>()
-                        .signUp(emailCon.text.trim(), passwordCon.text.trim())
+                        .signUp(emailCon.text.trim(), passwordCon.text.trim(), fornavnCon.text.trim(), etternavnCon.text.trim(), telefonCon.text.trim())
                         .then((value) async {
-
-                      String uid = FirebaseAuth.instance.currentUser!.uid;
-
-                      await ref.child(uid).set({
-                        "fornavn": fornavn,
-                        "etternavn": etternavn,
-                        "telefon": telefon,
-                        "uid": uid
-                      });
 
                       Get.to(() => const Login());
                     });

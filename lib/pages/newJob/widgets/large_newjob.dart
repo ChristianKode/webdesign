@@ -1,7 +1,10 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:get/get.dart';
+import 'package:uuid/uuid.dart';
 import 'package:webdesign/pages/newJob/widgets/body.dart';
+import 'package:firebase_database/firebase_database.dart';
 
      bool fillOut1 = true;
      bool fillOut2 = false;
@@ -22,13 +25,14 @@ class LargeNewJob extends StatelessWidget {
                 fit: BoxFit.cover)),
         
           child: Column(
-            children: [const  Nav(), Body()],
+            children:  [const Nav(), FillOut1()],
           ),
         
       ),
     );
   }
 }
+
 
 
 
@@ -71,139 +75,211 @@ class FillOut1 extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    bool screen1 = true;
-    bool screen2 = false;
-    return Container(
-      
-      child: Visibility(
-        visible: screen1,
-        child: Column(
+    return Column(
         children: [
           const SizedBox(
             height: 100,
           ),
           Container(
-            height: 470,
-            width: 450,
-            decoration: BoxDecoration(
-                color: Colors.white, borderRadius: BorderRadius.circular(2)),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                const SizedBox(
-                  height: 30,
-                ),
-                Text('Hva skal utføres?',
-                    style: GoogleFonts.tinos(
-                        fontSize: 30, fontWeight: FontWeight.bold)),
-                const SizedBox(
-                  height: 20,
-                ),
-                SizedBox(
-                  width: 350,
-                  child: TextField(
-                    controller: title,
-                    decoration: const InputDecoration(
-                      labelText: 'Overskrift',
-                      focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(
-                            color: Color.fromRGBO(102, 82, 143, 1.0), width: 2),
-                        borderRadius: BorderRadius.all(Radius.circular(2)),
-                      ),
-                      border: OutlineInputBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(2))),
+              height: 600,
+              width: 450,
+              decoration: BoxDecoration(
+                  color: Colors.white, borderRadius: BorderRadius.circular(2)),
+              child: SingleChildScrollView(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    const SizedBox(
+                      height: 30,
                     ),
-                  ),
-                ),
-                const SizedBox(
-                  height: 10,
-                ),
-                SizedBox(
-                  height: 200,
-                  width: 350,
-                  child: TextField(
-                    controller: descprition,
-                    decoration: const InputDecoration(
-                      labelText: 'Beskrivelse',
-                      focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(
-                            color: Color.fromRGBO(102, 82, 143, 1.0), width: 2),
-                        borderRadius: BorderRadius.all(Radius.circular(2)),
-                      ),
-                      border: OutlineInputBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(2))),
+                    Text('Hva skal utføres?',
+                        style: GoogleFonts.tinos(
+                            fontSize: 30, fontWeight: FontWeight.bold)),
+                    const SizedBox(
+                      height: 20,
                     ),
-                    minLines: 10,
-                    maxLines: 10,
-                  ),
-                ),
-                const SizedBox(
-                  height: 15,
-                ),
-                SizedBox(
-                  width: 350,
-                  height: 50,
-                  child: ElevatedButton(
-                      onPressed: () {
-                                                Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) =>  FillOut2(
-                  screen2: screen2 = true
+                    SizedBox(
+                      width: 350,
+                      child: TextField(
+                        controller: title,
+                        decoration: const InputDecoration(
+                          labelText: 'Overskrift',
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(
+                                color: Color.fromRGBO(102, 82, 143, 1.0), width: 2),
+                            borderRadius: BorderRadius.all(Radius.circular(2)),
+                          ),
+                          border: OutlineInputBorder(
+                              borderRadius: BorderRadius.all(Radius.circular(2))),
+                        ),
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    SizedBox(
+                      height: 200,
+                      width: 350,
+                      child: TextField(
+                        controller: descprition,
+                        decoration: const InputDecoration(
+                          labelText: 'Beskrivelse',
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(
+                                color: Color.fromRGBO(102, 82, 143, 1.0), width: 2),
+                            borderRadius: BorderRadius.all(Radius.circular(2)),
+                          ),
+                          border: OutlineInputBorder(
+                              borderRadius: BorderRadius.all(Radius.circular(2))),
+                        ),
+                        minLines: 10,
+                        maxLines: 10,
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                        
+                    Container(
+                      alignment: Alignment.centerLeft,
+                      child: const Padding(
+                        padding: EdgeInsets.only(left: 50, bottom: 7,
+                        top: 10),
+                        child: Text('Bilder'),
+                      ),
+                    ),
+                    
+                    SizedBox(
+                      width: 350,
+                      height: 40,
+                      child: ElevatedButton(
+                          onPressed: () {
+                            print('fillout false');
+                        
+                          },
+                          style: ElevatedButton.styleFrom(
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(2)),
+                              backgroundColor:
+                                  const Color.fromRGBO(102, 82, 143, 1.0)),
+                          child: const Text(
+                            'Last opp',
+                            style: TextStyle(fontSize: 15),
+                          )),
+                    ),
+                    Container(
+                      alignment: Alignment.centerLeft,
+                      child: const Padding(
+                        padding: EdgeInsets.only(left: 50, top: 30),
+                        child: Text('Hvor er dette?'),
+                      ),
+                    ),
+                          const SizedBox(height: 7,),
+                          
+                          SizedBox(
+                      width: 350,
+                      child: TextField(
+                        controller: title,
+                        decoration: const InputDecoration(
+                          labelText: 'Gate',
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(
+                                color: Color.fromRGBO(102, 82, 143, 1.0), width: 2),
+                            borderRadius: BorderRadius.all(Radius.circular(2)),
+                          ),
+                          border: OutlineInputBorder(
+                              borderRadius: BorderRadius.all(Radius.circular(2))),
+                        ),
+                      ),
+                    ),
+
+                    const SizedBox(height: 7,),
+                          SizedBox(
+                      width: 350,
+                      child: TextField(
+                        controller: title,
+                        decoration: const InputDecoration(
+                          labelText: 'Postnummer',
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(
+                                color: Color.fromRGBO(102, 82, 143, 1.0), width: 2),
+                            borderRadius: BorderRadius.all(Radius.circular(2)),
+                          ),
+                          border: OutlineInputBorder(
+                              borderRadius: BorderRadius.all(Radius.circular(2))),
+                        ),
+                      ),
+                    ),
+
+                    
+
+                    Container(
+                      alignment: Alignment.centerLeft,
+                      child: const Padding(
+                        padding: EdgeInsets.only(left: 50, top: 30, bottom: 7),
+                        child: Text('Belønning?'),
+                      ),
+                    ),
+                        SizedBox(
+                      width: 350,
+                      child: TextField(
+                        controller: title,
+                        decoration: const InputDecoration(
+                          labelText: 'Pris',
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(
+                                color: Color.fromRGBO(102, 82, 143, 1.0), width: 2),
+                            borderRadius: BorderRadius.all(Radius.circular(2)),
+                          ),
+                          border: OutlineInputBorder(
+                              borderRadius: BorderRadius.all(Radius.circular(2))),
+                        ),
+                      ),
+                    ),
+
+                    const SizedBox(height: 30,),
+
+                    SizedBox(
+                      width: 350,
+                      height: 40,
+                      child: ElevatedButton(
+                          onPressed: () {
+                            DatabaseReference ref =
+                            FirebaseDatabase.instance.ref("users");
+
+                            String uid = FirebaseAuth.instance.currentUser!.uid;
+
+                            ref.child(uid).set({
+            
+          });
+
+                            print(uid.toString());
+                        var aid = Uuid();
+                        print(aid);
+                          },
+                          style: ElevatedButton.styleFrom(
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(2)),
+                              backgroundColor:
+                                  const Color.fromRGBO(102, 82, 143, 1.0)),
+                          child: const Text(
+                            'Fullfør',
+                            style: TextStyle(fontSize: 15),
+                          )),
+                    ),
+
+                    const SizedBox(height: 100,)
+                  ],
                 ),
               ),
-            );
-                        screen1 = false;
-                        screen2 = true;
-                        print('fillout false');
-
-                      },
-                      style: ElevatedButton.styleFrom(
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(2)),
-                          backgroundColor:
-                              const Color.fromRGBO(102, 82, 143, 1.0)),
-                      child: const Text(
-                        'Kategoriser',
-                        style: TextStyle(fontSize: 15),
-                      )),
-                ),
-              ],
             ),
-          ),
-          const SizedBox(
-            height: 100,
-          )
+          
+          
+          
         ],
-      ),
-    ));
+      );
   }
 }
 
-class FillOut2 extends StatelessWidget {
-  const FillOut2({required this.screen2, super.key});
-  
-  final bool screen2;
-
-  @override
-  Widget build(BuildContext context) {
-    return Visibility(
-      visible: screen2,
-      child: Column(
-        children: [
-          const SizedBox(
-            height: 100,
-          ),
-          Container(
-            height: 500,
-            width: 600,
-            decoration: const BoxDecoration(color: Colors.black),
-          )
-        ],
-      
-      ),
-    );
-  }
-}
 
 

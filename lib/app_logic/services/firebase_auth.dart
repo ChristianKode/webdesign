@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_database/firebase_database.dart';
 
 class AuthService {
   final FirebaseAuth _auth;
@@ -17,10 +18,20 @@ class AuthService {
     }
   }
 
-  Future<String> signUp(String email, String password) async {
+  Future<String> signUp(String email, String password, String firstname, String lastname, String telephone) async {
+    DatabaseReference ref =
+    FirebaseDatabase.instance.ref("users");   
     try {
       await _auth.createUserWithEmailAndPassword(
           email: email, password: password);
+
+          String uid = FirebaseAuth.instance.currentUser!.uid;
+          await ref.child(uid).set({
+            "fornavn": firstname,
+            "etternavn": lastname,
+            "telefon": telephone,
+            "uid": uid
+          });
       return "registrert";
     } catch (e) {
       return e.toString();
