@@ -244,18 +244,21 @@ class FillOut1 extends StatelessWidget {
                       height: 40,
                       child: ElevatedButton(
                           onPressed: () {
+                            
+                            /*
                             DatabaseReference ref =
-                            FirebaseDatabase.instance.ref("users");
+                            FirebaseDatabase.instance.ref("adventures");
 
                             String uid = FirebaseAuth.instance.currentUser!.uid;
 
                             ref.child(uid).set({
-            
-          });
+                              uid: {
+                                "address": 'jag',
+                              }
+                              });*/
 
-                            print(uid.toString());
-                        var aid = Uuid();
-                        print(aid);
+                            String uuid = Uuid().v4 as String;
+                            print(uuid);
                           },
                           style: ElevatedButton.styleFrom(
                               shape: RoundedRectangleBorder(

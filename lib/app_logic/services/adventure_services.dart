@@ -7,5 +7,6 @@ class AdventureServices{
 
   AdventureServices(this._database);
 
-  
+
+
 }

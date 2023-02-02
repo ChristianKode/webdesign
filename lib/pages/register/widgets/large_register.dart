@@ -9,6 +9,7 @@ import 'package:webdesign/app_logic/services/firebase_auth.dart';
 import 'package:get/get.dart';
 import 'package:webdesign/pages/login/login.dart';
 import 'package:firebase_database/firebase_database.dart';
+import 'package:uuid/uuid.dart';
 
 class LargeRegister extends StatelessWidget {
   const LargeRegister({super.key});
