@@ -46,8 +46,7 @@ class DefaultFirebaseOptions {
   static const FirebaseOptions web = FirebaseOptions(
       apiKey: "AIzaSyCvh7tWLOJRWsx23WUEULBvlFBUFhMxY7w",
       authDomain: "ungansatt123.firebaseapp.com",
-      databaseURL:
-          "https://ungansatt123-default-rtdb.europe-west1.firebasedatabase.app",
+      databaseURL: "https://ungansatt123-default-rtdb.europe-west1.firebasedatabase.app",
       projectId: "ungansatt123",
       storageBucket: "ungansatt123.appspot.com",
       messagingSenderId: "541591020969",

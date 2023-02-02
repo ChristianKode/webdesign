@@ -1,10 +1,20 @@
+// ignore_for_file: deprecated_member_use
+
+import 'dart:html';
+
+import 'package:file_picker/file_picker.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:get/get.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:image_picker_web/image_picker_web.dart';
 import 'package:uuid/uuid.dart';
 import 'package:webdesign/pages/newJob/widgets/body.dart';
 import 'package:firebase_database/firebase_database.dart';
+import 'package:path_provider/path_provider.dart';
 
      bool fillOut1 = true;
      bool fillOut2 = false;
@@ -66,11 +76,20 @@ class Nav extends StatelessWidget {
 }
 
 class FillOut1 extends StatelessWidget {
+  static var imagesup;
+
   FillOut1({super.key});
 
   //Controllers to save input
-  final TextEditingController title = TextEditingController();
-  final TextEditingController descprition = TextEditingController();
+  final TextEditingController titleCon = TextEditingController();
+  final TextEditingController descpritionCon = TextEditingController();
+  final TextEditingController addressCon = TextEditingController();
+  final TextEditingController zipcodeCon = TextEditingController();
+  final TextEditingController priceCon = TextEditingController();
+
+    final _pickedImages = <Image>[];
+
+    String _imageInfo = '';
 
 
   @override
@@ -101,7 +120,7 @@ class FillOut1 extends StatelessWidget {
                     SizedBox(
                       width: 350,
                       child: TextField(
-                        controller: title,
+                        controller: titleCon,
                         decoration: const InputDecoration(
                           labelText: 'Overskrift',
                           focusedBorder: OutlineInputBorder(
@@ -121,7 +140,7 @@ class FillOut1 extends StatelessWidget {
                       height: 200,
                       width: 350,
                       child: TextField(
-                        controller: descprition,
+                        controller: descpritionCon,
                         decoration: const InputDecoration(
                           labelText: 'Beskrivelse',
                           focusedBorder: OutlineInputBorder(
@@ -153,9 +172,11 @@ class FillOut1 extends StatelessWidget {
                       width: 350,
                       height: 40,
                       child: ElevatedButton(
-                          onPressed: () {
-                            print('fillout false');
-                        
+                          onPressed: () async {
+                              final infos = await ImagePickerWeb.getImageAsFile();
+                              _imageInfo =
+                                        'Name: ${infos?.name}\nRelative Path: ${infos?.relativePath}';
+                                        print(_imageInfo);
                           },
                           style: ElevatedButton.styleFrom(
                               shape: RoundedRectangleBorder(
@@ -179,7 +200,7 @@ class FillOut1 extends StatelessWidget {
                           SizedBox(
                       width: 350,
                       child: TextField(
-                        controller: title,
+                        controller: addressCon,
                         decoration: const InputDecoration(
                           labelText: 'Gate',
                           focusedBorder: OutlineInputBorder(
@@ -197,7 +218,7 @@ class FillOut1 extends StatelessWidget {
                           SizedBox(
                       width: 350,
                       child: TextField(
-                        controller: title,
+                        controller: zipcodeCon,
                         decoration: const InputDecoration(
                           labelText: 'Postnummer',
                           focusedBorder: OutlineInputBorder(
@@ -223,7 +244,7 @@ class FillOut1 extends StatelessWidget {
                         SizedBox(
                       width: 350,
                       child: TextField(
-                        controller: title,
+                        controller: priceCon,
                         decoration: const InputDecoration(
                           labelText: 'Pris',
                           focusedBorder: OutlineInputBorder(
@@ -244,21 +265,38 @@ class FillOut1 extends StatelessWidget {
                       height: 40,
                       child: ElevatedButton(
                           onPressed: () {
+                            String title = titleCon.text.trim();
+                            String descprition = descpritionCon.text.trim();
+                            String address = addressCon.text.trim();
+                            String zipcode = zipcodeCon.text.trim();
+                            String price = priceCon.text.trim();
                             
-                            /*
+
+
+
+                            var uuid = Uuid();
+                            var aid = uuid.v4();
+                            
                             DatabaseReference ref =
                             FirebaseDatabase.instance.ref("adventures");
 
+                            final refref = FirebaseStorage.instance.ref("aid");
+
                             String uid = FirebaseAuth.instance.currentUser!.uid;
 
-                            ref.child(uid).set({
-                              uid: {
-                                "address": 'jag',
-                              }
-                              });*/
+                            ref.child(aid).set({
+                              "title": title,
+                              "descprition": descprition,
+                              "address": address,
+                              "zipcode": zipcode,
+                              "price": price,
+                              "uid": uid,
+                              });
 
-                            String uuid = Uuid().v4 as String;
-                            print(uuid);
+
+
+
+                            refref.putFile(imagesup);
                           },
                           style: ElevatedButton.styleFrom(
                               shape: RoundedRectangleBorder(
