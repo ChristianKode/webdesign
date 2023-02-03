@@ -1,4 +1,4 @@
-// ignore_for_file: deprecated_member_use
+
 import 'dart:convert';
 import 'dart:io';
 import 'dart:typed_data';
@@ -13,6 +13,7 @@ import 'package:uuid/uuid.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:http/http.dart' as http;
+import 'package:webdesign/pages/newJob/widgets/body.dart';
 
 Uint8List? Images = Uint8List.fromList([]);
 
@@ -158,7 +159,7 @@ class FillOut1 extends StatelessWidget {
                         var uuid = Uuid();
                         var aid = uuid.v4();
 
-                        final refref = FirebaseStorage.instance.ref("aaid");
+                        final refref = FirebaseStorage.instance.ref("1aid");
 
                         refref.putData(Images!);
                       },
@@ -172,7 +173,6 @@ class FillOut1 extends StatelessWidget {
                         style: TextStyle(fontSize: 15),
                       )),
                 ),
-                asd(Images: Images),
                 Container(
                   alignment: Alignment.centerLeft,
                   child: const Padding(
@@ -196,8 +196,7 @@ class FillOut1 extends StatelessWidget {
                       ),
                       border: OutlineInputBorder(
                           borderRadius: BorderRadius.all(Radius.circular(2))),
-                    ),
-<<<<<<< HEAD
+                    ),)),
                     
                     SizedBox(
                       width: 350,
@@ -222,7 +221,6 @@ class FillOut1 extends StatelessWidget {
                       child: const Padding(
                         padding: EdgeInsets.only(left: 50, top: 30),
                         child: Text('Hvor er dette?'),
-=======
                   ),
                 ),
                 const SizedBox(
@@ -238,7 +236,6 @@ class FillOut1 extends StatelessWidget {
                         borderSide: BorderSide(
                             color: Color.fromRGBO(102, 82, 143, 1.0), width: 2),
                         borderRadius: BorderRadius.all(Radius.circular(2)),
->>>>>>> a9a4961584db898a6aff1c900c21833f1eae140c
                       ),
                       border: OutlineInputBorder(
                           borderRadius: BorderRadius.all(Radius.circular(2))),
@@ -324,7 +321,7 @@ class FillOut1 extends StatelessWidget {
 }
 
 class asd extends StatefulWidget {
-  const asd({super.key, Uint8List? Images});
+  const asd({super.key, Int8List? Images});
 
   @override
   State<asd> createState() => _asdState();
