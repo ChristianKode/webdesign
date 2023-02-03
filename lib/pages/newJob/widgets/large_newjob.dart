@@ -173,10 +173,8 @@ class FillOut1 extends StatelessWidget {
                       height: 40,
                       child: ElevatedButton(
                           onPressed: () async {
-                              final infos = await ImagePickerWeb.getImageAsFile();
-                              _imageInfo =
-                                        'Name: ${infos?.name}\nRelative Path: ${infos?.relativePath}';
-                                        print(_imageInfo);
+                              final infos = await ImagePickerWeb.getMultiImagesAsBytes();
+                                        print(infos);
                           },
                           style: ElevatedButton.styleFrom(
                               shape: RoundedRectangleBorder(
