@@ -5,6 +5,7 @@ import 'package:webdesign/pages/chat/chat.dart';
 import 'package:webdesign/pages/forgot/forgot.dart';
 import 'package:webdesign/pages/home/homeIn.dart';
 import 'package:webdesign/pages/home/homeOut.dart';
+import 'package:webdesign/pages/home/widgets/large_home.dart';
 import 'package:webdesign/pages/login/login.dart';
 import 'package:webdesign/pages/newJob/newjob.dart';
 import 'package:webdesign/pages/profile/profile.dart';
@@ -40,19 +41,18 @@ class MyApp extends StatelessWidget {
             title: 'UngAnsatt',
             initialRoute: '/',
             getPages: [
-              GetPage(name: '/', page: () => const HomeOut()),
-              GetPage(name: '/HomeIn', page: () => const HomeIn()),
+              GetPage(name: '/', page: () => const HomeIn()),
+              GetPage(name: '/HomeIn', page: () => HomeIn()),
               GetPage(name: '/Register', page: () => const Register()),
               GetPage(name: '/Login', page: () => const Login()),
               GetPage(name: '/Forgot', page: () => const Forgot()),
               GetPage(name: '/NewJob', page: () => const NewJob()),
               GetPage(name: '/Profile', page: () => const Profile()),
               GetPage(name: '/Chat', page: () => const Chat()),
-
             ],
             theme: ThemeData(
               primarySwatch: Colors.blue,
             ),
-            home: const HomeOut()));
+            home: LargeHome()));
   }
 }

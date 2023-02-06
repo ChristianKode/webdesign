@@ -5,7 +5,7 @@ import 'package:provider/provider.dart';
 import 'package:webdesign/app_logic/services/firebase_auth.dart';
 import 'package:webdesign/pages/forgot/forgot.dart';
 import 'package:webdesign/pages/home/homeIn.dart';
-import 'package:webdesign/pages/home/widgets/Large_homeULoggetInn.dart';
+import 'package:webdesign/pages/home/widgets69/Large_homeULoggetInn.dart';
 
 import '../../register/register.dart';
 
@@ -153,7 +153,8 @@ class LoginBox extends StatelessWidget {
               onPressed: () {
                 context
                     .read<AuthService>()
-                    .login(mail.text.trim(), pass.text.trim()).then((value) => Get.to(() => HomeIn()));
+                    .login(mail.text.trim(), pass.text.trim())
+                    .then((value) => Get.to(() => HomeIn()));
 
                 print(mail.text);
               },

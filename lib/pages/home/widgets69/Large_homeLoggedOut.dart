@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:webdesign/pages/home/widgets/home_info.dart';
+import 'package:webdesign/pages/home/widgets69/home_info.dart';
 import 'package:webdesign/widgets/navbarLoggedOut.dart';
 
 class LargeHomeOut extends StatelessWidget {
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(

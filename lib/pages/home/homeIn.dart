@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:webdesign/pages/home/widgets/Large_homeULoggetInn.dart';
-import 'package:webdesign/pages/home/widgets/Small_homeLoggedIn.dart';
+import 'package:webdesign/pages/home/widgets/large_home.dart';
+import 'package:webdesign/pages/home/widgets69/Large_homeULoggetInn.dart';
+import 'package:webdesign/pages/home/widgets69/Small_homeLoggedIn.dart';
 import 'package:webdesign/utils/responsivebody.dart';
-
 
 class HomeIn extends StatelessWidget {
   const HomeIn({super.key});
@@ -10,8 +10,8 @@ class HomeIn extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ResponsiveWidget(
-        largeScreen: LargeHomeIn(),
-        mediumScreen: LargeHomeIn(),
+        largeScreen: LargeHome(),
+        mediumScreen: LargeHome(),
         smallScreen: const SmallHomeIn());
   }
 }
