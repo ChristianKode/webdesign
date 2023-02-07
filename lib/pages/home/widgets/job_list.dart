@@ -5,8 +5,13 @@ class JobList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return  Scaffold(
-      body: Column(children: [Text('asd')],)
+    return Column(children: [
+        Container(
+          color: Colors.pink,
+          height: 700,
+
+        )
+        ]
     );
   }
 }

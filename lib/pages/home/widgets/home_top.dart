@@ -6,16 +6,14 @@ class Top extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
     return Container(
-      alignment: Alignment.center,
-      constraints: BoxConstraints(maxHeight: 900, minHeight: 700),
-      width: double.maxFinite,
+      height: 1200,
+      width: double.infinity,
       decoration: const BoxDecoration(
           image: DecorationImage(
               image: AssetImage('assets/images/home_background.jpg'),
               fit: BoxFit.cover)),
-      child: Container(
+      
         child: Column(
           children: [
             Container(
@@ -53,7 +51,7 @@ class Top extends StatelessWidget {
             )
           ],
         ),
-      ),
+      
     );
   }
 }
