@@ -4,9 +4,7 @@ import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 import 'package:webdesign/app_logic/services/firebase_auth.dart';
 import 'package:webdesign/pages/forgot/forgot.dart';
-import 'package:webdesign/pages/home/homeIn.dart';
-import 'package:webdesign/pages/home/widgets/Large_homeULoggetInn.dart';
-
+import 'package:webdesign/pages/home/widgets/main_home.dart';
 import '../../register/register.dart';
 
 class LargeLogin extends StatelessWidget {
@@ -153,7 +151,8 @@ class LoginBox extends StatelessWidget {
               onPressed: () {
                 context
                     .read<AuthService>()
-                    .login(mail.text.trim(), pass.text.trim()).then((value) => Get.to(() => HomeIn()));
+                    .login(mail.text.trim(), pass.text.trim())
+                    .then((value) => Get.to(() => LargeHome()));
 
                 print(mail.text);
               },

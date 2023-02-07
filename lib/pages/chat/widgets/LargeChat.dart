@@ -3,7 +3,8 @@
 // ignore_for_file: file_names, duplicate_ignore, use_key_in_widget_constructors
 
 import 'package:flutter/material.dart';
-import 'package:webdesign/widgets/navbarLoggedIn.dart';
+import 'package:webdesign/widgets/navbar.dart';
+
 
 class LargeChat extends StatelessWidget {
   const LargeChat({super.key});

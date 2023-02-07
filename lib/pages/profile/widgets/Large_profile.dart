@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:webdesign/pages/profile/profile.dart';
-import 'package:webdesign/widgets/navbarLoggedIn.dart';
+import 'package:webdesign/widgets/navbar.dart';
+
 
 class LargeProfile extends StatelessWidget {
   const LargeProfile({super.key});
