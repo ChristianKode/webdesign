@@ -27,11 +27,10 @@ class LargeHome extends StatelessWidget {
     return Scaffold(
       body: SingleChildScrollView(
         child: Column(
-          
           children: <Widget>[
           NavBar(),
           const Top(),
-          const JobList(),
+           JobList(),
 
           Container(
             height: 600,
