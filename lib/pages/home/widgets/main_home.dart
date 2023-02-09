@@ -7,7 +7,6 @@ import 'package:webdesign/pages/login/login.dart';
 import 'package:webdesign/widgets/footer_overall.dart';
 import 'package:webdesign/widgets/navbar.dart';
 
-
 class Auth {
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
@@ -26,13 +25,10 @@ class LargeHome extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SingleChildScrollView(
-        child: Column(
-          
-          children: <Widget>[
+        child: Column(children: <Widget>[
           NavBar(),
           const Top(),
-          const JobList(),
-
+          JobList(),
           Container(
             height: 600,
             color: Colors.blue,
