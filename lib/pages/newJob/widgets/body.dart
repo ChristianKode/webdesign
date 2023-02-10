@@ -1,80 +1,60 @@
-import 'dart:typed_data';
-import 'dart:html';
+import 'dart:io';
+
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker_web/image_picker_web.dart';
-import 'package:image_picker/image_picker.dart';
 
-
-
-class FillOut extends StatefulWidget {
-  const FillOut({super.key});
-
+class ImageUploadScreen extends StatefulWidget {
   @override
-  State<FillOut> createState() => _FillOutState();
+  _ImageUploadScreenState createState() => _ImageUploadScreenState();
 }
 
-class _FillOutState extends State<FillOut> {
-  
-    File? _pickedImage;
-  Uint8List webImage = Uint8List(8);
-  Future <void> GetImg() async{
-    final ImagePicker _picker = ImagePicker();
-    XFile? image = await _picker.pickImage(source: ImageSource.gallery);
-      if (image != null) {
-        var f = await image.readAsBytes();
-        setState(() {
-          webImage = f;
-          _pickedImage = webImage as File?;
-        });}
+class _ImageUploadScreenState extends State<ImageUploadScreen> {
+  final FirebaseStorage _storage = FirebaseStorage.instance;
+  List<File> _images = [];
+
+  void _openFilePicker() async {
+      _images = await ImagePickerWeb.getMultiImagesAsFile() as List<File>;
   }
 
-
+  void _uploadImages() async {
+    for (int i = 0; i < _images.length; i++) {
+      String fileName = "${DateTime.now().millisecondsSinceEpoch}.jpg";
+      Reference reference = _storage.ref().child(fileName);
+      UploadTask uploadTask = reference.putFile(_images[i]);
+      await uploadTask;
+    }
+    setState(() {
+      _images = [];
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
-    return Column(children: [
-      const SizedBox(
-        height: 100,
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("Upload Images"),
       ),
-      Container(
-        height: 600,
-        width: 450,
-        decoration: BoxDecoration(
-          color: Colors.white, borderRadius: BorderRadius.circular(2)
-        ),
-        child: SingleChildScrollView(child: 
-          Column(crossAxisAlignment: CrossAxisAlignment.center, 
-          children: [
-            const SizedBox(
-              height: 30,
+      body: Column(
+        children: [
+          Expanded(
+            child: ListView.builder(
+              itemCount: _images.length,
+              itemBuilder: (context, index) {
+                return Image.file(_images[index]);
+              },
             ),
-            const Text('Last Opp'),
-
-            ElevatedButton(onPressed: () async{
-              GetImg();
-            }, child: (
-              const Text('Velg')
-            )),
-
-            ElevatedButton(onPressed: (){
-
-            }, child: (
-              const Text('Last')
-            )),
-            
-            Center(
-    child: webImage == null
-        ? const CircularProgressIndicator()
-        : Image.memory(
-            Uint8List.fromList(webImage!),
-            width: 250,
-            height: 250,
-            fit: BoxFit.contain,
-          )),
-
-          ],)
-        ),
-      )
-    ],);
+          ),
+          ElevatedButton(
+            child: Text("Add Image"),
+            onPressed: _openFilePicker,
+          ),
+          ElevatedButton(
+            child: Text("Upload Images"),
+            onPressed: _images.length > 0 ? _uploadImages : null,
+          ),
+        ],
+      ),
+    );
   }
 }

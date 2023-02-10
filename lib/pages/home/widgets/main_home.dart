@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:get/get.dart';
 import 'package:webdesign/pages/home/widgets/home_top.dart';
 import 'package:webdesign/pages/home/widgets/job_list.dart';
 import 'package:webdesign/pages/login/login.dart';
+import 'package:webdesign/pages/newJob/widgets/body.dart';
 import 'package:webdesign/widgets/footer_overall.dart';
 import 'package:webdesign/widgets/navbar.dart';
 
@@ -32,6 +34,11 @@ class LargeHome extends StatelessWidget {
           Container(
             height: 600,
             color: Colors.blue,
+            child: Center(
+              child: ElevatedButton(onPressed: (){
+                Get.to(() => ImageUploadScreen());
+              }, child: Text('Upload')),
+            )
           ),
           const Footer()
         ]),
