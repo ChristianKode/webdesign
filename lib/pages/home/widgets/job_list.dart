@@ -42,6 +42,7 @@ class _JobListState extends State<JobList> {
               child: Container(
                 height: 300,
                 child: FirebaseAnimatedList(
+                  physics: ScrollPhysics(parent: ClampingScrollPhysics()),
                   scrollDirection: Axis.horizontal,
                   controller: _scrollController,
                   query: databaseRef,
