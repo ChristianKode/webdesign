@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:firebase_database/ui/firebase_animated_list.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_database/firebase_database.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 
 class JobList extends StatefulWidget {
   const JobList({super.key});
@@ -14,6 +15,17 @@ class JobList extends StatefulWidget {
 class _JobListState extends State<JobList> {
   final databaseRef = FirebaseDatabase.instance.ref().child("adventures");
   ScrollController _scrollController = ScrollController();
+  String downloadURL = '';
+
+    Future<void> downloadURLExample(String aid) async {
+    downloadURL = await FirebaseStorage.instance
+        .ref()
+        .child(aid)
+        .child('/')
+        .getDownloadURL();
+
+        
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -47,14 +59,21 @@ class _JobListState extends State<JobList> {
                   query: databaseRef,
                   itemBuilder: (BuildContext context, DataSnapshot snapshot,
                       Animation<double> animation, int index) {
+                    
                     return Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: Container(
-                        width: 150,
+                        width: 250,
                         color: Colors.white60,
                         child: ListTile(
+                          
+                          
                             subtitle: Text(snapshot.child("title").value.toString()),
                             title: Text(snapshot.child("price").value.toString() + "kr"),
+                            leading: Image.network(downloadURLExample(snapshot.child("aid").value.toString()) as String,
+                            height: 50,
+                            width: 50,)
+                            
                             
                             ),
                         
