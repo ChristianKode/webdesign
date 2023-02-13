@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:webdesign/pages/chat/chat.dart';
+import 'package:webdesign/pages/chat/widgets/chat_page.dart';
 import 'package:webdesign/pages/login/login.dart';
 import 'package:webdesign/pages/newJob/newjob.dart';
 import 'package:webdesign/pages/profile/profile.dart';
@@ -89,7 +90,7 @@ class NavBar extends StatelessWidget {
         height: 35,
         child: TextButton(
             onPressed: () {
-              Get.to(const Chat());
+              Get.to(Chattos());
             }, child: const Text(
               'Chat ',
               style: TextStyle(fontSize: 15, color: Colors.black, fontWeight: FontWeight.bold),

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:webdesign/app_logic/services/firebase_auth.dart';
 import 'package:webdesign/pages/chat/chat.dart';
+import 'package:webdesign/pages/chat/widgets/chat_page.dart';
 import 'package:webdesign/pages/forgot/forgot.dart';
 import 'package:webdesign/pages/home/widgets/main_home.dart';
 import 'package:webdesign/pages/login/login.dart';
@@ -46,7 +47,7 @@ class MyApp extends StatelessWidget {
               GetPage(name: '/Forgot', page: () => const Forgot()),
               GetPage(name: '/NewJob', page: () => const NewJob()),
               GetPage(name: '/Profile', page: () => const Profile()),
-              GetPage(name: '/Chat', page: () => const Chat()),
+              GetPage(name: '/Chattos', page: () => Chattos()),
             ],
             theme: ThemeData(
               primarySwatch: Colors.blue,

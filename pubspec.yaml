@@ -43,6 +43,7 @@ dependencies:
   file_picker: ^5.2.5
   image_picker_web: ^3.0.0+1
   path_provider: ^2.0.12
+  cloud_firestore: ^4.3.2
 
 
 
