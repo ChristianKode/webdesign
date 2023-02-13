@@ -52,7 +52,7 @@ class _messagesState extends State<messages> {
                     child: ListTile(
                       shape: RoundedRectangleBorder(
                         side: BorderSide(
-                          color: Colors.purple,
+                          color: Colors.blue,
                         ),
                         borderRadius: BorderRadius.circular(10),
                       ),
@@ -66,7 +66,7 @@ class _messagesState extends State<messages> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Container(
-                            width: 200,
+                            width: 100,
                             child: Text(
                               qs['message'],
                               softWrap: true,
