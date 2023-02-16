@@ -5,11 +5,13 @@ import 'package:webdesign/widgets/navbar.dart';
 import 'message.dart';
 
 class Chattos extends StatefulWidget {
+
   @override
   _chatpageState createState() => _chatpageState();
 }
 
 class _chatpageState extends State<Chattos> {
+
   String? email = FirebaseAuth.instance.currentUser?.email;
   _chatpageState();
 
@@ -26,11 +28,8 @@ class _chatpageState extends State<Chattos> {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             Column(
-              children: <Widget>[
-                NavBar()
-              ],
+              children: <Widget>[NavBar()],
             ),
-
             Padding(
               padding: const EdgeInsets.only(right: 30),
               child: Container(
@@ -63,21 +62,24 @@ class _chatpageState extends State<Chattos> {
                           borderRadius: new BorderRadius.circular(10),
                         ),
                       ),
-                      validator: (value) {},
+                      validator: (value) {
+                        return null;
+                      },
                       onSaved: (value) {
                         message.text = value!;
                       },
                       onFieldSubmitted: (value) {
-                          if (message.text.isNotEmpty) {
+                        if (message.text.isNotEmpty) {
                           fs.collection('Messages').doc().set({
                             'message': message.text.trim(),
                             'time': DateTime.now(),
                             'email': email,
                           });
-            
+
                           message.clear();
-                          };
-                        },
+                        }
+                        ;
+                      },
                     ),
                   ),
                   IconButton(
@@ -88,7 +90,7 @@ class _chatpageState extends State<Chattos> {
                           'time': DateTime.now(),
                           'email': email,
                         });
-            
+
                         message.clear();
                       }
                     },
