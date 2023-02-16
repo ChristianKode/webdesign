@@ -89,6 +89,7 @@ class _chatpageState extends State<Chattos> {
                           'message': message.text.trim(),
                           'time': DateTime.now(),
                           'email': email,
+                          
                         });
 
                         message.clear();
