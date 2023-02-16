@@ -171,7 +171,7 @@ LogInItem(){
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 9),
       child: SizedBox(
-        width: 100,
+        width: 120,
         height: 50,
         child: ElevatedButton(
             onPressed: () {
