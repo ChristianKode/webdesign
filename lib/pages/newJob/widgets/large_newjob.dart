@@ -84,7 +84,10 @@ class _FillOutState extends State<FillOut> {
 
     await StorageRef.putData(selectedImageInBytes, metadata);
 
+
+
     try {
+      
       imageUrl =
           await StorageRef.getDownloadURL().then((value) => value as String);
     } catch (e) {
