@@ -1,21 +1,14 @@
-import 'dart:convert';
-import 'dart:io';
 import 'dart:typed_data';
-import 'dart:html';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:image_picker/image_picker.dart';
-import 'package:image_picker_web/image_picker_web.dart';
 import 'package:uuid/uuid.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:http/http.dart' as http;
 import 'package:webdesign/pages/home/widgets/main_home.dart';
-
 import 'package:get/get.dart';
-import 'package:file_picker/file_picker.dart';
 
 class LargeNewJob extends StatelessWidget {
   LargeNewJob({super.key});

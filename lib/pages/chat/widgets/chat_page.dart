@@ -63,7 +63,9 @@ class _chatpageState extends State<Chattos> {
                           borderRadius: new BorderRadius.circular(10),
                         ),
                       ),
-                      validator: (value) {},
+                      validator: (value) {
+                        return null;
+                      },
                       onSaved: (value) {
                         message.text = value!;
                       },
