@@ -57,7 +57,7 @@ class _JobListState extends State<JobList> {
                         String uid = snapshot.child('uid').value.toString();
                         String img1 = snapshot.child('img1').value.toString();
                         String title = snapshot.child('title').value.toString();
-                        String descprition = snapshot.child('description').value.toString();
+                        String descprition = snapshot.child('descprition').value.toString();
                         String price = snapshot.child('price').value.toString();
                         String address = snapshot.child('address').value.toString();
                         String zipcode = snapshot.child('zipcode').value.toString();
