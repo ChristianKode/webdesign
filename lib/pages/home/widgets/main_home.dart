@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:get/get.dart';
 import 'package:webdesign/pages/home/appbar.dart';
+import 'package:webdesign/pages/home/widgets/home_body.dart';
 import 'package:webdesign/pages/home/widgets/home_top.dart';
 import 'package:webdesign/pages/home/widgets/job_list.dart';
 import 'package:webdesign/pages/login/login.dart';
@@ -29,13 +30,14 @@ class LargeHome extends StatelessWidget {
     return Scaffold(
       key: scaffoldKey,
       appBar: appBar(context, scaffoldKey),
-      drawer: Drawer(),
-      body: SingleChildScrollView(
+      drawer: const Drawer(),
+      body: const SingleChildScrollView(
         child: Column(children: <Widget>[
-          const Top(),
+          Top(),
           JobList(),
+          HomeBodyInfo(),
           
-          const Footer()
+          Footer()
         ]),
       ),
     );
