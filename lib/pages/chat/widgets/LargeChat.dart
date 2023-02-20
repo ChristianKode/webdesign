@@ -21,7 +21,7 @@ class LargeChat extends StatelessWidget {
         )
       ),
         child: Column(
-          children: <Widget>[NavBarIn(), ChatContent()],
+          children: <Widget>[/*NavBarIn()*/ ChatContent()],
         ),
       ),
     );

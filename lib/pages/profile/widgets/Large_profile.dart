@@ -19,7 +19,7 @@ class LargeProfile extends StatelessWidget {
         color: Colors.white,
         child: Column(
           children: <Widget>[
-            NavBarIn(),
+            //NavBarIn(),
             Padding(
               padding: const EdgeInsets.only(top: 50),
               child: ProfileContent(),

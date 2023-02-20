@@ -27,7 +27,7 @@ class NavBar extends StatelessWidget {
     final Auth _auth = Auth();
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context ) {
     return FutureBuilder(
               future: _auth.isLoggedIn(),
               builder: (context, snapshot) {
