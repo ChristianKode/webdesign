@@ -33,8 +33,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: MultiProvider(
+    return MultiProvider(
           providers: [
             Provider<AuthService>(
               create: (_) => AuthService(FirebaseAuth.instance),
@@ -64,7 +63,7 @@ class MyApp extends StatelessWidget {
               ),
               home: LargeHome(),
               
-              )),
+              ),
     );
   }
 }
