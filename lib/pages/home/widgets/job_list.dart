@@ -1,4 +1,3 @@
-
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:firebase_database/ui/firebase_animated_list.dart';
 import 'package:flutter/material.dart';
@@ -25,6 +24,8 @@ class _JobListState extends State<JobList> {
     return SafeArea(
       child: Container(
         constraints: BoxConstraints(maxWidth: 1500),
+        height: 500,
+        color: Color.fromARGB(111, 255, 234, 201),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -51,52 +52,80 @@ class _JobListState extends State<JobList> {
                   itemBuilder: (BuildContext context, DataSnapshot snapshot,
                       Animation<double> animation, int index) {
                     return InkWell(
-                      onTap: (){
+                      onTap: () {
                         String aid = snapshot.child('aid').value.toString();
                         String uid = snapshot.child('uid').value.toString();
                         String img1 = snapshot.child('img1').value.toString();
                         String title = snapshot.child('title').value.toString();
-                        String descprition = snapshot.child('descprition').value.toString();
+                        String descprition =
+                            snapshot.child('descprition').value.toString();
                         String price = snapshot.child('price').value.toString();
-                        String address = snapshot.child('address').value.toString();
-                        String zipcode = snapshot.child('zipcode').value.toString();
+                        String address =
+                            snapshot.child('address').value.toString();
+                        String zipcode =
+                            snapshot.child('zipcode').value.toString();
 
                         Get.to(() => JobView(
-                        aid: aid, 
-                        uid: uid, 
-                        img1: img1, 
-                        title: title, 
-                        descprition: descprition, 
-                        price: price, 
-                        address: address, 
-                        zipcode: zipcode));
+                            aid: aid,
+                            uid: uid,
+                            img1: img1,
+                            title: title,
+                            descprition: descprition,
+                            price: price,
+                            address: address,
+                            zipcode: zipcode));
                       },
-                      child: Container(
-                          alignment: Alignment.topCenter,
-                          width: 330,
-                          child: ListTile(
+                      child: Padding(
+                        padding: const EdgeInsets.only(right: 10),
+                        child: Container(
+                          
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(20),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.red,
+                                  blurRadius: 4,
+                                  offset: Offset(4, 8), // Shadow position
+                                ),
+                              ],
+                            ),
+                            alignment: Alignment.topCenter,
+                            width: 338,
+                            child: ListTile(
+                              
                               title: Container(
                                 decoration: BoxDecoration(
-                                  color: Colors.white70,
-                                  borderRadius: BorderRadius.circular(5)
-                                ),
+                                    color: Colors.white70,
+                                    borderRadius: BorderRadius.circular(10)),
                                 child: Column(
                                   mainAxisAlignment: MainAxisAlignment.start,
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     ClipRRect(
-                                      borderRadius: BorderRadius.only(topRight: Radius.circular(5), topLeft: Radius.circular(5)),
-                                      child: Image.network(snapshot.child('img1').value.toString(), width: 330,
-                                      height: 250,
-                                      fit: BoxFit.cover,),
+                                      borderRadius: BorderRadius.only(
+                                          topRight: Radius.circular(5),
+                                          topLeft: Radius.circular(5)),
+                                      child: Image.network(
+                                        snapshot.child('img1').value.toString(),
+                                        height: 220,
+                                        fit: BoxFit.cover,
+                                      ),
                                     ),
-                                    Text(snapshot.child('title').value.toString(), style: GoogleFonts.tinos(fontSize: 20),) ,
-                                    Text(snapshot.child('price').value.toString() + ' kr', style: GoogleFonts.tinos(fontSize: 15),),
+                                    Text(
+                                      snapshot.child('title').value.toString(),
+                                      style: GoogleFonts.tinos(fontSize: 20),
+                                    ),
+                                    Text(
+                                      snapshot.child('price').value.toString() +
+                                          ' kr',
+                                      style: GoogleFonts.tinos(fontSize: 15),
+                                    ),
                                   ],
                                 ),
                               ),
-                            )
-                          ),
+                            )),
+                      ),
                     );
                   },
                 ),
