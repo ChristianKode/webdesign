@@ -16,7 +16,7 @@ class LargeLogin extends StatelessWidget {
       body: Container(
           decoration: const BoxDecoration(
             image: DecorationImage(
-                image: NetworkImage('https://firebasestorage.googleapis.com/v0/b/ungansatt123.appspot.com/o/assets%2Fbackground_login.png?alt=media&token=0fc149f3-6017-4306-a052-b0f2fad6c20b'),
+                image: AssetImage('assets/images/background_login.jpg'),
                 fit: BoxFit.cover),
           ),
           child: Row(children: [LoginBox(), const LoginInfo()])),
@@ -62,8 +62,8 @@ class LoginInfo extends StatelessWidget {
               ),
               Container(
                 alignment: Alignment.topCenter,
-                child: Image.asset(
-                  'assets/images/hvitlogo.png',
+                child: Image.network(
+                  'https://firebasestorage.googleapis.com/v0/b/ungansatt123.appspot.com/o/assets%2Fhvitlogo.png?alt=media&token=833a37e7-89d8-4704-9d49-cffb4744625f',
                   fit: BoxFit.contain,
                   height: 250,
                   width: 250,

@@ -20,51 +20,53 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
 
-
   runApp(const MyApp());
 }
-
-
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-  
-
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: MultiProvider(
-          providers: [
-            Provider<AuthService>(
-              create: (_) => AuthService(FirebaseAuth.instance),
-            ),
-            StreamProvider(
-              create: (context) => context.read<AuthService>().authStateChanges,
-              initialData: null,
-            )
+    return MultiProvider(
+        providers: [
+          Provider<AuthService>(
+            create: (_) => AuthService(FirebaseAuth.instance),
+          ),
+          StreamProvider(
+            create: (context) => context.read<AuthService>().authStateChanges,
+            initialData: null,
+          )
+        ],
+        child: GetMaterialApp(
+          debugShowCheckedModeBanner: false,
+          title: 'UngAnsatt',
+          initialRoute: '/',
+          getPages: [
+            GetPage(name: '/', page: () => LargeHome()),
+            GetPage(name: '/main_home', page: () => LargeHome()),
+            GetPage(name: '/Register', page: () => const Register()),
+            GetPage(name: '/Login', page: () => const Login()),
+            GetPage(name: '/Forgot', page: () => const Forgot()),
+            GetPage(name: '/NewJob', page: () => const NewJob()),
+            GetPage(name: '/Profile', page: () => const Profile()),
+            GetPage(name: '/Chattos', page: () => Chattos()),
+            GetPage(
+                name: '/JobView',
+                page: () => JobView(
+                    aid: "",
+                    uid: "",
+                    img1: "",
+                    title: "",
+                    descprition: "",
+                    price: "",
+                    address: "",
+                    zipcode: "")),
           ],
-          child: GetMaterialApp(
-              debugShowCheckedModeBanner: false,
-              title: 'UngAnsatt',
-              initialRoute: '/',
-              getPages: [
-                GetPage(name: '/', page: () =>  LargeHome()),
-                GetPage(name: '/main_home', page: () => LargeHome()),
-                GetPage(name: '/Register', page: () => const Register()),
-                GetPage(name: '/Login', page: () => const Login()),
-                GetPage(name: '/Forgot', page: () => const Forgot()),
-                GetPage(name: '/NewJob', page: () => const NewJob()),
-                GetPage(name: '/Profile', page: () => const Profile()),
-                GetPage(name: '/Chattos', page: () => Chattos()),
-                GetPage(name: '/JobView', page: () => JobView(aid: "", uid: "", img1: "", title: "", descprition: "", price: "", address: "", zipcode: "")),
-              ],
-              theme: ThemeData(
-                primarySwatch: Colors.blue,
-              ),
-              home: LargeHome(),
-              
-              )),
-    );
+          theme: ThemeData(
+            primarySwatch: Colors.blue,
+          ),
+          home: LargeHome(),
+        ));
   }
 }

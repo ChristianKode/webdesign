@@ -71,7 +71,7 @@ class ChatContent extends StatelessWidget {
               height: 50,
               width: 50,
               child: ClipRRect(
-                child: Image(image: AssetImage("images/Profile.jpg")),
+                child: Image(image: NetworkImage("https://firebasestorage.googleapis.com/v0/b/ungansatt123.appspot.com/o/assets%2FProfile.jpg?alt=media&token=6c8c561b-8202-4e3b-9c6e-f8df074a5162")),
             ),
           ),
           Padding(

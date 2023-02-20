@@ -15,7 +15,7 @@ class LargeForgot extends StatelessWidget {
       body: Container(
         decoration: const BoxDecoration(
             image: DecorationImage(
-                image: NetworkImage('https://firebasestorage.googleapis.com/v0/b/ungansatt123.appspot.com/o/assets%2Fforgot_background.png?alt=media&token=5503a57d-7467-4bea-9b0e-3fd4f0b2e743'),
+                image: NetworkImage('https://firebasestorage.googleapis.com/v0/b/ungansatt123.appspot.com/o/assets%2Fforgot_background.jpg?alt=media&token=711bea7e-5724-4412-9712-169dca4b5bfa'),
                 fit: BoxFit.cover)),
         child: ForgotPassBox(),
       ),

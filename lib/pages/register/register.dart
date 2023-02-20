@@ -14,3 +14,8 @@ class Register extends StatelessWidget {
         smallScreen: SmallRegister());
   }
 }
+
+
+
+
+
