@@ -20,7 +20,7 @@ class LargeRegister extends StatelessWidget {
       body: Container(
         decoration: const BoxDecoration(
             image: DecorationImage(
-                image: AssetImage('assets/images/register_background.jpg'),
+                image: NetworkImage('https://firebasestorage.googleapis.com/v0/b/ungansatt123.appspot.com/o/assets%2Fregister_background.jpg?alt=media&token=f81e916e-4566-4097-a3c7-6a5d5b22814e'),
                 fit: BoxFit.cover)),
         child: RegisterBox(),
       ),

@@ -205,7 +205,7 @@ class NavBarOut extends StatelessWidget {
                 SizedBox(
                   height: 80,
                   width: 80,
-                  child: Image.asset("/images/UngLogo.png"),
+                  child: Image.network("https://firebasestorage.googleapis.com/v0/b/ungansatt123.appspot.com/o/assets%2FUngLogo.png?alt=media&token=672878c7-db3a-4a1a-950f-e9c3cb4e334c"),
                   ),
                   const SizedBox(
                     width: 16,
@@ -227,7 +227,7 @@ class NavBarOut extends StatelessWidget {
                 LogInItem(), RegisterItem()]
             )
             else
-            Image.asset("images/menu.png", width: 26, height: 26,)
+            Image.network("https://firebasestorage.googleapis.com/v0/b/ungansatt123.appspot.com/o/assets%2Fmenu.png?alt=media&token=ec8d903d-7c19-4b12-97be-142a04bc050f")
           ],
         ),
       ),
