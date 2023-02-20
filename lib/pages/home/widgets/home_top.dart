@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get_connect/http/src/utils/utils.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class Top extends StatelessWidget {
@@ -11,7 +12,7 @@ class Top extends StatelessWidget {
       width: double.infinity,
       decoration: const BoxDecoration(
           image: DecorationImage(
-              image: AssetImage('assets/images/home_background.jpg'),
+              image: NetworkImage('https://firebasestorage.googleapis.com/v0/b/ungansatt123.appspot.com/o/assets%2Fhome_background.jpg?alt=media&token=70c845e5-5de0-4e6d-9ab8-f5239d5a4744'),
               fit: BoxFit.cover)),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -52,9 +53,7 @@ class Top extends StatelessWidget {
                   child: SizedBox(width: 300, child: TextField()),
                 )
               ],
-            ),
-          )
-        ],
+      ))]
       ),
     );
   }

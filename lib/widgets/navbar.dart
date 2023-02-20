@@ -103,23 +103,32 @@ class NavBar extends StatelessWidget {
 class NavBarIn extends StatelessWidget {
   const NavBarIn({super.key});
 
-
   @override
   Widget build(BuildContext context) {
     return Container(
       color: Colors.white,
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 45),
+        padding: const EdgeInsets.symmetric(horizontal: 5),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Row(
               children: <Widget>[
+                if(!ResponsiveLayout.isSmallScreen(context))
                 SizedBox(
                   height: 80,
                   width: 80,
                   child: Image.asset("/images/LogoUng.png"),
-                  ),
+                  )
+                  else
+                  SizedBox(
+                  height: 80,
+                  width: 80,
+                  child: InkWell(
+                    onTap: () {
+                    },
+                    child: const Icon(Icons.menu),
+                  )),
                   const SizedBox(
                     width: 16,
                   ),
@@ -129,8 +138,8 @@ class NavBarIn extends StatelessWidget {
                         style: GoogleFonts.tinos(fontWeight: FontWeight.bold)),
                     TextSpan(text: 'ANSATT', style: GoogleFonts.tinos())
                     ]
-                  )
-                )
+                  ),
+                ),
               ],
             ),
             if(!ResponsiveLayout.isSmallScreen(context))
@@ -139,8 +148,6 @@ class NavBarIn extends StatelessWidget {
               children: <Widget>[
                 NyAnnonse(), ChatItem(), Profil()]
             )
-            else
-            Image.asset("images/menu.png", width: 26, height: 26,)
           ],
         ),
       ),
@@ -227,7 +234,11 @@ class NavBarOut extends StatelessWidget {
                 LogInItem(), RegisterItem()]
             )
             else
-            Image.network("https://firebasestorage.googleapis.com/v0/b/ungansatt123.appspot.com/o/assets%2Fmenu.png?alt=media&token=ec8d903d-7c19-4b12-97be-142a04bc050f")
+            InkWell(
+              onTap: () {
+                
+              },
+              child: Icon(Icons.menu))
           ],
         ),
       ),
