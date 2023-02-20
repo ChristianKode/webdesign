@@ -47,8 +47,8 @@ class Top extends StatelessWidget {
                           style: GoogleFonts.tinos(
                               color: const Color.fromRGBO(102, 82, 143, 1.0)))
                     ])),
-                Padding(
-                  padding: const EdgeInsets.only(left: 40),
+                const Padding(
+                  padding: EdgeInsets.only(left: 40),
                   child: SizedBox(width: 300, child: TextField()),
                 )
               ],

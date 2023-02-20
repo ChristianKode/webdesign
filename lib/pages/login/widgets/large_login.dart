@@ -16,7 +16,7 @@ class LargeLogin extends StatelessWidget {
       body: Container(
           decoration: const BoxDecoration(
             image: DecorationImage(
-                image: AssetImage('https://firebasestorage.googleapis.com/v0/b/ungansatt123.appspot.com/o/assets%2Fbackground_login.png?alt=media&token=0fc149f3-6017-4306-a052-b0f2fad6c20b'),
+                image: NetworkImage('https://firebasestorage.googleapis.com/v0/b/ungansatt123.appspot.com/o/assets%2Fbackground_login.png?alt=media&token=0fc149f3-6017-4306-a052-b0f2fad6c20b'),
                 fit: BoxFit.cover),
           ),
           child: Row(children: [LoginBox(), const LoginInfo()])),

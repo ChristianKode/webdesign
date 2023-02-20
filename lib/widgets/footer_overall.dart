@@ -9,7 +9,9 @@ class Footer extends StatelessWidget {
       height: 300,
       child: Column(
         children: const [
-          Center(child: Text('KodeKlubben AS'))
+          Center(child: Text('KodeKlubben AS')),
+
+          
         ],
       ),
     );
