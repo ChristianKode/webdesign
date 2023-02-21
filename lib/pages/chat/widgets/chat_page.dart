@@ -1,17 +1,15 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:webdesign/widgets/navbar.dart';
+import '../../../widgets/appbar.dart';
 import 'message.dart';
 
 class Chattos extends StatefulWidget {
-
   @override
   _chatpageState createState() => _chatpageState();
 }
 
 class _chatpageState extends State<Chattos> {
-
   String? email = FirebaseAuth.instance.currentUser?.email;
   _chatpageState();
 
@@ -21,15 +19,16 @@ class _chatpageState extends State<Chattos> {
 
   @override
   Widget build(BuildContext context) {
+    final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey();
     return Scaffold(
+      key: scaffoldKey,
+      appBar: appBar(context, scaffoldKey),
+      drawer: const Drawer(),
       body: SingleChildScrollView(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            Column(
-              children: <Widget>[NavBar()],
-            ),
             Padding(
               padding: const EdgeInsets.only(right: 30),
               child: Container(
@@ -89,7 +88,6 @@ class _chatpageState extends State<Chattos> {
                           'message': message.text.trim(),
                           'time': DateTime.now(),
                           'email': email,
-                          
                         });
 
                         message.clear();

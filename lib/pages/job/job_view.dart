@@ -8,7 +8,8 @@ import 'package:webdesign/pages/chat/widgets/chat_page.dart';
 import 'package:webdesign/pages/job/widgets/jobBodyRow.dart';
 import 'package:webdesign/pages/login/login.dart';
 import 'package:webdesign/widgets/footer_overall.dart';
-import 'package:webdesign/widgets/navbar.dart';
+
+import '../../widgets/appbar.dart';
 
 class JobView extends StatefulWidget {
   String aid = '';
@@ -19,51 +20,52 @@ class JobView extends StatefulWidget {
   String price = '';
   String address = '';
   String zipcode = '';
-  JobView({super.key, 
-  required this.aid,
-  required this.uid,
-  required this.img1,
-  required this.title,
-  required this.descprition,
-  required this.price,
-  required this.address,
-  required this.zipcode});
+  JobView(
+      {super.key,
+      required this.aid,
+      required this.uid,
+      required this.img1,
+      required this.title,
+      required this.descprition,
+      required this.price,
+      required this.address,
+      required this.zipcode});
 
   @override
   State<JobView> createState() => _JobViewState();
 }
 
 class _JobViewState extends State<JobView> {
+  final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: scaffoldKey,
+      appBar: appBar(context, scaffoldKey),
+      drawer: const Drawer(),
       body: Column(
         children: [
-          NavBar(),
           Expanded(
             child: SingleChildScrollView(
               child: Column(
                 children: [
                   BodyRow(
-                    aid: widget.aid, 
-                    uid: widget.uid, 
-                    img1: widget.img1, 
-                    title: widget.title, 
-                    descprition: widget.descprition, 
-                    price: widget.price, 
-                    address: widget.address, 
-                    zipcode: widget.zipcode),
-                    Footer()
+                      aid: widget.aid,
+                      uid: widget.uid,
+                      img1: widget.img1,
+                      title: widget.title,
+                      descprition: widget.descprition,
+                      price: widget.price,
+                      address: widget.address,
+                      zipcode: widget.zipcode),
+                  Footer()
                 ],
               ),
             ),
           )
-            
-
-
         ],
       ),
     );
   }
 }
-

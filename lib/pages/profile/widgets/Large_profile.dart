@@ -7,7 +7,7 @@ import 'package:firebase_database/firebase_database.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:webdesign/pages/profile/profile.dart';
-import 'package:webdesign/widgets/navbar.dart';
+import 'package:webdesign/widgets/appbar.dart';
 
 class LargeProfile extends StatelessWidget {
   LargeProfile({super.key});
@@ -15,16 +15,15 @@ class LargeProfile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-        color: Colors.white,
-        child: Column(
-          children: <Widget>[
-            //NavBarIn(),
-            Padding(
-              padding: const EdgeInsets.only(top: 50),
-              child: ProfileContent(),
-            ),
-        ])));
+        body: Container(
+            color: Colors.white,
+            child: Column(children: <Widget>[
+              //NavBarIn(),
+              Padding(
+                padding: const EdgeInsets.only(top: 50),
+                child: ProfileContent(),
+              ),
+            ])));
   }
 }
 
@@ -53,51 +52,65 @@ class _ProfileContentState extends State<ProfileContent>
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: 800,
-      width: 1000,
-      child: Column(
-            children: [
-              TabBar(
-                controller: _tabController,
-                tabs: [
+    final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey();
+    return Scaffold(
+      key: scaffoldKey,
+      appBar: appBar(context, scaffoldKey),
+      drawer: const Drawer(),
+      body: Container(
+        height: 800,
+        width: 1000,
+        child: Column(
+          children: [
+            TabBar(
+              controller: _tabController,
+              tabs: [
                 Tab(
                   text: 'Profil',
-                  ),
-                Tab(text: 'Favoritter',),
-                Tab(text: 'Mine Annonser',)
-                ],
-                unselectedLabelStyle: TextStyle(fontWeight: FontWeight.normal, color: Color.fromRGBO(102, 82, 143, 1.0)),
-                labelStyle: const TextStyle(fontSize: 16, fontWeight: FontWeight.w700),
-                labelColor: Color.fromRGBO(102, 82, 143, 1.0),
-                indicatorColor: Color.fromRGBO(102, 82, 143, 1.0),
-                indicatorWeight: 5,
-              ),
-              Expanded(
+                ),
+                Tab(
+                  text: 'Favoritter',
+                ),
+                Tab(
+                  text: 'Mine Annonser',
+                )
+              ],
+              unselectedLabelStyle: TextStyle(
+                  fontWeight: FontWeight.normal,
+                  color: Color.fromRGBO(102, 82, 143, 1.0)),
+              labelStyle:
+                  const TextStyle(fontSize: 16, fontWeight: FontWeight.w700),
+              labelColor: Color.fromRGBO(102, 82, 143, 1.0),
+              indicatorColor: Color.fromRGBO(102, 82, 143, 1.0),
+              indicatorWeight: 5,
+            ),
+            Expanded(
                 child: TabBarView(
-                  controller: _tabController,
-                  children: [
-                    Container(
-                      height: 800,
-                      width: 1400,
-                      color: Colors.blue,
-                      child: Text("Profil"),
-                    ),
-                    Container(
-                      height: 800,
-                      width: 1400,
-                      color: Colors.yellow,
-                      child: Text("Favoritter"),
-                    ),
-                    Container(
-                      height: 800,
-                      width: 1400,
-                      color: Colors.green,
-                      child: Text("Mine Annonser"),
-                    ),
-                  ],))
-            ],
+              controller: _tabController,
+              children: [
+                Container(
+                  height: 800,
+                  width: 1400,
+                  color: Colors.blue,
+                  child: Text("Profil"),
+                ),
+                Container(
+                  height: 800,
+                  width: 1400,
+                  color: Colors.yellow,
+                  child: Text("Favoritter"),
+                ),
+                Container(
+                  height: 800,
+                  width: 1400,
+                  color: Colors.green,
+                  child: Text("Mine Annonser"),
+                ),
+              ],
+            ))
+          ],
         ),
+      ),
     );
   }
 }

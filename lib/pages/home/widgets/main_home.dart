@@ -2,14 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:get/get.dart';
-import 'package:webdesign/pages/home/appbar.dart';
+import 'package:webdesign/widgets/appbar.dart';
 import 'package:webdesign/pages/home/widgets/home_card.dart';
 import 'package:webdesign/pages/home/widgets/home_owners.dart';
 import 'package:webdesign/pages/home/widgets/home_top.dart';
 import 'package:webdesign/pages/home/widgets/home_jobList.dart';
 import 'package:webdesign/pages/login/login.dart';
 import 'package:webdesign/widgets/footer_overall.dart';
-import 'package:webdesign/widgets/navbar.dart';
 
 class Auth {
   final FirebaseAuth _auth = FirebaseAuth.instance;
