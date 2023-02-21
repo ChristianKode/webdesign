@@ -13,47 +13,59 @@ class HomeOwners extends StatelessWidget {
       child: Center(
         child: Container(
           width: 1500,
-          child: Row(children: [
-            Column(
+          child: Padding(
+            padding: const EdgeInsets.only(top: 80),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                Text.rich(TextSpan(
-                    style: const TextStyle(
-                        fontSize: 60, fontWeight: FontWeight.bold),
-                    children: [
-                      TextSpan(
-                          text: 'UngAnsatt-',
-                          style: GoogleFonts.tinos(
-                              fontWeight: FontWeight.bold,
-                              color: Colors.white)),
-                    ])),
-                Text.rich(TextSpan(
-                    style: const TextStyle(
-                        fontSize: 30, fontWeight: FontWeight.bold),
-                    children: [
-                      TextSpan(
-                          text: 'Jobberfaring for deg',
-                          style: GoogleFonts.tinos(
-                              fontWeight: FontWeight.bold,
-                              color: Colors.white)),
-                    ])),
-              ],
-            ),
-            Column(
-              children: [
-                ClipPath(
-                  clipper: MyCustomClipper(),
-                  child: Container(
-                    width: 450,
-                    height: 400,
-                    child: Image.network(
-                      'https://firebasestorage.googleapis.com/v0/b/ungansatt123.appspot.com/o/assets%2FMicrosoftTeams-image.png?alt=media&token=ac991ae8-fddd-4011-aef7-c5eadbad34f3',
-                      fit: BoxFit.cover,
+              Container(
+                width: 1000,
+                alignment: Alignment.centerLeft,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  
+                  children: [
+                    Text.rich(TextSpan(
+                        style: const TextStyle(
+                            fontSize: 60, fontWeight: FontWeight.bold),
+                        children: [
+                          TextSpan(
+                              text: 'UngAnsatt-',
+                              style: GoogleFonts.tinos(
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.white)),
+                        ])),
+                    Text.rich(TextSpan(
+                        style: const TextStyle(
+                            fontSize: 30, fontWeight: FontWeight.bold),
+                        children: [
+                          TextSpan(
+                              text: 'Jobberfaring for deg',
+                              style: GoogleFonts.tinos(
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.white)),
+                        ])),
+                  ],
+                ),
+              ),
+              Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  ClipPath(
+                    clipper: MyCustomClipper(),
+                    child: Container(
+                      width: 450,
+                      height: 400,
+                      child: Image.network(
+                        'https://firebasestorage.googleapis.com/v0/b/ungansatt123.appspot.com/o/assets%2FMicrosoftTeams-image.png?alt=media&token=ac991ae8-fddd-4011-aef7-c5eadbad34f3',
+                        fit: BoxFit.cover,
+                      ),
                     ),
-                  ),
-                )
-              ],
-            )
-          ]),
+                  )
+                ],
+              )
+            ]),
+          ),
         ),
       ),
     );

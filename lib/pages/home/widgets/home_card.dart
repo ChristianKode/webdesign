@@ -16,7 +16,7 @@ class HomeCard extends StatelessWidget {
               const EdgeInsets.only(top: 80, bottom: 80, left: 20, right: 20),
           child: Container(
             width: 1500,
-            height: 300,
+            height: !ResponsiveLayout.isSmallScreen(context) ? 300 : 500,
             color: Color.fromARGB(255, 20, 141, 255),
             child: !ResponsiveLayout.isSmallScreen(context)
                 ? Row(
