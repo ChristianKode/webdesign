@@ -23,7 +23,7 @@ class BodyRow extends StatelessWidget {
       required this.uid,
       required this.img1,
       required this.title,
-      required this.descprition,
+      required this.descprition,   
       required this.price,
       required this.address,
       required this.zipcode});
