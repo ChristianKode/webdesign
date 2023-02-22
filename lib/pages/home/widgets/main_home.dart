@@ -8,6 +8,7 @@ import 'package:webdesign/pages/home/widgets/home_owners.dart';
 import 'package:webdesign/pages/home/widgets/home_top.dart';
 import 'package:webdesign/pages/home/widgets/home_jobList.dart';
 import 'package:webdesign/pages/login/login.dart';
+import 'package:webdesign/widgets/drawer.dart';
 import 'package:webdesign/widgets/footer_overall.dart';
 
 class Auth {
@@ -30,7 +31,9 @@ class LargeHome extends StatelessWidget {
     return Scaffold(
       key: scaffoldKey,
       appBar: appBar(context, scaffoldKey),
-      drawer: const Drawer(),
+      drawer:  Drawer(
+        child: SideDrawer(),
+      ),
       body: SingleChildScrollView(
         child: Column(children: <Widget>[
           Top(),

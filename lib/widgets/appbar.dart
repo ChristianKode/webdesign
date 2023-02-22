@@ -3,6 +3,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
+import 'package:webdesign/app_logic/services/firebase_auth.dart';
 import 'package:webdesign/pages/login/login.dart';
 import '../utils/responsive.dart';
 import '../pages/chat/widgets/chat_page.dart';
@@ -107,23 +109,12 @@ RegisterItem() {
   );
 }
 
-class Auth {
-  final FirebaseAuth _auth = FirebaseAuth.instance;
-
-  Future<bool> isLoggedIn() async {
-    final currentUser = await _auth.currentUser;
-    return currentUser != null;
-  }
-}
-
-final Auth _auth = Auth();
-
 AppBar appBar(BuildContext context, GlobalKey<ScaffoldState> key) => AppBar(
       backgroundColor: Colors.white,
       toolbarHeight: 75,
       leadingWidth: 100,
       leading: FutureBuilder(
-          future: _auth.isLoggedIn(),
+          future: context.read<AuthService>().isLoggedIn(),
           builder: (context, snapshot) {
             if (snapshot.hasData) {
               if (snapshot.data!) {
@@ -170,7 +161,7 @@ AppBar appBar(BuildContext context, GlobalKey<ScaffoldState> key) => AppBar(
             }
           }),
       title: FutureBuilder(
-          future: _auth.isLoggedIn(),
+          future: context.read<AuthService>().isLoggedIn(),
           builder: (context, snapshot) {
             if (snapshot.hasData) {
               if (snapshot.data!) {
