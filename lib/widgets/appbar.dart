@@ -74,7 +74,7 @@ ChatItem() {
 LogInItem() {
   return SizedBox(
     width: 100,
-    height: 40,
+    height: 50,
     child: ElevatedButton(
         onPressed: () {
           Get.to(const Login());
@@ -91,24 +91,21 @@ LogInItem() {
 }
 
 RegisterItem() {
-  return Padding(
-    padding: const EdgeInsets.symmetric(horizontal: 9),
-    child: SizedBox(
-      width: 120,
-      height: 50,
-      child: ElevatedButton(
-          onPressed: () {
-            Get.to(const Register());
-          },
-          style: ElevatedButton.styleFrom(
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(100)),
-              backgroundColor: Colors.blue),
-          child: const Text(
-            'Registerer ',
-            style: TextStyle(fontSize: 15),
-          )),
-    ),
+  return SizedBox(
+    width: 100,
+    height: 50,
+    child: ElevatedButton(
+        onPressed: () {
+          Get.to(const Register());
+        },
+        style: ElevatedButton.styleFrom(
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(100)),
+            backgroundColor: Colors.blue),
+        child: const Text(
+          'Registerer ',
+          style: TextStyle(fontSize: 15),
+        )),
   );
 }
 

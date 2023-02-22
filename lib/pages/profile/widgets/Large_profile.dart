@@ -1,12 +1,10 @@
-import 'dart:math';
 import 'dart:typed_data';
-
 import 'package:file_picker/file_picker.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
-import 'package:webdesign/pages/profile/profile.dart';
+import 'package:webdesign/utils/responsive.dart';
 import 'package:webdesign/widgets/appbar.dart';
 
 class LargeProfile extends StatelessWidget {
@@ -14,16 +12,17 @@ class LargeProfile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey();
+
     return Scaffold(
-        body: Container(
-            color: Colors.white,
-            child: Column(children: <Widget>[
-              //NavBarIn(),
-              Padding(
-                padding: const EdgeInsets.only(top: 50),
-                child: ProfileContent(),
-              ),
-            ])));
+      key: scaffoldKey,
+      appBar: appBar(context, scaffoldKey),
+      drawer: const Drawer(),
+      body: const Padding(
+        padding: EdgeInsets.only(top: 50),
+        child: ProfileContent(),
+      ),
+    );
   }
 }
 
@@ -52,66 +51,122 @@ class _ProfileContentState extends State<ProfileContent>
 
   @override
   Widget build(BuildContext context) {
-    final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey();
-    return Scaffold(
-      key: scaffoldKey,
-      appBar: appBar(context, scaffoldKey),
-      drawer: const Drawer(),
-      body: Container(
-        height: 800,
-        width: 1000,
-        child: Column(
-          children: [
-            TabBar(
-              controller: _tabController,
-              tabs: [
-                Tab(
-                  text: 'Profil',
+    return !ResponsiveLayout.isSmallScreen(context)
+        ? Center(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 40),
+              child: Container(
+                height: 800,
+                constraints: BoxConstraints(minWidth: 1000),
+                width: MediaQuery.of(context).size.width * 0.55,
+                child: Column(
+                  children: [
+                    TabBar(
+                      controller: _tabController,
+                      tabs: [
+                        Tab(
+                          text: 'Profil',
+                        ),
+                        Tab(
+                          text: 'Favoritter',
+                        ),
+                        Tab(
+                          text: 'Mine Annonser',
+                        )
+                      ],
+                      unselectedLabelStyle: TextStyle(
+                          fontWeight: FontWeight.normal,
+                          color: Color.fromRGBO(102, 82, 143, 1.0)),
+                      labelStyle: const TextStyle(
+                          fontSize: 16, fontWeight: FontWeight.w700),
+                      labelColor: Color.fromRGBO(102, 82, 143, 1.0),
+                      indicatorColor: Color.fromRGBO(102, 82, 143, 1.0),
+                      indicatorWeight: 5,
+                    ),
+                    Expanded(
+                        child: TabBarView(
+                      controller: _tabController,
+                      children: [
+                        Container(
+                          height: 800,
+                          width: 1400,
+                          color: Colors.blue,
+                          child: Text("Profil"),
+                        ),
+                        Container(
+                          height: 800,
+                          width: 1400,
+                          color: Colors.yellow,
+                          child: Text("Favoritter"),
+                        ),
+                        Container(
+                          height: 800,
+                          width: 1400,
+                          color: Colors.green,
+                          child: Text("Mine Annonser"),
+                        ),
+                      ],
+                    ))
+                  ],
                 ),
-                Tab(
-                  text: 'Favoritter',
-                ),
-                Tab(
-                  text: 'Mine Annonser',
-                )
-              ],
-              unselectedLabelStyle: TextStyle(
-                  fontWeight: FontWeight.normal,
-                  color: Color.fromRGBO(102, 82, 143, 1.0)),
-              labelStyle:
-                  const TextStyle(fontSize: 16, fontWeight: FontWeight.w700),
-              labelColor: Color.fromRGBO(102, 82, 143, 1.0),
-              indicatorColor: Color.fromRGBO(102, 82, 143, 1.0),
-              indicatorWeight: 5,
+              ),
             ),
-            Expanded(
-                child: TabBarView(
-              controller: _tabController,
+          )
+        : Center(
+            child: Container(
+            height: 800,
+            width: MediaQuery.of(context).size.width * 0.90,
+            child: Column(
               children: [
-                Container(
-                  height: 800,
-                  width: 1400,
-                  color: Colors.blue,
-                  child: Text("Profil"),
+                TabBar(
+                  controller: _tabController,
+                  tabs: [
+                    Tab(
+                      text: 'Profil',
+                    ),
+                    Tab(
+                      text: 'Favoritter',
+                    ),
+                    Tab(
+                      text: 'Mine Annonser',
+                    )
+                  ],
+                  unselectedLabelStyle: TextStyle(
+                      fontWeight: FontWeight.normal,
+                      color: Color.fromRGBO(102, 82, 143, 1.0)),
+                  labelStyle: const TextStyle(
+                      fontSize: 16, fontWeight: FontWeight.w700),
+                  labelColor: Color.fromRGBO(102, 82, 143, 1.0),
+                  indicatorColor: Color.fromRGBO(102, 82, 143, 1.0),
+                  indicatorWeight: 5,
                 ),
-                Container(
-                  height: 800,
-                  width: 1400,
-                  color: Colors.yellow,
-                  child: Text("Favoritter"),
-                ),
-                Container(
-                  height: 800,
-                  width: 1400,
-                  color: Colors.green,
-                  child: Text("Mine Annonser"),
-                ),
+                Expanded(
+                    child: TabBarView(
+                  controller: _tabController,
+                  children: [
+                    Container(
+                      height: 800,
+                      width: 1400,
+                      color: Colors.blue,
+                      child: Text("Profil"),
+                    ),
+                    Container(
+                      height: 800,
+                      width: 1400,
+                      color: Colors.yellow,
+                      child: Text("Favoritter"),
+                    ),
+                    Container(
+                      height: 800,
+                      width: 1400,
+                      color: Colors.green,
+                      child: Text("Mine Annonser"),
+                    ),
+                  ],
+                ))
               ],
-            ))
-          ],
-        ),
-      ),
-    );
+            ),
+          ));
   }
 }
 
