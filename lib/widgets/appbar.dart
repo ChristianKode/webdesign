@@ -101,7 +101,7 @@ RegisterItem() {
                 borderRadius: BorderRadius.circular(100)),
             backgroundColor: Colors.blue),
         child: const Text(
-          'Registerer ',
+          'Registrer ',
           style: TextStyle(fontSize: 15),
         )),
   );
