@@ -9,6 +9,7 @@ class AuthService {
 
   Stream<User?> get authStateChanges => _auth.idTokenChanges();
 
+  // Login Logic
   Future<String> login(String email, String password) async {
     try {
       await _auth.signInWithEmailAndPassword(email: email, password: password);
@@ -18,6 +19,7 @@ class AuthService {
     }
   }
 
+  // Signup Logic
   Future<String> signUp(String email, String password, String firstname, String lastname, String telephone) async {
     DatabaseReference ref =
     FirebaseDatabase.instance.ref("users");   
@@ -38,6 +40,7 @@ class AuthService {
     }
   }
 
+  // Forgot password logic
   Future<String> forgotPass(String email) async {
     try {
       await _auth.sendPasswordResetEmail(email: email);
@@ -45,5 +48,11 @@ class AuthService {
     } catch (e) {
       return e.toString();
     }
+  }
+
+  // Logged in or not logic
+  Future<bool> isLoggedIn() async {
+    final currentUser = await _auth.currentUser;
+    return currentUser != null;
   }
 }
