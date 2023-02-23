@@ -45,6 +45,7 @@ dependencies:
   path_provider: ^2.0.12
   cloud_firestore: ^4.3.2
   cached_network_image: ^3.2.3
+  once: ^1.5.1
 
 
 
