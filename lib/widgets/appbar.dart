@@ -80,12 +80,16 @@ LogInItem() {
           Get.to(const Login());
         },
         style: ElevatedButton.styleFrom(
+          side: BorderSide(
+            color: Colors.blue
+          ),
             shape: RoundedRectangleBorder(
+              
                 borderRadius: BorderRadius.circular(100)),
-            backgroundColor: Colors.blue),
+            backgroundColor: Colors.white,),
         child: const Text(
           'Logg på',
-          style: TextStyle(fontSize: 15),
+          style: TextStyle(fontSize: 15, color: Colors.blue),
         )),
   );
 }
@@ -103,7 +107,7 @@ RegisterItem() {
                 borderRadius: BorderRadius.circular(100)),
             backgroundColor: Colors.blue),
         child: const Text(
-          'Registerer ',
+          'Bli med',
           style: TextStyle(fontSize: 15),
         )),
   );

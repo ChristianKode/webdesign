@@ -1,3 +1,5 @@
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:get/get.dart';
@@ -16,7 +18,7 @@ class LargeLogin extends StatelessWidget {
       body: Container(
           decoration: const BoxDecoration(
             image: DecorationImage(
-                image: AssetImage('assets/images/background_login.jpg'),
+                image: NetworkImage('https://firebasestorage.googleapis.com/v0/b/ungansatt123.appspot.com/o/assets%2Fbackground_login.png?alt=media&token=0fc149f3-6017-4306-a052-b0f2fad6c20b'),
                 fit: BoxFit.cover),
           ),
           child: Row(children: [LoginBox(), const LoginInfo()])),
@@ -148,13 +150,17 @@ class LoginBox extends StatelessWidget {
             width: 150,
             height: 40,
             child: ElevatedButton(
-              onPressed: () {
+              onPressed: () async {
                 context
                     .read<AuthService>()
                     .login(mail.text.trim(), pass.text.trim())
                     .then((value) => Get.to(() => LargeHome()));
 
                 print(mail.text);
+
+
+
+                
               },
               style: ElevatedButton.styleFrom(
                 shape: RoundedRectangleBorder(
@@ -179,4 +185,10 @@ class LoginBox extends StatelessWidget {
       ),
     ));
   }
+}
+
+Future<void> getUserData() async {
+
+  
+  // Do something with the retrieved data
 }

@@ -55,4 +55,9 @@ class AuthService {
     final currentUser = await _auth.currentUser;
     return currentUser != null;
   }
+
+  Future<String> getName(String uid) async {
+    print(uid);
+    return uid;
+  }
 }
