@@ -7,6 +7,8 @@ import 'package:flutter/material.dart';
 import 'package:webdesign/utils/responsive.dart';
 import 'package:webdesign/widgets/appbar.dart';
 
+final databaseRef = FirebaseDatabase.instance.ref().child("users");
+
 class LargeProfile extends StatelessWidget {
   LargeProfile({super.key});
 
@@ -51,6 +53,8 @@ class _ProfileContentState extends State<ProfileContent>
 
   @override
   Widget build(BuildContext context) {
+    final String uid = FirebaseAuth.instance.currentUser!.uid;
+
     return !ResponsiveLayout.isSmallScreen(context)
         ? Center(
             child: Padding(
@@ -91,7 +95,7 @@ class _ProfileContentState extends State<ProfileContent>
                           height: 800,
                           width: 1400,
                           color: Colors.blue,
-                          child: Text("Profil"),
+                          child: Text(uid),
                         ),
                         Container(
                           height: 800,

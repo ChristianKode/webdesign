@@ -108,6 +108,7 @@ RegisterItem() {
             backgroundColor: Colors.blue),
         child: const Text(
           'Bli med',
+
           style: TextStyle(fontSize: 15),
         )),
   );
