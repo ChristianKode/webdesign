@@ -1,5 +1,6 @@
 // ignore_for_file: unused_import, non_constant_identifier_names
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -46,7 +47,9 @@ class RegisterBox extends StatelessWidget {
         if (passwordCon.text.length > 6) {
           if (telefonCon.text.length > 8) {
             valid = true;
-            print('true');
+            if (kDebugMode) {
+              print('true');
+            }
           }
         } else {
           //feil pass
@@ -215,9 +218,6 @@ class RegisterBox extends StatelessWidget {
               height: 40,
               child: ElevatedButton(
                   onPressed: () {
-                    final String fornavn = fornavnCon.text;
-                    final String etternavn = etternavnCon.text;
-                    final String telefon = telefonCon.text;
 
                     context
                         .read<AuthService>()

@@ -4,7 +4,6 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:webdesign/app_logic/services/firebase_auth.dart';
 import 'package:webdesign/pages/home/widgets/main_home.dart';
-import 'package:webdesign/pages/login/widgets/large_login.dart';
 
 import '../../forgot/forgot.dart';
 
@@ -99,7 +98,6 @@ final TextEditingController mail = TextEditingController();
                     .login(mail.text.trim(), pass.text.trim())
                     .then((value) => Get.to(() => LargeHome()));
 
-                print(mail.text);
               },
               style: ElevatedButton.styleFrom(
                 shape: RoundedRectangleBorder(

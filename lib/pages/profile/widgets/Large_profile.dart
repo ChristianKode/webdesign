@@ -6,18 +6,17 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:webdesign/utils/responsive.dart';
 import 'package:webdesign/widgets/appbar.dart';
-import 'package:once/once.dart';
 
 String ttele = "";
 String name = "";
 final String uid = FirebaseAuth.instance.currentUser!.uid;
 final databaseRef = FirebaseDatabase.instance.ref().child(uid);
-final TextEditingController Navn = TextEditingController();
-final TextEditingController Etternavn = TextEditingController();
-bool IsEditEnabled = false;
+final TextEditingController navn = TextEditingController();
+final TextEditingController etterNavn = TextEditingController();
+bool isEditEnabled = false;
 
 class LargeProfile extends StatelessWidget {
-  LargeProfile({super.key});
+  const LargeProfile({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -74,15 +73,15 @@ class _ProfileContentState extends State<ProfileContent>
     super.dispose();
   }
 
-  NameCard() {
-    if (IsEditEnabled == true) {
+  nameCard() {
+    if (isEditEnabled == true) {
       // Editable version of the card
       return Stack(
         children: [
           Container(
             height: 250,
             width: 600,
-            padding: EdgeInsets.all(16),
+            padding: const EdgeInsets.all(16),
             decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.circular(16),
@@ -94,7 +93,7 @@ class _ProfileContentState extends State<ProfileContent>
                 ),
               ],
             ),
-            child: SizedBox(
+            child: const SizedBox(
               width: 100,
               child: TextField(
                 decoration: InputDecoration(
@@ -114,10 +113,10 @@ class _ProfileContentState extends State<ProfileContent>
             child: IconButton(
               onPressed: () {
                 setState(() {
-                  IsEditEnabled = false;
+                  isEditEnabled = false;
                 });
               },
-              icon: Icon(Icons.save),
+              icon: const Icon(Icons.save),
             ),
           ),
         ],
@@ -129,7 +128,7 @@ class _ProfileContentState extends State<ProfileContent>
           Container(
             height: 250,
             width: 600,
-            padding: EdgeInsets.all(16),
+            padding: const EdgeInsets.all(16),
             decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.circular(16),
@@ -145,7 +144,7 @@ class _ProfileContentState extends State<ProfileContent>
               padding: const EdgeInsets.only(top: 12),
               child: SelectableText(
                 name,
-                style: TextStyle(
+                style: const TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.normal,
                     color: Color.fromRGBO(102, 82, 143, 1.0)),
@@ -158,10 +157,10 @@ class _ProfileContentState extends State<ProfileContent>
             child: IconButton(
               onPressed: () {
                 setState(() {
-                  IsEditEnabled = true;
+                  isEditEnabled = true;
                 });
               },
-              icon: Icon(Icons.edit),
+              icon: const Icon(Icons.edit),
             ),
           ),
         ],
@@ -177,13 +176,13 @@ class _ProfileContentState extends State<ProfileContent>
               padding: const EdgeInsets.symmetric(horizontal: 40),
               child: Container(
                 height: 800,
-                constraints: BoxConstraints(minWidth: 1000),
+                constraints: const BoxConstraints(minWidth: 1000),
                 width: MediaQuery.of(context).size.width * 0.55,
                 child: Column(
                   children: [
                     TabBar(
                       controller: _tabController,
-                      tabs: [
+                      tabs: const [
                         Tab(
                           text: 'Profil',
                         ),
@@ -194,13 +193,13 @@ class _ProfileContentState extends State<ProfileContent>
                           text: 'Mine Annonser',
                         )
                       ],
-                      unselectedLabelStyle: TextStyle(
+                      unselectedLabelStyle: const TextStyle(
                           fontWeight: FontWeight.normal,
                           color: Color.fromRGBO(102, 82, 143, 1.0)),
                       labelStyle: const TextStyle(
                           fontSize: 16, fontWeight: FontWeight.w700),
-                      labelColor: Color.fromRGBO(102, 82, 143, 1.0),
-                      indicatorColor: Color.fromRGBO(102, 82, 143, 1.0),
+                      labelColor: const Color.fromRGBO(102, 82, 143, 1.0),
+                      indicatorColor: const Color.fromRGBO(102, 82, 143, 1.0),
                       indicatorWeight: 5,
                     ),
                     Expanded(
@@ -217,7 +216,7 @@ class _ProfileContentState extends State<ProfileContent>
                               children: [
                                 Padding(
                                     padding: const EdgeInsets.all(5.0),
-                                    child: NameCard()),
+                                    child: nameCard()),
                               ],
                             ),
                           ),
@@ -241,7 +240,7 @@ class _ProfileContentState extends State<ProfileContent>
                           height: 800,
                           width: 1400,
                           color: Colors.green,
-                          child: Text("Mine Annonser"),
+                          child: const Text("Mine Annonser"),
                         ),
                       ],
                     ))
@@ -251,14 +250,14 @@ class _ProfileContentState extends State<ProfileContent>
             ),
           )
         : Center(
-            child: Container(
+            child: SizedBox(
             height: 800,
             width: MediaQuery.of(context).size.width * 0.90,
             child: Column(
               children: [
                 TabBar(
                   controller: _tabController,
-                  tabs: [
+                  tabs: const [
                     Tab(
                       text: 'Profil',
                     ),
@@ -269,13 +268,13 @@ class _ProfileContentState extends State<ProfileContent>
                       text: 'Mine Annonser',
                     )
                   ],
-                  unselectedLabelStyle: TextStyle(
+                  unselectedLabelStyle: const TextStyle(
                       fontWeight: FontWeight.normal,
                       color: Color.fromRGBO(102, 82, 143, 1.0)),
                   labelStyle: const TextStyle(
                       fontSize: 16, fontWeight: FontWeight.w700),
-                  labelColor: Color.fromRGBO(102, 82, 143, 1.0),
-                  indicatorColor: Color.fromRGBO(102, 82, 143, 1.0),
+                  labelColor: const Color.fromRGBO(102, 82, 143, 1.0),
+                  indicatorColor: const Color.fromRGBO(102, 82, 143, 1.0),
                   indicatorWeight: 5,
                 ),
                 Expanded(
@@ -286,19 +285,19 @@ class _ProfileContentState extends State<ProfileContent>
                       height: 800,
                       width: 1400,
                       color: Colors.blue,
-                      child: Text("Profil"),
+                      child: const Text("Profil"),
                     ),
                     Container(
                       height: 800,
                       width: 1400,
                       color: Colors.yellow,
-                      child: Text("Favoritter"),
+                      child: const Text("Favoritter"),
                     ),
                     Container(
                       height: 800,
                       width: 1400,
                       color: Colors.green,
-                      child: Text("Mine Annonser"),
+                      child: const Text("Mine Annonser"),
                     ),
                   ],
                 ))
@@ -309,50 +308,51 @@ class _ProfileContentState extends State<ProfileContent>
 
   late Uint8List selectedImageInBytes;
   List<Uint8List> pickedImagesInBytes = [];
-  FirebaseStorage _storage = FirebaseStorage.instance;
+
+  final FirebaseStorage _storage = FirebaseStorage.instance;
   DatabaseReference ref = FirebaseDatabase.instance.ref("users");
   String selectFile = '';
   int imageCounts = 0;
   String imageUrl = "";
 
-  final TextEditingController Fornavn = TextEditingController();
-  final TextEditingController Etternavn = TextEditingController();
-  final TextEditingController Telefon = TextEditingController();
+  final TextEditingController forNavn = TextEditingController();
+  final TextEditingController etterNavn = TextEditingController();
+  final TextEditingController telefon = TextEditingController();
 
+  // ignore: unused_element
   _selectFile(bool imageFrom) async {
     FilePickerResult? fileResult =
         await FilePicker.platform.pickFiles(allowMultiple: true);
 
     if (fileResult != null) {
       selectFile = fileResult.files.first.name;
+      // ignore: avoid_function_literals_in_foreach_calls
       fileResult.files.forEach((element) {
         pickedImagesInBytes.add(element.bytes as Uint8List);
         selectedImageInBytes = fileResult.files.first.bytes!;
         imageCounts += 1;
       });
     }
-    print(selectFile);
-    print(imageCounts);
   }
 
+  // ignore: unused_element
   _upload() async {
     String? uid = FirebaseAuth.instance.currentUser?.uid;
 
-    final StorageRef =
-        _storage.ref().child("userimage").child(uid!).child('/' + selectFile);
+    final storageRef =
+        _storage.ref().child("userimage").child(uid!).child('/$selectFile');
 
     final metadata = SettableMetadata(contentType: 'image/jpeg');
 
-    await StorageRef.putData(selectedImageInBytes, metadata);
+    await storageRef.putData(selectedImageInBytes, metadata);
 
     try {
       imageUrl =
-          await StorageRef.getDownloadURL().then((value) => value as String);
+          await storageRef.getDownloadURL().then((value) => value);
     } catch (e) {
-      print("Error getting download URL: $e");
+      return e;
     }
 
-    print(imageUrl);
 
     await ref.child(uid).set({"pfp": imageUrl});
   }

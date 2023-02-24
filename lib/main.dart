@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:webdesign/app_logic/services/firebase_auth.dart';
-import 'package:webdesign/pages/chat/chat.dart';
 import 'package:webdesign/pages/chat/widgets/chat_page.dart';
 import 'package:webdesign/pages/forgot/forgot.dart';
 import 'package:webdesign/pages/home/widgets/main_home.dart';
@@ -14,7 +13,6 @@ import 'package:get/get.dart';
 import 'firebase_options.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'dart:ui' as ui;
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -51,7 +49,7 @@ class MyApp extends StatelessWidget {
             GetPage(name: '/Forgot', page: () => const Forgot()),
             GetPage(name: '/NewJob', page: () => const NewJob()),
             GetPage(name: '/Profile', page: () => const Profile()),
-            GetPage(name: '/Chattos', page: () => Chattos()),
+            GetPage(name: '/Chattos', page: () => const Chattos()),
             GetPage(
                 name: '/JobView',
                 page: () => JobView(

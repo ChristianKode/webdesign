@@ -3,7 +3,6 @@ import 'package:webdesign/pages/login/widgets/large_login.dart';
 import 'package:webdesign/pages/login/widgets/small_login.dart';
 import 'package:webdesign/utils/responsivebody.dart';
 
-import '../register/widgets/small_register.dart';
 
 
 class Login extends StatelessWidget {

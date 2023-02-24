@@ -1,10 +1,8 @@
-import 'package:cached_network_image/cached_network_image.dart';
+// ignore: file_names
 import 'package:firebase_database/ui/firebase_animated_list.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_database/firebase_database.dart';
-import 'package:firebase_storage/firebase_storage.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:webdesign/pages/job/job_view.dart';
 
@@ -17,7 +15,7 @@ class JobList extends StatefulWidget {
 
 class _JobListState extends State<JobList> {
   final databaseRef = FirebaseDatabase.instance.ref().child("adventures");
-  ScrollController _scrollController = ScrollController();
+  final ScrollController _scrollController = ScrollController();
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +23,7 @@ class _JobListState extends State<JobList> {
       child: Padding(
         padding: const EdgeInsets.only(right: 20, left: 20),
         child: Container(
-          constraints: BoxConstraints(maxWidth: 1500),
+          constraints: const BoxConstraints(maxWidth: 1500),
           height: 500,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -33,23 +31,21 @@ class _JobListState extends State<JobList> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Container(
-                    child: IconButton(
-                      icon: Icon(Icons.arrow_back),
-                      onPressed: () {
-                        _scrollController.animateTo(
-                          _scrollController.offset - 350,
-                          duration: Duration(milliseconds: 500),
-                          curve: Curves.easeOut,
-                        );
-                      },
-                    ),
+                  IconButton(
+                    icon: const Icon(Icons.arrow_back),
+                    onPressed: () {
+                      _scrollController.animateTo(
+                        _scrollController.offset - 350,
+                        duration: const Duration(milliseconds: 500),
+                        curve: Curves.easeOut,
+                      );
+                    },
                   ),
                   Expanded(
-                    child: Container(
+                    child: SizedBox(
                       height: 350,
                       child: FirebaseAnimatedList(
-                        physics: ScrollPhysics(parent: ClampingScrollPhysics()),
+                        physics: const ScrollPhysics(parent: ClampingScrollPhysics()),
                         scrollDirection: Axis.horizontal,
                         controller: _scrollController,
                         query: databaseRef,
@@ -157,11 +153,11 @@ class _JobListState extends State<JobList> {
                     ),
                   ),
                   IconButton(
-                    icon: Icon(Icons.arrow_forward),
+                    icon: const Icon(Icons.arrow_forward),
                     onPressed: () {
                       _scrollController.animateTo(
                         _scrollController.offset + 350,
-                        duration: Duration(milliseconds: 500),
+                        duration: const Duration(milliseconds: 500),
                         curve: Curves.easeOut,
                       );
                     },
@@ -178,12 +174,12 @@ class _JobListState extends State<JobList> {
                   }, 
                 
                   style: ElevatedButton.styleFrom(
-                    side: BorderSide(
+                    side: const BorderSide(
                       color: Colors.blue
                     ),
                     backgroundColor: Colors.white
                   ),
-                  child: Text('Se mer', style: TextStyle(color: Colors.blue),)),
+                  child: const Text('Se mer', style: TextStyle(color: Colors.blue),)),
                 ),
               )
             ],

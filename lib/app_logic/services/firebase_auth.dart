@@ -1,5 +1,4 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_database/firebase_database.dart';
 
 class AuthService {
@@ -52,12 +51,11 @@ class AuthService {
 
   // Logged in or not logic
   Future<bool> isLoggedIn() async {
-    final currentUser = await _auth.currentUser;
+    final currentUser = _auth.currentUser;
     return currentUser != null;
   }
 
   Future<String> getName(String uid) async {
-    print(uid);
     return uid;
   }
 }

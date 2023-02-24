@@ -1,3 +1,5 @@
+// ignore_for_file: empty_statements
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -5,17 +7,20 @@ import '../../../widgets/appbar.dart';
 import 'message.dart';
 
 class Chattos extends StatefulWidget {
+  const Chattos({super.key});
+
   @override
+  // ignore: library_private_types_in_public_api
   _chatpageState createState() => _chatpageState();
 }
 
+// ignore: camel_case_types
 class _chatpageState extends State<Chattos> {
   String? email = FirebaseAuth.instance.currentUser?.email;
   _chatpageState();
 
   final fs = FirebaseFirestore.instance;
-  final _auth = FirebaseAuth.instance;
-  final TextEditingController message = new TextEditingController();
+  final TextEditingController message = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +36,7 @@ class _chatpageState extends State<Chattos> {
           children: [
             Padding(
               padding: const EdgeInsets.only(right: 30),
-              child: Container(
+              child: SizedBox(
                 height: MediaQuery.of(context).size.height * 0.79,
                 child: messages(
                   email: email as String,
@@ -53,12 +58,12 @@ class _chatpageState extends State<Chattos> {
                         contentPadding: const EdgeInsets.only(
                             left: 14.0, bottom: 8.0, top: 8.0),
                         focusedBorder: OutlineInputBorder(
-                          borderSide: new BorderSide(color: Colors.blue),
-                          borderRadius: new BorderRadius.circular(10),
+                          borderSide: const BorderSide(color: Colors.blue),
+                          borderRadius: BorderRadius.circular(10),
                         ),
                         enabledBorder: UnderlineInputBorder(
-                          borderSide: new BorderSide(color: Colors.blue),
-                          borderRadius: new BorderRadius.circular(10),
+                          borderSide: const BorderSide(color: Colors.blue),
+                          borderRadius: BorderRadius.circular(10),
                         ),
                       ),
                       validator: (value) {
@@ -93,7 +98,7 @@ class _chatpageState extends State<Chattos> {
                         message.clear();
                       }
                     },
-                    icon: Icon(Icons.send_sharp),
+                    icon: const Icon(Icons.send_sharp),
                   ),
                 ],
               ),

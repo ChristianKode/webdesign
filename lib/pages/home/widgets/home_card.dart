@@ -9,7 +9,7 @@ class HomeCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: MediaQuery.of(context).size.width,
-      color: Color.fromARGB(7, 0, 0, 0),
+      color: const Color.fromARGB(7, 0, 0, 0),
       child: Center(
         child: Padding(
           padding:
@@ -17,7 +17,7 @@ class HomeCard extends StatelessWidget {
           child: Container(
             width: 1500,
             height: !ResponsiveLayout.isSmallScreen(context) ? 300 : 500,
-            color: Color.fromARGB(255, 20, 141, 255),
+            color: const Color.fromARGB(255, 20, 141, 255),
             child: !ResponsiveLayout.isSmallScreen(context)
                 ? Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -39,7 +39,7 @@ class HomeCard extends StatelessWidget {
                                     text: ' jobber',
                                     style: GoogleFonts.tinos(
                                         color:
-                                            Color.fromARGB(255, 255, 255, 255)))
+                                            const Color.fromARGB(255, 255, 255, 255)))
                               ])),
                           Text.rich(TextSpan(
                               style: const TextStyle(
@@ -55,18 +55,18 @@ class HomeCard extends StatelessWidget {
                                     text: ' deg',
                                     style: GoogleFonts.tinos(
                                         color:
-                                            Color.fromARGB(255, 255, 255, 255)))
+                                            const Color.fromARGB(255, 255, 255, 255)))
                               ])),
                           Padding(
                             padding: const EdgeInsets.only(top: 8),
-                            child: Container(
+                            child: SizedBox(
                                 height: 35,
                                 width: 180,
                                 child: ElevatedButton(
                                     style: ElevatedButton.styleFrom(
-                                        primary: Colors.white),
+                                        backgroundColor: Colors.white),
                                     onPressed: () {},
-                                    child: Text(
+                                    child: const Text(
                                       'Vis meg',
                                       style: TextStyle(
                                         color:
@@ -78,7 +78,7 @@ class HomeCard extends StatelessWidget {
                       ),
                       Column(
                         children: [
-                          Container(
+                          SizedBox(
                             width: 300,
                             height: 300,
                             child: Image.network(
@@ -106,7 +106,7 @@ class HomeCard extends StatelessWidget {
                             TextSpan(
                                 text: ' jobber',
                                 style: GoogleFonts.tinos(
-                                    color: Color.fromARGB(255, 255, 255, 255)))
+                                    color: const Color.fromARGB(255, 255, 255, 255)))
                           ])),
                       Text.rich(TextSpan(
                           style: const TextStyle(
@@ -121,25 +121,25 @@ class HomeCard extends StatelessWidget {
                             TextSpan(
                                 text: ' deg',
                                 style: GoogleFonts.tinos(
-                                    color: Color.fromARGB(255, 255, 255, 255)))
+                                    color: const Color.fromARGB(255, 255, 255, 255)))
                           ])),
                       Padding(
                         padding: const EdgeInsets.only(top: 8),
-                        child: Container(
+                        child: SizedBox(
                             height: 35,
                             width: 180,
                             child: ElevatedButton(
                                 style: ElevatedButton.styleFrom(
-                                    primary: Colors.white),
+                                    backgroundColor: Colors.white),
                                 onPressed: () {},
-                                child: Text(
+                                child: const Text(
                                   'Vis meg',
                                   style: TextStyle(
                                     color: Color.fromARGB(255, 20, 141, 255),
                                   ),
                                 ))),
                       ),
-                      Container(
+                      SizedBox(
                         height: 220,
                         child: Image.network(
                             'https://firebasestorage.googleapis.com/v0/b/ungansatt123.appspot.com/o/assets%2Fmoney.png?alt=media&token=cd7787c3-4ce9-47c4-851e-4afbbb2c57f9'),

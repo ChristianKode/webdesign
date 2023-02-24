@@ -1,13 +1,13 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:get/route_manager.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:uuid/uuid.dart';
 import 'package:webdesign/pages/chat/widgets/chat_page.dart';
 import 'package:webdesign/pages/login/login.dart';
 
+// ignore: must_be_immutable
 class BodyRow extends StatelessWidget {
   String aid = '';
   String uid = '';
@@ -39,18 +39,18 @@ class BodyRow extends StatelessWidget {
         width: 1000,
         child: Column(
           children: [
-            SizedBox(
+            const SizedBox(
               height: 150,
             ),
             Row(
               children: [
                 Padding(
                   padding: const EdgeInsets.only(right: 30),
-                  child: Container(
+                  child: SizedBox(
                     width: 600,
                     child: Column(
                       children: [
-                        Container(
+                        SizedBox(
                             width: 600,
                             height: 400,
                             child: Image.network(
@@ -62,11 +62,11 @@ class BodyRow extends StatelessWidget {
                         ),
                         Row(
                           children: [
-                            SizedBox(
+                            const SizedBox(
                                 width: 200,
                                 height: 40,
                                 child: FavoriteButton()),
-                            SizedBox(
+                            const SizedBox(
                               width: 30,
                             ),
                             SizedBox(
@@ -74,7 +74,7 @@ class BodyRow extends StatelessWidget {
                               height: 40,
                               child: TextButton(
                                   onPressed: () {},
-                                  child: Row(
+                                  child: const Row(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
                                       Icon(
@@ -85,7 +85,7 @@ class BodyRow extends StatelessWidget {
                                       Text(
                                         'Kopier',
                                         style: TextStyle(
-                                            color: const Color.fromRGBO(
+                                            color: Color.fromRGBO(
                                                 102, 82, 143, 1.0)),
                                       )
                                     ],
@@ -154,7 +154,7 @@ class BodyRow extends StatelessWidget {
                     ),
                   ),
                 ),
-                Container(
+                SizedBox(
                     width: 350,
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -163,7 +163,7 @@ class BodyRow extends StatelessWidget {
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(10),
                               border: Border.all(
-                                  color: Color.fromRGBO(102, 82, 143, 1.0))),
+                                  color: const Color.fromRGBO(102, 82, 143, 1.0))),
                           child: Padding(
                             padding: const EdgeInsets.all(20.0),
                             child: Column(
@@ -172,7 +172,7 @@ class BodyRow extends StatelessWidget {
                                 Padding(
                                   padding: const EdgeInsets.only(bottom: 15),
                                   child: Text(
-                                    price + 'kr',
+                                    '${price}kr',
                                     style: GoogleFonts.tinos(fontSize: 30),
                                   ),
                                 ),
@@ -181,7 +181,7 @@ class BodyRow extends StatelessWidget {
                                   height: 40,
                                   child: ElevatedButton(
                                       onPressed: () async {
-                                        var uuid = Uuid();
+                                        var uuid = const Uuid();
                                         var mid = uuid.v4();
                                         DatabaseReference messageRef =
                                             FirebaseDatabase.instance
@@ -196,9 +196,9 @@ class BodyRow extends StatelessWidget {
                                                 .instance.currentUser?.uid,
                                             "u2": uid
                                           });
-                                          Get.to(() => Chattos());
+                                          Get.to(() => const Chattos());
                                         } else {
-                                          Get.to(() => Login());
+                                          Get.to(() => const Login());
                                         }
                                       },
                                       style: ElevatedButton.styleFrom(
@@ -244,19 +244,19 @@ class BodyRow extends StatelessWidget {
                                               borderRadius:
                                                   BorderRadius.circular(10)),
                                           backgroundColor: Colors.white),
-                                      child: Row(
+                                      child: const Row(
                                         mainAxisAlignment:
                                             MainAxisAlignment.center,
                                         children: [
                                           Icon(
                                             Icons.map_outlined,
-                                            color: const Color.fromRGBO(
+                                            color: Color.fromRGBO(
                                                 102, 82, 143, 1.0),
                                           ),
                                           Text(
                                             'Vis i Kart',
                                             style: TextStyle(
-                                                color: const Color.fromRGBO(
+                                                color: Color.fromRGBO(
                                                     102, 82, 143, 1.0)),
                                           )
                                         ],
@@ -298,7 +298,7 @@ class _FavoriteButtonState extends State<FavoriteButton> {
             side: BorderSide(
                 width: 5,
                 color: isFavorited
-                    ? Color.fromRGBO(102, 82, 143, 1.0)
+                    ? const Color.fromRGBO(102, 82, 143, 1.0)
                     : Colors.white10),
             shape:
                 RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),

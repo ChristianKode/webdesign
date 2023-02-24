@@ -1,16 +1,10 @@
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:uuid/uuid.dart';
-import 'package:webdesign/pages/chat/widgets/chat_page.dart';
-import 'package:webdesign/pages/job/widgets/jobBodyRow.dart';
-import 'package:webdesign/pages/login/login.dart';
+import 'package:webdesign/pages/job/widgets/job_body_row.dart';
 import 'package:webdesign/widgets/footer_overall.dart';
 
 import '../../widgets/appbar.dart';
 
+// ignore: must_be_immutable
 class JobView extends StatefulWidget {
   String aid = '';
   String uid = '';
@@ -59,7 +53,7 @@ class _JobViewState extends State<JobView> {
                       price: widget.price,
                       address: widget.address,
                       zipcode: widget.zipcode),
-                  Footer()
+                  const Footer()
                 ],
               ),
             ),

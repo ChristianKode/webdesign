@@ -1,7 +1,7 @@
+// ignore_for_file: sized_box_for_whitespace
+
 import 'package:flutter/material.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:webdesign/app_logic/services/firebase_auth.dart';
@@ -81,7 +81,7 @@ logInItem() {
           Get.to(const Login());
         },
         style: ElevatedButton.styleFrom(
-          side: BorderSide(color: Colors.blue),
+          side: const BorderSide(color: Colors.blue),
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(100)),
           backgroundColor: Colors.white,
@@ -160,7 +160,7 @@ AppBar appBar(BuildContext context, GlobalKey<ScaffoldState> key) => AppBar(
                         ));
               }
             } else {
-              return Login();
+              return const Login();
             }
           }),
       title: FutureBuilder(
@@ -287,7 +287,7 @@ AppBar appBar(BuildContext context, GlobalKey<ScaffoldState> key) => AppBar(
                                       right: 5, top: 11, bottom: 11),
                                   child: logInItem()),
                             ),
-                            Container(
+                            SizedBox(
                               width: 150,
                               child: Padding(
                                   padding: const EdgeInsets.only(

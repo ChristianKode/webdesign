@@ -6,12 +6,11 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:uuid/uuid.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:file_picker/file_picker.dart';
-import 'package:http/http.dart' as http;
 import 'package:webdesign/pages/home/widgets/main_home.dart';
 import 'package:get/get.dart';
 
 class LargeNewJob extends StatelessWidget {
-  LargeNewJob({super.key});
+  const LargeNewJob({super.key});
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -21,8 +20,8 @@ class LargeNewJob extends StatelessWidget {
                 image: NetworkImage(
                     'https://firebasestorage.googleapis.com/v0/b/ungansatt123.appspot.com/o/assets%2Fnewjob_background.jpg?alt=media&token=3c5212e1-dcbf-4a61-a6c8-bb13c9b9bb9e'),
                 fit: BoxFit.cover)),
-        child: Column(
-          children: [const Nav(), FillOut()],
+        child: const Column(
+          children: [Nav(), FillOut()],
         ),
       ),
     );
@@ -30,7 +29,7 @@ class LargeNewJob extends StatelessWidget {
 }
 
 class FillOut extends StatefulWidget {
-  FillOut({super.key});
+  const FillOut({super.key});
 
   @override
   State<FillOut> createState() => _FillOutState();
@@ -42,7 +41,7 @@ class _FillOutState extends State<FillOut> {
   final TextEditingController addressCon = TextEditingController();
   final TextEditingController zipcodeCon = TextEditingController();
   final TextEditingController priceCon = TextEditingController();
-  FirebaseStorage _storage = FirebaseStorage.instance;
+  final FirebaseStorage _storage = FirebaseStorage.instance;
 
   late Uint8List selectedImageInBytes;
   List<Uint8List> pickedImagesInBytes = [];
@@ -55,16 +54,14 @@ class _FillOutState extends State<FillOut> {
 
     if (fileResult != null) {
       selectFile = fileResult.files.first.name;
-      fileResult.files.forEach((element) {
+      for (var element in fileResult.files) {
         setState(() {
           pickedImagesInBytes.add(element.bytes as Uint8List);
           selectedImageInBytes = fileResult.files.first.bytes!;
           imageCounts += 1;
         });
-      });
+      }
     }
-    print(selectFile);
-    print(imageCounts);
   }
 
   upload() async {
@@ -75,10 +72,11 @@ class _FillOutState extends State<FillOut> {
     String price = priceCon.text.trim();
     String imageUrl = '';
 
-    var uuid = Uuid();
+    var uuid = const Uuid();
     var aid = uuid.v4();
 
-    final StorageRef = _storage.ref().child(aid).child('/' + selectFile);
+    // ignore: non_constant_identifier_names
+    final StorageRef = _storage.ref().child(aid).child('/$selectFile');
 
     final metadata = SettableMetadata(contentType: 'image/jpeg');
 
@@ -89,12 +87,11 @@ class _FillOutState extends State<FillOut> {
     try {
       
       imageUrl =
-          await StorageRef.getDownloadURL().then((value) => value as String);
+          await StorageRef.getDownloadURL().then((value) => value);
+    // ignore: empty_catches
     } catch (e) {
-      print("Error getting download URL: $e");
     }
 
-    print(imageUrl);
 
     DatabaseReference ref = FirebaseDatabase.instance.ref("adventures");
 
@@ -189,7 +186,7 @@ class _FillOutState extends State<FillOut> {
                     ),
                     Expanded(
                         child: selectFile.isEmpty
-                            ? SizedBox(
+                            ? const SizedBox(
                                 height: 1,
                               )
                             : Padding(

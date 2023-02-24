@@ -8,7 +8,7 @@ class NewJob extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ResponsiveWidget(
+    return const ResponsiveWidget(
         largeScreen: LargeNewJob(),
         mediumScreen: LargeNewJob(),
         smallScreen: SmallNewJob());

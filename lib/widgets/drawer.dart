@@ -5,8 +5,6 @@ import 'package:provider/provider.dart';
 import 'package:webdesign/app_logic/services/firebase_auth.dart';
 import 'package:webdesign/pages/login/login.dart';
 import 'package:webdesign/pages/register/register.dart';
-import 'package:webdesign/utils/responsive.dart';
-import 'package:webdesign/widgets/appbar.dart';
 
 class SideDrawer extends StatelessWidget {
   const SideDrawer({super.key});
@@ -20,7 +18,7 @@ class SideDrawer extends StatelessWidget {
             if (snapshot.data!) {
 
               // Logged in
-              return LoggedInDrawer();
+              return const LoggedInDrawer();
             } else {
 
               // Logged out
@@ -30,7 +28,7 @@ class SideDrawer extends StatelessWidget {
               );
             }
           } else {
-            return Text('3');
+            return const Text('3');
           }
         });
   }
@@ -71,7 +69,7 @@ class _LoggedInDrawerState extends State<LoggedInDrawer> {
                         width: 2
                       )
                     ),
-                    child: ClipOval(
+                    child: const ClipOval(
                       
                       child: Icon(Icons.person_rounded, size: 100,),
                       
@@ -79,7 +77,8 @@ class _LoggedInDrawerState extends State<LoggedInDrawer> {
                 
                     ),
                   ),
-                )
+                ),
+
               ],
             ),
           )
@@ -109,7 +108,7 @@ class _LoggedOutDrawerState extends State<LoggedOutDrawer> {
         children: [
           Padding(
             padding: const EdgeInsets.only(bottom: 20),
-            child: Container(
+            child: SizedBox(
               height: 45,
               width: 120,
               child: ElevatedButton(
@@ -133,12 +132,12 @@ class _LoggedOutDrawerState extends State<LoggedOutDrawer> {
               });
             },
             onTap: () {
-              Get.to(() => Login());
+              Get.to(() => const Login());
             },
             child: Text(
               "Logg på",
               style: GoogleFonts.tinos(
-                color: !onHover0 ? Color.fromARGB(204, 0, 0, 0) : Colors.blue,
+                color: !onHover0 ? const Color.fromARGB(204, 0, 0, 0) : Colors.blue,
                 fontSize: 17,
               ),
             ),
@@ -153,12 +152,12 @@ class _LoggedOutDrawerState extends State<LoggedOutDrawer> {
               });
             },
             onTap: () {
-              Get.to(() => Login());
+              Get.to(() => const Login());
             },
             child: Text(
               "Annonser",
               style: GoogleFonts.tinos(
-                color: !onHover1 ? Color.fromARGB(204, 0, 0, 0) : Colors.blue,
+                color: !onHover1 ? const Color.fromARGB(204, 0, 0, 0) : Colors.blue,
                 fontSize: 17,
               ),
             ),
@@ -181,12 +180,12 @@ class _LoggedOutDrawerState extends State<LoggedOutDrawer> {
               });
             },
             onTap: () {
-              Get.to(() => Login());
+              Get.to(() => const Login());
             },
             child: Text(
               "Hjem",
               style: GoogleFonts.tinos(
-                color: !onHover2 ? Color.fromARGB(204, 0, 0, 0) : Colors.blue,
+                color: !onHover2 ? const Color.fromARGB(204, 0, 0, 0) : Colors.blue,
                 fontSize: 17,
               ),
             ),

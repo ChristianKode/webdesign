@@ -1,10 +1,7 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:firebase_database/ui/firebase_animated_list.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_database/firebase_database.dart';
-import 'package:firebase_storage/firebase_storage.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:webdesign/pages/job/job_view.dart';
 
@@ -17,35 +14,33 @@ class JobList extends StatefulWidget {
 
 class _JobListState extends State<JobList> {
   final databaseRef = FirebaseDatabase.instance.ref().child("adventures");
-  ScrollController _scrollController = ScrollController();
+  final ScrollController _scrollController = ScrollController();
 
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Container(
-        constraints: BoxConstraints(maxWidth: 1500),
+        constraints: const BoxConstraints(maxWidth: 1500),
         height: 500,
-        color: Color.fromARGB(111, 255, 234, 201),
+        color: const Color.fromARGB(111, 255, 234, 201),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Container(
-              child: IconButton(
-                icon: Icon(Icons.arrow_back),
-                onPressed: () {
-                  _scrollController.animateTo(
-                    _scrollController.offset - 150,
-                    duration: Duration(milliseconds: 500),
-                    curve: Curves.easeOut,
-                  );
-                },
-              ),
+            IconButton(
+              icon: const Icon(Icons.arrow_back),
+              onPressed: () {
+                _scrollController.animateTo(
+                  _scrollController.offset - 150,
+                  duration: const Duration(milliseconds: 500),
+                  curve: Curves.easeOut,
+                );
+              },
             ),
             Expanded(
-              child: Container(
+              child: SizedBox(
                 height: 300,
                 child: FirebaseAnimatedList(
-                  physics: ScrollPhysics(parent: ClampingScrollPhysics()),
+                  physics: const ScrollPhysics(parent: ClampingScrollPhysics()),
                   scrollDirection: Axis.horizontal,
                   controller: _scrollController,
                   query: databaseRef,
@@ -82,7 +77,7 @@ class _JobListState extends State<JobList> {
                             decoration: BoxDecoration(
                               color: Colors.white,
                               borderRadius: BorderRadius.circular(20),
-                              boxShadow: [
+                              boxShadow: const [
                                 BoxShadow(
                                   color: Colors.red,
                                   blurRadius: 4,
@@ -103,7 +98,7 @@ class _JobListState extends State<JobList> {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     ClipRRect(
-                                      borderRadius: BorderRadius.only(
+                                      borderRadius: const BorderRadius.only(
                                           topRight: Radius.circular(5),
                                           topLeft: Radius.circular(5)),
                                       child: Image.network(
@@ -117,8 +112,7 @@ class _JobListState extends State<JobList> {
                                       style: GoogleFonts.tinos(fontSize: 20),
                                     ),
                                     Text(
-                                      snapshot.child('price').value.toString() +
-                                          ' kr',
+                                      '${snapshot.child('price').value} kr',
                                       style: GoogleFonts.tinos(fontSize: 15),
                                     ),
                                   ],
@@ -132,11 +126,11 @@ class _JobListState extends State<JobList> {
               ),
             ),
             IconButton(
-              icon: Icon(Icons.arrow_forward),
+              icon: const Icon(Icons.arrow_forward),
               onPressed: () {
                 _scrollController.animateTo(
                   _scrollController.offset + 150,
-                  duration: Duration(milliseconds: 500),
+                  duration: const Duration(milliseconds: 500),
                   curve: Curves.easeOut,
                 );
               },

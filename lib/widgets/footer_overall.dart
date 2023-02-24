@@ -5,10 +5,10 @@ class Footer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return  Container(
+    return  const SizedBox(
       height: 300,
       child: Column(
-        children: const [
+        children: [
           Center(child: Text('KodeKlubben AS')),
 
           

@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:get/get_connect/http/src/utils/utils.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class Top extends StatelessWidget {
-   Top({super.key});
+   const Top({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -36,7 +35,7 @@ class Top extends StatelessWidget {
                         TextSpan(
                             text: ' enkelt,',
                             style: GoogleFonts.tinos(
-                              color: Color.fromARGB(255, 20, 141, 255),
+                              color: const Color.fromARGB(255, 20, 141, 255),
                             ))
                       ])),
                   SelectableText.rich(TextSpan(

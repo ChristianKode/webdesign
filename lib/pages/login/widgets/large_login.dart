@@ -1,5 +1,3 @@
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:get/get.dart';
@@ -156,7 +154,6 @@ class LoginBox extends StatelessWidget {
                     .login(mail.text.trim(), pass.text.trim())
                     .then((value) => Get.to(() => LargeHome()));
 
-                print(mail.text);
 
 
 

@@ -1,3 +1,5 @@
+// ignore_for_file: deprecated_member_use
+
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -9,9 +11,9 @@ class HomeOwners extends StatelessWidget {
     return Container(
       width: double.infinity,
       height: 700,
-      color: Color.fromARGB(255, 2, 0, 126),
+      color: const Color.fromARGB(255, 2, 0, 126),
       child: Center(
-        child: Container(
+        child: SizedBox(
           width: 1500,
           child:
               Row(mainAxisAlignment: MainAxisAlignment.spaceAround, children: [
@@ -60,7 +62,7 @@ class HomeOwners extends StatelessWidget {
                   ),
                   Row(
                     children: [
-                      Icon(
+                      const Icon(
                         Icons.check_circle_outline,
                         color: Colors.white,
                       ),
@@ -78,7 +80,7 @@ class HomeOwners extends StatelessWidget {
                     padding: const EdgeInsets.only(top: 8),
                     child: Row(
                       children: [
-                        Icon(
+                        const Icon(
                           Icons.check_circle_outline,
                           color: Colors.white,
                         ),
@@ -95,14 +97,14 @@ class HomeOwners extends StatelessWidget {
                   ),
                   Padding(
                     padding: const EdgeInsets.only(top: 60),
-                    child: Container(
+                    child: SizedBox(
                         height: 35,
                         width: 180,
                         child: ElevatedButton(
                             style: ElevatedButton.styleFrom(
-                                primary: Color.fromARGB(255, 44, 176, 110)),
+                                primary: const Color.fromARGB(255, 44, 176, 110)),
                             onPressed: () {},
-                            child: Text(
+                            child: const Text(
                               'Utforsk',
                               style: TextStyle(
                                 color: Colors.white,
@@ -113,13 +115,13 @@ class HomeOwners extends StatelessWidget {
               ),
             ),
             Padding(
-              padding: EdgeInsets.only(right: 20),
+              padding: const EdgeInsets.only(right: 20),
               child: Container(
                 alignment: Alignment.centerLeft,
                 height: MediaQuery.of(context).size.width,
                 child: ClipPath(
                   clipper: MyCustomClipper(),
-                  child: Container(
+                  child: SizedBox(
                     width: 400,
                     height: 350,
                     child: Image.network(
