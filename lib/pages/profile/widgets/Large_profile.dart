@@ -12,6 +12,9 @@ String ttele = "";
 String name = "";
 final String uid = FirebaseAuth.instance.currentUser!.uid;
 final databaseRef = FirebaseDatabase.instance.ref().child(uid);
+final TextEditingController Navn = TextEditingController();
+final TextEditingController Etternavn = TextEditingController();
+bool IsEditEnabled = false;
 
 class LargeProfile extends StatelessWidget {
   LargeProfile({super.key});
@@ -61,6 +64,7 @@ class _ProfileContentState extends State<ProfileContent>
   @override
   void initState() {
     super.initState();
+    getname();
     _tabController = TabController(length: 3, vsync: this);
   }
 
@@ -70,13 +74,99 @@ class _ProfileContentState extends State<ProfileContent>
     super.dispose();
   }
 
-  ProfileName() {
-    Container(
-      height: 100,
-      width: 300,
-      color: Colors.red,
-      child: Text(ttele),
-    );
+  NameCard() {
+    if (IsEditEnabled == true) {
+      // Editable version of the card
+      return Stack(
+        children: [
+          Container(
+            height: 250,
+            width: 600,
+            padding: EdgeInsets.all(16),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(16),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.grey.withOpacity(0.3),
+                  blurRadius: 10,
+                  spreadRadius: 5,
+                ),
+              ],
+            ),
+            child: SizedBox(
+              width: 100,
+              child: TextField(
+                decoration: InputDecoration(
+                  border: InputBorder.none,
+                  hintText: 'Enter name here',
+                  hintStyle: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.normal,
+                      color: Color.fromRGBO(102, 82, 143, 1.0)),
+                ),
+              ),
+            ),
+          ),
+          Positioned(
+            top: 10,
+            right: 10,
+            child: IconButton(
+              onPressed: () {
+                setState(() {
+                  IsEditEnabled = false;
+                });
+              },
+              icon: Icon(Icons.save),
+            ),
+          ),
+        ],
+      );
+    } else {
+      // Non-editable version of the card
+      return Stack(
+        children: [
+          Container(
+            height: 250,
+            width: 600,
+            padding: EdgeInsets.all(16),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(16),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.grey.withOpacity(0.3),
+                  blurRadius: 10,
+                  spreadRadius: 5,
+                ),
+              ],
+            ),
+            child: Padding(
+              padding: const EdgeInsets.only(top: 12),
+              child: SelectableText(
+                name,
+                style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.normal,
+                    color: Color.fromRGBO(102, 82, 143, 1.0)),
+              ),
+            ),
+          ),
+          Positioned(
+            top: 10,
+            right: 10,
+            child: IconButton(
+              onPressed: () {
+                setState(() {
+                  IsEditEnabled = true;
+                });
+              },
+              icon: Icon(Icons.edit),
+            ),
+          ),
+        ],
+      );
+    }
   }
 
   @override
@@ -117,33 +207,35 @@ class _ProfileContentState extends State<ProfileContent>
                         child: TabBarView(
                       controller: _tabController,
                       children: [
-                        FutureBuilder(
-                            future: getname(),
-                            builder:
-                                (BuildContext context, AsyncSnapshot snapshot) {
-                              if (snapshot.hasData) {
-                                // display a loading indicator while waiting for data
-                                return Scaffold(
-                                  body: Container(
-                                    height: 800,
-                                    width: 1400,
-                                    color: Colors.blue,
-                                    child: ProfileName(),
-                                  ),
-                                );
-                              } else
-                                return Container(
-                                  height: 800,
-                                  width: 1400,
-                                  color: Colors.blue,
-                                  child: ProfileName(),
-                                );
-                            }),
+                        SingleChildScrollView(
+                          child: Container(
+                            height: 1200,
+                            width: 1400,
+                            color: Colors.blue,
+                            child: Row(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Padding(
+                                    padding: const EdgeInsets.all(5.0),
+                                    child: NameCard()),
+                              ],
+                            ),
+                          ),
+                        ),
                         Container(
                           height: 800,
                           width: 1400,
                           color: Colors.yellow,
-                          child: Text(name),
+                          child: Column(
+                            children: [
+                              Container(
+                                height: 200,
+                                width: 350,
+                                color: Colors.green,
+                                child: Text(ttele),
+                              )
+                            ],
+                          ),
                         ),
                         Container(
                           height: 800,
