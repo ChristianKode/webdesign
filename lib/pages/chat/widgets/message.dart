@@ -1,7 +1,8 @@
+// ignore_for_file: camel_case_types, must_be_immutable
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
-// ignore: camel_case_types, must_be_immutable
 class messages extends StatefulWidget {
   String email;
   messages({super.key, required this.email});
@@ -10,7 +11,6 @@ class messages extends StatefulWidget {
   _messagesState createState() => _messagesState(email: email);
 }
 
-// ignore: camel_case_types
 class _messagesState extends State<messages> {
   String email;
   _messagesState({required this.email});

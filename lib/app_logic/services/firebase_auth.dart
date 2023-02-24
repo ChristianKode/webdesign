@@ -19,20 +19,20 @@ class AuthService {
   }
 
   // Signup Logic
-  Future<String> signUp(String email, String password, String firstname, String lastname, String telephone) async {
-    DatabaseReference ref =
-    FirebaseDatabase.instance.ref("users");   
+  Future<String> signUp(String email, String password, String firstname,
+      String lastname, String telephone) async {
+    DatabaseReference ref = FirebaseDatabase.instance.ref("users");
     try {
       await _auth.createUserWithEmailAndPassword(
           email: email, password: password);
 
-          String uid = FirebaseAuth.instance.currentUser!.uid;
-          await ref.child(uid).set({
-            "fornavn": firstname,
-            "etternavn": lastname,
-            "telefon": telephone,
-            "uid": uid
-          });
+      String uid = FirebaseAuth.instance.currentUser!.uid;
+      await ref.child(uid).set({
+        "fornavn": firstname,
+        "etternavn": lastname,
+        "telefon": telephone,
+        "uid": uid
+      });
       return "registrert";
     } catch (e) {
       return e.toString();

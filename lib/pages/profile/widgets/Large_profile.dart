@@ -1,12 +1,16 @@
-import 'dart:typed_data';
-import 'package:file_picker/file_picker.dart';
+// ignore_for_file: file_names
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
-import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:webdesign/utils/responsive.dart';
 import 'package:webdesign/widgets/appbar.dart';
 
+import '../../../app_logic/services/firebase_auth.dart';
+
+TextEditingController NameController = TextEditingController();
+final userRef = FirebaseDatabase.instance.ref().child('users').child(uid);
 String ttele = "";
 String name = "";
 final String uid = FirebaseAuth.instance.currentUser!.uid;
@@ -47,7 +51,7 @@ class _ProfileContentState extends State<ProfileContent>
 
   Future<void> getname() async {
     final uid = FirebaseAuth.instance.currentUser!.uid;
-    final userRef = FirebaseDatabase.instance.ref().child('users').child(uid);
+
     final dataSnapshot = await userRef.get();
     final userData = dataSnapshot.value as Map<dynamic, dynamic>;
 
@@ -93,9 +97,10 @@ class _ProfileContentState extends State<ProfileContent>
                 ),
               ],
             ),
-            child: const SizedBox(
+            child: SizedBox(
               width: 100,
               child: TextField(
+                controller: NameController,
                 decoration: InputDecoration(
                   border: InputBorder.none,
                   hintText: 'Enter name here',
@@ -111,10 +116,18 @@ class _ProfileContentState extends State<ProfileContent>
             top: 10,
             right: 10,
             child: IconButton(
-              onPressed: () {
-                setState(() {
-                  isEditEnabled = false;
-                });
+              onPressed: () async {
+                if (NameController.text != "") {
+                  setState(() {
+                    isEditEnabled = false;
+                  });
+
+                  Map<String, dynamic> updateData = {
+                    'fornavn': NameController.text
+                  };
+
+                  await userRef.update(updateData);
+                }
               },
               icon: const Icon(Icons.save),
             ),
@@ -304,54 +317,5 @@ class _ProfileContentState extends State<ProfileContent>
               ],
             ),
           ));
-  }
-
-  late Uint8List selectedImageInBytes;
-  List<Uint8List> pickedImagesInBytes = [];
-
-  final FirebaseStorage _storage = FirebaseStorage.instance;
-  DatabaseReference ref = FirebaseDatabase.instance.ref("users");
-  String selectFile = '';
-  int imageCounts = 0;
-  String imageUrl = "";
-
-  final TextEditingController forNavn = TextEditingController();
-  final TextEditingController etterNavn = TextEditingController();
-  final TextEditingController telefon = TextEditingController();
-
-  // ignore: unused_element
-  _selectFile(bool imageFrom) async {
-    FilePickerResult? fileResult =
-        await FilePicker.platform.pickFiles(allowMultiple: true);
-
-    if (fileResult != null) {
-      selectFile = fileResult.files.first.name;
-      // ignore: avoid_function_literals_in_foreach_calls
-      fileResult.files.forEach((element) {
-        pickedImagesInBytes.add(element.bytes as Uint8List);
-        selectedImageInBytes = fileResult.files.first.bytes!;
-        imageCounts += 1;
-      });
-    }
-  }
-
-  // ignore: unused_element
-  _upload() async {
-    String? uid = FirebaseAuth.instance.currentUser?.uid;
-
-    final storageRef =
-        _storage.ref().child("userimage").child(uid!).child('/$selectFile');
-
-    final metadata = SettableMetadata(contentType: 'image/jpeg');
-
-    await storageRef.putData(selectedImageInBytes, metadata);
-
-    try {
-      imageUrl = await storageRef.getDownloadURL().then((value) => value);
-    } catch (e) {
-      return e;
-    }
-
-    await ref.child(uid).set({"pfp": imageUrl});
   }
 }
