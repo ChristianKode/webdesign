@@ -347,12 +347,10 @@ class _ProfileContentState extends State<ProfileContent>
     await storageRef.putData(selectedImageInBytes, metadata);
 
     try {
-      imageUrl =
-          await storageRef.getDownloadURL().then((value) => value);
+      imageUrl = await storageRef.getDownloadURL().then((value) => value);
     } catch (e) {
       return e;
     }
-
 
     await ref.child(uid).set({"pfp": imageUrl});
   }
