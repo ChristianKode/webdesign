@@ -38,8 +38,8 @@ class HomeCard extends StatelessWidget {
                                 TextSpan(
                                     text: ' jobber',
                                     style: GoogleFonts.tinos(
-                                        color:
-                                            const Color.fromARGB(255, 255, 255, 255)))
+                                        color: const Color.fromARGB(
+                                            255, 255, 255, 255)))
                               ])),
                           Text.rich(TextSpan(
                               style: const TextStyle(
@@ -54,8 +54,8 @@ class HomeCard extends StatelessWidget {
                                 TextSpan(
                                     text: ' deg',
                                     style: GoogleFonts.tinos(
-                                        color:
-                                            const Color.fromARGB(255, 255, 255, 255)))
+                                        color: const Color.fromARGB(
+                                            255, 255, 255, 255)))
                               ])),
                           Padding(
                             padding: const EdgeInsets.only(top: 8),
@@ -106,7 +106,8 @@ class HomeCard extends StatelessWidget {
                             TextSpan(
                                 text: ' jobber',
                                 style: GoogleFonts.tinos(
-                                    color: const Color.fromARGB(255, 255, 255, 255)))
+                                    color: const Color.fromARGB(
+                                        255, 255, 255, 255)))
                           ])),
                       Text.rich(TextSpan(
                           style: const TextStyle(
@@ -121,7 +122,8 @@ class HomeCard extends StatelessWidget {
                             TextSpan(
                                 text: ' deg',
                                 style: GoogleFonts.tinos(
-                                    color: const Color.fromARGB(255, 255, 255, 255)))
+                                    color: const Color.fromARGB(
+                                        255, 255, 255, 255)))
                           ])),
                       Padding(
                         padding: const EdgeInsets.only(top: 8),
