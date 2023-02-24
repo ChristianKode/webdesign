@@ -1,9 +1,13 @@
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:webdesign/app_logic/services/firebase_auth.dart';
+import 'package:webdesign/pages/chat/widgets/chat_page.dart';
 import 'package:webdesign/pages/login/login.dart';
+import 'package:webdesign/pages/newJob/newjob.dart';
 import 'package:webdesign/pages/register/register.dart';
 
 class SideDrawer extends StatelessWidget {
@@ -16,11 +20,9 @@ class SideDrawer extends StatelessWidget {
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             if (snapshot.data!) {
-
               // Logged in
               return const LoggedInDrawer();
             } else {
-
               // Logged out
               return const Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -42,48 +44,247 @@ class LoggedInDrawer extends StatefulWidget {
 }
 
 class _LoggedInDrawerState extends State<LoggedInDrawer> {
+  String userName = '';
+  String userMail = '';
   bool onHover0 = false;
   bool onHover1 = false;
   bool onHover2 = false;
+  bool onHover3 = false;
+  bool onHover4 = false;
+  bool onHover5 = false;
+
+  Future<void> getName() async {
+    final uid = FirebaseAuth.instance.currentUser!.uid;
+    final userRef = FirebaseDatabase.instance.ref().child('users').child(uid);
+    final dataSnapshot = await userRef.get();
+    final userData = dataSnapshot.value as Map<dynamic, dynamic>;
+
+    setState(() {
+      userName = userData['fornavn'] + ' ' + userData['etternavn'];
+      userMail = FirebaseAuth.instance.currentUser!.email!;
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    getName();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Container(
-            width: MediaQuery.of(context).size.width,
-            height: 200,
-            color: Colors.blue,
-            child: Column(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.only(top: 30),
-                  child: Container(
-                    width: 100,
-                    height: 100,
-                    decoration: BoxDecoration(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Container(
+          width: MediaQuery.of(context).size.width,
+          height: 200,
+          color: Colors.blue,
+          child: Column(
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(top: 30),
+                child: Container(
+                  width: 100,
+                  height: 100,
+                  decoration: BoxDecoration(
                       shape: BoxShape.circle,
-                      border: Border.all(
-                        color: Colors.white,
-                        width: 2
-                      )
-                    ),
-                    child: const ClipOval(
-                      
-                      child: Icon(Icons.person_rounded, size: 100,),
-                      
-                      
-                
+                      border: Border.all(color: Colors.white, width: 2)),
+                  child: const ClipOval(
+                    child: Icon(
+                      Icons.person_rounded,
+                      size: 100,
                     ),
                   ),
                 ),
+              ),
+              SelectableText(
+                userName,
+                style: const TextStyle(fontSize: 22, color: Colors.white),
+              ),
+              SelectableText(
+                userMail,
+                style:
+                    const TextStyle(color: Color.fromARGB(216, 255, 255, 255)),
+              )
+            ],
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.only(top: 20, left: 15),
+          child: Container(
+            height: 300,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                InkWell(
+                  hoverColor: Colors.transparent,
+                  onHover: (value) => {
+                    setState(() {
+                      onHover0 = value;
+                    })
+                  },
+                  onTap: () {},
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      const Padding(
+                        padding: EdgeInsets.only(right: 12),
+                        child: Icon(Icons.home_outlined),
+                      ),
+                      Text(
+                        'Hjem',
+                        style: TextStyle(
+                            color: !onHover0 ? Colors.black : Colors.blue),
+                      )
+                    ],
+                  ),
+                ),
+                InkWell(
+                  highlightColor: Colors.transparent,
+                  splashColor: Colors.transparent,
+                  hoverColor: Colors.transparent,
+                  onHover: (value) => {
+                    setState(() {
+                      onHover1 = value;
+                    })
+                  },
+                  onTap: () {
+                    Get.to(() => const NewJob());
+                  },
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      const Padding(
+                        padding: EdgeInsets.only(right: 12),
+                        child: Icon(Icons.add_business_outlined),
+                      ),
+                      Text(
+                        'Ny annonse',
+                        style: TextStyle(
+                            color: !onHover1 ? Colors.black : Colors.blue),
+                      )
+                    ],
+                  ),
+                ),
+                InkWell(
+                  highlightColor: Colors.transparent,
+                  splashColor: Colors.transparent,
+                  hoverColor: Colors.transparent,
+                  onHover: (value) => {
+                    setState(() {
+                      onHover2 = value;
+                    })
+                  },
+                  onTap: (){
+                    Get.to(() => const Chattos());
+                  },
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      const Padding(
+                        padding: EdgeInsets.only(right: 12),
+                        child: Icon(Icons.chat_outlined),
+                      ),
+                      Text(
+                        'Meldinger',
+                        style: TextStyle(
+                            color: !onHover2 ? Colors.black : Colors.blue),
+                      )
+                    ],
+                  ),
+                ),
+                InkWell(
+                  highlightColor: Colors.transparent,
+                  splashColor: Colors.transparent,
+                  hoverColor: Colors.transparent,
+                  onHover: (value) => {
+                    setState(() {
+                      onHover3 = value;
+                    })
+                  },
+                  onTap: (){
+                    // Soon Favoritter
+                  },
+                  child: Row(
+                    children: [
+                      const Padding(
+                        padding: EdgeInsets.only(right: 12),
+                        child: Icon(Icons.favorite_border_outlined),
+                      ),
+                      Text(
+                        'Favoritter',
+                        style: TextStyle(
+                            color: !onHover3 ? Colors.black : Colors.blue),
+                      )
+                    ],
+                  ),
+                ),
+                InkWell(
+                  highlightColor: Colors.transparent,
+                  splashColor: Colors.transparent,
+                  hoverColor: Colors.transparent,
+                  onHover: (value) => {
+                    setState(() {
+                      onHover4 = value;
+                    })
+                  },
+                  onTap: (){
 
+                  },
+                  child: Row(
+                    children: [
+                      const Padding(
+                        padding: EdgeInsets.only(right: 12),
+                        child: Icon(Icons.settings_outlined),
+                      ),
+                      Text(
+                        'Innstillinger',
+                        style: TextStyle(
+                            color: !onHover4 ? Colors.black : Colors.blue),
+                      )
+                    ],
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(right: 30),
+                  child: Container(
+                    width: MediaQuery.of(context).size.width - 250,
+                    height: 0.8,
+                    color: Colors.black,
+                  ),
+                ),
+                InkWell(
+                  highlightColor: Colors.transparent,
+                  splashColor: Colors.transparent,
+                  hoverColor: Colors.transparent,
+                  onHover: (value) => {
+                    setState((){
+                      onHover5 = value;
+                    })
+                  },
+                  onTap: (){
+                    
+                  },
+                  child: Row(
+                    children: [
+                      const Padding(
+                        padding: EdgeInsets.only(right: 12),
+                        child: Icon(Icons.logout_outlined),
+                      ),
+                      Text('Logg ut', style: TextStyle(
+                        color: !onHover5
+                        ? Colors.black
+                        : Colors.blue
+                      ),)
+                    ],
+                  ),
+                ),
               ],
             ),
-          )
-        ],
-      
+          ),
+        )
+      ],
     );
   }
 }
@@ -137,7 +338,9 @@ class _LoggedOutDrawerState extends State<LoggedOutDrawer> {
             child: Text(
               "Logg på",
               style: GoogleFonts.tinos(
-                color: !onHover0 ? const Color.fromARGB(204, 0, 0, 0) : Colors.blue,
+                color: !onHover0
+                    ? const Color.fromARGB(204, 0, 0, 0)
+                    : Colors.blue,
                 fontSize: 17,
               ),
             ),
@@ -157,7 +360,9 @@ class _LoggedOutDrawerState extends State<LoggedOutDrawer> {
             child: Text(
               "Annonser",
               style: GoogleFonts.tinos(
-                color: !onHover1 ? const Color.fromARGB(204, 0, 0, 0) : Colors.blue,
+                color: !onHover1
+                    ? const Color.fromARGB(204, 0, 0, 0)
+                    : Colors.blue,
                 fontSize: 17,
               ),
             ),
@@ -185,7 +390,9 @@ class _LoggedOutDrawerState extends State<LoggedOutDrawer> {
             child: Text(
               "Hjem",
               style: GoogleFonts.tinos(
-                color: !onHover2 ? const Color.fromARGB(204, 0, 0, 0) : Colors.blue,
+                color: !onHover2
+                    ? const Color.fromARGB(204, 0, 0, 0)
+                    : Colors.blue,
                 fontSize: 17,
               ),
             ),

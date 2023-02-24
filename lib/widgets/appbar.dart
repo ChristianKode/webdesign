@@ -61,7 +61,7 @@ chatItem() {
         height: 35,
         child: TextButton(
           onPressed: () {
-            Get.to(Chattos());
+            Get.to(const Chattos());
           },
           child: const Text(
             'Chat ',
