@@ -19,7 +19,7 @@ class LargeNewJob extends StatelessWidget {
         decoration: const BoxDecoration(
             image: DecorationImage(
                 image: NetworkImage(
-                    'https://firebasestorage.googleapis.com/v0/b/ungansatt123.appspot.com/o/0bec91f9-2264-4273-9e8f-6aeb2f53b5ac%2Fwp11093306-bmw-m5-2022-wallpapers.jpg?alt=media&token=59266e96-f193-4ace-ab9d-3aa129cf8f44'),
+                    'https://firebasestorage.googleapis.com/v0/b/ungansatt123.appspot.com/o/assets%2Fnewjob_background.jpg?alt=media&token=3c5212e1-dcbf-4a61-a6c8-bb13c9b9bb9e'),
                 fit: BoxFit.cover)),
         child: Column(
           children: [const Nav(), FillOut()],

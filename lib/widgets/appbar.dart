@@ -5,6 +5,7 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:webdesign/app_logic/services/firebase_auth.dart';
+import 'package:webdesign/pages/home/widgets/main_home.dart';
 import 'package:webdesign/pages/login/login.dart';
 import '../utils/responsive.dart';
 import '../pages/chat/widgets/chat_page.dart';
@@ -12,7 +13,7 @@ import '../pages/newJob/newjob.dart';
 import '../pages/profile/profile.dart';
 import '../pages/register/register.dart';
 
-Profil() {
+profil() {
   return Padding(
     padding: const EdgeInsets.symmetric(horizontal: 7),
     child: SizedBox(
@@ -32,7 +33,7 @@ Profil() {
   );
 }
 
-NyAnnonse() {
+nyAnnonse() {
   return Padding(
     padding: const EdgeInsets.symmetric(horizontal: 7),
     child: SizedBox(
@@ -52,7 +53,7 @@ NyAnnonse() {
   );
 }
 
-ChatItem() {
+chatItem() {
   return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 7),
       child: SizedBox(
@@ -71,7 +72,7 @@ ChatItem() {
       ));
 }
 
-LogInItem() {
+logInItem() {
   return SizedBox(
     width: 100,
     height: 50,
@@ -80,13 +81,11 @@ LogInItem() {
           Get.to(const Login());
         },
         style: ElevatedButton.styleFrom(
-          side: BorderSide(
-            color: Colors.blue
-          ),
-            shape: RoundedRectangleBorder(
-              
-                borderRadius: BorderRadius.circular(100)),
-            backgroundColor: Colors.white,),
+          side: BorderSide(color: Colors.blue),
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(100)),
+          backgroundColor: Colors.white,
+        ),
         child: const Text(
           'Logg på',
           style: TextStyle(fontSize: 15, color: Colors.blue),
@@ -94,7 +93,7 @@ LogInItem() {
   );
 }
 
-RegisterItem() {
+registerItem() {
   return SizedBox(
     width: 100,
     height: 50,
@@ -108,7 +107,6 @@ RegisterItem() {
             backgroundColor: Colors.blue),
         child: const Text(
           'Bli med',
-
           style: TextStyle(fontSize: 15),
         )),
   );
@@ -137,7 +135,7 @@ AppBar appBar(BuildContext context, GlobalKey<ScaffoldState> key) => AppBar(
                         onPressed: () {
                           key.currentState?.openDrawer();
                         },
-                        icon: Icon(
+                        icon: const Icon(
                           Icons.menu,
                           color: Colors.black,
                         ));
@@ -156,7 +154,7 @@ AppBar appBar(BuildContext context, GlobalKey<ScaffoldState> key) => AppBar(
                         onPressed: () {
                           key.currentState?.openDrawer();
                         },
-                        icon: Icon(
+                        icon: const Icon(
                           Icons.menu,
                           color: Colors.black,
                         ));
@@ -170,80 +168,114 @@ AppBar appBar(BuildContext context, GlobalKey<ScaffoldState> key) => AppBar(
           builder: (context, snapshot) {
             if (snapshot.hasData) {
               if (snapshot.data!) {
+                // Loggin In
+                // Small or Wide Screen?
                 return !ResponsiveLayout.isSmallScreen(context)
+                    // Wide Screen
                     ? Container(
                         width: MediaQuery.of(context).size.width,
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
-                            Text.rich(
-                              TextSpan(
-                                  style: const TextStyle(fontSize: 40),
-                                  children: [
-                                    TextSpan(
-                                        text: 'UNG',
-                                        style: GoogleFonts.tinos(
-                                            fontWeight: FontWeight.bold,
-                                            color: Colors.black)),
-                                    TextSpan(
-                                        text: 'ANSATT',
-                                        style: GoogleFonts.tinos(
-                                            color: Colors.black))
-                                  ]),
+                            InkWell(
+                              highlightColor: Colors.transparent,
+                              splashColor: Colors.transparent,
+                              hoverColor: Colors.transparent,
+                              onTap: () {
+                                Get.to(() => LargeHome());
+                              },
+                              child: Text.rich(
+                                TextSpan(
+                                    style: const TextStyle(fontSize: 40),
+                                    children: [
+                                      TextSpan(
+                                          text: 'UNG',
+                                          style: GoogleFonts.tinos(
+                                              fontWeight: FontWeight.bold,
+                                              color: Colors.black)),
+                                      TextSpan(
+                                          text: 'ANSATT',
+                                          style: GoogleFonts.tinos(
+                                              color: Colors.black))
+                                    ]),
+                              ),
                             ),
                             Container(
                               width: MediaQuery.of(context).size.width - 800,
                             ),
                             Padding(
-                                padding: EdgeInsets.only(
+                                padding: const EdgeInsets.only(
                                     right: 5, top: 11, bottom: 11),
-                                child: NyAnnonse()),
+                                child: nyAnnonse()),
                             Padding(
-                                padding: EdgeInsets.only(
+                                padding: const EdgeInsets.only(
                                     right: 5, top: 11, bottom: 11),
-                                child: ChatItem()),
+                                child: chatItem()),
                             Padding(
-                                padding: EdgeInsets.only(
+                                padding: const EdgeInsets.only(
                                     right: 5, top: 11, bottom: 11),
-                                child: Profil()),
+                                child: profil()),
                           ],
                         ),
                       )
-                    : Text.rich(
-                        TextSpan(
-                            style: const TextStyle(fontSize: 40),
-                            children: [
-                              TextSpan(
-                                  text: 'UNG',
-                                  style: GoogleFonts.tinos(
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.black)),
-                              TextSpan(
-                                  text: 'ANSATT',
-                                  style: GoogleFonts.tinos(color: Colors.black))
-                            ]),
+
+                    // Small Screen
+                    : InkWell(
+                        splashColor: Colors.transparent,
+                        highlightColor: Colors.transparent,
+                        hoverColor: Colors.transparent,
+                        onTap: () {
+                          Get.to(() => LargeHome());
+                        },
+                        child: Text.rich(
+                          TextSpan(
+                              style: const TextStyle(fontSize: 40),
+                              children: [
+                                TextSpan(
+                                    text: 'UNG',
+                                    style: GoogleFonts.tinos(
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.black)),
+                                TextSpan(
+                                    text: 'ANSATT',
+                                    style:
+                                        GoogleFonts.tinos(color: Colors.black))
+                              ]),
+                        ),
                       );
               } else {
+                // Logged Out
+                // Small or Wide Screen
                 return !ResponsiveLayout.isSmallScreen(context)
+
+                    // Wide Screen
                     ? Container(
                         width: MediaQuery.of(context).size.width,
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
-                            Text.rich(
-                              TextSpan(
-                                  style: const TextStyle(fontSize: 40),
-                                  children: [
-                                    TextSpan(
-                                        text: 'UNG',
-                                        style: GoogleFonts.tinos(
-                                            fontWeight: FontWeight.bold,
-                                            color: Colors.black)),
-                                    TextSpan(
-                                        text: 'ANSATT',
-                                        style: GoogleFonts.tinos(
-                                            color: Colors.black))
-                                  ]),
+                            InkWell(
+                              highlightColor: Colors.transparent,
+                              splashColor: Colors.transparent,
+                              hoverColor: Colors.transparent,
+                              onTap: () {
+                                Get.to(() => LargeHome());
+                              },
+                              child: Text.rich(
+                                TextSpan(
+                                    style: const TextStyle(fontSize: 40),
+                                    children: [
+                                      TextSpan(
+                                          text: 'UNG',
+                                          style: GoogleFonts.tinos(
+                                              fontWeight: FontWeight.bold,
+                                              color: Colors.black)),
+                                      TextSpan(
+                                          text: 'ANSATT',
+                                          style: GoogleFonts.tinos(
+                                              color: Colors.black))
+                                    ]),
+                              ),
                             ),
                             Container(
                               width: MediaQuery.of(context).size.width - 750,
@@ -251,37 +283,49 @@ AppBar appBar(BuildContext context, GlobalKey<ScaffoldState> key) => AppBar(
                             Container(
                               width: 150,
                               child: Padding(
-                                  padding: EdgeInsets.only(
+                                  padding: const EdgeInsets.only(
                                       right: 5, top: 11, bottom: 11),
-                                  child: LogInItem()),
+                                  child: logInItem()),
                             ),
                             Container(
                               width: 150,
                               child: Padding(
-                                  padding: EdgeInsets.only(
+                                  padding: const EdgeInsets.only(
                                       right: 5, top: 11, bottom: 11),
-                                  child: RegisterItem()),
+                                  child: registerItem()),
                             ),
                           ],
                         ),
                       )
-                    : Text.rich(
-                        TextSpan(
-                            style: const TextStyle(fontSize: 40),
-                            children: [
-                              TextSpan(
-                                  text: 'UNG',
-                                  style: GoogleFonts.tinos(
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.black)),
-                              TextSpan(
-                                  text: 'ANSATT',
-                                  style: GoogleFonts.tinos(color: Colors.black))
-                            ]),
+
+                    // Small Screen
+                    : InkWell(
+                        splashColor: Colors.transparent,
+                        highlightColor: Colors.transparent,
+                        hoverColor: Colors.transparent,
+                        onTap: () {
+                          Get.to(() => LargeHome());
+                        },
+                        child: Text.rich(
+                          TextSpan(
+                              style: const TextStyle(fontSize: 40),
+                              children: [
+                                TextSpan(
+                                    text: 'UNG',
+                                    style: GoogleFonts.tinos(
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.black)),
+                                TextSpan(
+                                    text: 'ANSATT',
+                                    style:
+                                        GoogleFonts.tinos(color: Colors.black))
+                              ]),
+                        ),
                       );
               }
             } else {
-              return Login();
+              // No connection with Firebase Auth. . .
+              return const Login();
             }
           }),
     );
