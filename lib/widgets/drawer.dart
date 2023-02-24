@@ -14,40 +14,80 @@ class SideDrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-          future: context.read<AuthService>().isLoggedIn(),
-          builder: (context, snapshot) {
-            if (snapshot.hasData) {
-              if (snapshot.data!) {
-                return Text('1');
-              } else {
-                return Container(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      LoggedOutDrawer()
-                      
-                    ],
-                  ),
-                );
-              }
+        future: context.read<AuthService>().isLoggedIn(),
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            if (snapshot.data!) {
+
+              // Logged in
+              return LoggedInDrawer();
             } else {
-              return Text('3');
+
+              // Logged out
+              return const Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [LoggedOutDrawer()],
+              );
             }
-          });
-    
+          } else {
+            return Text('3');
+          }
+        });
   }
 }
 
-class LoggedInDrawer extends StatelessWidget {
+class LoggedInDrawer extends StatefulWidget {
   const LoggedInDrawer({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    return const Placeholder();
-  }
+  State<LoggedInDrawer> createState() => _LoggedInDrawerState();
 }
 
+class _LoggedInDrawerState extends State<LoggedInDrawer> {
+  bool onHover0 = false;
+  bool onHover1 = false;
+  bool onHover2 = false;
 
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Container(
+            width: MediaQuery.of(context).size.width,
+            height: 200,
+            color: Colors.blue,
+            child: Column(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(top: 30),
+                  child: Container(
+                    width: 100,
+                    height: 100,
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      border: Border.all(
+                        color: Colors.white,
+                        width: 2
+                      )
+                    ),
+                    child: ClipOval(
+                      
+                      child: Icon(Icons.person_rounded, size: 100,),
+                      
+                      
+                
+                    ),
+                  ),
+                )
+              ],
+            ),
+          )
+        ],
+      
+    );
+  }
+}
 
 class LoggedOutDrawer extends StatefulWidget {
   const LoggedOutDrawer({super.key});
@@ -72,17 +112,15 @@ class _LoggedOutDrawerState extends State<LoggedOutDrawer> {
             child: Container(
               height: 45,
               width: 120,
-              
               child: ElevatedButton(
-                onPressed: (){
-                Get.to(() => Register());
-              }, 
-              child: Text('Bli med', style: GoogleFonts.tinos(fontSize: 22)),
-              style: ElevatedButton.styleFrom(
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(7)
-                )
-              ),),
+                onPressed: () {
+                  Get.to(() => const Register());
+                },
+                style: ElevatedButton.styleFrom(
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(7))),
+                child: Text('Bli med', style: GoogleFonts.tinos(fontSize: 22)),
+              ),
             ),
           ),
           InkWell(
@@ -97,11 +135,13 @@ class _LoggedOutDrawerState extends State<LoggedOutDrawer> {
             onTap: () {
               Get.to(() => Login());
             },
-            child: Text("Logg på", style: GoogleFonts.tinos(
-              color: !onHover0 ? Color.fromARGB(204, 0, 0, 0): Colors.blue,
-              fontSize: 17,
-             
-              ),),
+            child: Text(
+              "Logg på",
+              style: GoogleFonts.tinos(
+                color: !onHover0 ? Color.fromARGB(204, 0, 0, 0) : Colors.blue,
+                fontSize: 17,
+              ),
+            ),
           ),
           InkWell(
             highlightColor: Colors.transparent,
@@ -115,22 +155,22 @@ class _LoggedOutDrawerState extends State<LoggedOutDrawer> {
             onTap: () {
               Get.to(() => Login());
             },
-            child: Text("Annonser", style: GoogleFonts.tinos(
-              color: !onHover1 ? Color.fromARGB(204, 0, 0, 0): Colors.blue,
-              fontSize: 17,
-             
-              ),),
-          ),
-
-          Padding(
-            padding: const EdgeInsets.only(top: 30, bottom: 18),
-            child: Container(
-                color: Colors.black,
-                width: 250,
-                height: 1,
+            child: Text(
+              "Annonser",
+              style: GoogleFonts.tinos(
+                color: !onHover1 ? Color.fromARGB(204, 0, 0, 0) : Colors.blue,
+                fontSize: 17,
               ),
+            ),
           ),
-          
+          Padding(
+            padding: const EdgeInsets.only(top: 24, bottom: 14),
+            child: Container(
+              color: Colors.black,
+              width: 250,
+              height: 1,
+            ),
+          ),
           InkWell(
             highlightColor: Colors.transparent,
             splashColor: Colors.transparent,
@@ -143,15 +183,14 @@ class _LoggedOutDrawerState extends State<LoggedOutDrawer> {
             onTap: () {
               Get.to(() => Login());
             },
-
-
-            child: Text("Hjem", style: GoogleFonts.tinos(
-              color: !onHover2 ? Color.fromARGB(204, 0, 0, 0): Colors.blue,
-              fontSize: 17,
-             
-              ),),
+            child: Text(
+              "Hjem",
+              style: GoogleFonts.tinos(
+                color: !onHover2 ? Color.fromARGB(204, 0, 0, 0) : Colors.blue,
+                fontSize: 17,
+              ),
+            ),
           ),
-          
         ],
       ),
     );

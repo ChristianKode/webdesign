@@ -24,7 +24,7 @@ class Top extends StatelessWidget {
                   left: MediaQuery.of(context).size.width * 0.25),
               child: Column(
                 children: [
-                  Text.rich(TextSpan(
+                  SelectableText.rich(TextSpan(
                       style: const TextStyle(
                           fontSize: 40, fontWeight: FontWeight.bold),
                       children: [
@@ -39,7 +39,7 @@ class Top extends StatelessWidget {
                               color: Color.fromARGB(255, 20, 141, 255),
                             ))
                       ])),
-                  Text.rich(TextSpan(
+                  SelectableText.rich(TextSpan(
                       style: const TextStyle(
                           fontSize: 40, fontWeight: FontWeight.bold),
                       children: [
