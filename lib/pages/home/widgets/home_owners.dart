@@ -102,7 +102,8 @@ class HomeOwners extends StatelessWidget {
                         width: 180,
                         child: ElevatedButton(
                             style: ElevatedButton.styleFrom(
-                                primary: const Color.fromARGB(255, 44, 176, 110)),
+                                primary:
+                                    const Color.fromARGB(255, 44, 176, 110)),
                             onPressed: () {},
                             child: const Text(
                               'Utforsk',

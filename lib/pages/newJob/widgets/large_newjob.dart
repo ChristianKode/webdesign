@@ -20,7 +20,7 @@ class LargeNewJob extends StatelessWidget {
                 image: NetworkImage(
                     'https://firebasestorage.googleapis.com/v0/b/ungansatt123.appspot.com/o/assets%2Fnewjob_background.jpg?alt=media&token=3c5212e1-dcbf-4a61-a6c8-bb13c9b9bb9e'),
                 fit: BoxFit.cover)),
-        child: const Column(
+        child: Column(
           children: [Nav(), FillOut()],
         ),
       ),
@@ -82,16 +82,10 @@ class _FillOutState extends State<FillOut> {
 
     await StorageRef.putData(selectedImageInBytes, metadata);
 
-
-
     try {
-      
-      imageUrl =
-          await StorageRef.getDownloadURL().then((value) => value);
-    // ignore: empty_catches
-    } catch (e) {
-    }
-
+      imageUrl = await StorageRef.getDownloadURL().then((value) => value);
+      // ignore: empty_catches
+    } catch (e) {}
 
     DatabaseReference ref = FirebaseDatabase.instance.ref("adventures");
 

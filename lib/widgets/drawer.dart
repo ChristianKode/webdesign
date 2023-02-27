@@ -6,6 +6,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:webdesign/app_logic/services/firebase_auth.dart';
 import 'package:webdesign/pages/chat/widgets/chat_page.dart';
+import 'package:webdesign/pages/home/widgets/main_home.dart';
 import 'package:webdesign/pages/login/login.dart';
 import 'package:webdesign/pages/newJob/newjob.dart';
 import 'package:webdesign/pages/register/register.dart';
@@ -24,9 +25,9 @@ class SideDrawer extends StatelessWidget {
               return const LoggedInDrawer();
             } else {
               // Logged out
-              return const Column(
+              return Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
-                children: [LoggedOutDrawer()],
+                children: const [LoggedOutDrawer()],
               );
             }
           } else {
@@ -176,7 +177,7 @@ class _LoggedInDrawerState extends State<LoggedInDrawer> {
                       onHover2 = value;
                     })
                   },
-                  onTap: (){
+                  onTap: () {
                     Get.to(() => const Chattos());
                   },
                   child: Row(
@@ -203,7 +204,7 @@ class _LoggedInDrawerState extends State<LoggedInDrawer> {
                       onHover3 = value;
                     })
                   },
-                  onTap: (){
+                  onTap: () {
                     // Soon Favoritter
                   },
                   child: Row(
@@ -229,9 +230,7 @@ class _LoggedInDrawerState extends State<LoggedInDrawer> {
                       onHover4 = value;
                     })
                   },
-                  onTap: (){
-
-                  },
+                  onTap: () {},
                   child: Row(
                     children: [
                       const Padding(
@@ -259,12 +258,14 @@ class _LoggedInDrawerState extends State<LoggedInDrawer> {
                   splashColor: Colors.transparent,
                   hoverColor: Colors.transparent,
                   onHover: (value) => {
-                    setState((){
+                    setState(() {
                       onHover5 = value;
                     })
                   },
-                  onTap: (){
-                    
+                  onTap: () async {
+                    await FirebaseAuth.instance.signOut();
+                    Navigator.pushReplacement(context,
+                        MaterialPageRoute(builder: (context) => LargeHome()));
                   },
                   child: Row(
                     children: [
@@ -272,11 +273,11 @@ class _LoggedInDrawerState extends State<LoggedInDrawer> {
                         padding: EdgeInsets.only(right: 12),
                         child: Icon(Icons.logout_outlined),
                       ),
-                      Text('Logg ut', style: TextStyle(
-                        color: !onHover5
-                        ? Colors.black
-                        : Colors.blue
-                      ),)
+                      Text(
+                        'Logg ut',
+                        style: TextStyle(
+                            color: !onHover5 ? Colors.black : Colors.blue),
+                      )
                     ],
                   ),
                 ),

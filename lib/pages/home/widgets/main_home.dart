@@ -21,16 +21,15 @@ class LargeHome extends StatelessWidget {
   LargeHome({super.key});
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey();
 
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       key: scaffoldKey,
       appBar: appBar(context, scaffoldKey),
-      drawer:  const Drawer(
+      drawer: const Drawer(
         child: SideDrawer(),
       ),
-      body: const SingleChildScrollView(
+      body: SingleChildScrollView(
         child: Column(children: <Widget>[
           Top(),
           HomeCard(),

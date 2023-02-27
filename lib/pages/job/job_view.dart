@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:webdesign/pages/job/widgets/job_body_row.dart';
+import 'package:webdesign/widgets/drawer.dart';
 import 'package:webdesign/widgets/footer_overall.dart';
 
 import '../../widgets/appbar.dart';
@@ -37,7 +38,9 @@ class _JobViewState extends State<JobView> {
     return Scaffold(
       key: scaffoldKey,
       appBar: appBar(context, scaffoldKey),
-      drawer: const Drawer(),
+      drawer: const Drawer(
+        child: SideDrawer(),
+      ),
       body: Column(
         children: [
           Expanded(

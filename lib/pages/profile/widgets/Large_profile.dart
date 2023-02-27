@@ -3,11 +3,9 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:webdesign/utils/responsive.dart';
 import 'package:webdesign/widgets/appbar.dart';
-
-import '../../../app_logic/services/firebase_auth.dart';
+import 'package:webdesign/widgets/drawer.dart';
 
 TextEditingController NameController = TextEditingController();
 final userRef = FirebaseDatabase.instance.ref().child('users').child(uid);
@@ -29,7 +27,9 @@ class LargeProfile extends StatelessWidget {
     return Scaffold(
       key: scaffoldKey,
       appBar: appBar(context, scaffoldKey),
-      drawer: const Drawer(),
+      drawer: const Drawer(
+        child: SideDrawer(),
+      ),
       body: const Padding(
         padding: EdgeInsets.only(top: 50),
         child: ProfileContent(),
