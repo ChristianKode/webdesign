@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:get/route_manager.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:webdesign/pages/newJob/newjob.dart';
 import 'package:webdesign/utils/responsive.dart';

@@ -1,7 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get_connect/http/src/utils/utils.dart';
 import 'package:get/route_manager.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:uuid/uuid.dart';
@@ -9,6 +8,7 @@ import 'package:webdesign/pages/chat/widgets/chat_page.dart';
 import 'package:webdesign/pages/login/login.dart';
 import 'package:webdesign/utils/responsive.dart';
 
+// ignore: must_be_immutable
 class BodyRow extends StatefulWidget {
   String aid = '';
   String uid = '';
@@ -73,7 +73,7 @@ class SmallBodyColumn extends StatefulWidget {
   final String address;
   final String zipcode;
 
-  SmallBodyColumn({
+  const SmallBodyColumn({
     super.key,
     required this.img1,
     required this.title,
@@ -336,7 +336,7 @@ class LargeBodyColumn extends StatelessWidget {
                             height: 40,
                             child: TextButton(
                                 onPressed: () {},
-                                child: Row(
+                                child:  Row(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: const [
                                     Icon(

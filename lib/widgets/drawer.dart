@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
@@ -25,7 +27,7 @@ class SideDrawer extends StatelessWidget {
               return const LoggedInDrawer();
             } else {
               // Logged out
-              return Column(
+              return  Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: const [LoggedOutDrawer()],
               );
@@ -113,7 +115,7 @@ class _LoggedInDrawerState extends State<LoggedInDrawer> {
         ),
         Padding(
           padding: const EdgeInsets.only(top: 20, left: 15),
-          child: Container(
+          child: SizedBox(
             height: 300,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,

@@ -10,8 +10,8 @@ class HomeOwners extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return !ResponsiveLayout.isSmallScreen(context)
-        ? LargeHomeOwnersWidget()
-        : SmallHomeOwnersWidget();
+        ? const LargeHomeOwnersWidget()
+        : const SmallHomeOwnersWidget();
   }
 }
 
@@ -22,7 +22,7 @@ class SmallHomeOwnersWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       height: 700,
-      color: Color.fromARGB(255, 67, 46, 140),
+      color: const Color.fromARGB(255, 67, 46, 140),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -84,7 +84,7 @@ class LargeHomeOwnersWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       height: 700,
-      color: Color.fromARGB(255, 67, 46, 140),
+      color: const Color.fromARGB(255, 67, 46, 140),
       child: Center(
         child: Row(crossAxisAlignment: CrossAxisAlignment.center, children: [
           Flexible(
