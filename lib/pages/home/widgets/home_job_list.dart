@@ -125,8 +125,8 @@ class _JobListState extends State<JobList> {
                                                 .child('img1')
                                                 .value
                                                 .toString(),
+                                            width: 300,
                                             height: 270,
-                                            width: 320,
                                             fit: BoxFit.cover,
                                           ),
                                         ),

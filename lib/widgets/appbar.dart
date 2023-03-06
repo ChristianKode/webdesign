@@ -21,7 +21,7 @@ profil() {
       height: 35,
       child: TextButton(
         onPressed: () {
-          Get.to(const Profile());
+          Get.to(Profile());
         },
         child: const Text(
           'Profil ',

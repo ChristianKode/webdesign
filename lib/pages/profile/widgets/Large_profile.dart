@@ -7,7 +7,6 @@ import 'package:webdesign/utils/responsive.dart';
 import 'package:webdesign/widgets/appbar.dart';
 import 'package:webdesign/widgets/drawer.dart';
 
-
 final userRef = FirebaseDatabase.instance.ref().child('users').child(uid);
 String ttele = "";
 String fornavn = "";
@@ -20,7 +19,6 @@ bool isFornavnEditEnabled = false;
 bool isEtternavnEditEnabled = false;
 bool isTelefonEditEnabled = false;
 
-
 class LargeProfile extends StatelessWidget {
   const LargeProfile({super.key});
 
@@ -31,7 +29,9 @@ class LargeProfile extends StatelessWidget {
     return Scaffold(
       key: scaffoldKey,
       appBar: appBar(context, scaffoldKey),
-      drawer: const Drawer(child: SideDrawer(),),
+      drawer: const Drawer(
+        child: SideDrawer(),
+      ),
       body: const Padding(
         padding: EdgeInsets.only(top: 50),
         child: ProfileContent(),
@@ -52,7 +52,6 @@ class _ProfileContentState extends State<ProfileContent>
   late TabController _tabController;
 
   Future<void> getname() async {
-
     final dataSnapshot = await userRef.get();
     final userData = dataSnapshot.value as Map<dynamic, dynamic>;
 
@@ -107,9 +106,9 @@ class _ProfileContentState extends State<ProfileContent>
                   border: InputBorder.none,
                   hintText: 'Enter name here',
                   hintStyle: TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.normal,
-                    color: Colors.blue),
+                      fontSize: 20,
+                      fontWeight: FontWeight.normal,
+                      color: Colors.blue),
                 ),
               ),
             ),
@@ -122,7 +121,8 @@ class _ProfileContentState extends State<ProfileContent>
                 if (fornavnController.text != "") {
                   setState(() {
                     isFornavnEditEnabled = false;
-                    fornavn = fornavnController.text; // Add this line to update the name variable
+                    fornavn = fornavnController
+                        .text; // Add this line to update the name variable
                   });
 
                   Map<String, dynamic> updateData = {'fornavn': fornavn};
@@ -210,9 +210,9 @@ class _ProfileContentState extends State<ProfileContent>
                   border: InputBorder.none,
                   hintText: 'Enter last name here',
                   hintStyle: TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.normal,
-                    color: Colors.blue),
+                      fontSize: 20,
+                      fontWeight: FontWeight.normal,
+                      color: Colors.blue),
                 ),
               ),
             ),
@@ -225,7 +225,8 @@ class _ProfileContentState extends State<ProfileContent>
                 if (etterNavnController.text != "") {
                   setState(() {
                     isEtternavnEditEnabled = false;
-                    etternavn = etterNavnController.text; // Add this line to update the name variable
+                    etternavn = etterNavnController
+                        .text; // Add this line to update the name variable
                   });
 
                   Map<String, dynamic> updateData = {'etternavn': etternavn};
@@ -389,8 +390,7 @@ class _ProfileContentState extends State<ProfileContent>
                     )
                   ],
                   unselectedLabelStyle: const TextStyle(
-                      fontWeight: FontWeight.normal,
-                      color: Colors.black),
+                      fontWeight: FontWeight.normal, color: Colors.black),
                   labelStyle: const TextStyle(
                       fontSize: 16, fontWeight: FontWeight.w700),
                   labelColor: Colors.black,
