@@ -5,12 +5,12 @@ import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:webdesign/utils/responsive.dart';
 import 'package:webdesign/widgets/appbar.dart';
-import 'package:webdesign/widgets/drawer.dart';
 
-TextEditingController NameController = TextEditingController();
+
+TextEditingController nameController = TextEditingController();
 final userRef = FirebaseDatabase.instance.ref().child('users').child(uid);
 String ttele = "";
-String name = "";
+String fornavn= "";
 final String uid = FirebaseAuth.instance.currentUser!.uid;
 final databaseRef = FirebaseDatabase.instance.ref().child(uid);
 final TextEditingController navn = TextEditingController();
@@ -27,9 +27,7 @@ class LargeProfile extends StatelessWidget {
     return Scaffold(
       key: scaffoldKey,
       appBar: appBar(context, scaffoldKey),
-      drawer: const Drawer(
-        child: SideDrawer(),
-      ),
+      drawer: const Drawer(),
       body: const Padding(
         padding: EdgeInsets.only(top: 50),
         child: ProfileContent(),
@@ -50,16 +48,14 @@ class _ProfileContentState extends State<ProfileContent>
   late TabController _tabController;
 
   Future<void> getname() async {
-    final uid = FirebaseAuth.instance.currentUser!.uid;
 
     final dataSnapshot = await userRef.get();
     final userData = dataSnapshot.value as Map<dynamic, dynamic>;
 
     setState(() {
       final firstName = userData['fornavn'];
-      final lastName = userData['etternavn'];
       final tlf = userData['telefon'];
-      name = firstName + ' ' + lastName;
+      fornavn = firstName;
       ttele = tlf;
     });
   }
@@ -83,8 +79,8 @@ class _ProfileContentState extends State<ProfileContent>
       return Stack(
         children: [
           Container(
-            height: 250,
-            width: 600,
+            height: 100,
+            width: 225,
             padding: const EdgeInsets.all(16),
             decoration: BoxDecoration(
               color: Colors.white,
@@ -100,14 +96,14 @@ class _ProfileContentState extends State<ProfileContent>
             child: SizedBox(
               width: 100,
               child: TextField(
-                controller: NameController,
-                decoration: InputDecoration(
+                controller: nameController,
+                decoration: const InputDecoration(
                   border: InputBorder.none,
                   hintText: 'Enter name here',
                   hintStyle: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.normal,
-                      color: Color.fromRGBO(102, 82, 143, 1.0)),
+                    fontSize: 20,
+                    fontWeight: FontWeight.normal,
+                    color: Color.fromRGBO(102, 82, 143, 1.0)),
                 ),
               ),
             ),
@@ -117,14 +113,13 @@ class _ProfileContentState extends State<ProfileContent>
             right: 10,
             child: IconButton(
               onPressed: () async {
-                if (NameController.text != "") {
+                if (nameController.text != "") {
                   setState(() {
                     isEditEnabled = false;
+                    fornavn = nameController.text; // Add this line to update the name variable
                   });
 
-                  Map<String, dynamic> updateData = {
-                    'fornavn': NameController.text
-                  };
+                  Map<String, dynamic> updateData = {'fornavn': fornavn};
 
                   await userRef.update(updateData);
                 }
@@ -139,8 +134,8 @@ class _ProfileContentState extends State<ProfileContent>
       return Stack(
         children: [
           Container(
-            height: 250,
-            width: 600,
+            height: 100,
+            width: 225,
             padding: const EdgeInsets.all(16),
             decoration: BoxDecoration(
               color: Colors.white,
@@ -156,7 +151,7 @@ class _ProfileContentState extends State<ProfileContent>
             child: Padding(
               padding: const EdgeInsets.only(top: 12),
               child: SelectableText(
-                name,
+                fornavn,
                 style: const TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.normal,

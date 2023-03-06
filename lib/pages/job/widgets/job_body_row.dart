@@ -37,7 +37,7 @@ class BodyRow extends StatelessWidget {
       padding: const EdgeInsets.only(right: 30, left: 30),
       child: Container(
           alignment: Alignment.center,
-          constraints: BoxConstraints(maxWidth: 1052),
+          constraints: const BoxConstraints(maxWidth: 1052),
           child: !ResponsiveLayout.isSmallScreen(context)
               ? LargeBodyColumn(
                   img1: img1,
@@ -87,7 +87,7 @@ class SmallBodyColumn extends StatelessWidget {
             height: 150,
           ),
           Container(
-              constraints: BoxConstraints(minHeight: 350),
+              constraints: const BoxConstraints(minHeight: 350),
               child: Image.network(
                 img1,
                 fit: BoxFit.cover,
@@ -106,9 +106,9 @@ class SmallBodyColumn extends StatelessWidget {
                 height: 40,
                 child: TextButton(
                     onPressed: () {},
-                    child: Row(
+                    child: const Row(
                       mainAxisAlignment: MainAxisAlignment.center,
-                      children: const [
+                      children: [
                         Icon(
                           Icons.ios_share,
                           color: Color.fromRGBO(102, 82, 143, 1.0),
@@ -177,7 +177,7 @@ class LargeBodyColumn extends StatelessWidget {
                     children: [
                       // Job image
                       Container(
-                          constraints: BoxConstraints(minHeight: 350),
+                          constraints: const BoxConstraints(minHeight: 350),
                           child: Image.network(
                             img1,
                             fit: BoxFit.cover,
@@ -200,9 +200,9 @@ class LargeBodyColumn extends StatelessWidget {
                             height: 40,
                             child: TextButton(
                                 onPressed: () {},
-                                child: Row(
+                                child: const Row(
                                   mainAxisAlignment: MainAxisAlignment.center,
-                                  children: const [
+                                  children: [
                                     Icon(
                                       Icons.ios_share,
                                       color: Color.fromRGBO(102, 82, 143, 1.0),
@@ -337,7 +337,7 @@ class LargeBodyColumn extends StatelessWidget {
                                                 BorderRadius.circular(10)),
                                         backgroundColor: const Color.fromRGBO(
                                             102, 82, 143, 1.0)),
-                                    child: Center(
+                                    child: const Center(
                                       child: Text('Ta kontakt'),
                                     ))),
                           ],
@@ -373,9 +373,9 @@ class LargeBodyColumn extends StatelessWidget {
                                           borderRadius:
                                               BorderRadius.circular(10)),
                                       backgroundColor: Colors.white),
-                                  child: Row(
+                                  child: const Row(
                                     mainAxisAlignment: MainAxisAlignment.center,
-                                    children: const [
+                                    children: [
                                       Icon(
                                         Icons.map_outlined,
                                         color:
