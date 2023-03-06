@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get_connect/http/src/utils/utils.dart';
 import 'package:get/route_manager.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:uuid/uuid.dart';
@@ -8,8 +9,7 @@ import 'package:webdesign/pages/chat/widgets/chat_page.dart';
 import 'package:webdesign/pages/login/login.dart';
 import 'package:webdesign/utils/responsive.dart';
 
-// ignore: must_be_immutable
-class BodyRow extends StatelessWidget {
+class BodyRow extends StatefulWidget {
   String aid = '';
   String uid = '';
   String img1 = '';
@@ -29,6 +29,11 @@ class BodyRow extends StatelessWidget {
       required this.address,
       required this.zipcode});
 
+  @override
+  State<BodyRow> createState() => _BodyRowState();
+}
+
+class _BodyRowState extends State<BodyRow> {
   bool isFavorited = false;
 
   @override
@@ -37,30 +42,38 @@ class BodyRow extends StatelessWidget {
       padding: const EdgeInsets.only(right: 30, left: 30),
       child: Container(
           alignment: Alignment.center,
-          constraints: BoxConstraints(maxWidth: 1052),
+          constraints: const BoxConstraints(maxWidth: 1052),
           child: !ResponsiveLayout.isSmallScreen(context)
               ? LargeBodyColumn(
-                  img1: img1,
-                  title: title,
-                  descprition: descprition,
-                  price: price,
-                  uid: uid,
-                  address: address,
-                  zipcode: zipcode)
+                  img1: widget.img1,
+                  title: widget.title,
+                  descprition: widget.descprition,
+                  price: widget.price,
+                  uid: widget.uid,
+                  address: widget.address,
+                  zipcode: widget.zipcode)
               : SmallBodyColumn(
-                  img1: img1,
-                  title: title,
-                  descprition: descprition,
-                  price: price,
-                  uid: uid,
-                  address: address,
-                  zipcode: zipcode)),
+                  img1: widget.img1,
+                  title: widget.title,
+                  descprition: widget.descprition,
+                  price: widget.price,
+                  uid: widget.uid,
+                  address: widget.address,
+                  zipcode: widget.zipcode)),
     );
   }
 }
 
-class SmallBodyColumn extends StatelessWidget {
-  const SmallBodyColumn({
+class SmallBodyColumn extends StatefulWidget {
+  final String img1;
+  final String title;
+  final String descprition;
+  final String price;
+  final String uid;
+  final String address;
+  final String zipcode;
+
+  SmallBodyColumn({
     super.key,
     required this.img1,
     required this.title,
@@ -71,13 +84,12 @@ class SmallBodyColumn extends StatelessWidget {
     required this.zipcode,
   });
 
-  final String img1;
-  final String title;
-  final String descprition;
-  final String price;
-  final String uid;
-  final String address;
-  final String zipcode;
+  @override
+  State<SmallBodyColumn> createState() => _SmallBodyColumnState();
+}
+
+class _SmallBodyColumnState extends State<SmallBodyColumn> {
+  bool onHover0 = false;
   @override
   Widget build(BuildContext context) {
     return Flexible(
@@ -86,15 +98,21 @@ class SmallBodyColumn extends StatelessWidget {
           const SizedBox(
             height: 150,
           ),
-          Container(
-              constraints: BoxConstraints(minHeight: 350),
-              child: Image.network(
-                img1,
-                fit: BoxFit.cover,
-              )),
+
+          // Main image
+          Padding(
+            padding: const EdgeInsets.only(bottom: 20),
+            child: Container(
+                constraints: const BoxConstraints(minHeight: 350),
+                child: Image.network(
+                  widget.img1,
+                  fit: BoxFit.cover,
+                )),
+          ),
+
           Row(
             children: [
-              // Favorite
+              // Favorite button
               const SizedBox(width: 200, height: 40, child: FavoriteButton()),
               const SizedBox(
                 width: 30,
@@ -111,12 +129,11 @@ class SmallBodyColumn extends StatelessWidget {
                       children: const [
                         Icon(
                           Icons.ios_share,
-                          color: Color.fromRGBO(102, 82, 143, 1.0),
+                          color: Colors.blue,
                         ),
                         Text(
                           'Kopier',
-                          style: TextStyle(
-                              color: Color.fromRGBO(102, 82, 143, 1.0)),
+                          style: TextStyle(color: Colors.blue),
                         )
                       ],
                     )),
@@ -128,17 +145,136 @@ class SmallBodyColumn extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.only(top: 20, bottom: 5),
             child: Container(
-              width: 600,
               height: 2,
               color: Colors.black12,
             ),
           ),
+
+          //Job Title
+          Container(
+            alignment: Alignment.centerLeft,
+            child: Text(
+              widget.title,
+              style:
+                  GoogleFonts.tinos(fontSize: 30, fontWeight: FontWeight.w700),
+            ),
+          ),
+
+          // Description
+          Padding(
+            padding: const EdgeInsets.only(top: 15),
+            child: Text(
+              widget.descprition,
+              style: GoogleFonts.tinos(
+                fontSize: 17,
+              ),
+            ),
+          ),
+
+          // Divide Line
+          Padding(
+            padding: const EdgeInsets.only(top: 20, bottom: 50),
+            child: Container(
+              height: 2,
+              color: Colors.black12,
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.only(left: 5),
+            child: Container(
+              alignment: Alignment.centerLeft,
+              child: const Text(
+                "Se i kart",
+              ),
+            ),
+          ),
+
+          Container(
+              alignment: Alignment.centerLeft,
+              child: Row(
+                children: [
+                  const Icon(
+                    Icons.map_outlined,
+                    color: Colors.blue,
+                  ),
+                  InkWell(
+                    highlightColor: Colors.transparent,
+                    splashColor: Colors.transparent,
+                    hoverColor: Colors.transparent,
+                    onHover: (value) => {
+                      setState(() {
+                        onHover0 = value;
+                      })
+                    },
+                    onTap: () {},
+                    child: Text(
+                      '${widget.zipcode}, ${widget.address}',
+                      style: GoogleFonts.tinos(
+                          color: Colors.blue,
+                          fontSize: 20,
+                          decoration:
+                              !onHover0 ? null : TextDecoration.underline),
+                    ),
+                  ),
+                ],
+              )),
+          Padding(
+            padding: const EdgeInsets.only(top: 30),
+            child: Container(
+              alignment: Alignment.centerLeft,
+              child: Text(
+                "Belønning",
+                style: GoogleFonts.tinos(
+                    fontSize: 20, fontWeight: FontWeight.w400),
+              ),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.only(bottom: 25),
+            child: Container(
+              alignment: Alignment.centerLeft,
+              child: Text(
+                "${widget.price} kr",
+                style: GoogleFonts.tinos(
+                    fontSize: 30, fontWeight: FontWeight.bold),
+              ),
+            ),
+          ),
+          SizedBox(
+              height: 40,
+              child: ElevatedButton(
+                  onPressed: () async {
+                    var uuid = const Uuid();
+                    var mid = uuid.v4();
+                    DatabaseReference messageRef = FirebaseDatabase.instance
+                        .ref()
+                        .child('messages')
+                        .child(mid);
+                    FirebaseAuth auth = FirebaseAuth.instance;
+                    if (auth.currentUser != null) {
+                      await messageRef.set({
+                        "u1": FirebaseAuth.instance.currentUser?.uid,
+                        "u2": widget.uid
+                      });
+                      Get.to(() => const Chattos());
+                    } else {
+                      Get.to(() => const Login());
+                    }
+                  },
+                  style: ElevatedButton.styleFrom(
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10)),
+                      backgroundColor: Colors.blue),
+                  child: const Center(
+                    child: Text('Ta kontakt'),
+                  ))),
         ],
       ),
     );
   }
 }
 
+// LargeScreen Widget
 class LargeBodyColumn extends StatelessWidget {
   const LargeBodyColumn({
     super.key,
@@ -169,15 +305,15 @@ class LargeBodyColumn extends StatelessWidget {
         Row(
           children: [
             Flexible(
+              flex: 7,
               child: Padding(
                 padding: const EdgeInsets.only(right: 30),
                 child: SizedBox(
-                  width: 600,
                   child: Column(
                     children: [
                       // Job image
                       Container(
-                          constraints: BoxConstraints(minHeight: 350),
+                          constraints: const BoxConstraints(minHeight: 350),
                           child: Image.network(
                             img1,
                             fit: BoxFit.cover,
@@ -205,13 +341,11 @@ class LargeBodyColumn extends StatelessWidget {
                                   children: const [
                                     Icon(
                                       Icons.ios_share,
-                                      color: Color.fromRGBO(102, 82, 143, 1.0),
+                                      color: Colors.blue,
                                     ),
                                     Text(
                                       'Kopier',
-                                      style: TextStyle(
-                                          color: Color.fromRGBO(
-                                              102, 82, 143, 1.0)),
+                                      style: TextStyle(color: Colors.blue),
                                     )
                                   ],
                                 )),
@@ -223,7 +357,6 @@ class LargeBodyColumn extends StatelessWidget {
                       Padding(
                         padding: const EdgeInsets.only(top: 20, bottom: 5),
                         child: Container(
-                          width: 600,
                           height: 2,
                           color: Colors.black12,
                         ),
@@ -232,7 +365,6 @@ class LargeBodyColumn extends StatelessWidget {
                       //Job Title
                       Container(
                         alignment: Alignment.centerLeft,
-                        width: 600,
                         child: Text(
                           title,
                           style: GoogleFonts.tinos(
@@ -243,7 +375,6 @@ class LargeBodyColumn extends StatelessWidget {
                       //Job Description
                       Container(
                         alignment: Alignment.centerLeft,
-                        width: 600,
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
@@ -270,7 +401,6 @@ class LargeBodyColumn extends StatelessWidget {
                               padding:
                                   const EdgeInsets.only(top: 20, bottom: 5),
                               child: Container(
-                                width: 600,
                                 height: 2,
                                 color: Colors.black12,
                               ),
@@ -286,6 +416,7 @@ class LargeBodyColumn extends StatelessWidget {
 
             // // //
             Flexible(
+              flex: 3,
               child: Padding(
                 padding: const EdgeInsets.only(left: 30),
                 child: Column(
@@ -294,8 +425,7 @@ class LargeBodyColumn extends StatelessWidget {
                     Container(
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(10),
-                          border: Border.all(
-                              color: const Color.fromRGBO(102, 82, 143, 1.0))),
+                          border: Border.all(color: Colors.blue)),
                       child: Padding(
                         padding: const EdgeInsets.all(20.0),
                         child: Column(
@@ -335,9 +465,8 @@ class LargeBodyColumn extends StatelessWidget {
                                         shape: RoundedRectangleBorder(
                                             borderRadius:
                                                 BorderRadius.circular(10)),
-                                        backgroundColor: const Color.fromRGBO(
-                                            102, 82, 143, 1.0)),
-                                    child: Center(
+                                        backgroundColor: Colors.blue),
+                                    child: const Center(
                                       child: Text('Ta kontakt'),
                                     ))),
                           ],
@@ -350,8 +479,7 @@ class LargeBodyColumn extends StatelessWidget {
                     Container(
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(10),
-                          border: Border.all(
-                              color: const Color.fromRGBO(102, 82, 143, 1.0))),
+                          border: Border.all(color: Colors.blue)),
                       child: Padding(
                         padding: const EdgeInsets.all(20.0),
                         child: Column(
@@ -378,14 +506,11 @@ class LargeBodyColumn extends StatelessWidget {
                                     children: const [
                                       Icon(
                                         Icons.map_outlined,
-                                        color:
-                                            Color.fromRGBO(102, 82, 143, 1.0),
+                                        color: Colors.blue,
                                       ),
                                       Text(
                                         'Vis i Kart',
-                                        style: TextStyle(
-                                            color: Color.fromRGBO(
-                                                102, 82, 143, 1.0)),
+                                        style: TextStyle(color: Colors.blue),
                                       )
                                     ],
                                   )),
@@ -424,32 +549,23 @@ class _FavoriteButtonState extends State<FavoriteButton> {
         },
         style: ElevatedButton.styleFrom(
             side: BorderSide(
-                width: 5,
-                color: isFavorited
-                    ? const Color.fromRGBO(102, 82, 143, 1.0)
-                    : Colors.white10),
+                width: 5, color: isFavorited ? Colors.blue : Colors.white10),
             shape:
                 RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-            backgroundColor: isFavorited
-                ? const Color.fromRGBO(102, 82, 143, 1.0)
-                : Colors.white),
+            backgroundColor: isFavorited ? Colors.blue : Colors.white),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Icon(
               isFavorited ? Icons.favorite : Icons.favorite_border,
-              color: isFavorited
-                  ? Colors.white
-                  : const Color.fromRGBO(102, 82, 143, 1.0),
+              color: isFavorited ? Colors.white : Colors.blue,
             ),
             Padding(
               padding: const EdgeInsets.only(left: 7),
               child: Text(
                   isFavorited ? 'Lagt til favoritt' : 'Legg til favoritt',
                   style: TextStyle(
-                      color: isFavorited
-                          ? Colors.white
-                          : const Color.fromRGBO(102, 82, 143, 1.0))),
+                      color: isFavorited ? Colors.white : Colors.blue)),
             )
           ],
         ));

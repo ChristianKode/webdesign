@@ -2,26 +2,97 @@
 
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:webdesign/utils/responsive.dart';
 
 class HomeOwners extends StatelessWidget {
   const HomeOwners({super.key});
 
   @override
   Widget build(BuildContext context) {
+    return !ResponsiveLayout.isSmallScreen(context)
+        ? LargeHomeOwnersWidget()
+        : SmallHomeOwnersWidget();
+  }
+}
+
+class SmallHomeOwnersWidget extends StatelessWidget {
+  const SmallHomeOwnersWidget({super.key});
+
+  @override
+  Widget build(BuildContext context) {
     return Container(
-      width: double.infinity,
       height: 700,
-      color: const Color.fromARGB(255, 2, 0, 126),
+      color: Color.fromARGB(255, 67, 46, 140),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text.rich(TextSpan(
+              style: const TextStyle(fontSize: 60, fontWeight: FontWeight.bold),
+              children: [
+                TextSpan(
+                    text: 'UngAnsatt-',
+                    style: GoogleFonts.tinos(
+                        fontWeight: FontWeight.bold, color: Colors.white)),
+              ])),
+          Text.rich(TextSpan(
+              style: const TextStyle(fontSize: 35, fontWeight: FontWeight.bold),
+              children: [
+                TextSpan(
+                    text: 'Jobberfaring for deg',
+                    style: GoogleFonts.tinos(
+                        fontWeight: FontWeight.bold, color: Colors.white)),
+              ])),
+          Padding(
+            padding: const EdgeInsets.only(top: 30),
+            child: Text('Visjonen vår er å få ungdom ut i arbeid',
+                style: GoogleFonts.tinos(fontSize: 30, color: Colors.white)),
+          ),
+          Padding(
+            padding: const EdgeInsets.only(bottom: 30),
+            child: Text(
+              'og skape dem erfaring for resten av livet',
+              style: GoogleFonts.tinos(fontSize: 30, color: Colors.white),
+            ),
+          ),
+          Row(
+            children: [
+              const Icon(
+                Icons.check_circle_outline,
+                color: Colors.white,
+              ),
+              Padding(
+                padding: const EdgeInsets.only(left: 8.0),
+                child: Text(
+                  'Plukk etter preferansen din',
+                  style: GoogleFonts.tinos(color: Colors.white, fontSize: 20),
+                ),
+              )
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class LargeHomeOwnersWidget extends StatelessWidget {
+  const LargeHomeOwnersWidget({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: 700,
+      color: Color.fromARGB(255, 67, 46, 140),
       child: Center(
-        child: SizedBox(
-          width: 1500,
-          child:
-              Row(mainAxisAlignment: MainAxisAlignment.spaceAround, children: [
-            Padding(
-              padding: EdgeInsets.only(
-                  left: 20,
-                  top: 80,
-                  right: MediaQuery.of(context).size.width * 0.15),
+        child: Row(crossAxisAlignment: CrossAxisAlignment.center, children: [
+          Flexible(
+            child: Padding(
+              padding: const EdgeInsets.only(
+                left: 30,
+                top: 80,
+              ),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -115,8 +186,10 @@ class HomeOwners extends StatelessWidget {
                 ],
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.only(right: 20),
+          ),
+          Flexible(
+            child: Padding(
+              padding: const EdgeInsets.only(right: 30, left: 30),
               child: Container(
                 alignment: Alignment.centerLeft,
                 height: MediaQuery.of(context).size.width,
@@ -132,9 +205,9 @@ class HomeOwners extends StatelessWidget {
                   ),
                 ),
               ),
-            )
-          ]),
-        ),
+            ),
+          )
+        ]),
       ),
     );
   }

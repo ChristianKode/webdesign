@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/route_manager.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:webdesign/pages/newJob/newjob.dart';
 import 'package:webdesign/utils/responsive.dart';
 
 class HomeCard extends StatelessWidget {
@@ -100,12 +101,12 @@ class HomeCard extends StatelessWidget {
                               fontSize: 40, fontWeight: FontWeight.bold),
                           children: [
                             TextSpan(
-                                text: 'Søk blant',
+                                text: 'Opprett',
                                 style: GoogleFonts.tinos(
                                     fontWeight: FontWeight.bold,
                                     color: Colors.white)),
                             TextSpan(
-                                text: ' jobber',
+                                text: ' annonser',
                                 style: GoogleFonts.tinos(
                                     color: const Color.fromARGB(
                                         255, 255, 255, 255)))
@@ -117,24 +118,31 @@ class HomeCard extends StatelessWidget {
                               color: Colors.white),
                           children: [
                             TextSpan(
-                                text: 'som passer',
+                                text: 'enkelt og ',
                                 style: GoogleFonts.tinos(
                                     fontWeight: FontWeight.bold)),
                             TextSpan(
-                                text: ' deg',
+                                text: ' greit',
                                 style: GoogleFonts.tinos(
                                     color: const Color.fromARGB(
                                         255, 255, 255, 255)))
                           ])),
+                      SizedBox(
+                        height: 220,
+                        child: Image.network(
+                            'https://firebasestorage.googleapis.com/v0/b/ungansatt123.appspot.com/o/assets%2Fgarbage-recycle.png?alt=media&token=e66338fc-4139-428f-acc8-7c58d1bea75f'),
+                      ),
                       Padding(
                         padding: const EdgeInsets.only(top: 8),
                         child: SizedBox(
                             height: 35,
-                            width: 180,
+                            width: 200,
                             child: ElevatedButton(
                                 style: ElevatedButton.styleFrom(
                                     backgroundColor: Colors.white),
-                                onPressed: () {},
+                                onPressed: () {
+                                  Get.to(() => const NewJob());
+                                },
                                 child: const Text(
                                   'Vis meg',
                                   style: TextStyle(
@@ -142,11 +150,6 @@ class HomeCard extends StatelessWidget {
                                   ),
                                 ))),
                       ),
-                      SizedBox(
-                        height: 220,
-                        child: Image.network(
-                            'https://firebasestorage.googleapis.com/v0/b/ungansatt123.appspot.com/o/assets%2Fmoney.png?alt=media&token=cd7787c3-4ce9-47c4-851e-4afbbb2c57f9'),
-                      )
                     ],
                   ),
           ),
