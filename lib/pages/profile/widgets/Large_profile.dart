@@ -5,17 +5,21 @@ import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:webdesign/utils/responsive.dart';
 import 'package:webdesign/widgets/appbar.dart';
+import 'package:webdesign/widgets/drawer.dart';
 
 
-TextEditingController nameController = TextEditingController();
 final userRef = FirebaseDatabase.instance.ref().child('users').child(uid);
 String ttele = "";
-String fornavn= "";
+String fornavn = "";
+String etternavn = "";
 final String uid = FirebaseAuth.instance.currentUser!.uid;
 final databaseRef = FirebaseDatabase.instance.ref().child(uid);
-final TextEditingController navn = TextEditingController();
-final TextEditingController etterNavn = TextEditingController();
-bool isEditEnabled = false;
+TextEditingController etterNavnController = TextEditingController();
+TextEditingController fornavnController = TextEditingController();
+bool isFornavnEditEnabled = false;
+bool isEtternavnEditEnabled = false;
+bool isTelefonEditEnabled = false;
+
 
 class LargeProfile extends StatelessWidget {
   const LargeProfile({super.key});
@@ -27,7 +31,7 @@ class LargeProfile extends StatelessWidget {
     return Scaffold(
       key: scaffoldKey,
       appBar: appBar(context, scaffoldKey),
-      drawer: const Drawer(),
+      drawer: const Drawer(child: SideDrawer(),),
       body: const Padding(
         padding: EdgeInsets.only(top: 50),
         child: ProfileContent(),
@@ -54,8 +58,10 @@ class _ProfileContentState extends State<ProfileContent>
 
     setState(() {
       final firstName = userData['fornavn'];
+      final LastName = userData['etternavn'];
       final tlf = userData['telefon'];
       fornavn = firstName;
+      final etterNavn = LastName;
       ttele = tlf;
     });
   }
@@ -74,12 +80,12 @@ class _ProfileContentState extends State<ProfileContent>
   }
 
   nameCard() {
-    if (isEditEnabled == true) {
+    if (isFornavnEditEnabled == true) {
       // Editable version of the card
       return Stack(
         children: [
           Container(
-            height: 100,
+            height: 80,
             width: 225,
             padding: const EdgeInsets.all(16),
             decoration: BoxDecoration(
@@ -96,14 +102,14 @@ class _ProfileContentState extends State<ProfileContent>
             child: SizedBox(
               width: 100,
               child: TextField(
-                controller: nameController,
+                controller: fornavnController,
                 decoration: const InputDecoration(
                   border: InputBorder.none,
                   hintText: 'Enter name here',
                   hintStyle: TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.normal,
-                    color: Color.fromRGBO(102, 82, 143, 1.0)),
+                    color: Colors.blue),
                 ),
               ),
             ),
@@ -113,10 +119,10 @@ class _ProfileContentState extends State<ProfileContent>
             right: 10,
             child: IconButton(
               onPressed: () async {
-                if (nameController.text != "") {
+                if (fornavnController.text != "") {
                   setState(() {
-                    isEditEnabled = false;
-                    fornavn = nameController.text; // Add this line to update the name variable
+                    isFornavnEditEnabled = false;
+                    fornavn = fornavnController.text; // Add this line to update the name variable
                   });
 
                   Map<String, dynamic> updateData = {'fornavn': fornavn};
@@ -134,7 +140,7 @@ class _ProfileContentState extends State<ProfileContent>
       return Stack(
         children: [
           Container(
-            height: 100,
+            height: 80,
             width: 225,
             padding: const EdgeInsets.all(16),
             decoration: BoxDecoration(
@@ -155,7 +161,7 @@ class _ProfileContentState extends State<ProfileContent>
                 style: const TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.normal,
-                    color: Color.fromRGBO(102, 82, 143, 1.0)),
+                    color: Colors.blue),
               ),
             ),
           ),
@@ -165,7 +171,110 @@ class _ProfileContentState extends State<ProfileContent>
             child: IconButton(
               onPressed: () {
                 setState(() {
-                  isEditEnabled = true;
+                  isFornavnEditEnabled = true;
+                });
+              },
+              icon: const Icon(Icons.edit),
+            ),
+          ),
+        ],
+      );
+    }
+  }
+
+  LastnameCard() {
+    if (isEtternavnEditEnabled == true) {
+      // Editable version of the card
+      return Stack(
+        children: [
+          Container(
+            height: 80,
+            width: 225,
+            padding: const EdgeInsets.all(16),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(16),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.grey.withOpacity(0.3),
+                  blurRadius: 10,
+                  spreadRadius: 5,
+                ),
+              ],
+            ),
+            child: SizedBox(
+              width: 100,
+              child: TextField(
+                controller: etterNavnController,
+                decoration: const InputDecoration(
+                  border: InputBorder.none,
+                  hintText: 'Enter last name here',
+                  hintStyle: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.normal,
+                    color: Colors.blue),
+                ),
+              ),
+            ),
+          ),
+          Positioned(
+            top: 10,
+            right: 10,
+            child: IconButton(
+              onPressed: () async {
+                if (etterNavnController.text != "") {
+                  setState(() {
+                    isEtternavnEditEnabled = false;
+                    etternavn = etterNavnController.text; // Add this line to update the name variable
+                  });
+
+                  Map<String, dynamic> updateData = {'etternavn': etternavn};
+
+                  await userRef.update(updateData);
+                }
+              },
+              icon: const Icon(Icons.save),
+            ),
+          ),
+        ],
+      );
+    } else {
+      // Non-editable version of the card
+      return Stack(
+        children: [
+          Container(
+            height: 80,
+            width: 225,
+            padding: const EdgeInsets.all(16),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(16),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.grey.withOpacity(0.3),
+                  blurRadius: 10,
+                  spreadRadius: 5,
+                ),
+              ],
+            ),
+            child: Padding(
+              padding: const EdgeInsets.only(top: 12),
+              child: SelectableText(
+                etternavn,
+                style: const TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.normal,
+                    color: Colors.blue),
+              ),
+            ),
+          ),
+          Positioned(
+            top: 10,
+            right: 10,
+            child: IconButton(
+              onPressed: () {
+                setState(() {
+                  isEtternavnEditEnabled = true;
                 });
               },
               icon: const Icon(Icons.edit),
@@ -206,8 +315,8 @@ class _ProfileContentState extends State<ProfileContent>
                           color: Color.fromRGBO(102, 82, 143, 1.0)),
                       labelStyle: const TextStyle(
                           fontSize: 16, fontWeight: FontWeight.w700),
-                      labelColor: const Color.fromRGBO(102, 82, 143, 1.0),
-                      indicatorColor: const Color.fromRGBO(102, 82, 143, 1.0),
+                      labelColor: Colors.black,
+                      indicatorColor: Colors.black,
                       indicatorWeight: 5,
                     ),
                     Expanded(
@@ -225,6 +334,9 @@ class _ProfileContentState extends State<ProfileContent>
                                 Padding(
                                     padding: const EdgeInsets.all(5.0),
                                     child: nameCard()),
+                                Padding(
+                                    padding: const EdgeInsets.all(5.0),
+                                    child: LastnameCard()),
                               ],
                             ),
                           ),
@@ -278,11 +390,11 @@ class _ProfileContentState extends State<ProfileContent>
                   ],
                   unselectedLabelStyle: const TextStyle(
                       fontWeight: FontWeight.normal,
-                      color: Color.fromRGBO(102, 82, 143, 1.0)),
+                      color: Colors.black),
                   labelStyle: const TextStyle(
                       fontSize: 16, fontWeight: FontWeight.w700),
-                  labelColor: const Color.fromRGBO(102, 82, 143, 1.0),
-                  indicatorColor: const Color.fromRGBO(102, 82, 143, 1.0),
+                  labelColor: Colors.black,
+                  indicatorColor: Colors.black,
                   indicatorWeight: 5,
                 ),
                 Expanded(
