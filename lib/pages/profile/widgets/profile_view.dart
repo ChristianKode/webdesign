@@ -142,30 +142,32 @@ class _LargeProfileState extends State<LargeProfile> {
               child: Container(
             width: 1000,
             height: 1000,
-            child: ListView(
-              scrollDirection: Axis.horizontal,
+            alignment: Alignment.center,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Container(
-                  width: 300,
+                  width: 320,
                   height: 250,
-                  color: Colors.pink,
+                  color: Colors.white,
                   child: Column(
                     children: [Text('Endre profil')],
                   ),
                 ),
                 Container(
-                  color: Colors.blue,
-                  width: 300,
+                  width: 320,
                   height: 250,
+                  color: Colors.white,
                   child: Column(
-                    children: [Text('Endre profil')],
+                    children: [Text('Favoritter')],
                   ),
                 ),
                 Container(
-                  width: 300,
+                  width: 320,
                   height: 250,
+                  color: Colors.white,
                   child: Column(
-                    children: [Text('Endre profil')],
+                    children: [Text('Mine annonser')],
                   ),
                 ),
               ],
