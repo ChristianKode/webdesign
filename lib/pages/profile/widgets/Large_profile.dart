@@ -61,7 +61,7 @@ class _ProfileContentState extends State<ProfileContent>
       final LastName = userData['etternavn'];
       final tlf = userData['telefon'];
       fornavn = firstName;
-      final etterNavn = LastName;
+      etternavn = LastName;
       ttele = tlf;
     });
   }
@@ -189,7 +189,7 @@ class _ProfileContentState extends State<ProfileContent>
         children: [
           Container(
             height: 80,
-            width: 225,
+            width: 250,
             padding: const EdgeInsets.all(16),
             decoration: BoxDecoration(
               color: Colors.white,
@@ -244,7 +244,7 @@ class _ProfileContentState extends State<ProfileContent>
         children: [
           Container(
             height: 80,
-            width: 225,
+            width: 250,
             padding: const EdgeInsets.all(16),
             decoration: BoxDecoration(
               color: Colors.white,

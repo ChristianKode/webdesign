@@ -278,7 +278,7 @@ AppBar appBar(BuildContext context, GlobalKey<ScaffoldState> key) => AppBar(
                               ),
                             ),
                             Container(
-                              width: MediaQuery.of(context).size.width - 750,
+                              width: MediaQuery.of(context).size.width - 675,
                             ),
                             Container(
                               width: 150,
