@@ -9,9 +9,9 @@ class Chat extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const ResponsiveWidget(
-        largeScreen: Chattos(),
-        mediumScreen: Chattos(),
-        smallScreen: SmallChat());
+    return ResponsiveWidget(
+        largeScreen: ChatUI(),
+        mediumScreen: ChatUI(),
+        smallScreen: const SmallChat());
   }
 }

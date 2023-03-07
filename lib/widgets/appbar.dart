@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:webdesign/app_logic/services/firebase_auth.dart';
+import 'package:webdesign/pages/chat/chat.dart';
 import 'package:webdesign/pages/chat/widgets/large_chat.dart';
 import 'package:webdesign/pages/home/widgets/main_home.dart';
 import 'package:webdesign/pages/login/login.dart';
@@ -61,7 +62,7 @@ chatItem() {
         height: 35,
         child: TextButton(
           onPressed: () {
-            Get.to(const Chattos());
+            Get.to(ChatUI());
           },
           child: const Text(
             'Chat ',
