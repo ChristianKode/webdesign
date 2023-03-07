@@ -8,6 +8,8 @@ import 'package:webdesign/pages/chat/widgets/large_chat.dart';
 import 'package:webdesign/pages/login/login.dart';
 import 'package:webdesign/utils/responsive.dart';
 
+import '../../../app_logic/services/message.dart';
+
 // ignore: must_be_immutable
 class BodyRow extends StatefulWidget {
   String aid = '';
@@ -336,7 +338,7 @@ class LargeBodyColumn extends StatelessWidget {
                             height: 40,
                             child: TextButton(
                                 onPressed: () {},
-                                child:  Row(
+                                child: Row(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: const [
                                     Icon(
@@ -444,18 +446,13 @@ class LargeBodyColumn extends StatelessWidget {
                                     onPressed: () async {
                                       var uuid = const Uuid();
                                       var mid = uuid.v4();
-                                      DatabaseReference messageRef =
-                                          FirebaseDatabase.instance
-                                              .ref()
-                                              .child('messages')
-                                              .child(mid);
                                       FirebaseAuth auth = FirebaseAuth.instance;
                                       if (auth.currentUser != null) {
-                                        await messageRef.set({
-                                          "u1": FirebaseAuth
-                                              .instance.currentUser?.uid,
-                                          "u2": uid
-                                        });
+                                        final senderId = FirebaseAuth
+                                            .instance.currentUser?.uid;
+                                        final recipientId = uid;
+                                        navnesen(senderId!, recipientId);
+
                                         Get.to(() => const Chattos());
                                       } else {
                                         Get.to(() => const Login());
