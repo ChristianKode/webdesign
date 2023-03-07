@@ -14,99 +14,128 @@ import 'package:webdesign/widgets/drawer.dart';
 final String uid = FirebaseAuth.instance.currentUser!.uid;
 final messagesRef = FirebaseFirestore.instance
     .collection('messages')
-    .doc('wbGLLFbLCI8hMYDzWlI5')
-    .collection('messages');
+    .doc('8oUPHh4nlLUnlkmdypwm')
+    .collection('messages')
+    .where('senderId', isEqualTo: uid) // Filter messages by senderId
+    .orderBy('timestamp', descending: true); // Order messages by timestamp in descending order
+
 final String messageText = messageController.text;
 final TextEditingController messageController = TextEditingController();
 final senderId = uid; // Replace with the current user's ID
 const recipientId = 'user2'; // Replace with the recipient's user ID
-final newMessageRef = messagesRef.add({
+/*final newMessageRef = messagesRef.add({
   'text': messageText,
   'senderId': uid,
   'timestamp': FieldValue.serverTimestamp(),
-});
+});*/
 
 class ChatUI extends StatefulWidget {
   @override
   _ChatUIState createState() => _ChatUIState();
 }
 
-class _ChatUIState extends State<ChatUI> {
-  final List<String> _messages = [];
 
+class _ChatUIState extends State<ChatUI> {
   final _messageController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey();
 
+    final messagesRef = FirebaseFirestore.instance
+        .collection('messages')
+        .doc('8oUPHh4nlLUnlkmdypwm')
+        .collection('messages')
+        .where('senderId', isEqualTo: uid) // Filter messages by senderId
+        .orderBy('timestamp', descending: true); // Order messages by timestamp in descending order
+
     return Scaffold(
       key: scaffoldKey,
       appBar: appBar(context, scaffoldKey),
       drawer: const Drawer(child: SideDrawer()),
-        body: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            const ChatList(),
-            Container(
-              width: 800,
-              height: 800,
-              color: Colors.blue,
-              child: Column(
-                children: [
-                  Expanded(
-                    child: ListView.builder(
-                      itemCount: _messages.length,
-                      itemBuilder: (context, index) {
-                        final message = _messages[index];
-                        return Padding(
-                          padding: const EdgeInsets.symmetric(
-                            horizontal: 16,
-                            vertical: 8,
-                          ),
-                          child: Text(
-                            message,
-                            style: const TextStyle(
-                              fontSize: 16,
-                              color: Colors.white,
+      body: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          const ChatList(),
+          Container(
+            width: 800,
+            height: 800,
+            color: Colors.blue,
+            child: Column(
+              children: [
+                Expanded(
+                  child: StreamBuilder<QuerySnapshot>(
+                    stream: messagesRef.snapshots(),
+                    builder: (context, snapshot) {
+                      if (snapshot.hasError) {
+                        return Text('Error: ${snapshot.error}');
+                      }
+
+                      if (!snapshot.hasData) {
+                        return const Center(child: CircularProgressIndicator());
+                      }
+
+                      final messages = snapshot.data!.docs;
+
+                      return ListView.builder(
+                        itemCount: messages.length,
+                        itemBuilder: (context, index) {
+                          final message = messages[index];
+                          final messageData = message.data();
+                          final text = message ['text'];
+                          final senderId = message ['senderId'];
+                          final timestamp = message ['timestamp'];
+
+                          return Padding(
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 16,
+                              vertical: 8,
                             ),
-                          ),
-                        );
-                      },
-                    ),
+                            child: Text(
+                              '$text (from: $senderId, timestamp: $timestamp)',
+                              style: const TextStyle(
+                                fontSize: 16,
+                                color: Colors.white,
+                              ),
+                            ),
+                          );
+                        },
+                      );
+                    },
                   ),
-                  Container(
-                    color: Colors.white,
-                    padding: const EdgeInsets.symmetric(horizontal: 16),
-                    child: Row(
-                      children: [
-                        Expanded(
-                          child: TextField(
-                            controller: _messageController,
-                            decoration: const InputDecoration(
-                              hintText: 'Type your message',
-                            ),
+                ),
+                Container(
+                  color: Colors.white,
+                  padding: const EdgeInsets.symmetric(horizontal: 16),
+                  child: Row(
+                    children: [
+                      Expanded(
+                        child: TextField(
+                          controller: _messageController,
+                          decoration: const InputDecoration(
+                            hintText: 'Type your message',
                           ),
                         ),
-                        IconButton(
-                          icon: const Icon(Icons.send),
-                          onPressed: () async {
-                            final text = messageController.text;
-      
-                            navnesen(senderId, recipientId);
-                            setState(() {
-                              _messageController.clear();
-                            });
-                          },
-                        ),
-                      ],
-                    ),
+                      ),
+                      IconButton(
+                        icon: const Icon(Icons.send),
+                        onPressed: () async {
+                          final text = _messageController.text;
+                          final senderId = uid; // Replace with the current user's ID
+                          const recipientId = 'user2'; // Replace with the recipient's user ID
+
+                          navnesen(senderId, text);
+                          _messageController.clear();
+                        },
+                      ),
+                    ],
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
-          ],
-        ),
+          ),
+        ],
+      ),
     );
   }
 }
