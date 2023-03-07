@@ -1,6 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_database/firebase_database.dart';
 
 class AuthService {
   final FirebaseAuth _auth;
@@ -22,7 +21,6 @@ class AuthService {
   // Signup Logic
   Future<String> signUp(String email, String password, String firstname,
       String lastname, String telephone) async {
-    DatabaseReference ref = FirebaseDatabase.instance.ref("users");
     FirebaseFirestore firestore = FirebaseFirestore.instance;
 
     try {

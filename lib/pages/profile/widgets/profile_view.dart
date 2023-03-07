@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
+import 'package:webdesign/pages/profile/widgets/Large_profile.dart';
 import 'package:webdesign/utils/responsive.dart';
 import 'package:webdesign/widgets/appbar.dart';
 import 'package:webdesign/widgets/drawer.dart';
@@ -8,12 +9,12 @@ import 'package:webdesign/widgets/drawer.dart';
 final String currentUid = FirebaseAuth.instance.currentUser!.uid;
 final userRef =
     FirebaseDatabase.instance.ref().child('users').child(currentUid);
-String name = firstName + lastName;
-String firstName = "";
-String lastName = "";
+String name = forNavn + etternavn;
+String forNavn = "";
+String etternavn = "";
 
 class ProfileView extends StatefulWidget {
-  ProfileView({super.key});
+  const ProfileView({super.key});
 
   @override
   State<ProfileView> createState() => _ProfileViewState();
@@ -27,13 +28,13 @@ class _ProfileViewState extends State<ProfileView> {
     return Scaffold(
       key: scaffoldKey,
       appBar: appBar(context, scaffoldKey),
-      drawer: Drawer(
+      drawer: const Drawer(
         child: SideDrawer(),
       ),
       body: SingleChildScrollView(
         child: !ResponsiveLayout.isSmallScreen(context)
-            ? LargeProfile()
-            : SmallProfile(),
+            ? const LargeProfile()
+            : const SmallProfile(),
       ),
     );
   }
@@ -52,11 +53,10 @@ class _LargeProfileState extends State<LargeProfile> {
     final userData = dataSnapshot.value as Map<dynamic, dynamic>;
 
     setState(() {
-      final FirstName = userData['fornavn'];
-      final LastName = userData['etternavn'];
-      final tlf = userData['telefon'];
-      firstName = FirstName;
-      lastName = LastName;
+      final firstName = userData['fornavn'];
+      final lastName = userData['etternavn'];
+      fornavn = firstName;
+      etternavn = lastName;
     });
   }
 
@@ -72,11 +72,11 @@ class _LargeProfileState extends State<LargeProfile> {
       children: [
         // Page Header
 
-        Container(
+        SizedBox(
           width: MediaQuery.of(context).size.width,
           height: 300,
           child: Center(
-            child: Container(
+            child: SizedBox(
               height: 300,
               width: 1000,
               child: Padding(
@@ -89,11 +89,9 @@ class _LargeProfileState extends State<LargeProfile> {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Text('Min Side'),
-                          Container(
-                            child: ElevatedButton(
-                                onPressed: () {}, child: Text("Logg ut")),
-                          )
+                          const Text('Min Side'),
+                          ElevatedButton(
+                              onPressed: () {}, child: const Text("Logg ut"))
                         ],
                       ),
                     ),
@@ -115,8 +113,8 @@ class _LargeProfileState extends State<LargeProfile> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                firstName + ' ' + lastName,
-                                style: TextStyle(
+                                '$forNavn $etternavn',
+                                style: const TextStyle(
                                     fontSize: 30, fontWeight: FontWeight.bold),
                               ),
                               Text(
@@ -150,7 +148,7 @@ class _LargeProfileState extends State<LargeProfile> {
                   width: 320,
                   height: 250,
                   color: Colors.white,
-                  child: Column(
+                  child: const Column(
                     children: [Text('Endre profil')],
                   ),
                 ),
@@ -158,7 +156,7 @@ class _LargeProfileState extends State<LargeProfile> {
                   width: 320,
                   height: 250,
                   color: Colors.white,
-                  child: Column(
+                  child: const Column(
                     children: [Text('Favoritter')],
                   ),
                 ),
@@ -166,7 +164,7 @@ class _LargeProfileState extends State<LargeProfile> {
                   width: 320,
                   height: 250,
                   color: Colors.white,
-                  child: Column(
+                  child: const Column(
                     children: [Text('Mine annonser')],
                   ),
                 ),

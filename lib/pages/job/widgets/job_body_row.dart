@@ -126,9 +126,9 @@ class _SmallBodyColumnState extends State<SmallBodyColumn> {
                 height: 40,
                 child: TextButton(
                     onPressed: () {},
-                    child: Row(
+                    child: const Row(
                       mainAxisAlignment: MainAxisAlignment.center,
-                      children: const [
+                      children: [
                         Icon(
                           Icons.ios_share,
                           color: Colors.blue,
@@ -338,9 +338,9 @@ class LargeBodyColumn extends StatelessWidget {
                             height: 40,
                             child: TextButton(
                                 onPressed: () {},
-                                child: Row(
+                                child: const Row(
                                   mainAxisAlignment: MainAxisAlignment.center,
-                                  children: const [
+                                  children: [
                                     Icon(
                                       Icons.ios_share,
                                       color: Colors.blue,
@@ -444,8 +444,6 @@ class LargeBodyColumn extends StatelessWidget {
                                 height: 40,
                                 child: ElevatedButton(
                                     onPressed: () async {
-                                      var uuid = const Uuid();
-                                      var mid = uuid.v4();
                                       FirebaseAuth auth = FirebaseAuth.instance;
                                       if (auth.currentUser != null) {
                                         final senderId = FirebaseAuth
@@ -498,9 +496,9 @@ class LargeBodyColumn extends StatelessWidget {
                                           borderRadius:
                                               BorderRadius.circular(10)),
                                       backgroundColor: Colors.white),
-                                  child: Row(
+                                  child: const Row(
                                     mainAxisAlignment: MainAxisAlignment.center,
-                                    children: const [
+                                    children: [
                                       Icon(
                                         Icons.map_outlined,
                                         color: Colors.blue,

@@ -1,6 +1,6 @@
 // ignore: file_names
 // ignore: file_names
-// ignore_for_file: file_names, duplicate_ignore, use_key_in_widget_constructors
+// ignore_for_file: file_names, duplicate_ignore, use_key_in_widget_constructors, unused_import, unused_local_variable
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -53,11 +53,11 @@ class Chattos extends StatelessWidget {
                     final text = messageController.text;
                     final senderId =
                         uid; // Replace with the current user's ID
-                    final recipientId =
+                    const recipientId =
                         'user2'; // Replace with the recipient's user ID
               
                     navnesen(senderId, recipientId);
-                  }, child: Icon(Icons.send),
+                  }, child: const Icon(Icons.send),
                 ),
               ),
               SizedBox(
@@ -65,7 +65,7 @@ class Chattos extends StatelessWidget {
                   child: TextField(
                     controller: messageController,
                     decoration:
-                        InputDecoration(hintText: 'Type your message here'),
+                        const InputDecoration(hintText: 'Type your message here'),
                   )),
             ],
           ),

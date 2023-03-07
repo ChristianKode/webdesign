@@ -27,9 +27,9 @@ class SideDrawer extends StatelessWidget {
               return const LoggedInDrawer();
             } else {
               // Logged out
-              return  Column(
+              return  const Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
-                children: const [LoggedOutDrawer()],
+                children: [LoggedOutDrawer()],
               );
             }
           } else {
