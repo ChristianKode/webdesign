@@ -143,7 +143,7 @@ class _LargeProfileState extends State<LargeProfile> {
 
         // Body
         Container(
-          constraints: BoxConstraints(minHeight: 280),
+          constraints: const BoxConstraints(minHeight: 280),
           width: MediaQuery.of(context).size.width,
           color: const Color.fromARGB(7, 0, 0, 0),
           child: Container(
@@ -158,7 +158,7 @@ class _LargeProfileState extends State<LargeProfile> {
                   height: 250,
                   color: Colors.white,
                   child: Column(
-                    children: [Text('Endre profil')],
+                    children: const [Text('Endre profil')],
                   ),
                 ),
                 Container(
@@ -166,7 +166,7 @@ class _LargeProfileState extends State<LargeProfile> {
                   height: 250,
                   color: Colors.white,
                   child: Column(
-                    children: [Text('Favoritter')],
+                    children: const [Text('Favoritter')],
                   ),
                 ),
                 Container(
@@ -174,7 +174,7 @@ class _LargeProfileState extends State<LargeProfile> {
                   height: 250,
                   color: Colors.white,
                   child: Column(
-                    children: [Text('Mine annonser')],
+                    children: const [Text('Mine annonser')],
                   ),
                 ),
               ],

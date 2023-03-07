@@ -43,11 +43,11 @@ class _ChatUIState extends State<ChatUI> {
     return Scaffold(
       key: scaffoldKey,
       appBar: appBar(context, scaffoldKey),
-      drawer: Drawer(child: SideDrawer()),
+      drawer: const Drawer(child: SideDrawer()),
         body: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            ChatList(),
+            const ChatList(),
             Container(
               width: 800,
               height: 800,
@@ -66,7 +66,7 @@ class _ChatUIState extends State<ChatUI> {
                           ),
                           child: Text(
                             message,
-                            style: TextStyle(
+                            style: const TextStyle(
                               fontSize: 16,
                               color: Colors.white,
                             ),
@@ -83,13 +83,13 @@ class _ChatUIState extends State<ChatUI> {
                         Expanded(
                           child: TextField(
                             controller: _messageController,
-                            decoration: InputDecoration(
+                            decoration: const InputDecoration(
                               hintText: 'Type your message',
                             ),
                           ),
                         ),
                         IconButton(
-                          icon: Icon(Icons.send),
+                          icon: const Icon(Icons.send),
                           onPressed: () async {
                             final text = messageController.text;
       

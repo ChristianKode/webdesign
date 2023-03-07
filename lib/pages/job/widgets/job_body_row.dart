@@ -126,9 +126,9 @@ class _SmallBodyColumnState extends State<SmallBodyColumn> {
                 height: 40,
                 child: TextButton(
                     onPressed: () {},
-                    child: const Row(
+                    child:  Row(
                       mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
+                      children: const [
                         Icon(
                           Icons.ios_share,
                           color: Colors.blue,
@@ -338,9 +338,9 @@ class LargeBodyColumn extends StatelessWidget {
                             height: 40,
                             child: TextButton(
                                 onPressed: () {},
-                                child: const Row(
+                                child:  Row(
                                   mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
+                                  children: const [
                                     Icon(
                                       Icons.ios_share,
                                       color: Colors.blue,
@@ -496,9 +496,9 @@ class LargeBodyColumn extends StatelessWidget {
                                           borderRadius:
                                               BorderRadius.circular(10)),
                                       backgroundColor: Colors.white),
-                                  child: const Row(
+                                  child:  Row(
                                     mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
+                                    children: const [
                                       Icon(
                                         Icons.map_outlined,
                                         color: Colors.blue,
