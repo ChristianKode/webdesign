@@ -1,85 +1,112 @@
 // ignore: file_names
 // ignore: file_names
-// ignore_for_file: file_names, duplicate_ignore, use_key_in_widget_constructors
+// ignore_for_file: file_names, duplicate_ignore, use_key_in_widget_constructors, unused_import, unused_local_variable
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:webdesign/app_logic/services/message.dart';
+import 'package:webdesign/pages/chat/widgets/group_chat_list.dart';
 import 'package:webdesign/widgets/appbar.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:webdesign/widgets/drawer.dart';
 
-class LargeChat extends StatelessWidget {
-  const LargeChat({super.key});
+final String uid = FirebaseAuth.instance.currentUser!.uid;
+final messagesRef = FirebaseFirestore.instance
+    .collection('messages')
+    .doc('wbGLLFbLCI8hMYDzWlI5')
+    .collection('messages');
+final String messageText = messageController.text;
+final TextEditingController messageController = TextEditingController();
+final senderId = uid; // Replace with the current user's ID
+const recipientId = 'user2'; // Replace with the recipient's user ID
+final newMessageRef = messagesRef.add({
+  'text': messageText,
+  'senderId': uid,
+  'timestamp': FieldValue.serverTimestamp(),
+});
+
+class ChatUI extends StatefulWidget {
+  @override
+  _ChatUIState createState() => _ChatUIState();
+}
+
+class _ChatUIState extends State<ChatUI> {
+  final List<String> _messages = [];
+
+  final _messageController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey();
+
     return Scaffold(
       key: scaffoldKey,
       appBar: appBar(context, scaffoldKey),
-      drawer: const Drawer(),
-      body: Container(
-        decoration: const BoxDecoration(
-            gradient: LinearGradient(
-                begin: Alignment.centerLeft,
-                end: Alignment.centerRight,
-                colors: [
-              Color.fromRGBO(240, 95, 87, 1.0),
-              Color.fromRGBO(54, 9, 64, 1.0)
-            ])),
-        child: Column(
-          children: <Widget>[/*NavBarIn()*/ ChatContent()],
-        ),
-      ),
-    );
-  }
-}
-
-class ChatContent extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(20.0),
-      child: Stack(children: [
-        Container(
-            alignment: Alignment.centerRight,
-            height: 480,
-            width: 900,
-            color: Colors.white,
-            child: Column(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.only(right: 1035, top: 20),
-                  child: Container(
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(80),
-                        color: Colors.black),
+      drawer: Drawer(child: SideDrawer()),
+        body: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            ChatList(),
+            Container(
+              width: 800,
+              height: 800,
+              color: Colors.blue,
+              child: Column(
+                children: [
+                  Expanded(
+                    child: ListView.builder(
+                      itemCount: _messages.length,
+                      itemBuilder: (context, index) {
+                        final message = _messages[index];
+                        return Padding(
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 16,
+                            vertical: 8,
+                          ),
+                          child: Text(
+                            message,
+                            style: TextStyle(
+                              fontSize: 16,
+                              color: Colors.white,
+                            ),
+                          ),
+                        );
+                      },
+                    ),
                   ),
-                )
-              ],
-            )),
-        Container(
-          height: 480,
-          width: 186,
-          color: Colors.black,
+                  Container(
+                    color: Colors.white,
+                    padding: const EdgeInsets.symmetric(horizontal: 16),
+                    child: Row(
+                      children: [
+                        Expanded(
+                          child: TextField(
+                            controller: _messageController,
+                            decoration: InputDecoration(
+                              hintText: 'Type your message',
+                            ),
+                          ),
+                        ),
+                        IconButton(
+                          icon: Icon(Icons.send),
+                          onPressed: () async {
+                            final text = messageController.text;
+      
+                            navnesen(senderId, recipientId);
+                            setState(() {
+                              _messageController.clear();
+                            });
+                          },
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
         ),
-        Container(
-          height: 480,
-          width: 185,
-          color: Colors.white,
-        ),
-        const Padding(padding: EdgeInsets.only(left: 30, top: 50)),
-        const SizedBox(
-          height: 50,
-          width: 50,
-          child: ClipRRect(
-            child: Image(
-                image: NetworkImage(
-                    "https://firebasestorage.googleapis.com/v0/b/ungansatt123.appspot.com/o/assets%2FProfile.jpg?alt=media&token=6c8c561b-8202-4e3b-9c6e-f8df074a5162")),
-          ),
-        ),
-        Padding(
-            padding: const EdgeInsets.only(left: 55, top: 10),
-            child: TextButton(
-                onPressed: () {}, child: const Text("Benjamin Csaplar"))),
-      ]),
     );
   }
 }

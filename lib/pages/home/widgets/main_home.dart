@@ -29,8 +29,8 @@ class LargeHome extends StatelessWidget {
       drawer: const Drawer(
         child: SideDrawer(),
       ),
-      body: SingleChildScrollView(
-        child: Column(children: const <Widget>[
+      body: const SingleChildScrollView(
+        child: Column(children: <Widget>[
           Top(),
           HomeCard(),
           JobList(),

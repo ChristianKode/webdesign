@@ -57,10 +57,10 @@ class _ProfileContentState extends State<ProfileContent>
 
     setState(() {
       final firstName = userData['fornavn'];
-      final LastName = userData['etternavn'];
+      final lastName = userData['etternavn'];
       final tlf = userData['telefon'];
       fornavn = firstName;
-      etternavn = LastName;
+      etternavn = lastName;
       ttele = tlf;
     });
   }
@@ -182,7 +182,7 @@ class _ProfileContentState extends State<ProfileContent>
     }
   }
 
-  LastnameCard() {
+  lastnameCard() {
     if (isEtternavnEditEnabled == true) {
       // Editable version of the card
       return Stack(
@@ -337,7 +337,7 @@ class _ProfileContentState extends State<ProfileContent>
                                     child: nameCard()),
                                 Padding(
                                     padding: const EdgeInsets.all(5.0),
-                                    child: LastnameCard()),
+                                    child: lastnameCard()),
                               ],
                             ),
                           ),

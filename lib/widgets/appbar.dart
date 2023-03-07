@@ -5,10 +5,11 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:webdesign/app_logic/services/firebase_auth.dart';
+import 'package:webdesign/pages/chat/chat.dart';
+import 'package:webdesign/pages/chat/widgets/large_chat.dart';
 import 'package:webdesign/pages/home/widgets/main_home.dart';
 import 'package:webdesign/pages/login/login.dart';
 import '../utils/responsive.dart';
-import '../pages/chat/widgets/chat_page.dart';
 import '../pages/newJob/newjob.dart';
 import '../pages/profile/profile.dart';
 import '../pages/register/register.dart';
@@ -21,7 +22,7 @@ profil() {
       height: 35,
       child: TextButton(
         onPressed: () {
-          Get.to(Profile());
+          Get.to(const Profile());
         },
         child: const Text(
           'Profil ',
@@ -61,7 +62,7 @@ chatItem() {
         height: 35,
         child: TextButton(
           onPressed: () {
-            Get.to(const Chattos());
+            Get.to(ChatUI());
           },
           child: const Text(
             'Chat ',

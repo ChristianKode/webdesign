@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:webdesign/app_logic/services/firebase_auth.dart';
-import 'package:webdesign/pages/chat/widgets/chat_page.dart';
+import 'package:webdesign/pages/chat/widgets/large_chat.dart';
 import 'package:webdesign/pages/forgot/forgot.dart';
 import 'package:webdesign/pages/home/widgets/main_home.dart';
 import 'package:webdesign/pages/job/job_view.dart';
@@ -47,8 +47,8 @@ class MyApp extends StatelessWidget {
             GetPage(name: '/Login', page: () => const Login()),
             GetPage(name: '/Forgot', page: () => const Forgot()),
             GetPage(name: '/NewJob', page: () => const NewJob()),
-            GetPage(name: '/Profile', page: () => Profile()),
-            GetPage(name: '/Chattos', page: () => const Chattos()),
+            GetPage(name: '/Profile', page: () => const Profile()),
+            GetPage(name: '/Chattos', page: () => ChatUI()),
             GetPage(
                 name: '/JobView',
                 page: () => JobView(

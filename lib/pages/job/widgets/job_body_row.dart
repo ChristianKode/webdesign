@@ -4,9 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:get/route_manager.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:uuid/uuid.dart';
-import 'package:webdesign/pages/chat/widgets/chat_page.dart';
+import 'package:webdesign/pages/chat/widgets/large_chat.dart';
 import 'package:webdesign/pages/login/login.dart';
 import 'package:webdesign/utils/responsive.dart';
+
+import '../../../app_logic/services/message.dart';
 
 // ignore: must_be_immutable
 class BodyRow extends StatefulWidget {
@@ -124,9 +126,9 @@ class _SmallBodyColumnState extends State<SmallBodyColumn> {
                 height: 40,
                 child: TextButton(
                     onPressed: () {},
-                    child: Row(
+                    child: const Row(
                       mainAxisAlignment: MainAxisAlignment.center,
-                      children: const [
+                      children: [
                         Icon(
                           Icons.ios_share,
                           color: Colors.blue,
@@ -256,7 +258,7 @@ class _SmallBodyColumnState extends State<SmallBodyColumn> {
                         "u1": FirebaseAuth.instance.currentUser?.uid,
                         "u2": widget.uid
                       });
-                      Get.to(() => const Chattos());
+                      Get.to(() => ChatUI());
                     } else {
                       Get.to(() => const Login());
                     }
@@ -336,9 +338,9 @@ class LargeBodyColumn extends StatelessWidget {
                             height: 40,
                             child: TextButton(
                                 onPressed: () {},
-                                child:  Row(
+                                child: const Row(
                                   mainAxisAlignment: MainAxisAlignment.center,
-                                  children: const [
+                                  children: [
                                     Icon(
                                       Icons.ios_share,
                                       color: Colors.blue,
@@ -442,21 +444,14 @@ class LargeBodyColumn extends StatelessWidget {
                                 height: 40,
                                 child: ElevatedButton(
                                     onPressed: () async {
-                                      var uuid = const Uuid();
-                                      var mid = uuid.v4();
-                                      DatabaseReference messageRef =
-                                          FirebaseDatabase.instance
-                                              .ref()
-                                              .child('messages')
-                                              .child(mid);
                                       FirebaseAuth auth = FirebaseAuth.instance;
                                       if (auth.currentUser != null) {
-                                        await messageRef.set({
-                                          "u1": FirebaseAuth
-                                              .instance.currentUser?.uid,
-                                          "u2": uid
-                                        });
-                                        Get.to(() => const Chattos());
+                                        final senderId = FirebaseAuth
+                                            .instance.currentUser?.uid;
+                                        final recipientId = uid;
+                                        navnesen(senderId!, recipientId);
+
+                                        Get.to(() => ChatUI());
                                       } else {
                                         Get.to(() => const Login());
                                       }
@@ -501,9 +496,9 @@ class LargeBodyColumn extends StatelessWidget {
                                           borderRadius:
                                               BorderRadius.circular(10)),
                                       backgroundColor: Colors.white),
-                                  child: Row(
+                                  child: const Row(
                                     mainAxisAlignment: MainAxisAlignment.center,
-                                    children: const [
+                                    children: [
                                       Icon(
                                         Icons.map_outlined,
                                         color: Colors.blue,

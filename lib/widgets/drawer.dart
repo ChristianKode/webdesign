@@ -7,7 +7,7 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:webdesign/app_logic/services/firebase_auth.dart';
-import 'package:webdesign/pages/chat/widgets/chat_page.dart';
+import 'package:webdesign/pages/chat/widgets/large_chat.dart';
 import 'package:webdesign/pages/home/widgets/main_home.dart';
 import 'package:webdesign/pages/login/login.dart';
 import 'package:webdesign/pages/newJob/newjob.dart';
@@ -27,9 +27,9 @@ class SideDrawer extends StatelessWidget {
               return const LoggedInDrawer();
             } else {
               // Logged out
-              return  Column(
+              return  const Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
-                children: const [LoggedOutDrawer()],
+                children: [LoggedOutDrawer()],
               );
             }
           } else {
@@ -180,7 +180,7 @@ class _LoggedInDrawerState extends State<LoggedInDrawer> {
                     })
                   },
                   onTap: () {
-                    Get.to(() => const Chattos());
+                    Get.to(() => ChatUI());
                   },
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.start,
