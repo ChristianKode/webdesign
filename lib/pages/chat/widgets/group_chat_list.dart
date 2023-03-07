@@ -35,27 +35,6 @@ class _asdState extends State<asd> {
   final uid = FirebaseAuth.instance.currentUser?.uid;
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder<QuerySnapshot<Map<String, dynamic>>>(
-      future: fire.where('Uid1', isEqualTo: uid).get(),
-      builder: (BuildContext context,
-          AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>> snapshot) {
-        if (snapshot.hasError) {
-          return Text('Error: ${snapshot.error}');
-        }
-        if (!snapshot.hasData) {
-          return Text('Loading...');
-        }
-        QuerySnapshot<Map<String, dynamic>> querySnapshot = snapshot.data!;
-        if (querySnapshot.docs.length == 0) {
-          return Text('No matching document found');
-        }
-        DocumentSnapshot<Map<String, dynamic>> documentSnapshot =
-            querySnapshot.docs[0];
-        String documentId = documentSnapshot.id;
-        Map<String, dynamic>? data = documentSnapshot.data();
-        print('Found value in document with ID: $documentId');
-        return Text(documentId);
-      },
-    );
+    return const Placeholder();
   }
 }
