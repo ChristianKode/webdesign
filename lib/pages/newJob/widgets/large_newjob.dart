@@ -136,7 +136,7 @@ class _FillOutState extends State<FillOut> {
                       labelText: 'Overskrift',
                       focusedBorder: OutlineInputBorder(
                         borderSide: BorderSide(
-                            color: Color.fromRGBO(102, 82, 143, 1.0), width: 2),
+                            color: Colors.blue, width: 2),
                         borderRadius: BorderRadius.all(Radius.circular(2)),
                       ),
                       border: OutlineInputBorder(
@@ -156,7 +156,7 @@ class _FillOutState extends State<FillOut> {
                       labelText: 'Beskrivelse',
                       focusedBorder: OutlineInputBorder(
                         borderSide: BorderSide(
-                            color: Color.fromRGBO(102, 82, 143, 1.0), width: 2),
+                            color: Colors.blue, width: 2),
                         borderRadius: BorderRadius.all(Radius.circular(2)),
                       ),
                       border: OutlineInputBorder(
@@ -202,7 +202,7 @@ class _FillOutState extends State<FillOut> {
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(2)),
                           backgroundColor:
-                              const Color.fromRGBO(102, 82, 143, 1.0)),
+                              Colors.blue),
                       child: const Text(
                         'Last opp',
                         style: TextStyle(fontSize: 15),
@@ -226,7 +226,7 @@ class _FillOutState extends State<FillOut> {
                         labelText: 'Gate',
                         focusedBorder: OutlineInputBorder(
                           borderSide: BorderSide(
-                              color: Color.fromRGBO(102, 82, 143, 1.0),
+                              color: Colors.blue,
                               width: 2),
                           borderRadius: BorderRadius.all(Radius.circular(2)),
                         ),
@@ -252,7 +252,7 @@ class _FillOutState extends State<FillOut> {
                       labelText: 'Postnummer',
                       focusedBorder: OutlineInputBorder(
                         borderSide: BorderSide(
-                            color: Color.fromRGBO(102, 82, 143, 1.0), width: 2),
+                            color: Colors.blue, width: 2),
                         borderRadius: BorderRadius.all(Radius.circular(2)),
                       ),
                       border: OutlineInputBorder(
@@ -275,7 +275,7 @@ class _FillOutState extends State<FillOut> {
                       labelText: 'Pris',
                       focusedBorder: OutlineInputBorder(
                         borderSide: BorderSide(
-                            color: Color.fromRGBO(102, 82, 143, 1.0), width: 2),
+                            color: Colors.blue, width: 2),
                         borderRadius: BorderRadius.all(Radius.circular(2)),
                       ),
                       border: OutlineInputBorder(
@@ -297,7 +297,7 @@ class _FillOutState extends State<FillOut> {
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(2)),
                           backgroundColor:
-                              const Color.fromRGBO(102, 82, 143, 1.0)),
+                              Colors.blue),
                       child: const Text(
                         'Fullfør',
                         style: TextStyle(fontSize: 15),
@@ -338,7 +338,7 @@ class Nav extends StatelessWidget {
                 TextSpan(
                     text: 'ANSATT',
                     style: GoogleFonts.tinos(
-                        color: const Color.fromRGBO(102, 82, 143, 1.0)))
+                        color: Colors.blue))
               ]))))
         ],
       ),

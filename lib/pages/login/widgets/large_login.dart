@@ -109,7 +109,7 @@ class LoginBox extends StatelessWidget {
                   decoration: const InputDecoration(
                     focusedBorder: OutlineInputBorder(
                         borderSide: BorderSide(
-                            color: Color.fromRGBO(102, 82, 143, 1.0), width: 2),
+                            color: Colors.blue, width: 2),
                         borderRadius: BorderRadius.all(
                           Radius.circular(100),
                         )),
@@ -131,7 +131,7 @@ class LoginBox extends StatelessWidget {
                 decoration: const InputDecoration(
                   focusedBorder: OutlineInputBorder(
                       borderSide: BorderSide(
-                          color: Color.fromRGBO(102, 82, 143, 1.0), width: 2),
+                          color: Colors.blue, width: 2),
                       borderRadius: BorderRadius.all(
                         Radius.circular(100),
                       )),
@@ -162,7 +162,7 @@ class LoginBox extends StatelessWidget {
               style: ElevatedButton.styleFrom(
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(100)),
-                backgroundColor: const Color.fromRGBO(102, 82, 143, 1.0),
+                backgroundColor:  Colors.blue,
               ),
               child: const Text(
                 'Logg på',

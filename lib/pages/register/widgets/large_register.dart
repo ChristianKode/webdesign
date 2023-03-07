@@ -21,7 +21,8 @@ class LargeRegister extends StatelessWidget {
       body: Container(
         decoration: const BoxDecoration(
             image: DecorationImage(
-                image: NetworkImage('https://firebasestorage.googleapis.com/v0/b/ungansatt123.appspot.com/o/assets%2Fbakgrunn.png?alt=media&token=5dec6ed3-4f53-469f-bf00-9d094e25cf07'),
+                image: NetworkImage(
+                    'https://firebasestorage.googleapis.com/v0/b/ungansatt123.appspot.com/o/assets%2Fbakgrunn.png?alt=media&token=5dec6ed3-4f53-469f-bf00-9d094e25cf07'),
                 fit: BoxFit.cover)),
         child: RegisterBox(),
       ),
@@ -79,8 +80,7 @@ class RegisterBox extends StatelessWidget {
             ),
             Text(
               'Velkommen',
-              style: GoogleFonts.tinos(
-                  fontSize: 50, color: const Color.fromRGBO(102, 82, 143, 1.0)),
+              style: GoogleFonts.tinos(fontSize: 50, color: Colors.blue),
             ),
             const SizedBox(
               height: 30,
@@ -89,15 +89,15 @@ class RegisterBox extends StatelessWidget {
               children: [
                 Expanded(
                   child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 2, vertical: 0),
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 2, vertical: 0),
                     child: SizedBox(
                       child: TextField(
                           controller: fornavnCon,
                           decoration: const InputDecoration(
                             focusedBorder: OutlineInputBorder(
-                                borderSide: BorderSide(
-                                    color: Color.fromRGBO(102, 82, 143, 1.0),
-                                    width: 2),
+                                borderSide:
+                                    BorderSide(color: Colors.blue, width: 2),
                                 borderRadius: BorderRadius.all(
                                   Radius.circular(100),
                                 )),
@@ -112,15 +112,15 @@ class RegisterBox extends StatelessWidget {
                 ),
                 Expanded(
                   child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 2, vertical: 0),
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 2, vertical: 0),
                     child: SizedBox(
                       child: TextField(
                           controller: etternavnCon,
                           decoration: const InputDecoration(
                             focusedBorder: OutlineInputBorder(
-                                borderSide: BorderSide(
-                                    color: Color.fromRGBO(102, 82, 143, 1.0),
-                                    width: 2),
+                                borderSide:
+                                    BorderSide(color: Colors.blue, width: 2),
                                 borderRadius: BorderRadius.all(
                                   Radius.circular(100),
                                 )),
@@ -145,9 +145,7 @@ class RegisterBox extends StatelessWidget {
                   controller: emailCon,
                   decoration: const InputDecoration(
                       focusedBorder: OutlineInputBorder(
-                          borderSide: BorderSide(
-                              color: Color.fromRGBO(102, 82, 143, 1.0),
-                              width: 2),
+                          borderSide: BorderSide(color: Colors.blue, width: 2),
                           borderRadius: BorderRadius.all(Radius.circular(100))),
                       border: OutlineInputBorder(
                           borderRadius: BorderRadius.all(Radius.circular(100))),
@@ -170,9 +168,8 @@ class RegisterBox extends StatelessWidget {
                           obscureText: true,
                           decoration: const InputDecoration(
                             focusedBorder: OutlineInputBorder(
-                                borderSide: BorderSide(
-                                    color: Color.fromRGBO(102, 82, 143, 1.0),
-                                    width: 2),
+                                borderSide:
+                                    BorderSide(color: Colors.blue, width: 2),
                                 borderRadius: BorderRadius.all(
                                   Radius.circular(100),
                                 )),
@@ -187,15 +184,15 @@ class RegisterBox extends StatelessWidget {
                 ),
                 Expanded(
                   child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 2, vertical: 0),
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 2, vertical: 0),
                     child: SizedBox(
                       child: TextField(
                           controller: telefonCon,
                           decoration: const InputDecoration(
                             focusedBorder: OutlineInputBorder(
-                                borderSide: BorderSide(
-                                    color: Color.fromRGBO(102, 82, 143, 1.0),
-                                    width: 2),
+                                borderSide:
+                                    BorderSide(color: Colors.blue, width: 2),
                                 borderRadius: BorderRadius.all(
                                   Radius.circular(100),
                                 )),
@@ -218,19 +215,22 @@ class RegisterBox extends StatelessWidget {
               height: 40,
               child: ElevatedButton(
                   onPressed: () {
-
                     context
                         .read<AuthService>()
-                        .signUp(emailCon.text.trim(), passwordCon.text.trim(), fornavnCon.text.trim(), etternavnCon.text.trim(), telefonCon.text.trim())
+                        .signUp(
+                            emailCon.text.trim(),
+                            passwordCon.text.trim(),
+                            fornavnCon.text.trim(),
+                            etternavnCon.text.trim(),
+                            telefonCon.text.trim())
                         .then((value) async {
-
                       Get.to(() => const Login());
                     });
                   },
                   style: ElevatedButton.styleFrom(
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(100)),
-                      backgroundColor: const Color.fromRGBO(102, 82, 143, 1.0)),
+                      backgroundColor: Colors.blue),
                   child: const Text(
                     'Lag bruker',
                     style: TextStyle(fontSize: 15),

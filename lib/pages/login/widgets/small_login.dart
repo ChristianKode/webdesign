@@ -16,7 +16,8 @@ class SmallLogin extends StatelessWidget {
       body: Container(
           decoration: const BoxDecoration(
             image: DecorationImage(
-                image: NetworkImage('https://www.pexels.com/photo/milky-way-illustration-1169754/'),
+                image: NetworkImage(
+                    'https://www.pexels.com/photo/milky-way-illustration-1169754/'),
                 fit: BoxFit.cover),
           ),
           child: Row(children: [SmallLoginBox()])),
@@ -25,14 +26,14 @@ class SmallLogin extends StatelessWidget {
 }
 
 class SmallLoginBox extends StatelessWidget {
-   SmallLoginBox({super.key});
-final TextEditingController mail = TextEditingController();
+  SmallLoginBox({super.key});
+  final TextEditingController mail = TextEditingController();
   final TextEditingController pass = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     return Expanded(
-        child: Column(
+      child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           const SizedBox(
@@ -52,8 +53,7 @@ final TextEditingController mail = TextEditingController();
                   controller: mail,
                   decoration: const InputDecoration(
                     focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(
-                            color: Color.fromRGBO(102, 82, 143, 1.0), width: 2),
+                        borderSide: BorderSide(color: Colors.blue, width: 2),
                         borderRadius: BorderRadius.all(
                           Radius.circular(100),
                         )),
@@ -74,8 +74,7 @@ final TextEditingController mail = TextEditingController();
                 obscureText: true,
                 decoration: const InputDecoration(
                   focusedBorder: OutlineInputBorder(
-                      borderSide: BorderSide(
-                          color: Color.fromRGBO(102, 82, 143, 1.0), width: 2),
+                      borderSide: BorderSide(color: Colors.blue, width: 2),
                       borderRadius: BorderRadius.all(
                         Radius.circular(100),
                       )),
@@ -97,12 +96,11 @@ final TextEditingController mail = TextEditingController();
                     .read<AuthService>()
                     .login(mail.text.trim(), pass.text.trim())
                     .then((value) => Get.to(() => LargeHome()));
-
               },
               style: ElevatedButton.styleFrom(
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(100)),
-                backgroundColor: const Color.fromRGBO(102, 82, 143, 1.0),
+                backgroundColor: Colors.blue,
               ),
               child: const Text(
                 'Logg på',
