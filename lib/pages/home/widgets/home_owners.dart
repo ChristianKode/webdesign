@@ -83,18 +83,20 @@ class LargeHomeOwnersWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 700,
+      alignment: Alignment.center,
+      width: MediaQuery.of(context).size.width,
       color: const Color.fromARGB(255, 67, 46, 140),
-      child: Center(
-        child: Row(crossAxisAlignment: CrossAxisAlignment.center, children: [
+      child: SizedBox(
+        width: 1500,
+        height: 700,
+        child: Row(crossAxisAlignment: CrossAxisAlignment.end, children: [
           Flexible(
             child: Padding(
               padding: const EdgeInsets.only(
                 left: 30,
-                top: 80,
               ),
               child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text.rich(TextSpan(
