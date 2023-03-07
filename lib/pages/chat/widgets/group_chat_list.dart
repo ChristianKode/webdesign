@@ -10,6 +10,10 @@ class ChatList extends StatefulWidget {
 class _ChatListState extends State<ChatList> {
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return Container(
+      height: 800,
+      width: 200,
+      color: Colors.red,
+    );
   }
 }
