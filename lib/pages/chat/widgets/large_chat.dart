@@ -17,7 +17,8 @@ final messagesRef = FirebaseFirestore.instance
     .doc('8oUPHh4nlLUnlkmdypwm')
     .collection('messages')
     .where('senderId', isEqualTo: uid) // Filter messages by senderId
-    .orderBy('timestamp', descending: true); // Order messages by timestamp in descending order
+    .orderBy('timestamp',
+        descending: true); // Order messages by timestamp in descending order
 
 final String messageText = messageController.text;
 final TextEditingController messageController = TextEditingController();
@@ -34,20 +35,23 @@ class ChatUI extends StatefulWidget {
   _ChatUIState createState() => _ChatUIState();
 }
 
-
 class _ChatUIState extends State<ChatUI> {
   final _messageController = TextEditingController();
+
+  Future<List<QueryDocumentSnapshot>> getMessages(String userId) async {
+    final snapshot = await FirebaseFirestore.instance
+        .collection('messages')
+        .doc('AMBSGSEf2m22wB2quUe4')
+        .collection('messages')
+        .where('senderId', isEqualTo: userId)
+        .orderBy('timestamp', descending: true)
+        .get();
+    return snapshot.docs;
+  }
 
   @override
   Widget build(BuildContext context) {
     final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey();
-
-    final messagesRef = FirebaseFirestore.instance
-        .collection('messages')
-        .doc('8oUPHh4nlLUnlkmdypwm')
-        .collection('messages')
-        .where('senderId', isEqualTo: uid) // Filter messages by senderId
-        .orderBy('timestamp', descending: true); // Order messages by timestamp in descending order
 
     return Scaffold(
       key: scaffoldKey,
@@ -77,14 +81,20 @@ class _ChatUIState extends State<ChatUI> {
 
                       final messages = snapshot.data!.docs;
 
+                      if (messages.isEmpty) {
+                        return const Center(
+                          child: Text('No messages found.'),
+                        );
+                      }
+
                       return ListView.builder(
                         itemCount: messages.length,
                         itemBuilder: (context, index) {
                           final message = messages[index];
                           final messageData = message.data();
-                          final text = message ['text'];
-                          final senderId = message ['senderId'];
-                          final timestamp = message ['timestamp'];
+                          final text = message['text'];
+                          final senderId = message['senderId'];
+                          final timestamp = message['timestamp'];
 
                           return Padding(
                             padding: const EdgeInsets.symmetric(
@@ -121,8 +131,10 @@ class _ChatUIState extends State<ChatUI> {
                         icon: const Icon(Icons.send),
                         onPressed: () async {
                           final text = _messageController.text;
-                          final senderId = uid; // Replace with the current user's ID
-                          const recipientId = 'user2'; // Replace with the recipient's user ID
+                          final senderId =
+                              uid; // Replace with the current user's ID
+                          const recipientId =
+                              'user2'; // Replace with the recipient's user ID
 
                           navnesen(senderId, text);
                           _messageController.clear();
