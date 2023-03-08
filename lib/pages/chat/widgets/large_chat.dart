@@ -4,6 +4,7 @@
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:webdesign/app_logic/services/message.dart';
 import 'package:webdesign/pages/chat/widgets/group_chat_list.dart';
@@ -11,6 +12,7 @@ import 'package:webdesign/widgets/appbar.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:webdesign/widgets/drawer.dart';
 
+final _focusNode = FocusNode();
 final String uid = FirebaseAuth.instance.currentUser!.uid;
 // Order messages by timestamp in descending order
 
@@ -86,62 +88,83 @@ class _ChatUIState extends State<ChatUI> {
                                 );
                               }
 
-                              return ListView.builder(
-                                itemCount: messages.length,
-                                itemBuilder: (context, index) {
-                                  final message = messages[index];
-                                  final messageData = message.data();
-                                  final text = message['text'];
-                                  final senderId = message['senderId'];
-                                  final timestamp = message['timestamp'];
+                      return ListView.builder(
+                        itemCount: messages.length,
+                        itemBuilder: (context, index) {
+                          final message = messages[index];
+                          final text = message['text'];
+                          final senderId = message['senderId'];
+                          final timestamp = message['timestamp'];
 
-                                  return Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                      horizontal: 16,
-                                      vertical: 8,
-                                    ),
-                                    child: Text(
-                                      '$text (from: $senderId, timestamp: $timestamp)',
-                                      style: const TextStyle(
-                                        fontSize: 16,
-                                        color: Colors.white,
-                                      ),
-                                    ),
-                                  );
-                                },
-                              );
-                            },
-                          )),
-                Container(
-                  color: Colors.white,
-                  padding: const EdgeInsets.symmetric(horizontal: 16),
-                  child: Row(
-                    children: [
-                      Expanded(
-                        child: TextField(
-                          controller: _messageController,
-                          decoration: const InputDecoration(
-                            hintText: 'Type your message',
-                          ),
-                        ),
-                      ),
-                      IconButton(
-                        icon: const Icon(Icons.send),
-                        onPressed: () async {
-                          final text = _messageController.text;
-                          final timestamp = Timestamp.now();
-                          final senderId =
-                              uid; // Replace with the current user's ID
-                          const recipientId =
-                              'user2'; // Replace with the recipient's user ID
-
-                          navnesen(senderId, text, timestamp);
-                          _messageController.clear();
+                          return Padding(
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 16,
+                              vertical: 8,
+                            ),
+                            child: Text(
+                              '$text (from: $senderId, timestamp: $timestamp)',
+                              style: const TextStyle(
+                                fontSize: 16,
+                                color: Colors.white,
+                              ),
+                            ),
+                          );
                         },
-                      ),
-                    ],
+                      );
+                    },
                   ),
                 ),
+                FocusScope(
+                  child: Container(
+                    color: Colors.white,
+                    padding: const EdgeInsets.symmetric(horizontal: 16),
+                    child: Row(
+                      children: [
+                        Expanded(
+                          child: TextField(
+                            focusNode: _focusNode,
+                            controller: _messageController,
+                            decoration: const InputDecoration(
+                              hintText: 'Type your message',
+                            ),
+                            onSubmitted: (value) async {
+                              final text = _messageController.text.trim();
+                              if (text.isNotEmpty) {
+                                final timestamp = Timestamp.now();
+                                final senderId =
+                                    uid; // Replace with the current user's ID
+                                const recipientId =
+                                    'user2'; // Replace with the recipient's user ID
+
+                                navnesen(senderId, text, timestamp);
+                                _messageController.clear();
+                                _focusNode
+                                    .requestFocus(); // Request focus after sending message
+                              }
+                            },
+                          ),
+                        ),
+                        IconButton(
+                          icon: const Icon(Icons.send),
+                          onPressed: () async {
+                            final text = _messageController.text.trim();
+                            if (text.isNotEmpty) {
+                              final timestamp = Timestamp.now();
+                              final senderId =
+                                  uid; // Replace with the current user's ID
+                              const recipientId =
+                                  'user2'; // Replace with the recipient's user ID
+
+                              navnesen(senderId, text, timestamp);
+                              _messageController.clear();
+                            }
+                          },
+                          autofocus: true,
+                        ),
+                      ],
+                    ),
+                  ),
+                )
               ],
             ),
           ),
