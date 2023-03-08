@@ -1,3 +1,5 @@
+import 'dart:html';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -65,6 +67,7 @@ class _chatGroupListState extends State<ChatGroupList> {
           print('Found value in document with ID: $documentId');
           documentIds.add(documentId);
         }
+
         return Column(
           children: documentIds
               .map((documentId) => Padding(
@@ -73,7 +76,9 @@ class _chatGroupListState extends State<ChatGroupList> {
                     ),
                     child: InkWell(
                       onTap: () {
+                        // Utvalgt
                         selectedChatId = documentId;
+
                         Navigator.push(
                           context,
                           MaterialPageRoute(
@@ -82,12 +87,73 @@ class _chatGroupListState extends State<ChatGroupList> {
                                   )),
                         );
                       },
-                      child: Container(child: Text(documentId)),
+                      child: ChatGroupCards(
+                        documentId: documentId,
+                      ),
                     ),
                   ))
               .toList(),
         );
       },
     );
+  }
+}
+
+final fireStore = FirebaseFirestore.instance;
+
+class ChatGroupCards extends StatefulWidget {
+  final String documentId;
+
+  const ChatGroupCards({Key? key, required this.documentId}) : super(key: key);
+
+  @override
+  State<ChatGroupCards> createState() => _ChatGroupCardsState();
+}
+
+class _ChatGroupCardsState extends State<ChatGroupCards> {
+  late DocumentSnapshot documentSnapshot1;
+  late DocumentSnapshot documentSnapshot2;
+
+  @override
+  void initState() {
+    super.initState();
+    fireStore.collection('Messages').doc(widget.documentId).get().then((doc) {
+      setState(() {
+        documentSnapshot1 = doc;
+      });
+
+      final docdata = documentSnapshot1.data() as Map<String, dynamic>;
+      final String Uid1 = docdata['Uid1'];
+      final String Uid2 = docdata['Uid2'];
+
+      if (Uid1 == uid) {
+        fireStore.collection('Users').doc(Uid2).get().then((value) {
+          setState(() {
+            documentSnapshot2 = value;
+          });
+        });
+      } else {
+        fireStore.collection('Users').doc(Uid1).get().then((value) {
+          setState(() {
+            documentSnapshot2 = value;
+          });
+        });
+      }
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    if (!documentSnapshot1.exists || !documentSnapshot2.exists) {
+      return CircularProgressIndicator();
+    }
+
+    final docdata = documentSnapshot1.data() as Map<String, dynamic>;
+    final userdata = documentSnapshot2.data() as Map<String, dynamic>;
+    final String firstName = userdata['firstname'];
+    final String lastName = userdata['lastname'];
+    final secondUserName = firstName + lastName;
+
+    return Container(child: Text(secondUserName));
   }
 }
