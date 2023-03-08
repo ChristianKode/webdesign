@@ -40,7 +40,7 @@ class _ChatUIState extends State<ChatUI> {
 
   Future<List<QueryDocumentSnapshot>> getMessages(String userId) async {
     final snapshot = await FirebaseFirestore.instance
-        .collection('messages')
+        .collection('Messages')
         .doc('0BFY9Ks3zxXFwJGzYinM')
         .collection('messages')
         .where('senderId', isEqualTo: userId)
@@ -131,13 +131,13 @@ class _ChatUIState extends State<ChatUI> {
                         icon: const Icon(Icons.send),
                         onPressed: () async {
                           final text = _messageController.text;
+                          final timestamp = Timestamp.now();
                           final senderId =
                               uid; // Replace with the current user's ID
                           const recipientId =
                               'user2'; // Replace with the recipient's user ID
-                          final timestamp = Timestamp.now();
 
-                          navnesen(senderId, text, timestamp.toString());
+                          navnesen(senderId, text, timestamp);
                           _messageController.clear();
                         },
                       ),
