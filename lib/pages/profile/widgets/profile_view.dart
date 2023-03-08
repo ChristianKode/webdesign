@@ -1,6 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:webdesign/pages/chat/widgets/group_chat_list.dart';
 import 'package:webdesign/pages/profile/widgets/Large_profile.dart';
 import 'package:webdesign/utils/responsive.dart';
 import 'package:webdesign/widgets/appbar.dart';
@@ -98,7 +100,10 @@ class _LargeProfileState extends State<LargeProfile> {
                         children: [
                           const Text('Min Side'),
                           ElevatedButton(
-                              onPressed: () {}, child: const Text("Logg ut"))
+                              onPressed: () {
+                                Get.to(ChatList());
+                              },
+                              child: const Text("Logg ut"))
                         ],
                       ),
                     ),
