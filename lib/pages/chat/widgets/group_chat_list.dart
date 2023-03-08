@@ -3,6 +3,7 @@ import 'dart:html';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:webdesign/pages/chat/widgets/large_chat.dart';
 
 class ChatList extends StatefulWidget {
@@ -16,9 +17,7 @@ class _ChatListState extends State<ChatList> {
   @override
   Widget build(BuildContext context) {
     return Container(
-        width: 200,
-        color: Color.fromARGB(22, 0, 0, 0),
-        child: const ChatGroupList());
+        width: 200, color: Colors.white, child: const ChatGroupList());
   }
 }
 
@@ -71,27 +70,10 @@ class _chatGroupListState extends State<ChatGroupList> {
         return Column(
           children: documentIds
               .map((documentId) => Padding(
-                    padding: const EdgeInsets.symmetric(
-                      vertical: 20,
-                    ),
-                    child: InkWell(
-                      onTap: () {
-                        // Utvalgt
-                        selectedChatId = documentId;
-
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => ChatUI(
-                                    chatGroupId: selectedChatId,
-                                  )),
-                        );
-                      },
-                      child: ChatGroupCards(
-                        documentId: documentId,
-                      ),
-                    ),
-                  ))
+                  padding: const EdgeInsets.symmetric(
+                    vertical: 20,
+                  ),
+                  child: ChatGroupCards(documentId: documentId)))
               .toList(),
         );
       },
@@ -100,6 +82,17 @@ class _chatGroupListState extends State<ChatGroupList> {
 }
 
 final fireStore = FirebaseFirestore.instance;
+
+class ChatGroupCardsProvider extends ChangeNotifier {
+  bool _onHover = false;
+
+  bool get onHover => _onHover;
+
+  set onHover(bool value) {
+    _onHover = value;
+    notifyListeners();
+  }
+}
 
 class ChatGroupCards extends StatefulWidget {
   final String documentId;
@@ -112,6 +105,7 @@ class ChatGroupCards extends StatefulWidget {
 
 class _ChatGroupCardsState extends State<ChatGroupCards> {
   late Map<String, DocumentSnapshot> documentSnapshots;
+  bool onHover = false;
 
   @override
   void initState() {
@@ -158,6 +152,39 @@ class _ChatGroupCardsState extends State<ChatGroupCards> {
     final String lastName = userdata['lastname'];
     final secondUserName = firstName + ' ' + lastName;
 
-    return Container(child: Text(secondUserName));
+    return InkWell(
+      onTap: () {
+        selectedChatId = widget.documentId;
+        setState(() {
+          onHover = true;
+        });
+
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (context) => ChatUI(
+                    chatGroupId: selectedChatId,
+                  )),
+        );
+      },
+      onHover: (value) => {setState(() {})},
+      child: Container(
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(5),
+          boxShadow: [
+            BoxShadow(
+              color: !onHover ? Colors.white : Color.fromARGB(20, 0, 0, 0),
+              blurRadius: !onHover ? 2 : 0,
+              offset: Offset(0.5, 5), // Shadow position
+            )
+          ],
+        ),
+        child: Text(
+          secondUserName,
+          style: TextStyle(),
+        ),
+      ),
+    );
   }
 }
