@@ -61,7 +61,9 @@ chatItem() {
         height: 35,
         child: TextButton(
           onPressed: () {
-            Get.to(ChatUI());
+            Get.to(ChatUI(
+              chatGroupId: '',
+            ));
           },
           child: const Text(
             'Chat ',

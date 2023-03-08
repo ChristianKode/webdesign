@@ -27,7 +27,7 @@ class SideDrawer extends StatelessWidget {
               return const LoggedInDrawer();
             } else {
               // Logged out
-              return   Column(
+              return Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 // ignore: prefer_const_constructors
                 children: const [LoggedOutDrawer()],
@@ -181,7 +181,9 @@ class _LoggedInDrawerState extends State<LoggedInDrawer> {
                     })
                   },
                   onTap: () {
-                    Get.to(() => ChatUI());
+                    Get.to(() => ChatUI(
+                          chatGroupId: '',
+                        ));
                   },
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.start,

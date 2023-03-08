@@ -258,7 +258,9 @@ class _SmallBodyColumnState extends State<SmallBodyColumn> {
                         "u1": FirebaseAuth.instance.currentUser?.uid,
                         "u2": widget.uid
                       });
-                      Get.to(() => ChatUI());
+                      Get.to(() => ChatUI(
+                            chatGroupId: '',
+                          ));
                     } else {
                       Get.to(() => const Login());
                     }
@@ -450,7 +452,9 @@ class LargeBodyColumn extends StatelessWidget {
                                             .instance.currentUser?.uid;
                                         final recipientId = uid;
 
-                                        Get.to(() => ChatUI());
+                                        Get.to(() => ChatUI(
+                                              chatGroupId: '',
+                                            ));
                                       } else {
                                         Get.to(() => const Login());
                                       }

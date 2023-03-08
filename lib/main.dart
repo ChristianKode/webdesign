@@ -48,7 +48,11 @@ class MyApp extends StatelessWidget {
             GetPage(name: '/Forgot', page: () => const Forgot()),
             GetPage(name: '/NewJob', page: () => const NewJob()),
             GetPage(name: '/Profile', page: () => const Profile()),
-            GetPage(name: '/ChatUI', page: () => ChatUI()),
+            GetPage(
+                name: '/ChatUI',
+                page: () => ChatUI(
+                      chatGroupId: '',
+                    )),
             GetPage(
                 name: '/JobView',
                 page: () => JobView(

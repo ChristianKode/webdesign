@@ -10,9 +10,9 @@ final CollectionReference<Map<String, dynamic>> conversationRef =
         .collection('messages');
 
 Future<void> navnesen(String senderId, String text, timestamp) async {
-  await FirebaseFirestore.instance.collection('Messages').doc('0BFY9Ks3zxXFwJGzYinM').collection('messages').add({
-    'text': text,
-    'senderId': senderId,
-    'timestamp' : timestamp
-  });
+  await FirebaseFirestore.instance
+      .collection('Messages')
+      .doc('0BFY9Ks3zxXFwJGzYinM')
+      .collection('messages')
+      .add({'text': text, 'senderId': senderId, 'timestamp': timestamp});
 }
