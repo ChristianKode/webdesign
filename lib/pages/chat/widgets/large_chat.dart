@@ -76,11 +76,23 @@ class _ChatUIState extends State<ChatUI> {
                             if (snapshot.hasError) {
                               return Text('Error: ${snapshot.error}');
                             }
+                  child: widget.chatGroupId.isEmpty
+                      ? Text('data')
+                      : StreamBuilder<QuerySnapshot>(
+                          stream: messagesRef.snapshots(),
+                          builder: (context, snapshot) {
+                            if (snapshot.hasError) {
+                              return Text('Error: ${snapshot.error}');
+                            }
 
                             if (!snapshot.hasData) {
                               return const Center(
                                 child: CircularProgressIndicator(),
                               );
+                            }
+                            if (!snapshot.hasData) {
+                              return const Center(
+                                  child: CircularProgressIndicator());
                             }
 
                             final messages = snapshot.data!.docs;
