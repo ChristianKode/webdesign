@@ -111,31 +111,32 @@ class ChatGroupCards extends StatefulWidget {
 }
 
 class _ChatGroupCardsState extends State<ChatGroupCards> {
-  late DocumentSnapshot documentSnapshot1;
-  late DocumentSnapshot documentSnapshot2;
+  late Map<String, DocumentSnapshot> documentSnapshots;
 
   @override
   void initState() {
     super.initState();
+    documentSnapshots = {};
     fireStore.collection('Messages').doc(widget.documentId).get().then((doc) {
       setState(() {
-        documentSnapshot1 = doc;
+        documentSnapshots['message'] = doc;
       });
 
-      final docdata = documentSnapshot1.data() as Map<String, dynamic>;
+      final docdata =
+          documentSnapshots['message']!.data() as Map<String, dynamic>;
       final String Uid1 = docdata['Uid1'];
       final String Uid2 = docdata['Uid2'];
 
       if (Uid1 == uid) {
         fireStore.collection('Users').doc(Uid2).get().then((value) {
           setState(() {
-            documentSnapshot2 = value;
+            documentSnapshots['user'] = value;
           });
         });
       } else {
         fireStore.collection('Users').doc(Uid1).get().then((value) {
           setState(() {
-            documentSnapshot2 = value;
+            documentSnapshots['user'] = value;
           });
         });
       }
@@ -144,16 +145,21 @@ class _ChatGroupCardsState extends State<ChatGroupCards> {
 
   @override
   Widget build(BuildContext context) {
-    if (!documentSnapshot1.exists || !documentSnapshot2.exists) {
-      return CircularProgressIndicator();
+    if (documentSnapshots.isEmpty ||
+        documentSnapshots['message'] == null ||
+        documentSnapshots['user'] == null) {
+          return const SizedBox();
     }
 
-    final docdata = documentSnapshot1.data() as Map<String, dynamic>;
-    final userdata = documentSnapshot2.data() as Map<String, dynamic>;
+    final docdata =
+        documentSnapshots['message']!.data() as Map<String, dynamic>;
+    final userdata =
+        documentSnapshots['user']!.data() as Map<String, dynamic>;
     final String firstName = userdata['firstname'];
     final String lastName = userdata['lastname'];
-    final secondUserName = firstName + lastName;
+    final secondUserName = firstName + ' ' + lastName;
 
     return Container(child: Text(secondUserName));
   }
 }
+
