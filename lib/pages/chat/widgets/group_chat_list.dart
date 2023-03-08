@@ -29,42 +29,48 @@ class _asdState extends State<asd> {
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder<List<QueryDocumentSnapshot<Map<String, dynamic>>>>(
-      future: Future.wait([
-        fire.where('Uid1', whereIn: [uid]).get(),
-        fire.where('Uid2', whereIn: [uid]).get(),
-      ]).then(
-        (List<QuerySnapshot<Map<String, dynamic>>> results) =>
-            results.expand((querySnapshot) => querySnapshot.docs).toList(),
+    return Container(
+      height: 800,
+      width: 200,
+      color: Colors.red,
+      child: FutureBuilder<List<QueryDocumentSnapshot<Map<String, dynamic>>>>(
+        future: Future.wait([
+          fire.where('Uid1', whereIn: [uid]).get(),
+          fire.where('Uid2', whereIn: [uid]).get(),
+        ]).then(
+          (List<QuerySnapshot<Map<String, dynamic>>> results) =>
+              results.expand((querySnapshot) => querySnapshot.docs).toList(),
+        ),
+        builder: (BuildContext context,
+            AsyncSnapshot<List<QueryDocumentSnapshot<Map<String, dynamic>>>>
+                snapshot) {
+          if (snapshot.hasError) {
+            return Text('Error: ${snapshot.error}');
+          }
+          if (!snapshot.hasData) {
+            return const Center(child: CircularProgressIndicator());
+          }
+          List<QueryDocumentSnapshot<Map<String, dynamic>>> querySnapshotList =
+              snapshot.data!;
+          if (querySnapshotList.isEmpty) {
+            return Text('No matching documents found');
+          }
+          List<String> documentIds = [];
+          for (var documentSnapshot in querySnapshotList) {
+            String documentId = documentSnapshot.id;
+            Map<String, dynamic>? data = documentSnapshot.data();
+            print('Found value in document with ID: $documentId');
+            documentIds.add(documentId);
+          }
+          return Column(
+            children: documentIds
+                .map((documentId) =>
+                    Container(
+                      child: Text(documentId)))
+                .toList(),
+          );
+        },
       ),
-      builder: (BuildContext context,
-          AsyncSnapshot<List<QueryDocumentSnapshot<Map<String, dynamic>>>>
-              snapshot) {
-        if (snapshot.hasError) {
-          return Text('Error: ${snapshot.error}');
-        }
-        if (!snapshot.hasData) {
-          return Text('Loading...');
-        }
-        List<QueryDocumentSnapshot<Map<String, dynamic>>> querySnapshotList =
-            snapshot.data!;
-        if (querySnapshotList.isEmpty) {
-          return Text('No matching documents found');
-        }
-        List<String> documentIds = [];
-        for (var documentSnapshot in querySnapshotList) {
-          String documentId = documentSnapshot.id;
-          Map<String, dynamic>? data = documentSnapshot.data();
-          print('Found value in document with ID: $documentId');
-          documentIds.add(documentId);
-        }
-        return Column(
-          children: documentIds
-              .map((documentId) =>
-                  Container(color: Colors.red, child: Text(documentId)))
-              .toList(),
-        );
-      },
     );
   }
 }

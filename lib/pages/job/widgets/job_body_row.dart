@@ -449,7 +449,6 @@ class LargeBodyColumn extends StatelessWidget {
                                         final senderId = FirebaseAuth
                                             .instance.currentUser?.uid;
                                         final recipientId = uid;
-                                        navnesen(senderId!, recipientId);
 
                                         Get.to(() => ChatUI());
                                       } else {
