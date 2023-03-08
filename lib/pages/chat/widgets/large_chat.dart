@@ -61,104 +61,134 @@ class _ChatUIState extends State<ChatUI> {
         children: [
           const ChatList(),
           Container(
-            width: 800,
-            height: 800,
-            color: Colors.blue,
-            child: Column(
-              children: [
-                Expanded(
-                  child: widget.chatGroupId.isEmpty
-                      ? Text('data')
-                      : StreamBuilder<QuerySnapshot>(
-                          stream: messagesRef.snapshots(),
-                          builder: (context, snapshot) {
-                            if (snapshot.hasError) {
-                              return Text('Error: ${snapshot.error}');
-                            }
+            decoration: BoxDecoration(
+              border: Border.all(
+                color: Colors.grey.shade300,
+                width: 20,
+              ),
+            ),
+            child: Container(
+              width: 800,
+              height: 800,
+              decoration: BoxDecoration(
+                color: Colors.blue,
+                borderRadius: BorderRadius.circular(16.0),
+              ),
+              child: Column(
+                children: [
+                  Expanded(
+                    child: widget.chatGroupId.isEmpty
+                        ? Text('data')
+                        : StreamBuilder<QuerySnapshot>(
+                            stream: messagesRef.snapshots(),
+                            builder: (context, snapshot) {
+                              if (snapshot.hasError) {
+                                return Text('Error: ${snapshot.error}');
+                              }
 
-                            if (!snapshot.hasData) {
-                              return const Center(
-                                child: CircularProgressIndicator(),
-                              );
-                            }
-
-                            final messages = snapshot.data!.docs;
-
-                            if (messages.isEmpty) {
-                              return const Center(
-                                child: Text('No messages found.'),
-                              );
-                            }
-
-                            WidgetsBinding.instance.addPostFrameCallback((_) {
-                              _scrollController.jumpTo(
-                                  _scrollController.position.maxScrollExtent);
-                            });
-
-                            return ListView.builder(
-                              controller: _scrollController,
-                              itemCount: messages.length,
-                              itemBuilder: (context, index) {
-                                final message = messages[index];
-                                final text = message['text'];
-                                final senderId = message['senderId'];
-                                final timestamp = message['timestamp'];
-
-                                // Check if the message was sent by the current user
-                                final isCurrentUser = senderId == uid;
-
-                                return Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                    horizontal: 16,
-                                    vertical: 8,
-                                  ),
-                                  // Align the message to the right if sent by the current user, or to the left if sent by another user
-                                  child: Align(
-                                    alignment: isCurrentUser
-                                        ? Alignment.centerRight
-                                        : Alignment.centerLeft,
-                                    child: Column(
-                                      crossAxisAlignment: isCurrentUser
-                                          ? CrossAxisAlignment.end
-                                          : CrossAxisAlignment.start,
-                                      children: [
-                                        SelectableText(
-                                          text,
-                                          style: const TextStyle(
-                                            fontSize: 16,
-                                            color: Colors.white,
-                                          ),
-                                        ),
-                                        Text(
-                                          '${DateFormat.yMd().add_jm().format(timestamp.toDate())}',
-                                          style: const TextStyle(
-                                            fontSize: 12,
-                                            color: Colors.white70,
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
+                              if (!snapshot.hasData) {
+                                return const Center(
+                                  child: CircularProgressIndicator(),
                                 );
+                              }
+
+                              final messages = snapshot.data!.docs;
+
+                              if (messages.isEmpty) {
+                                return const Center(
+                                  child: Text('No messages found.'),
+                                );
+                              }
+
+                              WidgetsBinding.instance.addPostFrameCallback((_) {
+                                _scrollController.jumpTo(
+                                    _scrollController.position.maxScrollExtent);
+                              });
+
+                              return ListView.builder(
+                                controller: _scrollController,
+                                itemCount: messages.length,
+                                itemBuilder: (context, index) {
+                                  final message = messages[index];
+                                  final text = message['text'];
+                                  final senderId = message['senderId'];
+                                  final timestamp = message['timestamp'];
+
+                                  // Check if the message was sent by the current user
+                                  final isCurrentUser = senderId == uid;
+
+                                  return Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                      horizontal: 16,
+                                      vertical: 8,
+                                    ),
+                                    // Align the message to the right if sent by the current user, or to the left if sent by another user
+                                    child: Align(
+                                      alignment: isCurrentUser
+                                          ? Alignment.centerRight
+                                          : Alignment.centerLeft,
+                                      child: Column(
+                                        crossAxisAlignment: isCurrentUser
+                                            ? CrossAxisAlignment.end
+                                            : CrossAxisAlignment.start,
+                                        children: [
+                                          SelectableText(
+                                            text,
+                                            style: const TextStyle(
+                                              fontSize: 16,
+                                              color: Colors.white,
+                                            ),
+                                          ),
+                                          Text(
+                                            '${DateFormat.yMd().add_jm().format(timestamp.toDate())}',
+                                            style: const TextStyle(
+                                              fontSize: 12,
+                                              color: Colors.white70,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  );
+                                },
+                              );
+                            },
+                          ),
+                  ),
+                  FocusScope(
+                    child: Container(
+                      color: Colors.white,
+                      padding: const EdgeInsets.symmetric(horizontal: 16),
+                      child: Row(
+                        children: [
+                          Expanded(
+                            child: TextField(
+                              focusNode: _focusNode,
+                              controller: _messageController,
+                              decoration: const InputDecoration(
+                                border: InputBorder.none,
+                                hintText: 'Type your message',
+                              ),
+                              onSubmitted: (value) async {
+                                final text = _messageController.text.trim();
+                                if (text.isNotEmpty) {
+                                  final timestamp = Timestamp.now();
+                                  final senderId =
+                                      uid; // Replace with the current user's ID
+                                  const recipientId =
+                                      'user2'; // Replace with the recipient's user ID
+
+                                  navnesen(senderId, text, timestamp, docid);
+                                  _messageController.clear();
+                                  _focusNode
+                                      .requestFocus(); // Request focus after sending message
+                                }
                               },
-                            );
-                          },
-                        ),
-                ),
-                FocusScope(
-                  child: Container(
-                    color: Colors.white,
-                    padding: const EdgeInsets.symmetric(horizontal: 16),
-                    child: Row(
-                      children: [
-                        Expanded(
-                          child: TextField(
-                            focusNode: _focusNode,
-                            controller: _messageController,
-                            decoration: const InputDecoration(
-                              hintText: 'Type your message',
                             ),
-                            onSubmitted: (value) async {
+                          ),
+                          IconButton(
+                            icon: const Icon(Icons.send),
+                            onPressed: () async {
                               final text = _messageController.text.trim();
                               if (text.isNotEmpty) {
                                 final timestamp = Timestamp.now();
@@ -169,34 +199,16 @@ class _ChatUIState extends State<ChatUI> {
 
                                 navnesen(senderId, text, timestamp, docid);
                                 _messageController.clear();
-                                _focusNode
-                                    .requestFocus(); // Request focus after sending message
                               }
                             },
+                            autofocus: true,
                           ),
-                        ),
-                        IconButton(
-                          icon: const Icon(Icons.send),
-                          onPressed: () async {
-                            final text = _messageController.text.trim();
-                            if (text.isNotEmpty) {
-                              final timestamp = Timestamp.now();
-                              final senderId =
-                                  uid; // Replace with the current user's ID
-                              const recipientId =
-                                  'user2'; // Replace with the recipient's user ID
-
-                              navnesen(senderId, text, timestamp, docid);
-                              _messageController.clear();
-                            }
-                          },
-                          autofocus: true,
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
-                  ),
-                )
-              ],
+                  )
+                ],
+              ),
             ),
           ),
         ],
