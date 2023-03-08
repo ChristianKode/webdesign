@@ -126,7 +126,7 @@ class _SmallBodyColumnState extends State<SmallBodyColumn> {
                 height: 40,
                 child: TextButton(
                     onPressed: () {},
-                    child:  Row(
+                    child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: const [
                         Icon(
@@ -338,7 +338,7 @@ class LargeBodyColumn extends StatelessWidget {
                             height: 40,
                             child: TextButton(
                                 onPressed: () {},
-                                child:  Row(
+                                child: Row(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: const [
                                     Icon(
@@ -449,7 +449,6 @@ class LargeBodyColumn extends StatelessWidget {
                                         final senderId = FirebaseAuth
                                             .instance.currentUser?.uid;
                                         final recipientId = uid;
-                                        navnesen(senderId!, recipientId);
 
                                         Get.to(() => ChatUI());
                                       } else {
@@ -496,7 +495,7 @@ class LargeBodyColumn extends StatelessWidget {
                                           borderRadius:
                                               BorderRadius.circular(10)),
                                       backgroundColor: Colors.white),
-                                  child:  Row(
+                                  child: Row(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: const [
                                       Icon(

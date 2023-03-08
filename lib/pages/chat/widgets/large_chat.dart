@@ -13,8 +13,8 @@ import 'package:webdesign/widgets/drawer.dart';
 
 final String uid = FirebaseAuth.instance.currentUser!.uid;
 final messagesRef = FirebaseFirestore.instance
-    .collection('messages')
-    .doc('8oUPHh4nlLUnlkmdypwm')
+    .collection('Messages')
+    .doc('0BFY9Ks3zxXFwJGzYinM')
     .collection('messages')
     .where('senderId', isEqualTo: uid) // Filter messages by senderId
     .orderBy('timestamp',
@@ -41,7 +41,7 @@ class _ChatUIState extends State<ChatUI> {
   Future<List<QueryDocumentSnapshot>> getMessages(String userId) async {
     final snapshot = await FirebaseFirestore.instance
         .collection('messages')
-        .doc('AMBSGSEf2m22wB2quUe4')
+        .doc('0BFY9Ks3zxXFwJGzYinM')
         .collection('messages')
         .where('senderId', isEqualTo: userId)
         .orderBy('timestamp', descending: true)
@@ -135,8 +135,9 @@ class _ChatUIState extends State<ChatUI> {
                               uid; // Replace with the current user's ID
                           const recipientId =
                               'user2'; // Replace with the recipient's user ID
+                          final timestamp = Timestamp.now();
 
-                          navnesen(senderId, text);
+                          navnesen(senderId, text, timestamp.toString());
                           _messageController.clear();
                         },
                       ),
