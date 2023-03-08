@@ -50,7 +50,7 @@ class _ChatUIState extends State<ChatUI> {
         .collection('Messages')
         .doc(docid)
         .collection('messages')
-        .where('senderId', isEqualTo: uid) // Filter messages by senderId
+        .where('senderId') // Filter messages by senderId
         .orderBy('timestamp', descending: false);
 
     return Scaffold(

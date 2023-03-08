@@ -148,13 +148,12 @@ class _ChatGroupCardsState extends State<ChatGroupCards> {
     if (documentSnapshots.isEmpty ||
         documentSnapshots['message'] == null ||
         documentSnapshots['user'] == null) {
-          return const SizedBox();
+      return const SizedBox();
     }
 
     final docdata =
         documentSnapshots['message']!.data() as Map<String, dynamic>;
-    final userdata =
-        documentSnapshots['user']!.data() as Map<String, dynamic>;
+    final userdata = documentSnapshots['user']!.data() as Map<String, dynamic>;
     final String firstName = userdata['firstname'];
     final String lastName = userdata['lastname'];
     final secondUserName = firstName + ' ' + lastName;
@@ -162,4 +161,3 @@ class _ChatGroupCardsState extends State<ChatGroupCards> {
     return Container(child: Text(secondUserName));
   }
 }
-
