@@ -6,11 +6,14 @@ import 'package:get/route_manager.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:uuid/uuid.dart';
 import 'package:webdesign/main.dart';
+import 'package:webdesign/pages/chat/widgets/group_chat_list.dart';
 import 'package:webdesign/pages/chat/widgets/large_chat.dart';
 import 'package:webdesign/pages/login/login.dart';
 import 'package:webdesign/utils/responsive.dart';
 
 import '../../../app_logic/services/message.dart';
+
+final fire = FirebaseFirestore.instance.collection('Messages');
 
 // ignore: must_be_immutable
 class BodyRow extends StatefulWidget {
@@ -474,30 +477,69 @@ class _LargeBodyColumnState extends State<LargeBodyColumn> {
                             SizedBox(
                                 height: 40,
                                 child: ElevatedButton(
-                                    onPressed: () async {
+                                  onPressed: () async {
+                                    final uid =
+                                        FirebaseAuth.instance.currentUser?.uid;
+                                    final authorId = widget.uid;
+                                    String existingChatId = '';
+                                    final querySnapshot =
+                                        await FirebaseFirestore.instance
+                                            .collection('Messages')
+                                            .where("Uid1", whereIn: [
+                                      uid,
+                                      authorId
+                                    ]).where("Uid2",
+                                                whereIn: [uid, authorId]).get();
+
+                                    if (querySnapshot.docs.isNotEmpty) {
+                                      // take user to existing chat
+                                      Get.to(() => ChatUI(
+                                          chatGroupId: existingChatId,
+                                          secondUserName: authorName));
+                                    } else {
+                                      // new chat group
                                       final messageRef = FirebaseFirestore
                                           .instance
                                           .collection('Messages');
-                                      FirebaseAuth auth = FirebaseAuth.instance;
-                                      if (auth.currentUser != null) {
-                                        await messageRef.doc().set({
-                                          "Uid1": FirebaseAuth
-                                              .instance.currentUser?.uid,
-                                          "Uid2": widget.uid
-                                        });
-                                        Get.to(() => Chat());
+                                      final currentUser =
+                                          FirebaseAuth.instance.currentUser;
+
+                                      if (currentUser != null) {
+                                        try {
+                                          final newDocumentRef =
+                                              messageRef.doc();
+                                          final newDocumentId =
+                                              newDocumentRef.id;
+
+                                          newDocumentRef.set({
+                                            "Uid1": currentUser.uid,
+                                            "Uid2": widget.uid,
+                                          });
+
+                                          Get.to(() => ChatUI(
+                                                chatGroupId: newDocumentId,
+                                                secondUserName: authorName,
+                                              ));
+                                        } catch (e) {
+                                          // Handle the error here
+                                          print(
+                                              'Error creating new document: $e');
+                                        }
                                       } else {
                                         Get.to(() => const Login());
                                       }
-                                    },
-                                    style: ElevatedButton.styleFrom(
-                                        shape: RoundedRectangleBorder(
-                                            borderRadius:
-                                                BorderRadius.circular(10)),
-                                        backgroundColor: Colors.blue),
-                                    child: const Center(
-                                      child: Text('Ta kontakt'),
-                                    ))),
+                                    }
+                                  },
+                                  style: ElevatedButton.styleFrom(
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(10),
+                                    ),
+                                    backgroundColor: Colors.blue,
+                                  ),
+                                  child: const Center(
+                                    child: Text('Ta kontakt'),
+                                  ),
+                                )),
                           ],
                         ),
                       ),
