@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:webdesign/main.dart';
 import 'package:webdesign/pages/job/job_view.dart';
 
 class JobList extends StatefulWidget {
@@ -81,7 +82,6 @@ class _JobListState extends State<JobList> {
                                     snapshot.child('address').value.toString();
                                 String zipcode =
                                     snapshot.child('zipcode').value.toString();
-
                                 Get.to(() => JobView(
                                     aid: aid,
                                     uid: uid,

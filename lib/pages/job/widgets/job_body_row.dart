@@ -1,9 +1,11 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:get/route_manager.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:uuid/uuid.dart';
+import 'package:webdesign/main.dart';
 import 'package:webdesign/pages/chat/widgets/large_chat.dart';
 import 'package:webdesign/pages/login/login.dart';
 import 'package:webdesign/utils/responsive.dart';
@@ -36,6 +38,11 @@ class BodyRow extends StatefulWidget {
 }
 
 class _BodyRowState extends State<BodyRow> {
+  @override
+  void initState() {
+    super.initState();
+  }
+
   bool isFavorited = false;
 
   @override
@@ -55,6 +62,7 @@ class _BodyRowState extends State<BodyRow> {
                   address: widget.address,
                   zipcode: widget.zipcode)
               : SmallBodyColumn(
+                  aid: widget.aid,
                   img1: widget.img1,
                   title: widget.title,
                   descprition: widget.descprition,
@@ -67,6 +75,7 @@ class _BodyRowState extends State<BodyRow> {
 }
 
 class SmallBodyColumn extends StatefulWidget {
+  final String aid;
   final String img1;
   final String title;
   final String descprition;
@@ -77,6 +86,7 @@ class SmallBodyColumn extends StatefulWidget {
 
   const SmallBodyColumn({
     super.key,
+    required this.aid,
     required this.img1,
     required this.title,
     required this.descprition,
@@ -246,15 +256,11 @@ class _SmallBodyColumnState extends State<SmallBodyColumn> {
               height: 40,
               child: ElevatedButton(
                   onPressed: () async {
-                    var uuid = const Uuid();
-                    var mid = uuid.v4();
-                    DatabaseReference messageRef = FirebaseDatabase.instance
-                        .ref()
-                        .child('messages')
-                        .child(mid);
+                    final messageRef =
+                        FirebaseFirestore.instance.collection('Messages');
                     FirebaseAuth auth = FirebaseAuth.instance;
                     if (auth.currentUser != null) {
-                      await messageRef.set({
+                      await messageRef.doc().set({
                         "u1": FirebaseAuth.instance.currentUser?.uid,
                         "u2": widget.uid
                       });
@@ -277,7 +283,14 @@ class _SmallBodyColumnState extends State<SmallBodyColumn> {
 }
 
 // LargeScreen Widget
-class LargeBodyColumn extends StatelessWidget {
+class LargeBodyColumn extends StatefulWidget {
+  final String img1;
+  final String title;
+  final String descprition;
+  final String price;
+  final String uid;
+  final String address;
+  final String zipcode;
   const LargeBodyColumn({
     super.key,
     required this.img1,
@@ -289,16 +302,34 @@ class LargeBodyColumn extends StatelessWidget {
     required this.zipcode,
   });
 
-  final String img1;
-  final String title;
-  final String descprition;
-  final String price;
-  final String uid;
-  final String address;
-  final String zipcode;
+  @override
+  State<LargeBodyColumn> createState() => _LargeBodyColumnState();
+}
+
+class _LargeBodyColumnState extends State<LargeBodyColumn> {
+  late Map<String, DocumentSnapshot> documentSnapshots;
+
+  @override
+  void initState() {
+    documentSnapshots = {};
+    FirebaseFirestore.instance
+        .collection('Users')
+        .doc(widget.uid)
+        .get()
+        .then((value) => {
+              setState(() {
+                documentSnapshots['user'] = value;
+              })
+            });
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
+    final authorIdentity =
+        documentSnapshots['user']!.data() as Map<String, dynamic>;
+    final String authorName =
+        authorIdentity['firstname'] + ' ' + authorIdentity['lastname'];
     return Column(
       children: [
         const SizedBox(
@@ -317,7 +348,7 @@ class LargeBodyColumn extends StatelessWidget {
                       Container(
                           constraints: const BoxConstraints(minHeight: 350),
                           child: Image.network(
-                            img1,
+                            widget.img1,
                             fit: BoxFit.cover,
                           )),
                       const SizedBox(
@@ -368,7 +399,7 @@ class LargeBodyColumn extends StatelessWidget {
                       Container(
                         alignment: Alignment.centerLeft,
                         child: Text(
-                          title,
+                          widget.title,
                           style: GoogleFonts.tinos(
                               fontSize: 30, fontWeight: FontWeight.w700),
                         ),
@@ -391,7 +422,7 @@ class LargeBodyColumn extends StatelessWidget {
                             Padding(
                               padding: const EdgeInsets.only(top: 15),
                               child: Text(
-                                descprition,
+                                widget.descprition,
                                 style: GoogleFonts.tinos(
                                   fontSize: 17,
                                 ),
@@ -436,7 +467,7 @@ class LargeBodyColumn extends StatelessWidget {
                             Padding(
                               padding: const EdgeInsets.only(bottom: 15),
                               child: SelectableText(
-                                '${price}kr',
+                                '${widget.price}kr',
                                 style: GoogleFonts.tinos(fontSize: 25),
                               ),
                             ),
@@ -444,13 +475,17 @@ class LargeBodyColumn extends StatelessWidget {
                                 height: 40,
                                 child: ElevatedButton(
                                     onPressed: () async {
+                                      final messageRef = FirebaseFirestore
+                                          .instance
+                                          .collection('Messages');
                                       FirebaseAuth auth = FirebaseAuth.instance;
                                       if (auth.currentUser != null) {
-                                        final senderId = FirebaseAuth
-                                            .instance.currentUser?.uid;
-                                        final recipientId = uid;
-
-                                        Get.to(() => const Chat());
+                                        await messageRef.doc().set({
+                                          "u1": FirebaseAuth
+                                              .instance.currentUser?.uid,
+                                          "u2": widget.uid
+                                        });
+                                        Get.to(() => Chat());
                                       } else {
                                         Get.to(() => const Login());
                                       }
@@ -470,6 +505,48 @@ class LargeBodyColumn extends StatelessWidget {
                     const SizedBox(
                       height: 30,
                     ),
+
+                    //Profil
+                    Container(
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10),
+                          color: Color.fromARGB(255, 212, 235, 255)),
+                      child: Padding(
+                        padding: const EdgeInsets.all(20.0),
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Container(
+                              height: 50,
+                              width: 50,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(100),
+                              ),
+                              child: ClipOval(
+                                  child: Image.network(
+                                      'https://firebasestorage.googleapis.com/v0/b/ungansatt123.appspot.com/o/assets%2Fprofile-circle-icon-512x512-dt9lf8um.png?alt=media&token=6b6eec31-abc3-43ad-ba01-69b374731ba9')),
+                            ),
+                            Flexible(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  SelectableText(
+                                    authorName,
+                                    style: GoogleFonts.tinos(fontSize: 25),
+                                  ),
+                                  TextButton(
+                                      onPressed: () {},
+                                      child: Text('Vis profil'))
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 30,
+                    ),
                     Container(
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(10),
@@ -482,7 +559,7 @@ class LargeBodyColumn extends StatelessWidget {
                             Padding(
                               padding: const EdgeInsets.only(bottom: 15),
                               child: SelectableText(
-                                '$address, $zipcode',
+                                '${widget.address}, ${widget.zipcode}',
                                 style: GoogleFonts.tinos(fontSize: 25),
                               ),
                             ),

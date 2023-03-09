@@ -57,12 +57,14 @@ class _chatGroupListState extends State<ChatGroupList> {
         List<QueryDocumentSnapshot<Map<String, dynamic>>> querySnapshotList =
             snapshot.data!;
         if (querySnapshotList.isEmpty) {
-          return Text('No matching documents found');
+          return const Text('No matching documents found');
         }
+
         List<String> documentIds = [];
         for (var documentSnapshot in querySnapshotList) {
           String documentId = documentSnapshot.id;
           Map<String, dynamic>? data = documentSnapshot.data();
+          print(data);
           print('Found value in document with ID: $documentId');
           documentIds.add(documentId);
         }
@@ -162,8 +164,9 @@ class _ChatGroupCardsState extends State<ChatGroupCards> {
         decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.circular(5),
+          // ignore: prefer_const_literals_to_create_immutables
           boxShadow: [
-            BoxShadow(
+            const BoxShadow(
               color: Colors.white,
               blurRadius: 2,
               offset: Offset(0.5, 5), // Shadow position
@@ -171,10 +174,10 @@ class _ChatGroupCardsState extends State<ChatGroupCards> {
           ],
         ),
         child: Padding(
-          padding: EdgeInsets.symmetric(vertical: 8, horizontal: 12),
+          padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
           child: Text(
             secondUserName,
-            style: TextStyle(),
+            style: const TextStyle(),
           ),
         ),
       ),

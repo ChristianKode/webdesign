@@ -18,12 +18,19 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
 
-  runApp(const MyApp());
+  runApp(MyApp());
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+class MyApp extends StatefulWidget {
+  MyApp({
+    super.key,
+  });
 
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
@@ -52,14 +59,14 @@ class MyApp extends StatelessWidget {
             GetPage(
                 name: '/JobView',
                 page: () => JobView(
-                    aid: "",
-                    uid: "",
-                    img1: "",
-                    title: "",
-                    descprition: "",
-                    price: "",
-                    address: "",
-                    zipcode: "")),
+                    aid: '',
+                    uid: '',
+                    img1: '',
+                    title: '',
+                    descprition: '',
+                    price: '',
+                    address: '',
+                    zipcode: '')),
           ],
           theme: ThemeData(
             primarySwatch: Colors.blue,
