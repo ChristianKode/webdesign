@@ -181,9 +181,7 @@ class _LoggedInDrawerState extends State<LoggedInDrawer> {
                     })
                   },
                   onTap: () {
-                    Get.to(() => ChatUI(
-                          chatGroupId: '',
-                        ));
+                    Get.to(() => const Chat());
                   },
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.start,

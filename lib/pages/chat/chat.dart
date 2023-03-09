@@ -8,13 +8,9 @@ class Chat extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ResponsiveWidget(
-        largeScreen: ChatUI(
-          chatGroupId: '',
-        ),
-        mediumScreen: ChatUI(
-          chatGroupId: '',
-        ),
-        smallScreen: const SmallChat());
+    return const ResponsiveWidget(
+        largeScreen: Chat(),
+        mediumScreen: Chat(),
+        smallScreen:  SmallChat());
   }
 }
