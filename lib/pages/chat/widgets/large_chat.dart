@@ -62,23 +62,36 @@ class _ChatUIState extends State<ChatUI> {
           const ChatList(),
           Container(
             decoration: BoxDecoration(
-              border: Border.all(
-                color: Colors.grey.shade300,
-                width: 20,
-              ),
-            ),
+                border: Border.all(
+                  color: Colors.grey.shade300,
+                  width: 20,
+                ),
+                color: Colors.grey.shade300),
             child: Container(
-              width: 800,
-              height: 800,
+              width: 850,
+              height: 850,
               decoration: BoxDecoration(
-                color: Colors.blue,
+                color: Colors.white,
                 borderRadius: BorderRadius.circular(16.0),
               ),
               child: Column(
                 children: [
+                  // Show the name of the user you are chatting with
+                  widget.chatGroupId.isEmpty
+                      ? const SizedBox()
+                      : const Padding(
+                          padding: EdgeInsets.only(top: 10, right: 600),
+                          child: Text(
+                            'Chatting with Benjamin',
+                            style: TextStyle(
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ),
                   Expanded(
                     child: widget.chatGroupId.isEmpty
-                        ? Text('data')
+                        ? const Text('data')
                         : StreamBuilder<QuerySnapshot>(
                             stream: messagesRef.snapshots(),
                             builder: (context, snapshot) {
@@ -127,26 +140,39 @@ class _ChatUIState extends State<ChatUI> {
                                       alignment: isCurrentUser
                                           ? Alignment.centerRight
                                           : Alignment.centerLeft,
-                                      child: Column(
-                                        crossAxisAlignment: isCurrentUser
-                                            ? CrossAxisAlignment.end
-                                            : CrossAxisAlignment.start,
-                                        children: [
-                                          SelectableText(
-                                            text,
-                                            style: const TextStyle(
-                                              fontSize: 16,
-                                              color: Colors.white,
+                                      child: Container(
+                                        decoration: BoxDecoration(
+                                          color: isCurrentUser
+                                              ? Colors.blue.shade400
+                                              : Colors.grey.shade300,
+                                          borderRadius:
+                                              BorderRadius.circular(8),
+                                        ),
+                                        padding: const EdgeInsets.symmetric(
+                                          horizontal: 8,
+                                          vertical: 4,
+                                        ),
+                                        child: Column(
+                                          crossAxisAlignment: isCurrentUser
+                                              ? CrossAxisAlignment.end
+                                              : CrossAxisAlignment.start,
+                                          children: [
+                                            SelectableText(
+                                              text,
+                                              style: const TextStyle(
+                                                fontSize: 16,
+                                                color: Colors.black,
+                                              ),
                                             ),
-                                          ),
-                                          Text(
-                                            '${DateFormat.yMd().add_jm().format(timestamp.toDate())}',
-                                            style: const TextStyle(
-                                              fontSize: 12,
-                                              color: Colors.white70,
+                                            Text(
+                                              '${DateFormat.yMd().add_jm().format(timestamp.toDate())}',
+                                              style: const TextStyle(
+                                                fontSize: 12,
+                                                color: Colors.black,
+                                              ),
                                             ),
-                                          ),
-                                        ],
+                                          ],
+                                        ),
                                       ),
                                     ),
                                   );
@@ -157,7 +183,9 @@ class _ChatUIState extends State<ChatUI> {
                   ),
                   FocusScope(
                     child: Container(
-                      color: Colors.white,
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(16),
+                          color: Colors.grey.shade200),
                       padding: const EdgeInsets.symmetric(horizontal: 16),
                       child: Row(
                         children: [

@@ -116,7 +116,7 @@ registerItem() {
 
 AppBar appBar(BuildContext context, GlobalKey<ScaffoldState> key) => AppBar(
       backgroundColor: Colors.white,
-      toolbarHeight: 75,
+      toolbarHeight: 80,
       leadingWidth: 100,
       leading: FutureBuilder(
           future: context.read<AuthService>().isLoggedIn(),
