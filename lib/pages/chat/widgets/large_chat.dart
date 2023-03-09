@@ -159,18 +159,30 @@ class _ChatUIState extends State<ChatUI> {
                                           children: [
                                             SelectableText(
                                               text,
-                                              style: const TextStyle(
-                                                fontSize: 16,
-                                                color: Colors.black,
-                                              ),
+                                              style: isCurrentUser
+                                                  ? const TextStyle(
+                                                      fontSize: 16,
+                                                      color: Colors.white,
+                                                    )
+                                                  : const TextStyle(
+                                                      fontSize: 16,
+                                                      color: Colors.black,
+                                                    ),
                                             ),
-                                            Text(
-                                              '${DateFormat.yMd().add_jm().format(timestamp.toDate())}',
-                                              style: const TextStyle(
-                                                fontSize: 12,
-                                                color: Colors.black,
-                                              ),
-                                            ),
+                                            isCurrentUser
+                                                ? Text(
+                                                    '${DateFormat.yMd().add_jm().format(timestamp.toDate())}',
+                                                    style: const TextStyle(
+                                                      fontSize: 12,
+                                                      color: Colors.white,
+                                                    ),
+                                                  )
+                                                : Text(
+                                                    '${DateFormat.yMd().add_jm().format(timestamp.toDate())}',
+                                                    style: const TextStyle(
+                                                      fontSize: 12,
+                                                      color: Colors.black,
+                                                    ))
                                           ],
                                         ),
                                       ),
