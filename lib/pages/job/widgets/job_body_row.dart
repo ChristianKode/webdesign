@@ -481,9 +481,9 @@ class _LargeBodyColumnState extends State<LargeBodyColumn> {
                                       FirebaseAuth auth = FirebaseAuth.instance;
                                       if (auth.currentUser != null) {
                                         await messageRef.doc().set({
-                                          "u1": FirebaseAuth
+                                          "Uid1": FirebaseAuth
                                               .instance.currentUser?.uid,
-                                          "u2": widget.uid
+                                          "Uid2": widget.uid
                                         });
                                         Get.to(() => Chat());
                                       } else {
