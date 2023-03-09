@@ -7,7 +7,7 @@ import 'package:provider/provider.dart';
 import 'package:webdesign/pages/chat/widgets/large_chat.dart';
 
 class ChatList extends StatefulWidget {
-  const ChatList({Key? key}) : super(key: key);
+  ChatList({Key? key}) : super(key: key);
 
   @override
   State<ChatList> createState() => _ChatListState();
@@ -75,7 +75,6 @@ class _chatGroupListState extends State<ChatGroupList> {
                   ),
                   child: ChatGroupCards(
                     documentId: documentId,
-                    isSelected: false,
                   )))
               .toList(),
         );
@@ -88,10 +87,11 @@ final fireStore = FirebaseFirestore.instance;
 
 class ChatGroupCards extends StatefulWidget {
   final String documentId;
-  bool isSelected;
 
-  ChatGroupCards({Key? key, required this.documentId, required this.isSelected})
-      : super(key: key);
+  ChatGroupCards({
+    Key? key,
+    required this.documentId,
+  }) : super(key: key);
 
   @override
   State<ChatGroupCards> createState() => _ChatGroupCardsState();
@@ -99,7 +99,6 @@ class ChatGroupCards extends StatefulWidget {
 
 class _ChatGroupCardsState extends State<ChatGroupCards> {
   late Map<String, DocumentSnapshot> documentSnapshots;
-  bool isHovered = false;
 
   @override
   void initState() {
@@ -148,34 +147,25 @@ class _ChatGroupCardsState extends State<ChatGroupCards> {
 
     return InkWell(
       onTap: () {
-        setState(() {
-          widget.isSelected = true;
-          selectedChatId = widget.documentId;
-        });
+        selectedChatId = widget.documentId;
 
         Navigator.push(
           context,
           MaterialPageRoute(
               builder: (context) => ChatUI(
                     chatGroupId: selectedChatId,
+                    secondUserName: secondUserName,
                   )),
         );
       },
-      onHover: (value) {
-        setState(() {
-          isHovered = value;
-        });
-      },
       child: Container(
         decoration: BoxDecoration(
-          color: widget.isSelected
-              ? Colors.black
-              : (isHovered ? Colors.grey[300] : Colors.white),
+          color: Colors.white,
           borderRadius: BorderRadius.circular(5),
           boxShadow: [
             BoxShadow(
-              color: isHovered ? Color.fromARGB(20, 0, 0, 0) : Colors.white,
-              blurRadius: isHovered ? 2 : 0,
+              color: Colors.white,
+              blurRadius: 2,
               offset: Offset(0.5, 5), // Shadow position
             )
           ],

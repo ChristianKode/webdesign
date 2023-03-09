@@ -27,10 +27,26 @@ const recipientId = 'user2'; // Replace with the recipient's user ID
   'timestamp': FieldValue.serverTimestamp(),
 });*/
 
-class ChatUI extends StatefulWidget {
-  String chatGroupId = 'asd';
 
-  ChatUI({required this.chatGroupId, Key? key}) : super(key: key);
+class Chat extends StatefulWidget {
+  const Chat({super.key});
+
+  @override
+  State<Chat> createState() => _ChatState();
+}
+
+class _ChatState extends State<Chat> {
+  @override
+  Widget build(BuildContext context) {
+    return  ChatUI(chatGroupId: '', secondUserName: '',);
+  }
+}
+
+class ChatUI extends StatefulWidget {
+  late String chatGroupId;
+  late String secondUserName;
+
+  ChatUI({required this.chatGroupId, required this.secondUserName, Key? key}) : super(key: key);
 
   @override
   _ChatUIState createState() => _ChatUIState();
@@ -59,7 +75,7 @@ class _ChatUIState extends State<ChatUI> {
       body: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          const ChatList(),
+          ChatList(),
           Container(
             decoration: BoxDecoration(
                 border: Border.all(
@@ -79,11 +95,11 @@ class _ChatUIState extends State<ChatUI> {
                   // Show the name of the user you are chatting with
                   widget.chatGroupId.isEmpty
                       ? const SizedBox()
-                      : const Padding(
-                          padding: EdgeInsets.only(top: 10, right: 600),
+                      :  Padding(
+                          padding: const EdgeInsets.only(top: 10, right: 600),
                           child: Text(
-                            'Chatting with Benjamin',
-                            style: TextStyle(
+                            widget.secondUserName,
+                            style: const TextStyle(
                               fontSize: 20,
                               fontWeight: FontWeight.bold,
                             ),
