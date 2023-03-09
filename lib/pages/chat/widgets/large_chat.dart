@@ -2,6 +2,8 @@
 // ignore: file_names
 // ignore_for_file: file_names, duplicate_ignore, use_key_in_widget_constructors, unused_import, unused_local_variable
 
+import 'dart:async';
+
 import 'package:intl/intl.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -14,6 +16,7 @@ import 'package:webdesign/widgets/appbar.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:webdesign/widgets/drawer.dart';
 
+StreamController<bool> _chatChangedController = StreamController<bool>.broadcast();
 final _focusNode = FocusNode();
 final String uid = FirebaseAuth.instance.currentUser!.uid;
 final ScrollController _scrollController = ScrollController();
@@ -27,7 +30,6 @@ const recipientId = 'user2'; // Replace with the recipient's user ID
   'timestamp': FieldValue.serverTimestamp(),
 });*/
 
-
 class Chat extends StatefulWidget {
   const Chat({super.key});
 
@@ -38,7 +40,10 @@ class Chat extends StatefulWidget {
 class _ChatState extends State<Chat> {
   @override
   Widget build(BuildContext context) {
-    return  ChatUI(chatGroupId: '', secondUserName: '',);
+    return ChatUI(
+      chatGroupId: '',
+      secondUserName: '',
+    );
   }
 }
 
@@ -46,7 +51,9 @@ class ChatUI extends StatefulWidget {
   late String chatGroupId;
   late String secondUserName;
 
-  ChatUI({required this.chatGroupId, required this.secondUserName, Key? key}) : super(key: key);
+  ChatUI({required this.chatGroupId, required this.secondUserName, Key? key})
+      : super(key: key);
+    
 
   @override
   _ChatUIState createState() => _ChatUIState();
@@ -55,11 +62,25 @@ class ChatUI extends StatefulWidget {
 class _ChatUIState extends State<ChatUI> {
   final _messageController = TextEditingController();
 
+
+@override
+void dispose() {
+  _chatChangedController.close();
+  super.dispose();
+}
+
+void _chatChanged() {
+  _chatChangedController.sink.add(true);
+}
+
   @override
   Widget build(BuildContext context) {
     final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey();
 
     String docid = widget.chatGroupId.isEmpty ? 'asd' : widget.chatGroupId;
+    String _currentName = widget.secondUserName;
+    
+
 
     final messagesRef = FirebaseFirestore.instance
         .collection('Messages')
@@ -95,7 +116,7 @@ class _ChatUIState extends State<ChatUI> {
                   // Show the name of the user you are chatting with
                   widget.chatGroupId.isEmpty
                       ? const SizedBox()
-                      :  Padding(
+                      : Padding(
                           padding: const EdgeInsets.only(top: 10, right: 600),
                           child: Text(
                             widget.secondUserName,
@@ -134,6 +155,12 @@ class _ChatUIState extends State<ChatUI> {
                                     _scrollController.position.maxScrollExtent);
                               });
 
+                              // Add a listener to the stream that scrolls to the bottom whenever a new event is emitted
+                              messagesRef.snapshots().listen((_) {
+                                _scrollController.jumpTo(
+                                    _scrollController.position.maxScrollExtent);
+                              });
+                          
                               return ListView.builder(
                                 controller: _scrollController,
                                 itemCount: messages.length,
@@ -175,18 +202,30 @@ class _ChatUIState extends State<ChatUI> {
                                           children: [
                                             SelectableText(
                                               text,
-                                              style: const TextStyle(
-                                                fontSize: 16,
-                                                color: Colors.black,
-                                              ),
+                                              style: isCurrentUser
+                                                  ? const TextStyle(
+                                                      fontSize: 16,
+                                                      color: Colors.white,
+                                                    )
+                                                  : const TextStyle(
+                                                      fontSize: 16,
+                                                      color: Colors.black,
+                                                    ),
                                             ),
-                                            Text(
-                                              '${DateFormat.yMd().add_jm().format(timestamp.toDate())}',
-                                              style: const TextStyle(
-                                                fontSize: 12,
-                                                color: Colors.black,
-                                              ),
-                                            ),
+                                            isCurrentUser
+                                                ? Text(
+                                                    '${DateFormat.yMd().add_jm().format(timestamp.toDate())}',
+                                                    style: const TextStyle(
+                                                      fontSize: 12,
+                                                      color: Colors.white,
+                                                    ),
+                                                  )
+                                                : Text(
+                                                    '${DateFormat.yMd().add_jm().format(timestamp.toDate())}',
+                                                    style: const TextStyle(
+                                                      fontSize: 12,
+                                                      color: Colors.black,
+                                                    ))
                                           ],
                                         ),
                                       ),
