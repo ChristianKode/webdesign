@@ -308,6 +308,7 @@ class LargeBodyColumn extends StatefulWidget {
 
 class _LargeBodyColumnState extends State<LargeBodyColumn> {
   late Map<String, DocumentSnapshot> documentSnapshots;
+  String? uid = FirebaseAuth.instance.currentUser?.uid;
 
   @override
   void initState() {
@@ -322,6 +323,72 @@ class _LargeBodyColumnState extends State<LargeBodyColumn> {
               })
             });
     super.initState();
+  }
+
+  Future<void> checkIfMessageExists(String authorName) async {
+    /*String uid2 = widget.uid;
+    final fire = FirebaseFirestore.instance.collection('Messages');
+    List<String> userIDs = [widget.uid, uid!];
+    print(widget.uid + uid!);
+    QuerySnapshot<Map<String, dynamic>>? result = null;
+    fire
+        .where('Uid1', whereIn: userIDs)
+        .where('Uid2', whereIn: userIDs)
+        .get()
+        .then((value) => {result = value});
+
+    if (result!.docs.isNotEmpty) {
+      Get.to(Chat());
+      String docId = result!
+          .docs.first.id; // Get the ID of the first document in the result
+      print('Message document exists with ID: $docId');
+    } else {
+      /*
+      final messageRef = FirebaseFirestore.instance.collection('Messages');
+      FirebaseAuth auth = FirebaseAuth.instance;
+      if (auth.currentUser != null) {
+        await messageRef.add({
+          "Uid1": FirebaseAuth.instance.currentUser?.uid,
+          "Uid2": widget.uid
+        });
+        Get.to(() => Chat());
+      } else {
+        Get.to(() => const Login());
+      }*/
+      print('Message document does not exist.');
+    }*/
+    String uid2 = widget.uid;
+    List<String> userIDs = [widget.uid, uid!];
+    FirebaseAuth auth = FirebaseAuth.instance;
+    print('User IDs: $userIDs');
+    final List<String> uid1Values = [];
+    final QuerySnapshot result = await FirebaseFirestore.instance
+        .collection('Messages')
+        .where('Uid1', whereIn: userIDs)
+        .where('Uid2', isEqualTo: widget.uid)
+        .get();
+    result.docs.forEach((doc) {
+      final String uid1 = doc.data()['Uid1']!;
+      uid1Values.add(uid1);
+    });
+
+    print(result.docs.toString());
+    if (result.docs.isNotEmpty) {
+      // Existing document found
+      /*Get.to(Chat());*/
+      String docId =
+          result!.docs.ids; // Get the ID of the first document in the result
+      print('Message document exists with ID: $docId');
+    } else {
+      // No existing document found
+      /*final messageRef = FirebaseFirestore.instance.collection('Messages');
+      FirebaseAuth auth = FirebaseAuth.instance;
+      await messageRef.add(
+          {"Uid1": FirebaseAuth.instance.currentUser?.uid, "Uid2": widget.uid});
+      Get.to(() => ChatUI(
+          chatGroupId: result.docs.toString(), secondUserName: authorName));*/
+      print('Message document does not exist.');
+    }
   }
 
   @override
@@ -475,20 +542,8 @@ class _LargeBodyColumnState extends State<LargeBodyColumn> {
                                 height: 40,
                                 child: ElevatedButton(
                                     onPressed: () async {
-                                      final messageRef = FirebaseFirestore
-                                          .instance
-                                          .collection('Messages');
-                                      FirebaseAuth auth = FirebaseAuth.instance;
-                                      if (auth.currentUser != null) {
-                                        await messageRef.doc().set({
-                                          "Uid1": FirebaseAuth
-                                              .instance.currentUser?.uid,
-                                          "Uid2": widget.uid
-                                        });
-                                        Get.to(() => Chat());
-                                      } else {
-                                        Get.to(() => const Login());
-                                      }
+                                      checkIfMessageExists(authorName);
+                                      // Create new chat with author
                                     },
                                     style: ElevatedButton.styleFrom(
                                         shape: RoundedRectangleBorder(

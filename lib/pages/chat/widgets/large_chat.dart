@@ -16,7 +16,8 @@ import 'package:webdesign/widgets/appbar.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:webdesign/widgets/drawer.dart';
 
-StreamController<bool> _chatChangedController = StreamController<bool>.broadcast();
+StreamController<bool> _chatChangedController =
+    StreamController<bool>.broadcast();
 final _focusNode = FocusNode();
 final String uid = FirebaseAuth.instance.currentUser!.uid;
 final ScrollController _scrollController = ScrollController();
@@ -53,7 +54,6 @@ class ChatUI extends StatefulWidget {
 
   ChatUI({required this.chatGroupId, required this.secondUserName, Key? key})
       : super(key: key);
-    
 
   @override
   _ChatUIState createState() => _ChatUIState();
@@ -62,16 +62,15 @@ class ChatUI extends StatefulWidget {
 class _ChatUIState extends State<ChatUI> {
   final _messageController = TextEditingController();
 
+  @override
+  void dispose() {
+    _chatChangedController.close();
+    super.dispose();
+  }
 
-@override
-void dispose() {
-  _chatChangedController.close();
-  super.dispose();
-}
-
-void _chatChanged() {
-  _chatChangedController.sink.add(true);
-}
+  void _chatChanged() {
+    _chatChangedController.sink.add(true);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -79,8 +78,6 @@ void _chatChanged() {
 
     String docid = widget.chatGroupId.isEmpty ? 'asd' : widget.chatGroupId;
     String _currentName = widget.secondUserName;
-    
-
 
     final messagesRef = FirebaseFirestore.instance
         .collection('Messages')
@@ -128,7 +125,7 @@ void _chatChanged() {
                         ),
                   Expanded(
                     child: widget.chatGroupId.isEmpty
-                        ? const Text('data')
+                        ? NoSelectedChats()
                         : StreamBuilder<QuerySnapshot>(
                             stream: messagesRef.snapshots(),
                             builder: (context, snapshot) {
@@ -160,7 +157,7 @@ void _chatChanged() {
                                 _scrollController.jumpTo(
                                     _scrollController.position.maxScrollExtent);
                               });
-                          
+
                               return ListView.builder(
                                 controller: _scrollController,
                                 itemCount: messages.length,
@@ -294,6 +291,33 @@ void _chatChanged() {
               ),
             ),
           ),
+        ],
+      ),
+    );
+  }
+}
+
+class NoSelectedChats extends StatelessWidget {
+  const NoSelectedChats({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: 500,
+      child: Column(
+        children: [
+          Image.network(
+              'https://firebasestorage.googleapis.com/v0/b/ungansatt123.appspot.com/o/assets%2F5203102_5203102.jpg?alt=media&token=f12e93e6-cc6e-4f90-8927-7712ec00c475'),
+          const Text(
+            'Har du ingen oppdrag å fullføre?',
+            style: TextStyle(fontSize: 30),
+          ),
+          TextButton(
+              onPressed: () {},
+              child: const Text(
+                'Sjekk ut populære oppdrag her',
+                style: TextStyle(color: Colors.blue, fontSize: 20),
+              ))
         ],
       ),
     );
