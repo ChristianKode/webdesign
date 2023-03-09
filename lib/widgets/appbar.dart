@@ -203,7 +203,7 @@ AppBar appBar(BuildContext context, GlobalKey<ScaffoldState> key) => AppBar(
                               ),
                             ),
                             Container(
-                              width: MediaQuery.of(context).size.width - 800,
+                              width: MediaQuery.of(context).size.width - 760,
                             ),
                             Padding(
                                 padding: const EdgeInsets.only(

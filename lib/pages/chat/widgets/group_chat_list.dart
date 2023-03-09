@@ -3,6 +3,7 @@ import 'dart:html';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:webdesign/pages/chat/widgets/large_chat.dart';
 
 class ChatList extends StatefulWidget {
@@ -16,9 +17,7 @@ class _ChatListState extends State<ChatList> {
   @override
   Widget build(BuildContext context) {
     return Container(
-        width: 200,
-        color: Color.fromARGB(22, 0, 0, 0),
-        child: const ChatGroupList());
+        width: 200, color: Colors.white, child: const ChatGroupList());
   }
 }
 
@@ -71,27 +70,13 @@ class _chatGroupListState extends State<ChatGroupList> {
         return Column(
           children: documentIds
               .map((documentId) => Padding(
-                    padding: const EdgeInsets.symmetric(
-                      vertical: 20,
-                    ),
-                    child: InkWell(
-                      onTap: () {
-                        // Utvalgt
-                        selectedChatId = documentId;
-
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => ChatUI(
-                                    chatGroupId: selectedChatId,
-                                  )),
-                        );
-                      },
-                      child: ChatGroupCards(
-                        documentId: documentId,
-                      ),
-                    ),
-                  ))
+                  padding: const EdgeInsets.symmetric(
+                    vertical: 20,
+                  ),
+                  child: ChatGroupCards(
+                    documentId: documentId,
+                    isSelected: false,
+                  )))
               .toList(),
         );
       },
@@ -103,8 +88,10 @@ final fireStore = FirebaseFirestore.instance;
 
 class ChatGroupCards extends StatefulWidget {
   final String documentId;
+  bool isSelected;
 
-  const ChatGroupCards({Key? key, required this.documentId}) : super(key: key);
+  ChatGroupCards({Key? key, required this.documentId, required this.isSelected})
+      : super(key: key);
 
   @override
   State<ChatGroupCards> createState() => _ChatGroupCardsState();
@@ -112,6 +99,7 @@ class ChatGroupCards extends StatefulWidget {
 
 class _ChatGroupCardsState extends State<ChatGroupCards> {
   late Map<String, DocumentSnapshot> documentSnapshots;
+  bool isHovered = false;
 
   @override
   void initState() {
@@ -158,6 +146,48 @@ class _ChatGroupCardsState extends State<ChatGroupCards> {
     final String lastName = userdata['lastname'];
     final secondUserName = firstName + ' ' + lastName;
 
-    return Container(child: Text(secondUserName));
+    return InkWell(
+      onTap: () {
+        setState(() {
+          widget.isSelected = true;
+          selectedChatId = widget.documentId;
+        });
+
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (context) => ChatUI(
+                    chatGroupId: selectedChatId,
+                  )),
+        );
+      },
+      onHover: (value) {
+        setState(() {
+          isHovered = value;
+        });
+      },
+      child: Container(
+        decoration: BoxDecoration(
+          color: widget.isSelected
+              ? Colors.black
+              : (isHovered ? Colors.grey[300] : Colors.white),
+          borderRadius: BorderRadius.circular(5),
+          boxShadow: [
+            BoxShadow(
+              color: isHovered ? Color.fromARGB(20, 0, 0, 0) : Colors.white,
+              blurRadius: isHovered ? 2 : 0,
+              offset: Offset(0.5, 5), // Shadow position
+            )
+          ],
+        ),
+        child: Padding(
+          padding: EdgeInsets.symmetric(vertical: 8, horizontal: 12),
+          child: Text(
+            secondUserName,
+            style: TextStyle(),
+          ),
+        ),
+      ),
+    );
   }
 }
