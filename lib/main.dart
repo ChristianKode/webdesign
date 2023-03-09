@@ -55,7 +55,7 @@ class _MyAppState extends State<MyApp> {
             GetPage(name: '/Forgot', page: () => const Forgot()),
             GetPage(name: '/NewJob', page: () => const NewJob()),
             GetPage(name: '/Profile', page: () => const Profile()),
-            GetPage(name: '/ChatUI', page: () => const Chat()),
+            GetPage(name: '/Chat', page: () => const Chat()),
             GetPage(
                 name: '/JobView',
                 page: () => JobView(
