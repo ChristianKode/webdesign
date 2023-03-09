@@ -73,7 +73,10 @@ class _chatGroupListState extends State<ChatGroupList> {
                   padding: const EdgeInsets.symmetric(
                     vertical: 20,
                   ),
-                  child: ChatGroupCards(documentId: documentId)))
+                  child: ChatGroupCards(
+                    documentId: documentId,
+                    isSelected: false,
+                  )))
               .toList(),
         );
       },
@@ -83,21 +86,12 @@ class _chatGroupListState extends State<ChatGroupList> {
 
 final fireStore = FirebaseFirestore.instance;
 
-class ChatGroupCardsProvider extends ChangeNotifier {
-  bool _onHover = false;
-
-  bool get onHover => _onHover;
-
-  set onHover(bool value) {
-    _onHover = value;
-    notifyListeners();
-  }
-}
-
 class ChatGroupCards extends StatefulWidget {
   final String documentId;
+  bool isSelected;
 
-  const ChatGroupCards({Key? key, required this.documentId}) : super(key: key);
+  ChatGroupCards({Key? key, required this.documentId, required this.isSelected})
+      : super(key: key);
 
   @override
   State<ChatGroupCards> createState() => _ChatGroupCardsState();
@@ -105,7 +99,7 @@ class ChatGroupCards extends StatefulWidget {
 
 class _ChatGroupCardsState extends State<ChatGroupCards> {
   late Map<String, DocumentSnapshot> documentSnapshots;
-  bool onHover = false;
+  bool isHovered = false;
 
   @override
   void initState() {
@@ -154,9 +148,9 @@ class _ChatGroupCardsState extends State<ChatGroupCards> {
 
     return InkWell(
       onTap: () {
-        selectedChatId = widget.documentId;
         setState(() {
-          onHover = true;
+          widget.isSelected = true;
+          selectedChatId = widget.documentId;
         });
 
         Navigator.push(
@@ -167,22 +161,31 @@ class _ChatGroupCardsState extends State<ChatGroupCards> {
                   )),
         );
       },
-      onHover: (value) => {setState(() {})},
+      onHover: (value) {
+        setState(() {
+          isHovered = value;
+        });
+      },
       child: Container(
         decoration: BoxDecoration(
-          color: Colors.white,
+          color: widget.isSelected
+              ? Colors.black
+              : (isHovered ? Colors.grey[300] : Colors.white),
           borderRadius: BorderRadius.circular(5),
           boxShadow: [
             BoxShadow(
-              color: !onHover ? Colors.white : Color.fromARGB(20, 0, 0, 0),
-              blurRadius: !onHover ? 2 : 0,
+              color: isHovered ? Color.fromARGB(20, 0, 0, 0) : Colors.white,
+              blurRadius: isHovered ? 2 : 0,
               offset: Offset(0.5, 5), // Shadow position
             )
           ],
         ),
-        child: Text(
-          secondUserName,
-          style: TextStyle(),
+        child: Padding(
+          padding: EdgeInsets.symmetric(vertical: 8, horizontal: 12),
+          child: Text(
+            secondUserName,
+            style: TextStyle(),
+          ),
         ),
       ),
     );
