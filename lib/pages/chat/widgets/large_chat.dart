@@ -25,11 +25,6 @@ final String messageText = messageController.text;
 final TextEditingController messageController = TextEditingController();
 final senderId = uid; // Replace with the current user's ID
 const recipientId = 'user2'; // Replace with the recipient's user ID
-/*final newMessageRef = messagesRef.add({
-  'text': messageText,
-  'senderId': uid,
-  'timestamp': FieldValue.serverTimestamp(),
-});*/
 
 class Chat extends StatefulWidget {
   const Chat({super.key});
@@ -91,165 +86,185 @@ class _ChatUIState extends State<ChatUI> {
       appBar: appBar(context, scaffoldKey),
       drawer: const Drawer(child: SideDrawer()),
       body: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
         children: [
           ChatList(),
-          Container(
-            decoration: BoxDecoration(
-                border: Border.all(
-                  color: Colors.grey.shade300,
-                  width: 20,
-                ),
-                color: Colors.grey.shade300),
+          Flexible(
             child: Container(
-              width: 850,
-              height: 850,
               decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(16.0),
-              ),
-              child: Column(
-                children: [
-                  // Show the name of the user you are chatting with
-                  widget.chatGroupId.isEmpty
-                      ? const SizedBox()
-                      : Padding(
-                          padding: const EdgeInsets.only(top: 10, right: 600),
-                          child: Text(
-                            widget.secondUserName,
-                            style: const TextStyle(
-                              fontSize: 20,
-                              fontWeight: FontWeight.bold,
+                  border: Border.all(
+                    color: Colors.grey.shade300,
+                    width: 20,
+                  ),
+                  color: Colors.grey.shade300),
+              child: Container(
+                width: MediaQuery.of(context).size.width,
+                height: 850,
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(16.0),
+                ),
+                child: Column(
+                  children: [
+                    // Show the name of the user you are chatting with
+                    widget.chatGroupId.isEmpty
+                        ? const SizedBox()
+                        : Padding(
+                            padding: const EdgeInsets.only(top: 10, right: 600),
+                            child: Text(
+                              widget.secondUserName,
+                              style: const TextStyle(
+                                fontSize: 20,
+                                fontWeight: FontWeight.bold,
+                              ),
                             ),
                           ),
-                        ),
-                  Expanded(
-                    child: widget.chatGroupId.isEmpty
-                        ? NoSelectedChats()
-                        : StreamBuilder<QuerySnapshot>(
-                            stream: messagesRef.snapshots(),
-                            builder: (context, snapshot) {
-                              if (snapshot.hasError) {
-                                return Text('Error: ${snapshot.error}');
-                              }
+                    Expanded(
+                      child: widget.chatGroupId.isEmpty
+                          ? NoSelectedChats()
+                          : StreamBuilder<QuerySnapshot>(
+                              stream: messagesRef.snapshots(),
+                              builder: (context, snapshot) {
+                                if (snapshot.hasError) {
+                                  return Text('Error: ${snapshot.error}');
+                                }
 
-                              if (!snapshot.hasData) {
-                                return const Center(
-                                  child: CircularProgressIndicator(),
-                                );
-                              }
+                                if (!snapshot.hasData) {
+                                  return const Center(
+                                    child: CircularProgressIndicator(),
+                                  );
+                                }
 
-                              final messages = snapshot.data!.docs;
+                                final messages = snapshot.data!.docs;
 
-                              if (messages.isEmpty) {
-                                return const Center(
-                                  child: Text('No messages found.'),
-                                );
-                              }
+                                if (messages.isEmpty) {
+                                  return const Center(
+                                    child: Text('No messages found.'),
+                                  );
+                                }
 
-                              WidgetsBinding.instance.addPostFrameCallback((_) {
-                                _scrollController.jumpTo(
-                                    _scrollController.position.maxScrollExtent);
-                              });
+                                WidgetsBinding.instance
+                                    .addPostFrameCallback((_) {
+                                  _scrollController.jumpTo(_scrollController
+                                      .position.maxScrollExtent);
+                                });
 
-                              // Add a listener to the stream that scrolls to the bottom whenever a new event is emitted
-                              messagesRef.snapshots().listen((_) {
-                                _scrollController.jumpTo(
-                                    _scrollController.position.maxScrollExtent);
-                              });
+                                // Add a listener to the stream that scrolls to the bottom whenever a new event is emitted
+                                messagesRef.snapshots().listen((_) {
+                                  _scrollController.jumpTo(_scrollController
+                                      .position.maxScrollExtent);
+                                });
 
-                              return ListView.builder(
-                                controller: _scrollController,
-                                itemCount: messages.length,
-                                itemBuilder: (context, index) {
-                                  final message = messages[index];
-                                  final text = message['text'];
-                                  final senderId = message['senderId'];
-                                  final timestamp = message['timestamp'];
+                                return ListView.builder(
+                                  controller: _scrollController,
+                                  itemCount: messages.length,
+                                  itemBuilder: (context, index) {
+                                    final message = messages[index];
+                                    final text = message['text'];
+                                    final senderId = message['senderId'];
+                                    final timestamp = message['timestamp'];
 
-                                  // Check if the message was sent by the current user
-                                  final isCurrentUser = senderId == uid;
+                                    // Check if the message was sent by the current user
+                                    final isCurrentUser = senderId == uid;
 
-                                  return Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                      horizontal: 16,
-                                      vertical: 8,
-                                    ),
-                                    // Align the message to the right if sent by the current user, or to the left if sent by another user
-                                    child: Align(
-                                      alignment: isCurrentUser
-                                          ? Alignment.centerRight
-                                          : Alignment.centerLeft,
-                                      child: Container(
-                                        decoration: BoxDecoration(
-                                          color: isCurrentUser
-                                              ? Colors.blue.shade400
-                                              : Colors.grey.shade300,
-                                          borderRadius:
-                                              BorderRadius.circular(8),
-                                        ),
-                                        padding: const EdgeInsets.symmetric(
-                                          horizontal: 8,
-                                          vertical: 4,
-                                        ),
-                                        child: Column(
-                                          crossAxisAlignment: isCurrentUser
-                                              ? CrossAxisAlignment.end
-                                              : CrossAxisAlignment.start,
-                                          children: [
-                                            SelectableText(
-                                              text,
-                                              style: isCurrentUser
-                                                  ? const TextStyle(
-                                                      fontSize: 16,
-                                                      color: Colors.white,
+                                    return Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                        horizontal: 16,
+                                        vertical: 8,
+                                      ),
+                                      // Align the message to the right if sent by the current user, or to the left if sent by another user
+                                      child: Align(
+                                        alignment: isCurrentUser
+                                            ? Alignment.centerRight
+                                            : Alignment.centerLeft,
+                                        child: Container(
+                                          decoration: BoxDecoration(
+                                            color: isCurrentUser
+                                                ? Colors.blue.shade400
+                                                : Colors.grey.shade300,
+                                            borderRadius:
+                                                BorderRadius.circular(8),
+                                          ),
+                                          padding: const EdgeInsets.symmetric(
+                                            horizontal: 8,
+                                            vertical: 4,
+                                          ),
+                                          child: Column(
+                                            crossAxisAlignment: isCurrentUser
+                                                ? CrossAxisAlignment.end
+                                                : CrossAxisAlignment.start,
+                                            children: [
+                                              SelectableText(
+                                                text,
+                                                style: isCurrentUser
+                                                    ? const TextStyle(
+                                                        fontSize: 16,
+                                                        color: Colors.white,
+                                                      )
+                                                    : const TextStyle(
+                                                        fontSize: 16,
+                                                        color: Colors.black,
+                                                      ),
+                                              ),
+                                              isCurrentUser
+                                                  ? Text(
+                                                      '${DateFormat.yMd().add_jm().format(timestamp.toDate())}',
+                                                      style: const TextStyle(
+                                                        fontSize: 12,
+                                                        color: Colors.white,
+                                                      ),
                                                     )
-                                                  : const TextStyle(
-                                                      fontSize: 16,
-                                                      color: Colors.black,
-                                                    ),
-                                            ),
-                                            isCurrentUser
-                                                ? Text(
-                                                    '${DateFormat.yMd().add_jm().format(timestamp.toDate())}',
-                                                    style: const TextStyle(
-                                                      fontSize: 12,
-                                                      color: Colors.white,
-                                                    ),
-                                                  )
-                                                : Text(
-                                                    '${DateFormat.yMd().add_jm().format(timestamp.toDate())}',
-                                                    style: const TextStyle(
-                                                      fontSize: 12,
-                                                      color: Colors.black,
-                                                    ))
-                                          ],
+                                                  : Text(
+                                                      '${DateFormat.yMd().add_jm().format(timestamp.toDate())}',
+                                                      style: const TextStyle(
+                                                        fontSize: 12,
+                                                        color: Colors.black,
+                                                      ))
+                                            ],
+                                          ),
                                         ),
                                       ),
-                                    ),
-                                  );
+                                    );
+                                  },
+                                );
+                              },
+                            ),
+                    ),
+                    FocusScope(
+                      child: Container(
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(16),
+                            color: Colors.grey.shade200),
+                        padding: const EdgeInsets.symmetric(horizontal: 16),
+                        child: Row(
+                          children: [
+                            Expanded(
+                              child: TextField(
+                                focusNode: _focusNode,
+                                controller: _messageController,
+                                decoration: const InputDecoration(
+                                  border: InputBorder.none,
+                                  hintText: 'Type your message',
+                                ),
+                                onSubmitted: (value) async {
+                                  final text = _messageController.text.trim();
+                                  if (text.isNotEmpty) {
+                                    final timestamp = Timestamp.now();
+                                    final senderId =
+                                        uid; // Replace with the current user's ID
+                                    const recipientId =
+                                        'user2'; // Replace with the recipient's user ID
+
+                                    navnesen(senderId, text, timestamp, docid);
+                                    _messageController.clear();
+                                    _focusNode
+                                        .requestFocus(); // Request focus after sending message
+                                  }
                                 },
-                              );
-                            },
-                          ),
-                  ),
-                  FocusScope(
-                    child: Container(
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(16),
-                          color: Colors.grey.shade200),
-                      padding: const EdgeInsets.symmetric(horizontal: 16),
-                      child: Row(
-                        children: [
-                          Expanded(
-                            child: TextField(
-                              focusNode: _focusNode,
-                              controller: _messageController,
-                              decoration: const InputDecoration(
-                                border: InputBorder.none,
-                                hintText: 'Type your message',
                               ),
-                              onSubmitted: (value) async {
+                            ),
+                            IconButton(
+                              icon: const Icon(Icons.send),
+                              onPressed: () async {
                                 final text = _messageController.text.trim();
                                 if (text.isNotEmpty) {
                                   final timestamp = Timestamp.now();
@@ -260,34 +275,16 @@ class _ChatUIState extends State<ChatUI> {
 
                                   navnesen(senderId, text, timestamp, docid);
                                   _messageController.clear();
-                                  _focusNode
-                                      .requestFocus(); // Request focus after sending message
                                 }
                               },
+                              autofocus: true,
                             ),
-                          ),
-                          IconButton(
-                            icon: const Icon(Icons.send),
-                            onPressed: () async {
-                              final text = _messageController.text.trim();
-                              if (text.isNotEmpty) {
-                                final timestamp = Timestamp.now();
-                                final senderId =
-                                    uid; // Replace with the current user's ID
-                                const recipientId =
-                                    'user2'; // Replace with the recipient's user ID
-
-                                navnesen(senderId, text, timestamp, docid);
-                                _messageController.clear();
-                              }
-                            },
-                            autofocus: true,
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
-                    ),
-                  )
-                ],
+                    )
+                  ],
+                ),
               ),
             ),
           ),

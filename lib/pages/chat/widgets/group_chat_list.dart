@@ -17,7 +17,12 @@ class _ChatListState extends State<ChatList> {
   @override
   Widget build(BuildContext context) {
     return Container(
-        width: 200, color: Colors.white, child: const ChatGroupList());
+        width: 300,
+        color: Colors.blue,
+        child: Padding(
+          padding: const EdgeInsets.only(top: 5),
+          child: const ChatGroupList(),
+        ));
   }
 }
 
@@ -73,7 +78,7 @@ class _chatGroupListState extends State<ChatGroupList> {
           children: documentIds
               .map((documentId) => Padding(
                   padding: const EdgeInsets.symmetric(
-                    vertical: 20,
+                    vertical: 5,
                   ),
                   child: ChatGroupCards(
                     documentId: documentId,
@@ -161,23 +166,31 @@ class _ChatGroupCardsState extends State<ChatGroupCards> {
         );
       },
       child: Container(
+        alignment: Alignment.centerLeft,
+        width: 280,
+        height: 70,
         decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(5),
-          // ignore: prefer_const_literals_to_create_immutables
-          boxShadow: [
-            const BoxShadow(
-              color: Colors.white,
-              blurRadius: 2,
-              offset: Offset(0.5, 5), // Shadow position
-            )
-          ],
-        ),
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(8),
+            boxShadow: [
+              BoxShadow(
+                color: Color.fromARGB(59, 0, 0, 0),
+                spreadRadius: 1,
+                blurRadius: 2,
+                offset: Offset(0, 5), // changes the position of the shadow
+              ),
+            ]),
         child: Padding(
           padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
           child: Text(
             secondUserName,
-            style: const TextStyle(),
+            style: const TextStyle(
+              fontSize: 16.0,
+              color: Colors.black87,
+              fontWeight: FontWeight.w400,
+              height: 1.3,
+              fontFamily: 'Segoe UI',
+            ),
           ),
         ),
       ),

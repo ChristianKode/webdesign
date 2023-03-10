@@ -281,17 +281,17 @@ AppBar appBar(BuildContext context, GlobalKey<ScaffoldState> key) => AppBar(
                               width: MediaQuery.of(context).size.width - 675,
                             ),
                             Container(
-                              width: 150,
+                              width: 145,
                               child: Padding(
                                   padding: const EdgeInsets.only(
                                       right: 10, top: 11, bottom: 11),
                                   child: logInItem()),
                             ),
                             SizedBox(
-                              width: 150,
+                              width: 145,
                               child: Padding(
                                   padding: const EdgeInsets.only(
-                                      right: 15, top: 11, bottom: 11),
+                                      right: 8, top: 11, bottom: 11),
                                   child: registerItem()),
                             ),
                           ],
