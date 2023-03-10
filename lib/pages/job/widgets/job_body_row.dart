@@ -482,16 +482,48 @@ class _LargeBodyColumnState extends State<LargeBodyColumn> {
                                         FirebaseAuth.instance.currentUser?.uid;
                                     final authorId = widget.uid;
                                     String existingChatId = '';
-                                    final querySnapshot =
+                                    List<DocumentSnapshot> results = [];
+
+                                    final Uid1querySnapshot =
                                         await FirebaseFirestore.instance
                                             .collection('Messages')
-                                            .where("Uid1", whereIn: [
-                                      uid,
-                                      authorId
-                                    ]).where("Uid2",
+                                            .where("Uid1",
                                                 whereIn: [uid, authorId]).get();
 
-                                    if (querySnapshot.docs.isNotEmpty) {
+                                    final Uid1matchUid = await FirebaseFirestore
+                                        .instance
+                                        .collection('Messages')
+                                        .where('Uid2', isEqualTo: authorId)
+                                        .get();
+
+                                    final Uid1matchAuthorID =
+                                        await FirebaseFirestore.instance
+                                            .collection('Messages')
+                                            .where('Uid2', isEqualTo: uid)
+                                            .get();
+
+                                    Uid1querySnapshot.docs.forEach((doc) {
+                                      if (doc.data()['Uid1'] == uid) {
+                                        // UID found in 'Uid1' field
+                                        print('${doc.id}: UID found');
+                                        results.addAll(Uid1matchUid.docs);
+                                      } else {
+                                        // Author ID found in 'Uid1' field
+
+                                        print('${doc.id}: author ID found');
+                                        results.addAll(Uid1matchAuthorID.docs);
+                                      }
+                                    });
+
+                                    print('Results:');
+                                    results.forEach((doc) {
+                                      print('${doc.id}: ${doc.data()}');
+                                      if (existingChatId == '') {
+                                        existingChatId = doc.id;
+                                      }
+                                    });
+
+                                    if (results.isNotEmpty) {
                                       // take user to existing chat
                                       Get.to(() => ChatUI(
                                           chatGroupId: existingChatId,

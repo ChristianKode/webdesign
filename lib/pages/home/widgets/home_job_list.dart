@@ -1,4 +1,5 @@
 // ignore: file_names
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/ui/firebase_animated_list.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_database/firebase_database.dart';
@@ -15,7 +16,8 @@ class JobList extends StatefulWidget {
 }
 
 class _JobListState extends State<JobList> {
-  final databaseRef = FirebaseDatabase.instance.ref().child("adventures");
+  String? currentUid = FirebaseAuth.instance.currentUser?.uid;
+  Query databaseRef = FirebaseDatabase.instance.ref().child("adventures");
   final ScrollController _scrollController = ScrollController();
 
   @override
@@ -59,6 +61,10 @@ class _JobListState extends State<JobList> {
                             DataSnapshot snapshot,
                             Animation<double> animation,
                             int index) {
+                          String uid = snapshot.child('uid').value.toString();
+                          if (currentUid != null && uid == currentUid) {
+                            return const SizedBox.shrink();
+                          }
                           return InkWell(
                               highlightColor: Colors.transparent,
                               splashColor: Colors.transparent,
