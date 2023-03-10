@@ -15,6 +15,7 @@ import 'package:webdesign/pages/chat/widgets/group_chat_list.dart';
 import 'package:webdesign/widgets/appbar.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:webdesign/widgets/drawer.dart';
+import 'dart:ui' as ui;
 
 StreamController<bool> _chatChangedController =
     StreamController<bool>.broadcast();
@@ -98,7 +99,7 @@ class _ChatUIState extends State<ChatUI> {
                   color: Colors.grey.shade300),
               child: Container(
                 width: MediaQuery.of(context).size.width,
-                height: 850,
+                height: 870,
                 decoration: BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.circular(16.0),
@@ -108,13 +109,64 @@ class _ChatUIState extends State<ChatUI> {
                     // Show the name of the user you are chatting with
                     widget.chatGroupId.isEmpty
                         ? const SizedBox()
-                        : Padding(
-                            padding: const EdgeInsets.only(top: 10, right: 600),
-                            child: Text(
-                              widget.secondUserName,
-                              style: const TextStyle(
-                                fontSize: 20,
-                                fontWeight: FontWeight.bold,
+                        : Container(
+                            alignment: Alignment.centerLeft,
+                            child: Padding(
+                              padding: const EdgeInsets.only(
+                                left: 10,
+                              ),
+                              child: Align(
+                                alignment: Alignment.centerLeft,
+                                child: Column(
+                                  children: [
+                                    Align(
+                                      alignment: Alignment.centerLeft,
+                                      child: Padding(
+                                        padding: const EdgeInsets.only(
+                                            top: 10, left: 10),
+                                        child: Text(
+                                          widget.secondUserName,
+                                          style: const TextStyle(
+                                            color: Colors.black,
+                                            fontSize: 20,
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.only(top: 5),
+                                      child: Container(
+                                        width:
+                                            MediaQuery.of(context).size.width -
+                                                360,
+                                        height: 2,
+                                        color: Colors.grey.shade300,
+                                      ),
+                                    )
+
+                                    /*LayoutBuilder(
+                                      builder: (BuildContext context,
+                                          BoxConstraints constraints) {
+                                        final textSpan = TextSpan(
+                                          text: widget.secondUserName,
+                                          style: TextStyle(fontSize: 16),
+                                        );
+                                        final textPainter = TextPainter(
+                                          textDirection: ui.TextDirection.ltr,
+                                          text: textSpan,
+                                        )..layout(
+                                            maxWidth: constraints.maxWidth);
+
+                                        return Container(
+                                          width: textPainter.width + 30,
+                                          height: 1,
+                                          color: Colors.blue,
+                                        );
+                                      },
+                                    ),*/
+                                  ],
+                                ),
                               ),
                             ),
                           ),
@@ -229,60 +281,67 @@ class _ChatUIState extends State<ChatUI> {
                               },
                             ),
                     ),
-                    FocusScope(
-                      child: Container(
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(16),
-                            color: Colors.grey.shade200),
-                        padding: const EdgeInsets.symmetric(horizontal: 16),
-                        child: Row(
-                          children: [
-                            Expanded(
-                              child: TextField(
-                                focusNode: _focusNode,
-                                controller: _messageController,
-                                decoration: const InputDecoration(
-                                  border: InputBorder.none,
-                                  hintText: 'Type your message',
-                                ),
-                                onSubmitted: (value) async {
-                                  final text = _messageController.text.trim();
-                                  if (text.isNotEmpty) {
-                                    final timestamp = Timestamp.now();
-                                    final senderId =
-                                        uid; // Replace with the current user's ID
-                                    const recipientId =
-                                        'user2'; // Replace with the recipient's user ID
+                    widget.chatGroupId.isEmpty
+                        ? SizedBox.shrink()
+                        : FocusScope(
+                            child: Container(
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(16),
+                                  color: Colors.grey.shade200),
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 16),
+                              child: Row(
+                                children: [
+                                  Expanded(
+                                    child: TextField(
+                                      focusNode: _focusNode,
+                                      controller: _messageController,
+                                      decoration: const InputDecoration(
+                                        border: InputBorder.none,
+                                        hintText: 'Type your message',
+                                      ),
+                                      onSubmitted: (value) async {
+                                        final text =
+                                            _messageController.text.trim();
+                                        if (text.isNotEmpty) {
+                                          final timestamp = Timestamp.now();
+                                          final senderId =
+                                              uid; // Replace with the current user's ID
+                                          const recipientId =
+                                              'user2'; // Replace with the recipient's user ID
 
-                                    navnesen(senderId, text, timestamp, docid);
-                                    _messageController.clear();
-                                    _focusNode
-                                        .requestFocus(); // Request focus after sending message
-                                  }
-                                },
+                                          navnesen(
+                                              senderId, text, timestamp, docid);
+                                          _messageController.clear();
+                                          _focusNode
+                                              .requestFocus(); // Request focus after sending message
+                                        }
+                                      },
+                                    ),
+                                  ),
+                                  IconButton(
+                                    icon: const Icon(Icons.send),
+                                    onPressed: () async {
+                                      final text =
+                                          _messageController.text.trim();
+                                      if (text.isNotEmpty) {
+                                        final timestamp = Timestamp.now();
+                                        final senderId =
+                                            uid; // Replace with the current user's ID
+                                        const recipientId =
+                                            'user2'; // Replace with the recipient's user ID
+
+                                        navnesen(
+                                            senderId, text, timestamp, docid);
+                                        _messageController.clear();
+                                      }
+                                    },
+                                    autofocus: true,
+                                  ),
+                                ],
                               ),
                             ),
-                            IconButton(
-                              icon: const Icon(Icons.send),
-                              onPressed: () async {
-                                final text = _messageController.text.trim();
-                                if (text.isNotEmpty) {
-                                  final timestamp = Timestamp.now();
-                                  final senderId =
-                                      uid; // Replace with the current user's ID
-                                  const recipientId =
-                                      'user2'; // Replace with the recipient's user ID
-
-                                  navnesen(senderId, text, timestamp, docid);
-                                  _messageController.clear();
-                                }
-                              },
-                              autofocus: true,
-                            ),
-                          ],
-                        ),
-                      ),
-                    )
+                          )
                   ],
                 ),
               ),
