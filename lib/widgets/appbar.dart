@@ -284,14 +284,14 @@ AppBar appBar(BuildContext context, GlobalKey<ScaffoldState> key) => AppBar(
                               width: 150,
                               child: Padding(
                                   padding: const EdgeInsets.only(
-                                      right: 5, top: 11, bottom: 11),
+                                      right: 10, top: 11, bottom: 11),
                                   child: logInItem()),
                             ),
                             SizedBox(
                               width: 150,
                               child: Padding(
                                   padding: const EdgeInsets.only(
-                                      right: 5, top: 11, bottom: 11),
+                                      right: 15, top: 11, bottom: 11),
                                   child: registerItem()),
                             ),
                           ],
