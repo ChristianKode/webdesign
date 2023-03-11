@@ -13,28 +13,49 @@ import 'package:webdesign/utils/responsive.dart';
 
 import '../../../app_logic/services/message.dart';
 
+final String? uid = FirebaseAuth.instance.currentUser?.uid;
+DataSnapshot snapshot = FirebaseFirestore.instance
+    .collection('Users')
+    .doc(uid)
+    .get() as DataSnapshot;
+
+String aid = snapshot.child('aid').value.toString();
+
+Future<void> getAd() async {
+  DatabaseReference databaseRef =
+      FirebaseDatabase.instance.ref().child("adventures").child(aid);
+  DataSnapshot adSnapshot = await databaseRef.get();
+  Object? data = adSnapshot.value;
+  String Img1 = data['img1'].toString() ?? '';
+  String Address = data['address'] ?? '';
+  String Description = data['description'] ?? '';
+  String Price = data['price'] ?? '';
+  String Title = data['title'] ?? '';
+  String AuthorId = data['authorId'] ?? '';
+  String Zipcode = data['zipcode'] ?? '';
+
+  img1 = Img1;
+}
+
+String img1 = '';
+
+String address = '';
+String description = '';
+String price = '';
+
+String title = '';
+
+String authorId = '';
+
+String zipcode = '';
+
 final fire = FirebaseFirestore.instance.collection('Messages');
 
 // ignore: must_be_immutable
 class BodyRow extends StatefulWidget {
-  String aid = '';
-  String uid = '';
-  String img1 = '';
-  String title = '';
-  String descprition = '';
-  String price = '';
-  String address = '';
-  String zipcode = '';
-  BodyRow(
-      {super.key,
-      required this.aid,
-      required this.uid,
-      required this.img1,
-      required this.title,
-      required this.descprition,
-      required this.price,
-      required this.address,
-      required this.zipcode});
+  BodyRow({
+    super.key,
+  });
 
   @override
   State<BodyRow> createState() => _BodyRowState();
@@ -43,6 +64,8 @@ class BodyRow extends StatefulWidget {
 class _BodyRowState extends State<BodyRow> {
   @override
   void initState() {
+    getAd();
+    setState(() {});
     super.initState();
   }
 
@@ -56,47 +79,15 @@ class _BodyRowState extends State<BodyRow> {
           alignment: Alignment.center,
           constraints: const BoxConstraints(maxWidth: 1052),
           child: !ResponsiveLayout.isSmallScreen(context)
-              ? LargeBodyColumn(
-                  img1: widget.img1,
-                  title: widget.title,
-                  descprition: widget.descprition,
-                  price: widget.price,
-                  uid: widget.uid,
-                  address: widget.address,
-                  zipcode: widget.zipcode)
-              : SmallBodyColumn(
-                  aid: widget.aid,
-                  img1: widget.img1,
-                  title: widget.title,
-                  descprition: widget.descprition,
-                  price: widget.price,
-                  uid: widget.uid,
-                  address: widget.address,
-                  zipcode: widget.zipcode)),
+              ? LargeBodyColumn()
+              : SmallBodyColumn()),
     );
   }
 }
 
 class SmallBodyColumn extends StatefulWidget {
-  final String aid;
-  final String img1;
-  final String title;
-  final String descprition;
-  final String price;
-  final String uid;
-  final String address;
-  final String zipcode;
-
   const SmallBodyColumn({
     super.key,
-    required this.aid,
-    required this.img1,
-    required this.title,
-    required this.descprition,
-    required this.price,
-    required this.uid,
-    required this.address,
-    required this.zipcode,
   });
 
   @override
@@ -120,7 +111,7 @@ class _SmallBodyColumnState extends State<SmallBodyColumn> {
             child: Container(
                 constraints: const BoxConstraints(minHeight: 350),
                 child: Image.network(
-                  widget.img1,
+                  img1,
                   fit: BoxFit.cover,
                 )),
           ),
@@ -169,7 +160,7 @@ class _SmallBodyColumnState extends State<SmallBodyColumn> {
           Container(
             alignment: Alignment.centerLeft,
             child: Text(
-              widget.title,
+              title,
               style:
                   GoogleFonts.tinos(fontSize: 30, fontWeight: FontWeight.w700),
             ),
@@ -179,7 +170,7 @@ class _SmallBodyColumnState extends State<SmallBodyColumn> {
           Padding(
             padding: const EdgeInsets.only(top: 15),
             child: Text(
-              widget.descprition,
+              descprition,
               style: GoogleFonts.tinos(
                 fontSize: 17,
               ),
@@ -223,7 +214,7 @@ class _SmallBodyColumnState extends State<SmallBodyColumn> {
                     },
                     onTap: () {},
                     child: Text(
-                      '${widget.zipcode}, ${widget.address}',
+                      '${zipcode}, ${address}',
                       style: GoogleFonts.tinos(
                           color: Colors.blue,
                           fontSize: 20,
@@ -249,7 +240,7 @@ class _SmallBodyColumnState extends State<SmallBodyColumn> {
             child: Container(
               alignment: Alignment.centerLeft,
               child: Text(
-                "${widget.price} kr",
+                "${price} kr",
                 style: GoogleFonts.tinos(
                     fontSize: 30, fontWeight: FontWeight.bold),
               ),
@@ -265,7 +256,7 @@ class _SmallBodyColumnState extends State<SmallBodyColumn> {
                     if (auth.currentUser != null) {
                       await messageRef.doc().set({
                         "u1": FirebaseAuth.instance.currentUser?.uid,
-                        "u2": widget.uid
+                        "u2": AuthorId
                       });
                       Get.to(() => Chat());
                     } else {
@@ -287,22 +278,8 @@ class _SmallBodyColumnState extends State<SmallBodyColumn> {
 
 // LargeScreen Widget
 class LargeBodyColumn extends StatefulWidget {
-  final String img1;
-  final String title;
-  final String descprition;
-  final String price;
-  final String uid;
-  final String address;
-  final String zipcode;
   const LargeBodyColumn({
     super.key,
-    required this.img1,
-    required this.title,
-    required this.descprition,
-    required this.price,
-    required this.uid,
-    required this.address,
-    required this.zipcode,
   });
 
   @override
@@ -314,25 +291,35 @@ class _LargeBodyColumnState extends State<LargeBodyColumn> {
 
   @override
   void initState() {
-    documentSnapshots = {};
-    FirebaseFirestore.instance
-        .collection('Users')
-        .doc(widget.uid)
-        .get()
-        .then((value) => {
-              setState(() {
-                documentSnapshots['user'] = value;
-              })
-            });
     super.initState();
+    documentSnapshots = {};
+    _fetchUserDocument();
+  }
+
+  Future<void> _fetchUserDocument() async {
+    try {
+      final userSnapshot =
+          await FirebaseFirestore.instance.collection('Users').doc(uid).get();
+      if (userSnapshot.exists) {
+        setState(() {
+          documentSnapshots['user'] = userSnapshot;
+        });
+      } else {
+        print('User document does not exist');
+      }
+    } catch (e) {
+      print('Error fetching user document: $e');
+    }
   }
 
   @override
   Widget build(BuildContext context) {
-    final authorIdentity =
-        documentSnapshots['user']!.data() as Map<String, dynamic>;
-    final String authorName =
-        authorIdentity['firstname'] + ' ' + authorIdentity['lastname'];
+    final authorIdentity = documentSnapshots.containsKey('user')
+        ? documentSnapshots['user']!.data() as Map<String, dynamic>
+        : null;
+    final authorName = authorIdentity != null
+        ? authorIdentity['firstname'] + ' ' + authorIdentity['lastname']
+        : '';
     return Column(
       children: [
         const SizedBox(
@@ -351,7 +338,7 @@ class _LargeBodyColumnState extends State<LargeBodyColumn> {
                       Container(
                           constraints: const BoxConstraints(minHeight: 350),
                           child: Image.network(
-                            widget.img1,
+                            img1,
                             fit: BoxFit.cover,
                           )),
                       const SizedBox(
@@ -402,7 +389,7 @@ class _LargeBodyColumnState extends State<LargeBodyColumn> {
                       Container(
                         alignment: Alignment.centerLeft,
                         child: Text(
-                          widget.title,
+                          title,
                           style: GoogleFonts.tinos(
                               fontSize: 30, fontWeight: FontWeight.w700),
                         ),
@@ -425,7 +412,7 @@ class _LargeBodyColumnState extends State<LargeBodyColumn> {
                             Padding(
                               padding: const EdgeInsets.only(top: 15),
                               child: Text(
-                                widget.descprition,
+                                descprition,
                                 style: GoogleFonts.tinos(
                                   fontSize: 17,
                                 ),
@@ -470,7 +457,7 @@ class _LargeBodyColumnState extends State<LargeBodyColumn> {
                             Padding(
                               padding: const EdgeInsets.only(bottom: 15),
                               child: SelectableText(
-                                '${widget.price}kr',
+                                '${price}kr',
                                 style: GoogleFonts.tinos(fontSize: 25),
                               ),
                             ),
@@ -480,7 +467,7 @@ class _LargeBodyColumnState extends State<LargeBodyColumn> {
                                   onPressed: () async {
                                     final uid =
                                         FirebaseAuth.instance.currentUser?.uid;
-                                    final authorId = widget.uid;
+                                    final authorId = AuthorId;
                                     String existingChatId = '';
                                     List<DocumentSnapshot> results = [];
 
@@ -545,7 +532,7 @@ class _LargeBodyColumnState extends State<LargeBodyColumn> {
 
                                           newDocumentRef.set({
                                             "Uid1": currentUser.uid,
-                                            "Uid2": widget.uid,
+                                            "Uid2": uid,
                                           });
 
                                           Get.to(() => ChatUI(
@@ -633,7 +620,7 @@ class _LargeBodyColumnState extends State<LargeBodyColumn> {
                             Padding(
                               padding: const EdgeInsets.only(bottom: 15),
                               child: SelectableText(
-                                '${widget.address}, ${widget.zipcode}',
+                                '${address}, ${zipcode}',
                                 style: GoogleFonts.tinos(fontSize: 25),
                               ),
                             ),

@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 import 'package:webdesign/app_logic/services/firebase_auth.dart';
 import 'package:webdesign/pages/forgot/forgot.dart';
 import 'package:webdesign/pages/home/widgets/main_home.dart';
+import 'package:webdesign/pages/login/login.dart';
 import '../../register/register.dart';
 
 class LargeLogin extends StatelessWidget {
@@ -16,7 +17,8 @@ class LargeLogin extends StatelessWidget {
       body: Container(
           decoration: const BoxDecoration(
             image: DecorationImage(
-                image: NetworkImage('https://firebasestorage.googleapis.com/v0/b/ungansatt123.appspot.com/o/assets%2Fbackground_login.png?alt=media&token=0fc149f3-6017-4306-a052-b0f2fad6c20b'),
+                image: NetworkImage(
+                    'https://firebasestorage.googleapis.com/v0/b/ungansatt123.appspot.com/o/assets%2Fbackground_login.png?alt=media&token=0fc149f3-6017-4306-a052-b0f2fad6c20b'),
                 fit: BoxFit.cover),
           ),
           child: Row(children: [LoginBox(), const LoginInfo()])),
@@ -108,8 +110,7 @@ class LoginBox extends StatelessWidget {
                   controller: mail,
                   decoration: const InputDecoration(
                     focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(
-                            color: Colors.blue, width: 2),
+                        borderSide: BorderSide(color: Colors.blue, width: 2),
                         borderRadius: BorderRadius.all(
                           Radius.circular(100),
                         )),
@@ -130,8 +131,7 @@ class LoginBox extends StatelessWidget {
                 obscureText: true,
                 decoration: const InputDecoration(
                   focusedBorder: OutlineInputBorder(
-                      borderSide: BorderSide(
-                          color: Colors.blue, width: 2),
+                      borderSide: BorderSide(color: Colors.blue, width: 2),
                       borderRadius: BorderRadius.all(
                         Radius.circular(100),
                       )),
@@ -149,20 +149,35 @@ class LoginBox extends StatelessWidget {
             height: 40,
             child: ElevatedButton(
               onPressed: () async {
-                context
+                String loginResult = await context
                     .read<AuthService>()
-                    .login(mail.text.trim(), pass.text.trim())
-                    .then((value) => Get.to(() => LargeHome()));
-
-
-
-
-                
+                    .login(mail.text.trim(), pass.text.trim());
+                if (loginResult == 'Innlogget') {
+                  Get.to(() => LargeHome());
+                } else {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      behavior: SnackBarBehavior.floating,
+                      content: Text('Noe gikk galt...'),
+                      duration: const Duration(seconds: 5),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10),
+                        side: BorderSide(color: Colors.blue, width: 2),
+                      ),
+                      action: SnackBarAction(
+                        label: 'Lukk',
+                        textColor: Colors.white, // set text color
+                        onPressed:
+                            ScaffoldMessenger.of(context).hideCurrentSnackBar,
+                      ),
+                    ),
+                  );
+                }
               },
               style: ElevatedButton.styleFrom(
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(100)),
-                backgroundColor:  Colors.blue,
+                backgroundColor: Colors.blue,
               ),
               child: const Text(
                 'Logg på',
@@ -185,7 +200,5 @@ class LoginBox extends StatelessWidget {
 }
 
 Future<void> getUserData() async {
-
-  
   // Do something with the retrieved data
 }

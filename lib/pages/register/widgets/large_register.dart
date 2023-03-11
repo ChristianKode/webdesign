@@ -8,6 +8,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:provider/provider.dart';
 import 'package:webdesign/app_logic/services/firebase_auth.dart';
 import 'package:get/get.dart';
+import 'package:webdesign/pages/home/widgets/main_home.dart';
 import 'package:webdesign/pages/login/login.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:uuid/uuid.dart';
@@ -73,170 +74,195 @@ class RegisterBox extends StatelessWidget {
       alignment: Alignment.center,
       child: SizedBox(
         width: 500,
-        child: Column(
-          children: [
-            const SizedBox(
-              height: 150,
-            ),
-            Text(
-              'Velkommen',
-              style: GoogleFonts.tinos(fontSize: 50, color: Colors.blue),
-            ),
-            const SizedBox(
-              height: 30,
-            ),
-            Row(
-              children: [
-                Expanded(
-                  child: Padding(
-                    padding:
-                        const EdgeInsets.symmetric(horizontal: 2, vertical: 0),
-                    child: SizedBox(
-                      child: TextField(
-                          controller: fornavnCon,
-                          decoration: const InputDecoration(
-                            focusedBorder: OutlineInputBorder(
-                                borderSide:
-                                    BorderSide(color: Colors.blue, width: 2),
-                                borderRadius: BorderRadius.all(
-                                  Radius.circular(100),
-                                )),
-                            border: OutlineInputBorder(
-                                borderRadius: BorderRadius.all(
-                              Radius.circular(100),
+        child: Padding(
+          padding: const EdgeInsets.all(15.0),
+          child: Column(
+            children: [
+              const SizedBox(
+                height: 150,
+              ),
+              Text(
+                'Velkommen',
+                style: GoogleFonts.tinos(fontSize: 50, color: Colors.blue),
+              ),
+              const SizedBox(
+                height: 30,
+              ),
+              Row(
+                children: [
+                  Expanded(
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 2, vertical: 0),
+                      child: SizedBox(
+                        child: TextField(
+                            controller: fornavnCon,
+                            decoration: const InputDecoration(
+                              focusedBorder: OutlineInputBorder(
+                                  borderSide:
+                                      BorderSide(color: Colors.blue, width: 2),
+                                  borderRadius: BorderRadius.all(
+                                    Radius.circular(100),
+                                  )),
+                              border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.all(
+                                Radius.circular(100),
+                              )),
+                              hintText: 'Fornavn',
                             )),
-                            hintText: 'Fornavn',
-                          )),
+                      ),
                     ),
                   ),
-                ),
-                Expanded(
-                  child: Padding(
-                    padding:
-                        const EdgeInsets.symmetric(horizontal: 2, vertical: 0),
-                    child: SizedBox(
-                      child: TextField(
-                          controller: etternavnCon,
-                          decoration: const InputDecoration(
-                            focusedBorder: OutlineInputBorder(
-                                borderSide:
-                                    BorderSide(color: Colors.blue, width: 2),
-                                borderRadius: BorderRadius.all(
-                                  Radius.circular(100),
-                                )),
-                            border: OutlineInputBorder(
-                                borderRadius: BorderRadius.all(
-                              Radius.circular(100),
+                  Expanded(
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 2, vertical: 0),
+                      child: SizedBox(
+                        child: TextField(
+                            controller: etternavnCon,
+                            decoration: const InputDecoration(
+                              focusedBorder: OutlineInputBorder(
+                                  borderSide:
+                                      BorderSide(color: Colors.blue, width: 2),
+                                  borderRadius: BorderRadius.all(
+                                    Radius.circular(100),
+                                  )),
+                              border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.all(
+                                Radius.circular(100),
+                              )),
+                              hintText: 'Etternavn',
                             )),
-                            hintText: 'Etternavn',
-                          )),
+                      ),
                     ),
                   ),
-                ),
-              ],
-            ),
-            const SizedBox(
-              height: 10,
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 2, vertical: 0),
-              child: SizedBox(
-                child: TextField(
-                  controller: emailCon,
-                  decoration: const InputDecoration(
-                      focusedBorder: OutlineInputBorder(
-                          borderSide: BorderSide(color: Colors.blue, width: 2),
-                          borderRadius: BorderRadius.all(Radius.circular(100))),
-                      border: OutlineInputBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(100))),
-                      hintText: 'Epost'),
+                ],
+              ),
+              const SizedBox(
+                height: 10,
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 2, vertical: 0),
+                child: SizedBox(
+                  child: TextField(
+                    controller: emailCon,
+                    decoration: const InputDecoration(
+                        focusedBorder: OutlineInputBorder(
+                            borderSide:
+                                BorderSide(color: Colors.blue, width: 2),
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(100))),
+                        border: OutlineInputBorder(
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(100))),
+                        hintText: 'Epost'),
+                  ),
                 ),
               ),
-            ),
-            const SizedBox(
-              height: 10,
-            ),
-            Row(
-              children: [
-                Expanded(
-                  child: Padding(
-                    padding:
-                        const EdgeInsets.symmetric(horizontal: 2, vertical: 0),
-                    child: SizedBox(
-                      child: TextField(
-                          controller: passwordCon,
-                          obscureText: true,
-                          decoration: const InputDecoration(
-                            focusedBorder: OutlineInputBorder(
-                                borderSide:
-                                    BorderSide(color: Colors.blue, width: 2),
-                                borderRadius: BorderRadius.all(
-                                  Radius.circular(100),
-                                )),
-                            border: OutlineInputBorder(
-                                borderRadius: BorderRadius.all(
-                              Radius.circular(100),
+              const SizedBox(
+                height: 10,
+              ),
+              Row(
+                children: [
+                  Expanded(
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 2, vertical: 0),
+                      child: SizedBox(
+                        child: TextField(
+                            controller: passwordCon,
+                            obscureText: true,
+                            decoration: const InputDecoration(
+                              focusedBorder: OutlineInputBorder(
+                                  borderSide:
+                                      BorderSide(color: Colors.blue, width: 2),
+                                  borderRadius: BorderRadius.all(
+                                    Radius.circular(100),
+                                  )),
+                              border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.all(
+                                Radius.circular(100),
+                              )),
+                              hintText: 'Passord',
                             )),
-                            hintText: 'Passord',
-                          )),
+                      ),
                     ),
                   ),
-                ),
-                Expanded(
-                  child: Padding(
-                    padding:
-                        const EdgeInsets.symmetric(horizontal: 2, vertical: 0),
-                    child: SizedBox(
-                      child: TextField(
-                          controller: telefonCon,
-                          decoration: const InputDecoration(
-                            focusedBorder: OutlineInputBorder(
-                                borderSide:
-                                    BorderSide(color: Colors.blue, width: 2),
-                                borderRadius: BorderRadius.all(
-                                  Radius.circular(100),
-                                )),
-                            border: OutlineInputBorder(
-                                borderRadius: BorderRadius.all(
-                              Radius.circular(100),
+                  Expanded(
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 2, vertical: 0),
+                      child: SizedBox(
+                        child: TextField(
+                            controller: telefonCon,
+                            decoration: const InputDecoration(
+                              focusedBorder: OutlineInputBorder(
+                                  borderSide:
+                                      BorderSide(color: Colors.blue, width: 2),
+                                  borderRadius: BorderRadius.all(
+                                    Radius.circular(100),
+                                  )),
+                              border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.all(
+                                Radius.circular(100),
+                              )),
+                              hintText: 'Telefon',
                             )),
-                            hintText: 'Telefon',
-                          )),
+                      ),
                     ),
                   ),
-                ),
-              ],
-            ),
-            const SizedBox(
-              height: 10,
-            ),
-            SizedBox(
-              width: 160,
-              height: 40,
-              child: ElevatedButton(
-                  onPressed: () {
-                    context
-                        .read<AuthService>()
-                        .signUp(
-                            emailCon.text.trim(),
-                            passwordCon.text.trim(),
-                            fornavnCon.text.trim(),
-                            etternavnCon.text.trim(),
-                            telefonCon.text.trim())
-                        .then((value) async {
-                      Get.to(() => const Login());
-                    });
-                  },
-                  style: ElevatedButton.styleFrom(
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(100)),
-                      backgroundColor: Colors.blue),
-                  child: const Text(
-                    'Lag bruker',
-                    style: TextStyle(fontSize: 15),
-                  )),
-            ),
-          ],
+                ],
+              ),
+              const SizedBox(
+                height: 10,
+              ),
+              SizedBox(
+                width: 160,
+                height: 40,
+                child: ElevatedButton(
+                    onPressed: () async {
+                      String registerResult = await context
+                          .read<AuthService>()
+                          .signUp(
+                              emailCon.text.trim(),
+                              passwordCon.text.trim(),
+                              fornavnCon.text.trim(),
+                              etternavnCon.text.trim(),
+                              telefonCon.text.trim());
+
+                      if (registerResult == 'Success') {
+                        Get.to(() => LargeHome());
+                      } else {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            behavior: SnackBarBehavior.floating,
+                            content: Text('Noe gikk galt...'),
+                            duration: const Duration(seconds: 5),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10),
+                              side: BorderSide(color: Colors.blue, width: 2),
+                            ),
+                            action: SnackBarAction(
+                              label: 'Lukk',
+                              textColor: Colors.white, // set text color
+                              onPressed: ScaffoldMessenger.of(context)
+                                  .hideCurrentSnackBar,
+                            ),
+                          ),
+                        );
+                      }
+                    },
+                    style: ElevatedButton.styleFrom(
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(100)),
+                        backgroundColor: Colors.blue),
+                    child: const Text(
+                      'Lag bruker',
+                      style: TextStyle(fontSize: 15),
+                    )),
+              ),
+            ],
+          ),
         ),
       ),
     );

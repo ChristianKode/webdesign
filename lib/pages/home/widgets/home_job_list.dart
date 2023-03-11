@@ -1,4 +1,5 @@
 // ignore: file_names
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/ui/firebase_animated_list.dart';
 import 'package:flutter/material.dart';
@@ -7,6 +8,7 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:webdesign/main.dart';
 import 'package:webdesign/pages/job/job_view.dart';
+import 'package:webdesign/pages/job/widgets/job_body_row.dart';
 
 class JobList extends StatefulWidget {
   const JobList({super.key});
@@ -17,7 +19,8 @@ class JobList extends StatefulWidget {
 
 class _JobListState extends State<JobList> {
   String? currentUid = FirebaseAuth.instance.currentUser?.uid;
-  Query databaseRef = FirebaseDatabase.instance.ref().child("adventures");
+  DatabaseReference databaseRef =
+      FirebaseDatabase.instance.ref().child("adventures");
   final ScrollController _scrollController = ScrollController();
 
   @override
@@ -62,15 +65,15 @@ class _JobListState extends State<JobList> {
                             Animation<double> animation,
                             int index) {
                           String uid = snapshot.child('uid').value.toString();
-                          if (currentUid != null && uid == currentUid) {
+                          if (uid == currentUid) {
                             return const SizedBox.shrink();
                           }
                           return InkWell(
                               highlightColor: Colors.transparent,
                               splashColor: Colors.transparent,
                               hoverColor: Colors.transparent,
-                              onTap: () {
-                                String aid =
+                              onTap: () async {
+                                /*String aid =
                                     snapshot.child('aid').value.toString();
                                 String uid =
                                     snapshot.child('uid').value.toString();
@@ -96,7 +99,18 @@ class _JobListState extends State<JobList> {
                                     descprition: descprition,
                                     price: price,
                                     address: address,
-                                    zipcode: zipcode));
+                                    zipcode: zipcode));*/
+
+                                final fire = FirebaseFirestore.instance;
+                                final aid =
+                                    snapshot.child('aid').value.toString();
+
+                                await fire
+                                    .collection('Users')
+                                    .doc(currentUid)
+                                    .update({'aid': aid});
+
+                                Get.to(() => BodyRow());
                               },
                               child: Padding(
                                 padding: const EdgeInsets.only(

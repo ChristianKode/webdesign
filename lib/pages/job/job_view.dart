@@ -46,18 +46,7 @@ class _JobViewState extends State<JobView> {
           Expanded(
             child: SingleChildScrollView(
               child: Column(
-                children: [
-                  BodyRow(
-                      aid: widget.aid,
-                      uid: widget.uid,
-                      img1: widget.img1,
-                      title: widget.title,
-                      descprition: widget.descprition,
-                      price: widget.price,
-                      address: widget.address,
-                      zipcode: widget.zipcode),
-                  const Footer()
-                ],
+                children: [BodyRow(), const Footer()],
               ),
             ),
           )

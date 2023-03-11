@@ -12,7 +12,7 @@ class AuthService {
   Future<String> login(String email, String password) async {
     try {
       await _auth.signInWithEmailAndPassword(email: email, password: password);
-      return "Innloggget";
+      return "Innlogget";
     } catch (e) {
       return e.toString();
     }
@@ -24,8 +24,13 @@ class AuthService {
     FirebaseFirestore firestore = FirebaseFirestore.instance;
 
     try {
-      await _auth.createUserWithEmailAndPassword(
-          email: email, password: password);
+      if (telephone.isNotEmpty &&
+          firstname.isNotEmpty &&
+          lastname.isNotEmpty &&
+          email.isNotEmpty &&
+          password.isNotEmpty)
+        await _auth.createUserWithEmailAndPassword(
+            email: email, password: password);
 
       String uid = FirebaseAuth.instance.currentUser!.uid;
 
@@ -40,7 +45,7 @@ class AuthService {
         'telephone': telephone
       });
 
-      return "registrert";
+      return "Success";
     } catch (e) {
       return e.toString();
     }

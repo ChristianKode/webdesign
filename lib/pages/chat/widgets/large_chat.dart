@@ -233,6 +233,7 @@ class _ChatUIState extends State<ChatUI> {
                             },
                           ),
                   ),
+
                   FocusScope(
                     child: Container(
                       decoration: BoxDecoration(

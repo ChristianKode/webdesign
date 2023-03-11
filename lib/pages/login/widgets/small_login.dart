@@ -91,11 +91,31 @@ class SmallLoginBox extends StatelessWidget {
             width: 150,
             height: 40,
             child: ElevatedButton(
-              onPressed: () {
-                context
+              onPressed: () async {
+                String loginResult = await context
                     .read<AuthService>()
-                    .login(mail.text.trim(), pass.text.trim())
-                    .then((value) => Get.to(() => LargeHome()));
+                    .login(mail.text.trim(), pass.text.trim());
+                if (loginResult == 'innlogget') {
+                  Get.to(() => LargeHome());
+                } else {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      behavior: SnackBarBehavior.floating,
+                      content: Text('Noe gikk galt...'),
+                      duration: const Duration(seconds: 5),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10),
+                        side: BorderSide(color: Colors.blue, width: 2),
+                      ),
+                      action: SnackBarAction(
+                        label: 'Lukk',
+                        textColor: Colors.white, // set text color
+                        onPressed:
+                            ScaffoldMessenger.of(context).hideCurrentSnackBar,
+                      ),
+                    ),
+                  );
+                }
               },
               style: ElevatedButton.styleFrom(
                 shape: RoundedRectangleBorder(
