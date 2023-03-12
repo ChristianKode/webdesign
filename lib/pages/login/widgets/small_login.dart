@@ -5,22 +5,23 @@ import 'package:provider/provider.dart';
 import 'package:webdesign/app_logic/services/firebase_auth.dart';
 import 'package:webdesign/pages/home/widgets/main_home.dart';
 
+import '../../../widgets/appbar.dart';
+import '../../../widgets/drawer.dart';
 import '../../forgot/forgot.dart';
 
 class SmallLogin extends StatelessWidget {
-  const SmallLogin({super.key});
+  SmallLogin({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Container(
-          decoration: const BoxDecoration(
-            image: DecorationImage(
-                image: NetworkImage(
-                    'https://www.pexels.com/photo/milky-way-illustration-1169754/'),
-                fit: BoxFit.cover),
-          ),
-          child: Row(children: [SmallLoginBox()])),
+    return Container(
+      decoration: const BoxDecoration(
+        image: DecorationImage(
+            image: NetworkImage(
+                'https://www.pexels.com/photo/milky-way-illustration-1169754/'),
+            fit: BoxFit.cover),
+      ),
+      child: Row(children: [SmallLoginBox()]),
     );
   }
 }
@@ -37,7 +38,7 @@ class SmallLoginBox extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           const SizedBox(
-            height: 150,
+            height: 50,
           ),
           Text.rich(TextSpan(style: const TextStyle(fontSize: 60), children: [
             TextSpan(
@@ -45,6 +46,11 @@ class SmallLoginBox extends StatelessWidget {
                 style: GoogleFonts.tinos(fontWeight: FontWeight.bold)),
             TextSpan(text: 'ANSATT', style: GoogleFonts.tinos())
           ])),
+          Container(
+            width: 490,
+            child: Image.network(
+                'https://firebasestorage.googleapis.com/v0/b/ungansatt123.appspot.com/o/assets%2FFingerprint-cuate.png?alt=media&token=634ca348-0c73-45b6-96d7-51d7465b92e2'),
+          ),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 2, vertical: 0),
             child: SizedBox(
@@ -87,46 +93,81 @@ class SmallLoginBox extends StatelessWidget {
               ),
             ),
           ),
-          SizedBox(
-            width: 150,
-            height: 40,
-            child: ElevatedButton(
-              onPressed: () async {
-                String loginResult = await context
-                    .read<AuthService>()
-                    .login(mail.text.trim(), pass.text.trim());
-                if (loginResult == 'innlogget') {
-                  Get.to(() => LargeHome());
-                } else {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(
-                      behavior: SnackBarBehavior.floating,
-                      content: Text('Noe gikk galt...'),
-                      duration: const Duration(seconds: 5),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              SizedBox(
+                width: 150,
+                height: 40,
+                child: ElevatedButton(
+                  onPressed: () async {
+                    String loginResult = await context
+                        .read<AuthService>()
+                        .login(mail.text.trim(), pass.text.trim());
+                    if (loginResult == 'innlogget') {
+                      Get.to(() => LargeHome());
+                    } else {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          behavior: SnackBarBehavior.floating,
+                          content: Text('Noe gikk galt...'),
+                          duration: const Duration(seconds: 5),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10),
+                            side: BorderSide(color: Colors.blue, width: 2),
+                          ),
+                          action: SnackBarAction(
+                            label: 'Lukk',
+                            textColor: Colors.white, // set text color
+                            onPressed: ScaffoldMessenger.of(context)
+                                .hideCurrentSnackBar,
+                          ),
+                        ),
+                      );
+                    }
+                  },
+                  style: ElevatedButton.styleFrom(
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(100)),
+                    backgroundColor: Colors.blue,
+                  ),
+                  child: const Text(
+                    'Logg på',
+                    style: TextStyle(fontSize: 15),
+                  ),
+                ),
+              ),
+              const SizedBox(
+                width: 10,
+              ),
+              SizedBox(
+                width: 150,
+                height: 40,
+                child: ElevatedButton(
+                    onPressed: () {
+                      Get.to(LargeHome());
+                    },
+                    style: ElevatedButton.styleFrom(
+                      side: const BorderSide(color: Colors.blue),
                       shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10),
-                        side: BorderSide(color: Colors.blue, width: 2),
-                      ),
-                      action: SnackBarAction(
-                        label: 'Lukk',
-                        textColor: Colors.white, // set text color
-                        onPressed:
-                            ScaffoldMessenger.of(context).hideCurrentSnackBar,
-                      ),
+                          borderRadius: BorderRadius.circular(100)),
+                      backgroundColor: Colors.white,
                     ),
-                  );
-                }
-              },
-              style: ElevatedButton.styleFrom(
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(100)),
-                backgroundColor: Colors.blue,
-              ),
-              child: const Text(
-                'Logg på',
-                style: TextStyle(fontSize: 15),
-              ),
-            ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: const [
+                        Icon(
+                          Icons.arrow_back_ios,
+                          color: Colors.blue,
+                        ),
+                        Text(
+                          'Tilbake',
+                          style: TextStyle(fontSize: 15, color: Colors.blue),
+                        ),
+                      ],
+                    )),
+              )
+            ],
           ),
           TextButton(
               onPressed: () {

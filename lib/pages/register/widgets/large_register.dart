@@ -13,8 +13,11 @@ import 'package:webdesign/pages/login/login.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:uuid/uuid.dart';
 
+import '../../../widgets/appbar.dart';
+import '../../../widgets/drawer.dart';
+
 class LargeRegister extends StatelessWidget {
-  const LargeRegister({super.key});
+  LargeRegister({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -79,7 +82,14 @@ class RegisterBox extends StatelessWidget {
           child: Column(
             children: [
               const SizedBox(
-                height: 150,
+                height: 50,
+              ),
+              Container(
+                width: 300,
+                height: 300,
+                child: Image.network(
+                  'https://firebasestorage.googleapis.com/v0/b/ungansatt123.appspot.com/o/assets%2FMobile%20login-amico.png?alt=media&token=a979210e-0052-4442-9434-b3985e40e387',
+                ),
               ),
               Text(
                 'Velkommen',
@@ -216,50 +226,87 @@ class RegisterBox extends StatelessWidget {
               const SizedBox(
                 height: 10,
               ),
-              SizedBox(
-                width: 160,
-                height: 40,
-                child: ElevatedButton(
-                    onPressed: () async {
-                      String registerResult = await context
-                          .read<AuthService>()
-                          .signUp(
-                              emailCon.text.trim(),
-                              passwordCon.text.trim(),
-                              fornavnCon.text.trim(),
-                              etternavnCon.text.trim(),
-                              telefonCon.text.trim());
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  SizedBox(
+                    width: 160,
+                    height: 40,
+                    child: ElevatedButton(
+                        onPressed: () async {
+                          String registerResult = await context
+                              .read<AuthService>()
+                              .signUp(
+                                  emailCon.text.trim(),
+                                  passwordCon.text.trim(),
+                                  fornavnCon.text.trim(),
+                                  etternavnCon.text.trim(),
+                                  telefonCon.text.trim());
 
-                      if (registerResult == 'Success') {
-                        Get.to(() => LargeHome());
-                      } else {
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(
-                            behavior: SnackBarBehavior.floating,
-                            content: Text('Noe gikk galt...'),
-                            duration: const Duration(seconds: 5),
+                          if (registerResult == 'Success') {
+                            Get.to(() => LargeHome());
+                          } else {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(
+                                behavior: SnackBarBehavior.floating,
+                                content: Text('Noe gikk galt...'),
+                                duration: const Duration(seconds: 5),
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(10),
+                                  side:
+                                      BorderSide(color: Colors.blue, width: 2),
+                                ),
+                                action: SnackBarAction(
+                                  label: 'Lukk',
+                                  textColor: Colors.white, // set text color
+                                  onPressed: ScaffoldMessenger.of(context)
+                                      .hideCurrentSnackBar,
+                                ),
+                              ),
+                            );
+                          }
+                        },
+                        style: ElevatedButton.styleFrom(
                             shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(10),
-                              side: BorderSide(color: Colors.blue, width: 2),
+                                borderRadius: BorderRadius.circular(100)),
+                            backgroundColor: Colors.blue),
+                        child: const Text(
+                          'Lag bruker',
+                          style: TextStyle(fontSize: 15),
+                        )),
+                  ),
+                  const SizedBox(
+                    width: 10,
+                  ),
+                  SizedBox(
+                    width: 150,
+                    height: 40,
+                    child: ElevatedButton(
+                        onPressed: () {
+                          Get.to(LargeHome());
+                        },
+                        style: ElevatedButton.styleFrom(
+                          side: const BorderSide(color: Colors.blue),
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(100)),
+                          backgroundColor: Colors.white,
+                        ),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: const [
+                            Icon(
+                              Icons.arrow_back_ios,
+                              color: Colors.blue,
                             ),
-                            action: SnackBarAction(
-                              label: 'Lukk',
-                              textColor: Colors.white, // set text color
-                              onPressed: ScaffoldMessenger.of(context)
-                                  .hideCurrentSnackBar,
+                            Text(
+                              'Tilbake',
+                              style:
+                                  TextStyle(fontSize: 15, color: Colors.blue),
                             ),
-                          ),
-                        );
-                      }
-                    },
-                    style: ElevatedButton.styleFrom(
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(100)),
-                        backgroundColor: Colors.blue),
-                    child: const Text(
-                      'Lag bruker',
-                      style: TextStyle(fontSize: 15),
-                    )),
+                          ],
+                        )),
+                  )
+                ],
               ),
             ],
           ),

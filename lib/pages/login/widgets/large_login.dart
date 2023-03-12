@@ -6,23 +6,23 @@ import 'package:webdesign/app_logic/services/firebase_auth.dart';
 import 'package:webdesign/pages/forgot/forgot.dart';
 import 'package:webdesign/pages/home/widgets/main_home.dart';
 import 'package:webdesign/pages/login/login.dart';
+import '../../../widgets/appbar.dart';
+import '../../../widgets/drawer.dart';
 import '../../register/register.dart';
 
 class LargeLogin extends StatelessWidget {
-  const LargeLogin({super.key});
+  LargeLogin({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Container(
-          decoration: const BoxDecoration(
-            image: DecorationImage(
-                image: NetworkImage(
-                    'https://firebasestorage.googleapis.com/v0/b/ungansatt123.appspot.com/o/assets%2Fbackground_login.png?alt=media&token=0fc149f3-6017-4306-a052-b0f2fad6c20b'),
-                fit: BoxFit.cover),
-          ),
-          child: Row(children: [LoginBox(), const LoginInfo()])),
-    );
+    return Container(
+        decoration: const BoxDecoration(
+          image: DecorationImage(
+              image: NetworkImage(
+                  'https://firebasestorage.googleapis.com/v0/b/ungansatt123.appspot.com/o/assets%2Fbackground_login.png?alt=media&token=0fc149f3-6017-4306-a052-b0f2fad6c20b'),
+              fit: BoxFit.cover),
+        ),
+        child: Row(children: [LoginBox(), const LoginInfo()]));
   }
 }
 
@@ -42,7 +42,7 @@ class LoginInfo extends StatelessWidget {
             children: [
               const SizedBox(height: 150),
               Text(
-                '70"Neque porro quisquam est qui dolorem ipsum quia" ',
+                'Vi hjelper deg å skape erfaring',
                 style: GoogleFonts.tinos(
                   fontSize: 50,
                 ),
@@ -57,7 +57,7 @@ class LoginInfo extends StatelessWidget {
                   },
                   child: (Text(
                     'Lag ny bruker her',
-                    style: GoogleFonts.tinos(fontSize: 20),
+                    style: GoogleFonts.tinos(fontSize: 20, color: Colors.white),
                   ))),
               const SizedBox(
                 height: 30,
@@ -87,7 +87,7 @@ class LoginBox extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
+    return Flexible(
         child: Padding(
       padding: const EdgeInsets.only(left: 50),
       child: Column(
@@ -144,46 +144,82 @@ class LoginBox extends StatelessWidget {
               ),
             ),
           ),
-          SizedBox(
-            width: 150,
-            height: 40,
-            child: ElevatedButton(
-              onPressed: () async {
-                String loginResult = await context
-                    .read<AuthService>()
-                    .login(mail.text.trim(), pass.text.trim());
-                if (loginResult == 'Innlogget') {
-                  Get.to(() => LargeHome());
-                } else {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(
-                      behavior: SnackBarBehavior.floating,
-                      content: Text('Noe gikk galt...'),
-                      duration: const Duration(seconds: 5),
+          Row(
+            children: [
+              SizedBox(
+                width: 150,
+                height: 40,
+                child: ElevatedButton(
+                  onPressed: () async {
+                    String loginResult = await context
+                        .read<AuthService>()
+                        .login(mail.text.trim(), pass.text.trim());
+                    if (loginResult == 'Innlogget') {
+                      Get.to(() => LargeHome());
+                    } else {
+                      // ignore: use_build_context_synchronously
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          behavior: SnackBarBehavior.floating,
+                          content: const Text('Noe gikk galt...'),
+                          duration: const Duration(seconds: 5),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10),
+                            side:
+                                const BorderSide(color: Colors.blue, width: 2),
+                          ),
+                          action: SnackBarAction(
+                            label: 'Lukk',
+                            textColor: Colors.white, // set text color
+                            onPressed: ScaffoldMessenger.of(context)
+                                .hideCurrentSnackBar,
+                          ),
+                        ),
+                      );
+                    }
+                  },
+                  style: ElevatedButton.styleFrom(
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(100)),
+                    backgroundColor: Colors.blue,
+                  ),
+                  child: const Text(
+                    'Logg på',
+                    style: TextStyle(fontSize: 15),
+                  ),
+                ),
+              ),
+              const SizedBox(
+                width: 10,
+              ),
+              SizedBox(
+                width: 150,
+                height: 40,
+                child: ElevatedButton(
+                    onPressed: () {
+                      Get.to(LargeHome());
+                    },
+                    style: ElevatedButton.styleFrom(
+                      side: const BorderSide(color: Colors.blue),
                       shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10),
-                        side: BorderSide(color: Colors.blue, width: 2),
-                      ),
-                      action: SnackBarAction(
-                        label: 'Lukk',
-                        textColor: Colors.white, // set text color
-                        onPressed:
-                            ScaffoldMessenger.of(context).hideCurrentSnackBar,
-                      ),
+                          borderRadius: BorderRadius.circular(100)),
+                      backgroundColor: Colors.white,
                     ),
-                  );
-                }
-              },
-              style: ElevatedButton.styleFrom(
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(100)),
-                backgroundColor: Colors.blue,
-              ),
-              child: const Text(
-                'Logg på',
-                style: TextStyle(fontSize: 15),
-              ),
-            ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: const [
+                        Icon(
+                          Icons.arrow_back_ios,
+                          color: Colors.blue,
+                        ),
+                        Text(
+                          'Tilbake',
+                          style: TextStyle(fontSize: 15, color: Colors.blue),
+                        ),
+                      ],
+                    )),
+              )
+            ],
           ),
           TextButton(
               onPressed: () {
@@ -197,8 +233,4 @@ class LoginBox extends StatelessWidget {
       ),
     ));
   }
-}
-
-Future<void> getUserData() async {
-  // Do something with the retrieved data
 }

@@ -7,24 +7,9 @@ import '../../widgets/appbar.dart';
 
 // ignore: must_be_immutable
 class JobView extends StatefulWidget {
-  String aid = '';
-  String uid = '';
-  String img1 = '';
-  String title = '';
-  String descprition = '';
-  String price = '';
-  String address = '';
-  String zipcode = '';
-  JobView(
-      {super.key,
-      required this.aid,
-      required this.uid,
-      required this.img1,
-      required this.title,
-      required this.descprition,
-      required this.price,
-      required this.address,
-      required this.zipcode});
+  JobView({
+    super.key,
+  });
 
   @override
   State<JobView> createState() => _JobViewState();

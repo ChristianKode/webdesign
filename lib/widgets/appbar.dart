@@ -78,7 +78,7 @@ logInItem() {
     height: 50,
     child: ElevatedButton(
         onPressed: () {
-          Get.to(const Login());
+          Get.to(Login());
         },
         style: ElevatedButton.styleFrom(
           side: const BorderSide(color: Colors.blue),
@@ -160,7 +160,7 @@ AppBar appBar(BuildContext context, GlobalKey<ScaffoldState> key) => AppBar(
                         ));
               }
             } else {
-              return const Login();
+              return Login();
             }
           }),
       title: FutureBuilder(
@@ -325,7 +325,7 @@ AppBar appBar(BuildContext context, GlobalKey<ScaffoldState> key) => AppBar(
               }
             } else {
               // No connection with Firebase Auth. . .
-              return const Login();
+              return Login();
             }
           }),
     );

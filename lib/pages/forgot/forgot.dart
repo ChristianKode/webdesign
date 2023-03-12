@@ -9,9 +9,9 @@ class Forgot extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const ResponsiveWidget(
-      largeScreen: LargeForgot(), 
-    mediumScreen: LargeForgot(), 
-    smallScreen: SmallForgot());
+    return ResponsiveWidget(
+        largeScreen: LargeForgot(),
+        mediumScreen: LargeForgot(),
+        smallScreen: SmallForgot());
   }
 }

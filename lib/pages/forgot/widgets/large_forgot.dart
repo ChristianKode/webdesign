@@ -4,18 +4,28 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:webdesign/app_logic/services/firebase_auth.dart';
 
+import '../../../widgets/appbar.dart';
+import '../../../widgets/drawer.dart';
 import '../../login/login.dart';
 
 class LargeForgot extends StatelessWidget {
-  const LargeForgot({super.key});
+  final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey();
+
+  LargeForgot({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: scaffoldKey,
+      appBar: appBar(context, scaffoldKey),
+      drawer: const Drawer(
+        child: SideDrawer(),
+      ),
       body: Container(
         decoration: const BoxDecoration(
             image: DecorationImage(
-                image: NetworkImage('https://firebasestorage.googleapis.com/v0/b/ungansatt123.appspot.com/o/assets%2Fforgot_background.jpg?alt=media&token=711bea7e-5724-4412-9712-169dca4b5bfa'),
+                image: NetworkImage(
+                    'https://firebasestorage.googleapis.com/v0/b/ungansatt123.appspot.com/o/assets%2Fforgot_background.jpg?alt=media&token=711bea7e-5724-4412-9712-169dca4b5bfa'),
                 fit: BoxFit.cover)),
         child: ForgotPassBox(),
       ),
@@ -89,7 +99,7 @@ class ForgotPassBox extends StatelessWidget {
           ),
           TextButton(
               onPressed: () {
-                Get.to(const Login());
+                Get.to(Login());
               },
               child: Text.rich(
                   TextSpan(style: const TextStyle(fontSize: 15), children: [

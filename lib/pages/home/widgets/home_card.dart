@@ -1,7 +1,10 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:webdesign/pages/login/login.dart';
 import 'package:webdesign/pages/newJob/newjob.dart';
+import 'package:webdesign/pages/newJob/widgets/large_newjob.dart';
 import 'package:webdesign/utils/responsive.dart';
 
 class HomeCard extends StatelessWidget {
@@ -67,7 +70,16 @@ class HomeCard extends StatelessWidget {
                                 child: ElevatedButton(
                                     style: ElevatedButton.styleFrom(
                                         backgroundColor: Colors.white),
-                                    onPressed: () {},
+                                    onPressed: () {
+                                      String? userIn = FirebaseAuth
+                                          .instance.currentUser?.uid;
+
+                                      if (userIn != null) {
+                                        Get.to(() => LargeNewJob());
+                                      } else {
+                                        Get.to(() => Login());
+                                      }
+                                    },
                                     child: const Text(
                                       'Vis meg',
                                       style: TextStyle(
@@ -141,7 +153,14 @@ class HomeCard extends StatelessWidget {
                                 style: ElevatedButton.styleFrom(
                                     backgroundColor: Colors.white),
                                 onPressed: () {
-                                  Get.to(() => const NewJob());
+                                  String? userIn =
+                                      FirebaseAuth.instance.currentUser?.uid;
+
+                                  if (userIn != null) {
+                                    Get.to(() => LargeNewJob());
+                                  } else {
+                                    Get.to(() => Login());
+                                  }
                                 },
                                 child: const Text(
                                   'Vis meg',

@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
@@ -6,52 +8,27 @@ import 'package:get/route_manager.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:uuid/uuid.dart';
 import 'package:webdesign/main.dart';
-import 'package:webdesign/pages/chat/widgets/group_chat_list.dart';
 import 'package:webdesign/pages/chat/widgets/large_chat.dart';
 import 'package:webdesign/pages/login/login.dart';
 import 'package:webdesign/utils/responsive.dart';
 
 import '../../../app_logic/services/message.dart';
 
-final String? uid = FirebaseAuth.instance.currentUser?.uid;
-DataSnapshot snapshot = FirebaseFirestore.instance
-    .collection('Users')
-    .doc(uid)
-    .get() as DataSnapshot;
+final _auth = FirebaseAuth.instance;
+final _fireStore = FirebaseFirestore.instance;
+final _realtimeData = FirebaseDatabase.instance.ref();
 
-String aid = snapshot.child('aid').value.toString();
+final _currentUser = _auth.currentUser?.uid;
 
-Future<void> getAd() async {
-  DatabaseReference databaseRef =
-      FirebaseDatabase.instance.ref().child("adventures").child(aid);
-  DataSnapshot adSnapshot = await databaseRef.get();
-  Object? data = adSnapshot.value;
-  String Img1 = data['img1'].toString() ?? '';
-  String Address = data['address'] ?? '';
-  String Description = data['description'] ?? '';
-  String Price = data['price'] ?? '';
-  String Title = data['title'] ?? '';
-  String AuthorId = data['authorId'] ?? '';
-  String Zipcode = data['zipcode'] ?? '';
-
-  img1 = Img1;
-}
-
+String aid = '';
+String uid = '';
 String img1 = '';
-
-String address = '';
-String description = '';
-String price = '';
-
 String title = '';
-
-String authorId = '';
-
+String descprition = '';
+String price = '';
+String address = '';
 String zipcode = '';
 
-final fire = FirebaseFirestore.instance.collection('Messages');
-
-// ignore: must_be_immutable
 class BodyRow extends StatefulWidget {
   BodyRow({
     super.key,
@@ -62,25 +39,54 @@ class BodyRow extends StatefulWidget {
 }
 
 class _BodyRowState extends State<BodyRow> {
-  @override
-  void initState() {
-    getAd();
-    setState(() {});
-    super.initState();
+  Future<void> getAid() async {
+    DocumentSnapshot<Object?> _currentUserSnapshot =
+        await _fireStore.collection('Users').doc(_currentUser).get();
+    aid = _currentUserSnapshot.get('aid').toString();
+  }
+
+  Future<Map<String, dynamic>> getView() async {
+    await getAid();
+
+    DataSnapshot _currentAdSnapshot =
+        (await _realtimeData.child('adventures/$aid').get()) as DataSnapshot;
+
+    return _currentAdSnapshot.value as Map<String, dynamic>? ?? {};
   }
 
   bool isFavorited = false;
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(right: 30, left: 30),
-      child: Container(
-          alignment: Alignment.center,
-          constraints: const BoxConstraints(maxWidth: 1052),
-          child: !ResponsiveLayout.isSmallScreen(context)
-              ? LargeBodyColumn()
-              : SmallBodyColumn()),
+    return FutureBuilder(
+      future: getView(),
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return Container(
+              height: MediaQuery.of(context).size.height,
+              alignment: Alignment.center,
+              child: CircularProgressIndicator());
+        } else {
+          uid = snapshot.data?['uid']?.toString() ?? '';
+          img1 = snapshot.data?['img1']?.toString() ?? '';
+          title = snapshot.data?['title']?.toString() ?? '';
+          descprition = snapshot.data?['descprition']?.toString() ?? '';
+          price = snapshot.data?['price']?.toString() ?? '';
+          address = snapshot.data?['address']?.toString() ?? '';
+          zipcode = snapshot.data?['zipcode']?.toString() ?? '';
+
+          return Padding(
+            padding: const EdgeInsets.only(right: 30, left: 30),
+            child: Container(
+              alignment: Alignment.center,
+              constraints: const BoxConstraints(maxWidth: 1052),
+              child: !ResponsiveLayout.isSmallScreen(context)
+                  ? LargeBodyColumn()
+                  : SmallBodyColumn(),
+            ),
+          );
+        }
+      },
     );
   }
 }
@@ -256,11 +262,11 @@ class _SmallBodyColumnState extends State<SmallBodyColumn> {
                     if (auth.currentUser != null) {
                       await messageRef.doc().set({
                         "u1": FirebaseAuth.instance.currentUser?.uid,
-                        "u2": AuthorId
+                        "u2": uid
                       });
                       Get.to(() => Chat());
                     } else {
-                      Get.to(() => const Login());
+                      Get.to(() => Login());
                     }
                   },
                   style: ElevatedButton.styleFrom(
@@ -467,7 +473,7 @@ class _LargeBodyColumnState extends State<LargeBodyColumn> {
                                   onPressed: () async {
                                     final uid =
                                         FirebaseAuth.instance.currentUser?.uid;
-                                    final authorId = AuthorId;
+                                    final authorId = uid;
                                     String existingChatId = '';
                                     List<DocumentSnapshot> results = [];
 
@@ -545,7 +551,7 @@ class _LargeBodyColumnState extends State<LargeBodyColumn> {
                                               'Error creating new document: $e');
                                         }
                                       } else {
-                                        Get.to(() => const Login());
+                                        Get.to(() => Login());
                                       }
                                     }
                                   },

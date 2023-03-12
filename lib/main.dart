@@ -5,6 +5,7 @@ import 'package:webdesign/pages/chat/widgets/large_chat.dart';
 import 'package:webdesign/pages/forgot/forgot.dart';
 import 'package:webdesign/pages/home/widgets/main_home.dart';
 import 'package:webdesign/pages/job/job_view.dart';
+import 'package:webdesign/pages/job/widgets/job_body_row.dart';
 import 'package:webdesign/pages/login/login.dart';
 import 'package:webdesign/pages/newJob/newjob.dart';
 import 'package:webdesign/pages/profile/profile.dart';
@@ -51,22 +52,12 @@ class _MyAppState extends State<MyApp> {
             GetPage(name: '/', page: () => LargeHome()),
             GetPage(name: '/main_home', page: () => LargeHome()),
             GetPage(name: '/Register', page: () => const Register()),
-            GetPage(name: '/Login', page: () => const Login()),
+            GetPage(name: '/Login', page: () => Login()),
             GetPage(name: '/Forgot', page: () => const Forgot()),
             GetPage(name: '/NewJob', page: () => const NewJob()),
             GetPage(name: '/Profile', page: () => const Profile()),
             GetPage(name: '/Chat', page: () => const Chat()),
-            GetPage(
-                name: '/JobView',
-                page: () => JobView(
-                    aid: '',
-                    uid: '',
-                    img1: '',
-                    title: '',
-                    descprition: '',
-                    price: '',
-                    address: '',
-                    zipcode: '')),
+            GetPage(name: '/JobView', page: () => JobView())
           ],
           theme: ThemeData(
             primarySwatch: Colors.blue,

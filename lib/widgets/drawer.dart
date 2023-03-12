@@ -11,6 +11,7 @@ import 'package:webdesign/pages/chat/widgets/large_chat.dart';
 import 'package:webdesign/pages/home/widgets/main_home.dart';
 import 'package:webdesign/pages/login/login.dart';
 import 'package:webdesign/pages/newJob/newjob.dart';
+import 'package:webdesign/pages/profile/profile.dart';
 import 'package:webdesign/pages/register/register.dart';
 
 class SideDrawer extends StatelessWidget {
@@ -128,7 +129,9 @@ class _LoggedInDrawerState extends State<LoggedInDrawer> {
                       onHover0 = value;
                     })
                   },
-                  onTap: () {},
+                  onTap: () {
+                    Get.to(() => LargeHome());
+                  },
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
@@ -208,7 +211,7 @@ class _LoggedInDrawerState extends State<LoggedInDrawer> {
                     })
                   },
                   onTap: () {
-                    // Soon Favoritter
+                    Get.to(() => Profile());
                   },
                   child: Row(
                     children: [
@@ -233,7 +236,9 @@ class _LoggedInDrawerState extends State<LoggedInDrawer> {
                       onHover4 = value;
                     })
                   },
-                  onTap: () {},
+                  onTap: () {
+                    Get.to(() => Profile());
+                  },
                   child: Row(
                     children: [
                       const Padding(
@@ -337,7 +342,7 @@ class _LoggedOutDrawerState extends State<LoggedOutDrawer> {
               });
             },
             onTap: () {
-              Get.to(() => const Login());
+              Get.to(() => Login());
             },
             child: Text(
               "Logg på",
@@ -359,7 +364,7 @@ class _LoggedOutDrawerState extends State<LoggedOutDrawer> {
               });
             },
             onTap: () {
-              Get.to(() => const Login());
+              Get.to(() => Login());
             },
             child: Text(
               "Annonser",
@@ -389,7 +394,7 @@ class _LoggedOutDrawerState extends State<LoggedOutDrawer> {
               });
             },
             onTap: () {
-              Get.to(() => const Login());
+              Get.to(() => LargeHome());
             },
             child: Text(
               "Hjem",
