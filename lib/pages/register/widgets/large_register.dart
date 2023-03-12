@@ -45,32 +45,6 @@ class RegisterBox extends StatelessWidget {
   final TextEditingController passwordCon = TextEditingController();
   final TextEditingController telefonCon = TextEditingController();
 
-  bool ValidCredentials() {
-    bool valid = false;
-    if (fornavnCon.text.isNotEmpty & etternavnCon.text.isNotEmpty) {
-      if (emailCon.text.contains('@')) {
-        if (passwordCon.text.length > 6) {
-          if (telefonCon.text.length > 8) {
-            valid = true;
-            if (kDebugMode) {
-              print('true');
-            }
-          }
-        } else {
-          //feil pass
-          //valid = false;
-        }
-      } else {
-        //feil epost
-        //valid = false;
-      }
-    } else {
-      //feil navn
-      //valid = false;
-    }
-    return valid;
-  }
-
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -80,23 +54,20 @@ class RegisterBox extends StatelessWidget {
         child: Padding(
           padding: const EdgeInsets.all(15.0),
           child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              const SizedBox(
-                height: 50,
-              ),
-              Container(
-                width: 300,
-                height: 300,
-                child: Image.network(
-                  'https://firebasestorage.googleapis.com/v0/b/ungansatt123.appspot.com/o/assets%2FMobile%20login-amico.png?alt=media&token=a979210e-0052-4442-9434-b3985e40e387',
-                ),
-              ),
               Text(
                 'Velkommen',
                 style: GoogleFonts.tinos(fontSize: 50, color: Colors.blue),
               ),
-              const SizedBox(
-                height: 30,
+              Flexible(
+                child: Container(
+                  width: 350,
+                  height: 350,
+                  child: Image.network(
+                    'https://firebasestorage.googleapis.com/v0/b/ungansatt123.appspot.com/o/assets%2FMobile%20login-amico.png?alt=media&token=a979210e-0052-4442-9434-b3985e40e387',
+                  ),
+                ),
               ),
               Row(
                 children: [
@@ -122,6 +93,9 @@ class RegisterBox extends StatelessWidget {
                             )),
                       ),
                     ),
+                  ),
+                  const SizedBox(
+                    height: 7,
                   ),
                   Expanded(
                     child: Padding(
@@ -149,7 +123,7 @@ class RegisterBox extends StatelessWidget {
                 ],
               ),
               const SizedBox(
-                height: 10,
+                height: 7,
               ),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 2, vertical: 0),
@@ -170,7 +144,7 @@ class RegisterBox extends StatelessWidget {
                 ),
               ),
               const SizedBox(
-                height: 10,
+                height: 7,
               ),
               Row(
                 children: [
@@ -198,6 +172,9 @@ class RegisterBox extends StatelessWidget {
                       ),
                     ),
                   ),
+                  const SizedBox(
+                    height: 7,
+                  ),
                   Expanded(
                     child: Padding(
                       padding: const EdgeInsets.symmetric(
@@ -224,7 +201,7 @@ class RegisterBox extends StatelessWidget {
                 ],
               ),
               const SizedBox(
-                height: 10,
+                height: 7,
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -275,9 +252,6 @@ class RegisterBox extends StatelessWidget {
                           style: TextStyle(fontSize: 15),
                         )),
                   ),
-                  const SizedBox(
-                    width: 10,
-                  ),
                   SizedBox(
                     width: 150,
                     height: 40,
@@ -308,6 +282,9 @@ class RegisterBox extends StatelessWidget {
                   )
                 ],
               ),
+              const SizedBox(
+                height: 30,
+              )
             ],
           ),
         ),

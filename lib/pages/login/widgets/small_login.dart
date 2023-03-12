@@ -15,12 +15,6 @@ class SmallLogin extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: const BoxDecoration(
-        image: DecorationImage(
-            image: NetworkImage(
-                'https://www.pexels.com/photo/milky-way-illustration-1169754/'),
-            fit: BoxFit.cover),
-      ),
       child: Row(children: [SmallLoginBox()]),
     );
   }
@@ -35,21 +29,24 @@ class SmallLoginBox extends StatelessWidget {
   Widget build(BuildContext context) {
     return Expanded(
       child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          const SizedBox(
-            height: 50,
-          ),
           Text.rich(TextSpan(style: const TextStyle(fontSize: 60), children: [
             TextSpan(
                 text: 'UNG',
                 style: GoogleFonts.tinos(fontWeight: FontWeight.bold)),
             TextSpan(text: 'ANSATT', style: GoogleFonts.tinos())
           ])),
-          Container(
-            width: 490,
-            child: Image.network(
-                'https://firebasestorage.googleapis.com/v0/b/ungansatt123.appspot.com/o/assets%2FFingerprint-cuate.png?alt=media&token=634ca348-0c73-45b6-96d7-51d7465b92e2'),
+          Flexible(
+            child: Container(
+              width: 450,
+              height: 450,
+              child: Image.network(
+                'https://firebasestorage.googleapis.com/v0/b/ungansatt123.appspot.com/o/assets%2FFingerprint-cuate.png?alt=media&token=634ca348-0c73-45b6-96d7-51d7465b92e2',
+                fit: BoxFit.contain,
+              ),
+            ),
           ),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 2, vertical: 0),
@@ -137,9 +134,7 @@ class SmallLoginBox extends StatelessWidget {
                   ),
                 ),
               ),
-              const SizedBox(
-                width: 10,
-              ),
+              const SizedBox(width: 10),
               SizedBox(
                 width: 150,
                 height: 40,
@@ -177,6 +172,9 @@ class SmallLoginBox extends StatelessWidget {
                 'Glemt passord?',
                 style: GoogleFonts.tinos(fontSize: 20),
               ))),
+          const SizedBox(
+            height: 15,
+          )
         ],
       ),
     );

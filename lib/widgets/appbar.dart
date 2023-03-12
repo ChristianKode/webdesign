@@ -168,7 +168,7 @@ AppBar appBar(BuildContext context, GlobalKey<ScaffoldState> key) => AppBar(
           builder: (context, snapshot) {
             if (snapshot.hasData) {
               if (snapshot.data!) {
-                // Loggin In
+                // Logging In
                 // Small or Wide Screen?
                 return !ResponsiveLayout.isSmallScreen(context)
                     // Wide Screen
@@ -184,20 +184,23 @@ AppBar appBar(BuildContext context, GlobalKey<ScaffoldState> key) => AppBar(
                               onTap: () {
                                 Get.to(() => LargeHome());
                               },
-                              child: Text.rich(
-                                TextSpan(
-                                    style: const TextStyle(fontSize: 40),
-                                    children: [
-                                      TextSpan(
-                                          text: 'UNG',
-                                          style: GoogleFonts.tinos(
-                                              fontWeight: FontWeight.bold,
-                                              color: Colors.black)),
-                                      TextSpan(
-                                          text: 'ANSATT',
-                                          style: GoogleFonts.tinos(
-                                              color: Colors.black))
-                                    ]),
+                              child: FittedBox(
+                                fit: BoxFit.scaleDown,
+                                child: Text.rich(
+                                  TextSpan(
+                                      style: const TextStyle(fontSize: 40),
+                                      children: [
+                                        TextSpan(
+                                            text: 'UNG',
+                                            style: GoogleFonts.tinos(
+                                                fontWeight: FontWeight.bold,
+                                                color: Colors.black)),
+                                        TextSpan(
+                                            text: 'ANSATT',
+                                            style: GoogleFonts.tinos(
+                                                color: Colors.black))
+                                      ]),
+                                ),
                               ),
                             ),
                             Container(
@@ -227,20 +230,23 @@ AppBar appBar(BuildContext context, GlobalKey<ScaffoldState> key) => AppBar(
                         onTap: () {
                           Get.to(() => LargeHome());
                         },
-                        child: Text.rich(
-                          TextSpan(
-                              style: const TextStyle(fontSize: 40),
-                              children: [
-                                TextSpan(
-                                    text: 'UNG',
-                                    style: GoogleFonts.tinos(
-                                        fontWeight: FontWeight.bold,
-                                        color: Colors.black)),
-                                TextSpan(
-                                    text: 'ANSATT',
-                                    style:
-                                        GoogleFonts.tinos(color: Colors.black))
-                              ]),
+                        child: FittedBox(
+                          fit: BoxFit.scaleDown,
+                          child: Text.rich(
+                            TextSpan(
+                                style: const TextStyle(fontSize: 40),
+                                children: [
+                                  TextSpan(
+                                      text: 'UNG',
+                                      style: GoogleFonts.tinos(
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.black)),
+                                  TextSpan(
+                                      text: 'ANSATT',
+                                      style: GoogleFonts.tinos(
+                                          color: Colors.black))
+                                ]),
+                          ),
                         ),
                       );
               } else {
@@ -261,20 +267,23 @@ AppBar appBar(BuildContext context, GlobalKey<ScaffoldState> key) => AppBar(
                               onTap: () {
                                 Get.to(() => LargeHome());
                               },
-                              child: Text.rich(
-                                TextSpan(
-                                    style: const TextStyle(fontSize: 40),
-                                    children: [
-                                      TextSpan(
-                                          text: 'UNG',
-                                          style: GoogleFonts.tinos(
-                                              fontWeight: FontWeight.bold,
-                                              color: Colors.black)),
-                                      TextSpan(
-                                          text: 'ANSATT',
-                                          style: GoogleFonts.tinos(
-                                              color: Colors.black))
-                                    ]),
+                              child: FittedBox(
+                                fit: BoxFit.scaleDown,
+                                child: Text.rich(
+                                  TextSpan(
+                                      style: const TextStyle(fontSize: 40),
+                                      children: [
+                                        TextSpan(
+                                            text: 'UNG',
+                                            style: GoogleFonts.tinos(
+                                                fontWeight: FontWeight.bold,
+                                                color: Colors.black)),
+                                        TextSpan(
+                                            text: 'ANSATT',
+                                            style: GoogleFonts.tinos(
+                                                color: Colors.black))
+                                      ]),
+                                ),
                               ),
                             ),
                             Container(
@@ -306,20 +315,23 @@ AppBar appBar(BuildContext context, GlobalKey<ScaffoldState> key) => AppBar(
                         onTap: () {
                           Get.to(() => LargeHome());
                         },
-                        child: Text.rich(
-                          TextSpan(
-                              style: const TextStyle(fontSize: 40),
-                              children: [
-                                TextSpan(
-                                    text: 'UNG',
-                                    style: GoogleFonts.tinos(
-                                        fontWeight: FontWeight.bold,
-                                        color: Colors.black)),
-                                TextSpan(
-                                    text: 'ANSATT',
-                                    style:
-                                        GoogleFonts.tinos(color: Colors.black))
-                              ]),
+                        child: FittedBox(
+                          fit: BoxFit.scaleDown,
+                          child: Text.rich(
+                            TextSpan(
+                                style: const TextStyle(fontSize: 40),
+                                children: [
+                                  TextSpan(
+                                      text: 'UNG',
+                                      style: GoogleFonts.tinos(
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.black)),
+                                  TextSpan(
+                                      text: 'ANSATT',
+                                      style: GoogleFonts.tinos(
+                                          color: Colors.black))
+                                ]),
+                          ),
                         ),
                       );
               }
