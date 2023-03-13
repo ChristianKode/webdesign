@@ -14,24 +14,12 @@ import 'package:get/get.dart';
 import 'firebase_options.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/services.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
-  );
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
 
-  runApp(
-    MaterialApp(
-      title: 'https://ungansatt123.page.link/home',
-      routes: <String, WidgetBuilder>{
-        '/': (BuildContext context) => MyApp(),
-        '/helloworld': (BuildContext context) => MyApp(),
-      },
-    ),
-  );
+  runApp(MyApp());
 }
 
 class MyApp extends StatefulWidget {
@@ -40,41 +28,41 @@ class MyApp extends StatefulWidget {
   });
 
   @override
-  State<MyApp> createState() => _HomeState();
+  State<MyApp> createState() => _MyAppState();
 }
 
-class _HomeState extends State<MyApp> {
+class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
-        providers: [
-          Provider<AuthService>(
-            create: (_) => AuthService(FirebaseAuth.instance),
-          ),
-          StreamProvider(
-            create: (context) => context.read<AuthService>().authStateChanges,
-            initialData: null,
-          )
-        ],
-        child: GetMaterialApp(
-          debugShowCheckedModeBanner: false,
-          title: 'UngAnsatt',
-          initialRoute: '/',
-          getPages: [
-            GetPage(name: '/', page: () => LargeHome()),
-            GetPage(name: '/main_home', page: () => LargeHome()),
-            GetPage(name: '/Register', page: () => const Register()),
-            GetPage(name: '/Login', page: () => Login()),
-            GetPage(name: '/Forgot', page: () => const Forgot()),
-            GetPage(name: '/NewJob', page: () => const NewJob()),
-            GetPage(name: '/Profile', page: () => const Profile()),
-            GetPage(name: '/Chat', page: () => const Chat()),
-            GetPage(name: '/JobView', page: () => JobView())
-          ],
-          theme: ThemeData(
-            primarySwatch: Colors.blue,
-          ),
-          home: LargeHome(),
-        ));
+      providers: [
+        Provider<AuthService>(
+          create: (_) => AuthService(FirebaseAuth.instance),
+        ),
+        StreamProvider(
+          create: (context) => context.read<AuthService>().authStateChanges,
+          initialData: null,
+        )
+      ],
+      child: GetMaterialApp(
+        debugShowCheckedModeBanner: false,
+        title: 'UngAnsatt',
+        initialRoute: '/',
+        routes: {
+          '/': (_) => LargeHome(),
+          '/main_home': (_) => LargeHome(),
+          '/Register': (_) => const Register(),
+          '/Login': (_) => Login(),
+          '/Forgot': (_) => const Forgot(),
+          '/NewJob': (_) => const NewJob(),
+          '/Profile': (_) => const Profile(),
+          '/Chat': (_) => const Chat(),
+          '/JobView': (_) => JobView(),
+        },
+        theme: ThemeData(
+          primarySwatch: Colors.blue,
+        ),
+      ),
+    );
   }
 }

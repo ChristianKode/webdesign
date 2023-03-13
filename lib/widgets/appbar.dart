@@ -78,7 +78,7 @@ logInItem() {
     height: 50,
     child: ElevatedButton(
         onPressed: () {
-          Get.to(Login());
+          Get.toNamed('/Login');
         },
         style: ElevatedButton.styleFrom(
           side: const BorderSide(color: Colors.blue),
