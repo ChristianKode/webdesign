@@ -1,5 +1,6 @@
 // ignore_for_file: use_build_context_synchronously
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
@@ -60,14 +61,17 @@ class _LoggedInDrawerState extends State<LoggedInDrawer> {
 
   Future<void> getName() async {
     final uid = FirebaseAuth.instance.currentUser!.uid;
-    final userRef = FirebaseDatabase.instance.ref().child('users').child(uid);
+    final userRef = FirebaseFirestore.instance.collection('Users').doc(uid);
     final dataSnapshot = await userRef.get();
-    final userData = dataSnapshot.value as Map<dynamic, dynamic>;
 
-    setState(() {
-      userName = userData['fornavn'] + ' ' + userData['etternavn'];
-      userMail = FirebaseAuth.instance.currentUser!.email!;
-    });
+    if (dataSnapshot.exists) {
+      final userData = dataSnapshot.data() as Map<dynamic, dynamic>;
+
+      setState(() {
+        userName = userData['firstname'] + ' ' + userData['lastname'];
+        userMail = FirebaseAuth.instance.currentUser!.email!;
+      });
+    }
   }
 
   @override
@@ -90,17 +94,14 @@ class _LoggedInDrawerState extends State<LoggedInDrawer> {
               Padding(
                 padding: const EdgeInsets.only(top: 30),
                 child: Container(
-                  width: 100,
                   height: 100,
+                  width: 100,
                   decoration: BoxDecoration(
-                      shape: BoxShape.circle,
+                      borderRadius: BorderRadius.circular(100),
                       border: Border.all(color: Colors.white, width: 2)),
-                  child: const ClipOval(
-                    child: Icon(
-                      Icons.person_rounded,
-                      size: 100,
-                    ),
-                  ),
+                  child: ClipOval(
+                      child: Image.network(
+                          'https://firebasestorage.googleapis.com/v0/b/ungansatt123.appspot.com/o/assets%2Fprofile-circle-icon-512x512-dt9lf8um.png?alt=media&token=6b6eec31-abc3-43ad-ba01-69b374731ba9')),
                 ),
               ),
               SelectableText(
