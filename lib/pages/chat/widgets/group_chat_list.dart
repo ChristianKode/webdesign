@@ -3,8 +3,12 @@ import 'dart:html';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:get/route_manager.dart';
 import 'package:provider/provider.dart';
+import 'package:webdesign/pages/chat/smallChat.dart';
 import 'package:webdesign/pages/chat/widgets/large_chat.dart';
+import 'package:webdesign/pages/chat/widgets/small_chat.dart';
+import 'package:webdesign/utils/responsive.dart';
 
 class ChatList extends StatefulWidget {
   ChatList({Key? key}) : super(key: key);
@@ -17,7 +21,9 @@ class _ChatListState extends State<ChatList> {
   @override
   Widget build(BuildContext context) {
     return Container(
-        width: 300,
+        width: ResponsiveLayout.isLargeScreen(context)
+            ? 300
+            : MediaQuery.of(context).size.width,
         color: Colors.blue,
         child: Padding(
           padding: const EdgeInsets.only(top: 5),
@@ -155,45 +161,107 @@ class _ChatGroupCardsState extends State<ChatGroupCards> {
     return InkWell(
       onTap: () {
         selectedChatId = widget.documentId;
-
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-              builder: (context) => ChatUI(
-                    chatGroupId: selectedChatId,
-                    secondUserName: secondUserName,
-                  )),
-        );
+        ResponsiveLayout.isLargeScreen(context)
+            ? Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => ChatUI(
+                          chatGroupId: selectedChatId,
+                          secondUserName: secondUserName,
+                        )),
+              )
+            : Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => SmallChatUI(
+                          chatGroupId: selectedChatId,
+                          secondUserName: secondUserName,
+                        )));
       },
-      child: Container(
-        alignment: Alignment.centerLeft,
-        width: 280,
-        height: 70,
-        decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.circular(8),
-            boxShadow: [
-              BoxShadow(
-                color: Color.fromARGB(59, 0, 0, 0),
-                spreadRadius: 1,
-                blurRadius: 2,
-                offset: Offset(0, 5), // changes the position of the shadow
+      child: ResponsiveLayout.isLargeScreen(context)
+          ? Container(
+              alignment: Alignment.centerLeft,
+              width: 280,
+              height: 70,
+              decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(8),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Color.fromARGB(59, 0, 0, 0),
+                      spreadRadius: 1,
+                      blurRadius: 2,
+                      offset:
+                          Offset(0, 5), // changes the position of the shadow
+                    ),
+                  ]),
+              child: Padding(
+                padding:
+                    const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
+                child: Text(
+                  secondUserName,
+                  style: const TextStyle(
+                    fontSize: 16.0,
+                    color: Colors.black87,
+                    fontWeight: FontWeight.w400,
+                    height: 1.3,
+                    fontFamily: 'Segoe UI',
+                  ),
+                ),
               ),
-            ]),
-        child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
-          child: Text(
-            secondUserName,
-            style: const TextStyle(
-              fontSize: 16.0,
-              color: Colors.black87,
-              fontWeight: FontWeight.w400,
-              height: 1.3,
-              fontFamily: 'Segoe UI',
+            )
+          : Container(
+              alignment: Alignment.center,
+              width: MediaQuery.of(context).size.width * 0.90,
+              height: 90,
+              decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(8),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Color.fromARGB(59, 0, 0, 0),
+                      spreadRadius: 1,
+                      blurRadius: 2,
+                      offset:
+                          Offset(0, 5), // changes the position of the shadow
+                    ),
+                  ]),
+              child: Padding(
+                padding:
+                    const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
+                child: Row(
+                  children: [
+                    Container(
+                      width: 50,
+                      height: 50,
+                      color: Colors.black,
+                    ),
+                    SizedBox(
+                      width: 30,
+                    ),
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Text(
+                          secondUserName,
+                          style: const TextStyle(
+                            fontSize: 24.0,
+                            color: Colors.black87,
+                            fontWeight: FontWeight.w400,
+                            height: 1.3,
+                            fontFamily: 'Segoe UI',
+                          ),
+                        ),
+                        Text(
+                          'Annonse',
+                          style: TextStyle(fontSize: 15),
+                        )
+                      ],
+                    ),
+                  ],
+                ),
+              ),
             ),
-          ),
-        ),
-      ),
     );
   }
 }

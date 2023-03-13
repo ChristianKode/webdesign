@@ -46,6 +46,7 @@ dependencies:
   cloud_firestore: ^4.4.3
   cached_network_image: ^3.2.3
   once: ^1.5.1
+  firebase_dynamic_links: ^5.0.16
 
 
 
