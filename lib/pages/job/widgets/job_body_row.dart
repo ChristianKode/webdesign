@@ -268,6 +268,8 @@ class _SmallBodyColumnState extends State<SmallBodyColumn> {
                     } else {
                       Get.to(() => Login());
                     }
+                    print(uid);
+                    print(FirebaseAuth.instance.currentUser?.uid);
                   },
                   style: ElevatedButton.styleFrom(
                       shape: RoundedRectangleBorder(
@@ -471,8 +473,6 @@ class _LargeBodyColumnState extends State<LargeBodyColumn> {
                                 height: 40,
                                 child: ElevatedButton(
                                   onPressed: () async {
-                                    final uid =
-                                        FirebaseAuth.instance.currentUser?.uid;
                                     final authorId = uid;
                                     String existingChatId = '';
                                     List<DocumentSnapshot> results = [];
@@ -526,8 +526,8 @@ class _LargeBodyColumnState extends State<LargeBodyColumn> {
                                       final messageRef = FirebaseFirestore
                                           .instance
                                           .collection('Messages');
-                                      final currentUser =
-                                          FirebaseAuth.instance.currentUser;
+                                      final currentUser = FirebaseAuth
+                                          .instance.currentUser?.uid;
 
                                       if (currentUser != null) {
                                         try {
@@ -537,7 +537,7 @@ class _LargeBodyColumnState extends State<LargeBodyColumn> {
                                               newDocumentRef.id;
 
                                           newDocumentRef.set({
-                                            "Uid1": currentUser.uid,
+                                            "Uid1": currentUser,
                                             "Uid2": uid,
                                           });
 
