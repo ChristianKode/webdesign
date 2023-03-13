@@ -8,9 +8,9 @@ import 'package:webdesign/app_logic/services/firebase_auth.dart';
 import 'package:webdesign/pages/chat/widgets/large_chat.dart';
 import 'package:webdesign/pages/home/widgets/main_home.dart';
 import 'package:webdesign/pages/login/login.dart';
+import 'package:webdesign/pages/profile/profile_view.dart';
 import '../utils/responsive.dart';
 import '../pages/newJob/newjob.dart';
-import '../pages/profile/profile.dart';
 import '../pages/register/register.dart';
 
 profil() {
@@ -21,7 +21,7 @@ profil() {
       height: 35,
       child: TextButton(
         onPressed: () {
-          Get.to(const Profile());
+          Get.to(const ProfileView());
         },
         child: const Text(
           'Profil ',

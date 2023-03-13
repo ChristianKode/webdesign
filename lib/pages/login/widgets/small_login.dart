@@ -101,7 +101,7 @@ class SmallLoginBox extends StatelessWidget {
                     String loginResult = await context
                         .read<AuthService>()
                         .login(mail.text.trim(), pass.text.trim());
-                    if (loginResult == 'innlogget') {
+                    if (loginResult == 'Innlogget') {
                       Get.to(() => LargeHome());
                     } else {
                       ScaffoldMessenger.of(context).showSnackBar(

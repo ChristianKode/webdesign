@@ -154,6 +154,7 @@ class LoginBox extends StatelessWidget {
                     String loginResult = await context
                         .read<AuthService>()
                         .login(mail.text.trim(), pass.text.trim());
+
                     if (loginResult == 'Innlogget') {
                       Get.to(() => LargeHome());
                     } else {

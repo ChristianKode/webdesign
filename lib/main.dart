@@ -8,7 +8,7 @@ import 'package:webdesign/pages/job/job_view.dart';
 import 'package:webdesign/pages/job/widgets/job_body_row.dart';
 import 'package:webdesign/pages/login/login.dart';
 import 'package:webdesign/pages/newJob/newjob.dart';
-import 'package:webdesign/pages/profile/profile.dart';
+import 'package:webdesign/pages/profile/profile_view.dart';
 import 'package:webdesign/pages/register/register.dart';
 import 'package:get/get.dart';
 import 'firebase_options.dart';
@@ -55,7 +55,7 @@ class _MyAppState extends State<MyApp> {
           '/Login': (_) => Login(),
           '/Forgot': (_) => const Forgot(),
           '/NewJob': (_) => const NewJob(),
-          '/Profile': (_) => const Profile(),
+          '/Profile': (_) => const ProfileView(),
           '/Chat': (_) => const Chat(),
           '/JobView': (_) => JobView(),
         },

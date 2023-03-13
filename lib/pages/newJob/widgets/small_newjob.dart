@@ -15,7 +15,14 @@ class SmallNewJob extends StatelessWidget {
       drawer: const Drawer(
         child: SideDrawer(),
       ),
-      body: FillOut(),
+      body: Container(
+          width: MediaQuery.of(context).size.width,
+          decoration: const BoxDecoration(
+              image: DecorationImage(
+                  image: NetworkImage(
+                      'https://firebasestorage.googleapis.com/v0/b/ungansatt123.appspot.com/o/assets%2Fnewjob_background.jpg?alt=media&token=3c5212e1-dcbf-4a61-a6c8-bb13c9b9bb9e'),
+                  fit: BoxFit.cover)),
+          child: FillOut()),
     );
   }
 }
