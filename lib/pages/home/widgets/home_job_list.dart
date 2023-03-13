@@ -81,7 +81,8 @@ class _JobListState extends State<JobList> {
                                 splashColor: Colors.transparent,
                                 hoverColor: Colors.transparent,
                                 onTap: () async {
-                                  if (currentUid != null) {
+                                  if (FirebaseAuth.instance.currentUser !=
+                                      null) {
                                     final fire = FirebaseFirestore.instance;
                                     final aid =
                                         snapshot.child('aid').value.toString();

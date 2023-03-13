@@ -12,7 +12,7 @@ import 'package:webdesign/pages/chat/widgets/large_chat.dart';
 import 'package:webdesign/pages/home/widgets/main_home.dart';
 import 'package:webdesign/pages/login/login.dart';
 import 'package:webdesign/pages/newJob/newjob.dart';
-import 'package:webdesign/pages/profile/profile.dart';
+import 'package:webdesign/pages/profile/profile_view.dart';
 import 'package:webdesign/pages/register/register.dart';
 
 class SideDrawer extends StatelessWidget {
@@ -212,7 +212,7 @@ class _LoggedInDrawerState extends State<LoggedInDrawer> {
                     })
                   },
                   onTap: () {
-                    Get.to(() => Profile());
+                    Get.to(() => ProfileView());
                   },
                   child: Row(
                     children: [
@@ -238,7 +238,7 @@ class _LoggedInDrawerState extends State<LoggedInDrawer> {
                     })
                   },
                   onTap: () {
-                    Get.to(() => Profile());
+                    Get.to(() => ProfileView());
                   },
                   child: Row(
                     children: [

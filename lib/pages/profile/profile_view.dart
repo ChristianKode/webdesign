@@ -1,0 +1,149 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_database/firebase_database.dart';
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:webdesign/pages/chat/widgets/group_chat_list.dart';
+import 'package:webdesign/pages/profile/widgets/profile_components.dart';
+import 'package:webdesign/utils/responsive.dart';
+import 'package:webdesign/utils/responsivebody.dart';
+import 'package:webdesign/widgets/appbar.dart';
+import 'package:webdesign/widgets/drawer.dart';
+import 'package:webdesign/widgets/footer_overall.dart';
+
+final String? currentUid = FirebaseAuth.instance.currentUser?.uid;
+final userRef = FirebaseFirestore.instance.collection('Users').doc(currentUid);
+String userName = '';
+bool onHover0 = false;
+bool onHover1 = false;
+bool onHover2 = false;
+
+class ProfileView extends StatefulWidget {
+  const ProfileView({super.key});
+
+  @override
+  State<ProfileView> createState() => _ProfileViewState();
+}
+
+class _ProfileViewState extends State<ProfileView> {
+  final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey();
+
+  @override
+  Widget build(BuildContext context) {
+    Future<void> getName() async {
+      final dataSnapshot = await userRef.get();
+
+      if (dataSnapshot.exists) {
+        final userData = dataSnapshot.data() as Map<dynamic, dynamic>;
+
+        setState(() {
+          userName = userData['firstname'] + ' ' + userData['lastname'];
+        });
+      }
+    }
+
+    @override
+    void initState() {
+      getName();
+      print(userName + currentUid!);
+      super.initState();
+    }
+
+    return Scaffold(
+      key: scaffoldKey,
+      appBar: appBar(context, scaffoldKey),
+      drawer: const Drawer(
+        child: SideDrawer(),
+      ),
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            HeaderInfo(userName, context),
+            Container(
+              color: Color.fromARGB(6, 0, 0, 0),
+              width: MediaQuery.of(context).size.width,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  !ResponsiveLayout.isSmallScreen(context)
+                      ? const LargeProfile()
+                      : const SmallProfile(),
+                  Footer()
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class LargeProfile extends StatefulWidget {
+  const LargeProfile({super.key});
+
+  @override
+  State<LargeProfile> createState() => _LargeProfileState();
+}
+
+class _LargeProfileState extends State<LargeProfile> {
+  bool onHover0 = false;
+  bool onHover1 = false;
+  bool onHover2 = false;
+
+  @override
+  Widget build(BuildContext context) {
+    double height = 250;
+    double width = 320;
+    return
+        // Body
+        Container(
+      width: 1000,
+      height: 300,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: [
+          const SizedBox(
+            width: 10,
+          ),
+          minSide(width, height),
+          const SizedBox(
+            width: 15,
+          ),
+          favoritter(width, height),
+          const SizedBox(
+            width: 15,
+          ),
+          mineAnnonser(width, height),
+          const SizedBox(
+            width: 10,
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class SmallProfile extends StatefulWidget {
+  const SmallProfile({super.key});
+
+  @override
+  State<SmallProfile> createState() => _SmallProfileState();
+}
+
+class _SmallProfileState extends State<SmallProfile> {
+  @override
+  Widget build(BuildContext context) {
+    double height = 50;
+    double width = MediaQuery.of(context).size.width - 40;
+    return Container(
+      width: MediaQuery.of(context).size.width,
+      height: 400,
+      child: Column(
+        children: [minSide(width, height)],
+      ),
+    );
+  }
+}

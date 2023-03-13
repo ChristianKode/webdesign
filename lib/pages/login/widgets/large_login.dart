@@ -154,9 +154,12 @@ class LoginBox extends StatelessWidget {
                     String loginResult = await context
                         .read<AuthService>()
                         .login(mail.text.trim(), pass.text.trim());
+
                     if (loginResult == 'Innlogget') {
+                      print(loginResult + 'asd');
                       Get.to(() => LargeHome());
                     } else {
+                      print(loginResult + 'asd');
                       // ignore: use_build_context_synchronously
                       ScaffoldMessenger.of(context).showSnackBar(
                         SnackBar(

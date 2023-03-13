@@ -115,7 +115,8 @@ class _SmallBodyColumnState extends State<SmallBodyColumn> {
           Padding(
             padding: const EdgeInsets.only(bottom: 20),
             child: Container(
-                constraints: const BoxConstraints(minHeight: 350),
+                constraints:
+                    const BoxConstraints(minHeight: 350, maxHeight: 450),
                 child: Image.network(
                   img1,
                   fit: BoxFit.cover,
