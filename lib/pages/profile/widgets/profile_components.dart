@@ -69,33 +69,73 @@ HeaderInfo(String userName, context) {
   );
 }
 
-minSide(double width, double height, bool onHover0) {
+minSide(
+  double width,
+  double height,
+) {
+  bool onHover = false;
   return Flexible(
     child: InkWell(
-      onTap: () {
-
-      },
-      onHover: (value) =>{
-      },
+      onTap: () {},
+      onHover: (value) => {},
       child: Container(
         decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(10),
-            border: Border.all(color: Colors.blue, width: 2),
-            color: Colors.white),
+          borderRadius: BorderRadius.circular(10),
+          border: Border.all(
+            color: Colors.blue,
+            width: 2,
+          ),
+          color: Colors.white,
+        ),
         width: width,
         height: height,
-        child: const Column(
+        child: Row(
           children: [
-            Row(
-              children: [
-                Icon(
-                  Icons.person_2_outlined,
-                  color: Colors.blue,
-                  size: 100,
-                ),
-                Text('Endre profil'),
-              ],
-            )
+            const Icon(
+              Icons.person_2_outlined,
+              color: Colors.blue,
+              size: 100,
+            ),
+            Expanded(
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  const Flexible(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'Endre profil',
+                          style: TextStyle(
+                              fontSize: 20, fontWeight: FontWeight.bold),
+                        ),
+                        Text('Se og konfigurer dine personlige opplysninger')
+                      ],
+                    ),
+                  ),
+                  SizedBox(
+                    width: 50,
+                    child: Align(
+                      alignment: Alignment.centerRight,
+                      child: Container(
+                        height: 50,
+                        width: 50,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(100),
+                        ),
+                        child: ClipOval(
+                          child: TextButton(
+                            onPressed: () {},
+                            child: Icon(Icons.arrow_forward_ios),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
           ],
         ),
       ),
@@ -105,26 +145,69 @@ minSide(double width, double height, bool onHover0) {
 
 favoritter(double width, double height) {
   return Flexible(
-    child: Container(
-      width: width,
-      height: height,
-      decoration: BoxDecoration(
+    child: InkWell(
+      onTap: () {},
+      onHover: (value) => {},
+      child: Container(
+        decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10),
-          border: Border.all(color: Colors.blue, width: 2),
-          color: Colors.white),
-      child: const Column(
-        children: [
-          Row(
-            children: [
-              Icon(
-                Icons.favorite_border_outlined,
-                color: Colors.blue,
-                size: 100,
+          border: Border.all(
+            color: Colors.blue,
+            width: 2,
+          ),
+          color: Colors.white,
+        ),
+        width: width,
+        height: height,
+        child: Row(
+          children: [
+            const Icon(
+              Icons.favorite_border_outlined,
+              color: Colors.blue,
+              size: 100,
+            ),
+            Expanded(
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  const Flexible(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'Favoritter',
+                          style: TextStyle(
+                              fontSize: 20, fontWeight: FontWeight.bold),
+                        ),
+                        Text('Se dine favoritte oppdrager')
+                      ],
+                    ),
+                  ),
+                  SizedBox(
+                    width: 50,
+                    child: Align(
+                      alignment: Alignment.centerRight,
+                      child: Container(
+                        height: 50,
+                        width: 50,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(100),
+                        ),
+                        child: ClipOval(
+                          child: TextButton(
+                            onPressed: () {},
+                            child: Icon(Icons.arrow_forward_ios),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
               ),
-              Text('Favoritter'),
-            ],
-          )
-        ],
+            ),
+          ],
+        ),
       ),
     ),
   );
@@ -132,30 +215,69 @@ favoritter(double width, double height) {
 
 mineAnnonser(double width, double height) {
   return Flexible(
-    child: Container(
-      width: width,
-      height: height,
-      decoration: BoxDecoration(
+    child: InkWell(
+      onTap: () {},
+      onHover: (value) => {},
+      child: Container(
+        decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10),
-          border: Border.all(color: Colors.blue, width: 2),
-          color: Colors.white),
-      child: const Column(
-        children: [
-          Row(
-            children: [
-              Row(
+          border: Border.all(
+            color: Colors.blue,
+            width: 2,
+          ),
+          color: Colors.white,
+        ),
+        width: width,
+        height: height,
+        child: Row(
+          children: [
+            const Icon(
+              Icons.add_business_outlined,
+              color: Colors.blue,
+              size: 100,
+            ),
+            Expanded(
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Icon(
-                    Icons.add_business_outlined,
-                    color: Colors.blue,
-                    size: 100,
+                  const Flexible(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'Mine oppdrag',
+                          style: TextStyle(
+                              fontSize: 20, fontWeight: FontWeight.bold),
+                        ),
+                        Text('Se oppdragene dine som ligger ute')
+                      ],
+                    ),
                   ),
-                  Text('Mine annonser'),
+                  SizedBox(
+                    width: 50,
+                    child: Align(
+                      alignment: Alignment.centerRight,
+                      child: Container(
+                        height: 50,
+                        width: 50,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(100),
+                        ),
+                        child: ClipOval(
+                          child: TextButton(
+                            onPressed: () {},
+                            child: Icon(Icons.arrow_forward_ios),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
                 ],
               ),
-            ],
-          )
-        ],
+            ),
+          ],
+        ),
       ),
     ),
   );
