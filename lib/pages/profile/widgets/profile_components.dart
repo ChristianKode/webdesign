@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../chat/widgets/group_chat_list.dart';
+import '../../home/widgets/main_home.dart';
 
 HeaderInfo(String userName, context) {
   return SizedBox(
@@ -23,43 +24,61 @@ HeaderInfo(String userName, context) {
                   children: [
                     const Text('Min Side'),
                     ElevatedButton(
-                        onPressed: () {
-                          Get.to(ChatList());
-                        },
-                        child: const Text("Logg ut"))
+                      onPressed: () async {
+                        await FirebaseAuth.instance.signOut();
+                        Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => LargeHome()));
+                      },
+                      child: const Text("Logg ut"),
+                    ),
                   ],
                 ),
               ),
-              Row(
-                children: [
-                  Container(
-                    height: 150,
-                    width: 150,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(100),
-                    ),
-                    child: ClipOval(
+              Expanded(
+                child: Row(
+                  children: [
+                    SizedBox(
+                      height: 150,
+                      width: 150,
+                      child: ClipOval(
                         child: Image.network(
-                            'https://firebasestorage.googleapis.com/v0/b/ungansatt123.appspot.com/o/assets%2Fprofile-circle-icon-512x512-dt9lf8um.png?alt=media&token=6b6eec31-abc3-43ad-ba01-69b374731ba9')),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(top: 40, left: 10),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          '$userName',
-                          style: const TextStyle(
-                              fontSize: 30, fontWeight: FontWeight.bold),
+                          'https://firebasestorage.googleapis.com/v0/b/ungansatt123.appspot.com/o/assets%2Fprofile-circle-icon-512x512-dt9lf8um.png?alt=media&token=6b6eec31-abc3-43ad-ba01-69b374731ba9',
+                          fit: BoxFit.cover,
                         ),
-                        Text(
-                          FirebaseAuth.instance.currentUser!.email.toString(),
-                          style: const TextStyle(fontSize: 20),
-                        )
-                      ],
+                      ),
                     ),
-                  )
-                ],
+                    const SizedBox(width: 10),
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          FittedBox(
+                            fit: BoxFit.scaleDown,
+                            child: Text(
+                              '$userName',
+                              style: const TextStyle(
+                                fontSize: 30,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ),
+                          const SizedBox(height: 5),
+                          FittedBox(
+                            fit: BoxFit.scaleDown,
+                            child: Text(
+                              FirebaseAuth.instance.currentUser!.email
+                                  .toString(),
+                              style: const TextStyle(fontSize: 20),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ],
           ),
@@ -69,14 +88,13 @@ HeaderInfo(String userName, context) {
   );
 }
 
-minSide(
-  double width,
-  double height,
-) {
+minSide(double width, double height, void onTap) {
   bool onHover = false;
   return Flexible(
     child: InkWell(
-      onTap: () {},
+      onTap: () {
+        onTap;
+      },
       onHover: (value) => {},
       child: Container(
         decoration: BoxDecoration(

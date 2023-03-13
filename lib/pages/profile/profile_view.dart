@@ -26,27 +26,26 @@ class ProfileView extends StatefulWidget {
 class _ProfileViewState extends State<ProfileView> {
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey();
 
+  Future<void> getName() async {
+    final dataSnapshot = await userRef.get();
+
+    if (dataSnapshot.exists) {
+      final userData = dataSnapshot.data() as Map<dynamic, dynamic>;
+
+      setState(() {
+        userName = userData['firstname'] + ' ' + userData['lastname'];
+      });
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    getName();
+  }
+
   @override
   Widget build(BuildContext context) {
-    Future<void> getName() async {
-      final dataSnapshot = await userRef.get();
-
-      if (dataSnapshot.exists) {
-        final userData = dataSnapshot.data() as Map<dynamic, dynamic>;
-
-        setState(() {
-          userName = userData['firstname'] + ' ' + userData['lastname'];
-        });
-      }
-    }
-
-    @override
-    void initState() {
-      getName();
-      print(userName + currentUid!);
-      super.initState();
-    }
-
     return Scaffold(
       key: scaffoldKey,
       appBar: appBar(context, scaffoldKey),
@@ -86,6 +85,18 @@ class LargeProfile extends StatefulWidget {
 }
 
 class _LargeProfileState extends State<LargeProfile> {
+  int whichCardVisible = 1;
+
+  void replaceWidget(int index) {
+    setState(() {
+      whichCardVisible = index;
+    });
+  }
+
+  void onTap() {
+    replaceWidget(1);
+  }
+
   @override
   Widget build(BuildContext context) {
     double height = 250;
@@ -101,7 +112,7 @@ class _LargeProfileState extends State<LargeProfile> {
           const SizedBox(
             width: 10,
           ),
-          minSide(width, height),
+          minSide(width, height, onTap),
           const SizedBox(
             width: 15,
           ),
@@ -139,7 +150,7 @@ class _SmallProfileState extends State<SmallProfile> {
           const SizedBox(
             height: 20,
           ),
-          minSide(width, height),
+          minSide(width, height, OnTap),
           const SizedBox(
             height: 20,
           ),
