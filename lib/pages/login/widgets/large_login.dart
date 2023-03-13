@@ -1,3 +1,4 @@
+import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:get/get.dart';
@@ -6,6 +7,7 @@ import 'package:webdesign/app_logic/services/firebase_auth.dart';
 import 'package:webdesign/pages/forgot/forgot.dart';
 import 'package:webdesign/pages/home/widgets/main_home.dart';
 import 'package:webdesign/pages/login/login.dart';
+import '../../../main.dart';
 import '../../../widgets/appbar.dart';
 import '../../../widgets/drawer.dart';
 import '../../register/register.dart';
@@ -198,7 +200,8 @@ class LoginBox extends StatelessWidget {
                 height: 40,
                 child: ElevatedButton(
                     onPressed: () {
-                      Get.to(LargeHome());
+                      router.navigateTo(context, '/',
+                          transition: TransitionType.fadeIn);
                     },
                     style: ElevatedButton.styleFrom(
                       side: const BorderSide(color: Colors.blue),
