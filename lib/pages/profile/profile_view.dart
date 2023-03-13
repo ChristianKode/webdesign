@@ -85,18 +85,6 @@ class LargeProfile extends StatefulWidget {
 }
 
 class _LargeProfileState extends State<LargeProfile> {
-  int whichCardVisible = 1;
-
-  void replaceWidget(int index) {
-    setState(() {
-      whichCardVisible = index;
-    });
-  }
-
-  void onTap() {
-    replaceWidget(1);
-  }
-
   @override
   Widget build(BuildContext context) {
     double height = 250;
@@ -112,7 +100,7 @@ class _LargeProfileState extends State<LargeProfile> {
           const SizedBox(
             width: 10,
           ),
-          minSide(width, height, onTap),
+          minSide(width, height),
           const SizedBox(
             width: 15,
           ),
@@ -150,7 +138,7 @@ class _SmallProfileState extends State<SmallProfile> {
           const SizedBox(
             height: 20,
           ),
-          minSide(width, height, OnTap),
+          minSide(width, height),
           const SizedBox(
             height: 20,
           ),

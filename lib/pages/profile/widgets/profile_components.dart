@@ -88,13 +88,10 @@ HeaderInfo(String userName, context) {
   );
 }
 
-minSide(double width, double height, void onTap) {
-  bool onHover = false;
+minSide(double width, double height) {
   return Flexible(
     child: InkWell(
-      onTap: () {
-        onTap;
-      },
+      onTap: () {},
       onHover: (value) => {},
       child: Container(
         decoration: BoxDecoration(
