@@ -14,10 +14,32 @@ import 'package:get/get.dart';
 import 'firebase_options.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:fluro/fluro.dart';
+
+final FluroRouter router = FluroRouter();
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+
+  router.define('/',
+      handler: Handler(handlerFunc: (context, params) => LargeHome()));
+  router.define('/main_home',
+      handler: Handler(handlerFunc: (context, params) => LargeHome()));
+  router.define('/Register',
+      handler: Handler(handlerFunc: (context, params) => const Register()));
+  router.define('/Login',
+      handler: Handler(handlerFunc: (context, params) => Login()));
+  router.define('/Forgot',
+      handler: Handler(handlerFunc: (context, params) => const Forgot()));
+  router.define('/NewJob',
+      handler: Handler(handlerFunc: (context, params) => const NewJob()));
+  router.define('/Profile',
+      handler: Handler(handlerFunc: (context, params) => const ProfileView()));
+  router.define('/Chat',
+      handler: Handler(handlerFunc: (context, params) => const Chat()));
+  router.define('/JobView',
+      handler: Handler(handlerFunc: (context, params) => JobView()));
 
   runApp(MyApp());
 }
@@ -48,7 +70,16 @@ class _MyAppState extends State<MyApp> {
         debugShowCheckedModeBanner: false,
         title: 'UngAnsatt',
         initialRoute: '/',
-        routes: {
+        theme: ThemeData(
+          primarySwatch: Colors.blue,
+        ),
+        home: LargeHome(),
+      ),
+    );
+  }
+}
+
+/*routes: {
           '/': (_) => LargeHome(),
           '/main_home': (_) => LargeHome(),
           '/Register': (_) => const Register(),
@@ -58,11 +89,4 @@ class _MyAppState extends State<MyApp> {
           '/Profile': (_) => const ProfileView(),
           '/Chat': (_) => const Chat(),
           '/JobView': (_) => JobView(),
-        },
-        theme: ThemeData(
-          primarySwatch: Colors.blue,
-        ),
-      ),
-    );
-  }
-}
+        },*/
