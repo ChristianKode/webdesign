@@ -70,10 +70,10 @@ class _ProfileViewState extends State<ProfileView> {
                   !ResponsiveLayout.isSmallScreen(context)
                       ? const LargeProfile()
                       : const SmallProfile(),
-                  Footer()
                 ],
               ),
             ),
+            Footer()
           ],
         ),
       ),
@@ -89,10 +89,6 @@ class LargeProfile extends StatefulWidget {
 }
 
 class _LargeProfileState extends State<LargeProfile> {
-  bool onHover0 = false;
-  bool onHover1 = false;
-  bool onHover2 = false;
-
   @override
   Widget build(BuildContext context) {
     double height = 250;
@@ -108,7 +104,7 @@ class _LargeProfileState extends State<LargeProfile> {
           const SizedBox(
             width: 10,
           ),
-          minSide(width, height),
+          minSide(width, height, onHover0),
           const SizedBox(
             width: 15,
           ),
@@ -136,13 +132,29 @@ class SmallProfile extends StatefulWidget {
 class _SmallProfileState extends State<SmallProfile> {
   @override
   Widget build(BuildContext context) {
-    double height = 50;
+    double height = 200;
     double width = MediaQuery.of(context).size.width - 40;
     return Container(
       width: MediaQuery.of(context).size.width,
       height: 400,
       child: Column(
-        children: [minSide(width, height)],
+        children: [
+          const SizedBox(
+            height: 20,
+          ),
+          minSide(width, height, onHover0),
+          const SizedBox(
+            height: 20,
+          ),
+          favoritter(width, height),
+          const SizedBox(
+            height: 20,
+          ),
+          mineAnnonser(width, height),
+          const SizedBox(
+            height: 20,
+          ),
+        ],
       ),
     );
   }

@@ -69,14 +69,35 @@ HeaderInfo(String userName, context) {
   );
 }
 
-minSide(double width, double height) {
+minSide(double width, double height, bool onHover0) {
   return Flexible(
-    child: Container(
-      width: width,
-      height: height,
-      color: Colors.white,
-      child: Column(
-        children: const [Text('Endre profil')],
+    child: InkWell(
+      onTap: () {
+
+      },
+      onHover: (value) =>{
+      },
+      child: Container(
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(10),
+            border: Border.all(color: Colors.blue, width: 2),
+            color: Colors.white),
+        width: width,
+        height: height,
+        child: const Column(
+          children: [
+            Row(
+              children: [
+                Icon(
+                  Icons.person_2_outlined,
+                  color: Colors.blue,
+                  size: 100,
+                ),
+                Text('Endre profil'),
+              ],
+            )
+          ],
+        ),
       ),
     ),
   );
@@ -87,9 +108,23 @@ favoritter(double width, double height) {
     child: Container(
       width: width,
       height: height,
-      color: Colors.white,
-      child: Column(
-        children: const [Text('Favoritter')],
+      decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(10),
+          border: Border.all(color: Colors.blue, width: 2),
+          color: Colors.white),
+      child: const Column(
+        children: [
+          Row(
+            children: [
+              Icon(
+                Icons.favorite_border_outlined,
+                color: Colors.blue,
+                size: 100,
+              ),
+              Text('Favoritter'),
+            ],
+          )
+        ],
       ),
     ),
   );
@@ -100,9 +135,27 @@ mineAnnonser(double width, double height) {
     child: Container(
       width: width,
       height: height,
-      color: Colors.white,
-      child: Column(
-        children: [Text('Mine annonser')],
+      decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(10),
+          border: Border.all(color: Colors.blue, width: 2),
+          color: Colors.white),
+      child: const Column(
+        children: [
+          Row(
+            children: [
+              Row(
+                children: [
+                  Icon(
+                    Icons.add_business_outlined,
+                    color: Colors.blue,
+                    size: 100,
+                  ),
+                  Text('Mine annonser'),
+                ],
+              ),
+            ],
+          )
+        ],
       ),
     ),
   );
