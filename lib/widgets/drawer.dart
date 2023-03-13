@@ -3,6 +3,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
+import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -14,6 +15,8 @@ import 'package:webdesign/pages/login/login.dart';
 import 'package:webdesign/pages/newJob/newjob.dart';
 import 'package:webdesign/pages/profile/profile_view.dart';
 import 'package:webdesign/pages/register/register.dart';
+
+import '../main.dart';
 
 class SideDrawer extends StatelessWidget {
   const SideDrawer({super.key});
@@ -131,7 +134,8 @@ class _LoggedInDrawerState extends State<LoggedInDrawer> {
                     })
                   },
                   onTap: () {
-                    Get.to(() => LargeHome());
+                    router.navigateTo(context, '/Hjem',
+                        transition: TransitionType.fadeIn);
                   },
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.start,
@@ -158,7 +162,8 @@ class _LoggedInDrawerState extends State<LoggedInDrawer> {
                     })
                   },
                   onTap: () {
-                    Get.to(() => const NewJob());
+                    router.navigateTo(context, '/NewJob',
+                        transition: TransitionType.fadeIn);
                   },
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.start,
@@ -185,7 +190,8 @@ class _LoggedInDrawerState extends State<LoggedInDrawer> {
                     })
                   },
                   onTap: () {
-                    Get.to(() => const Chat());
+                    router.navigateTo(context, '/Chat',
+                        transition: TransitionType.fadeIn);
                   },
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.start,
@@ -212,7 +218,8 @@ class _LoggedInDrawerState extends State<LoggedInDrawer> {
                     })
                   },
                   onTap: () {
-                    Get.to(() => ProfileView());
+                    router.navigateTo(context, '/Profile',
+                        transition: TransitionType.fadeIn);
                   },
                   child: Row(
                     children: [
