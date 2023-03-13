@@ -14,12 +14,27 @@ import 'package:get/get.dart';
 import 'firebase_options.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/services.dart';
+import 'package:url_launcher/url_launcher.dart';
+
+import 'firebase_options.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  // iOS requires you run in release mode to test dynamic links ("flutter run --release").
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
 
-  runApp(MyApp());
+  runApp(
+    MaterialApp(
+      title: 'Dynamic Links Example',
+      routes: <String, WidgetBuilder>{
+        '/': (BuildContext context) => MyApp(),
+        '/helloworld': (BuildContext context) => MyApp(),
+      },
+    ),
+  );
 }
 
 class MyApp extends StatefulWidget {
@@ -28,10 +43,10 @@ class MyApp extends StatefulWidget {
   });
 
   @override
-  State<MyApp> createState() => _MyAppState();
+  State<MyApp> createState() => _HomeState();
 }
 
-class _MyAppState extends State<MyApp> {
+class _HomeState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return MultiProvider(

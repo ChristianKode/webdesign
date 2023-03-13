@@ -47,6 +47,7 @@ dependencies:
   cached_network_image: ^3.2.3
   once: ^1.5.1
   firebase_dynamic_links: ^5.0.16
+  url_launcher: ^6.1.10
 
 
 
