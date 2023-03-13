@@ -17,18 +17,15 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/services.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-import 'firebase_options.dart';
-
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  // iOS requires you run in release mode to test dynamic links ("flutter run --release").
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
 
   runApp(
     MaterialApp(
-      title: 'Dynamic Links Example',
+      title: 'https://ungansatt123.page.link/home',
       routes: <String, WidgetBuilder>{
         '/': (BuildContext context) => MyApp(),
         '/helloworld': (BuildContext context) => MyApp(),
