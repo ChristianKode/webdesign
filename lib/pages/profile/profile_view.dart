@@ -15,9 +15,6 @@ import 'package:webdesign/widgets/footer_overall.dart';
 final String? currentUid = FirebaseAuth.instance.currentUser?.uid;
 final userRef = FirebaseFirestore.instance.collection('Users').doc(currentUid);
 String userName = '';
-bool onHover0 = false;
-bool onHover1 = false;
-bool onHover2 = false;
 
 class ProfileView extends StatefulWidget {
   const ProfileView({super.key});
@@ -104,7 +101,7 @@ class _LargeProfileState extends State<LargeProfile> {
           const SizedBox(
             width: 10,
           ),
-          minSide(width, height, onHover0),
+          minSide(width, height),
           const SizedBox(
             width: 15,
           ),
@@ -142,7 +139,7 @@ class _SmallProfileState extends State<SmallProfile> {
           const SizedBox(
             height: 20,
           ),
-          minSide(width, height, onHover0),
+          minSide(width, height),
           const SizedBox(
             height: 20,
           ),
