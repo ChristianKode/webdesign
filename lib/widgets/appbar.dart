@@ -147,14 +147,17 @@ class RegisterItem extends StatelessWidget {
 AppBar appBar(BuildContext context, GlobalKey<ScaffoldState> key) => AppBar(
       backgroundColor: Colors.white,
       toolbarHeight: 80,
-      leadingWidth: 100,
+      leadingWidth: !ResponsiveLayout.isSmallScreen(context) ? 85 : 60,
       leading: FutureBuilder(
+          // Left side icon
           future: context.read<AuthService>().isLoggedIn(),
           builder: (context, snapshot) {
             if (snapshot.hasData) {
               if (snapshot.data!) {
+                // Logged in
                 return !ResponsiveLayout.isSmallScreen(context)
                     ? Row(children: [
+                        // Large screen
                         Padding(
                           padding: const EdgeInsets.all(5),
                           child: Image.network(
@@ -164,6 +167,7 @@ AppBar appBar(BuildContext context, GlobalKey<ScaffoldState> key) => AppBar(
                         ),
                       ])
                     : IconButton(
+                        // Small screen
                         onPressed: () {
                           key.currentState?.openDrawer();
                         },
@@ -172,8 +176,10 @@ AppBar appBar(BuildContext context, GlobalKey<ScaffoldState> key) => AppBar(
                           color: Colors.black,
                         ));
               } else {
+                // Logged out
                 return !ResponsiveLayout.isSmallScreen(context)
                     ? Row(children: [
+                        // Large screen
                         Padding(
                           padding: const EdgeInsets.all(5),
                           child: Image.network(
@@ -183,6 +189,7 @@ AppBar appBar(BuildContext context, GlobalKey<ScaffoldState> key) => AppBar(
                         ),
                       ])
                     : IconButton(
+                        // Small screen
                         onPressed: () {
                           key.currentState?.openDrawer();
                         },
@@ -192,10 +199,12 @@ AppBar appBar(BuildContext context, GlobalKey<ScaffoldState> key) => AppBar(
                         ));
               }
             } else {
+              // Firebase error
               return Login();
             }
           }),
       title: FutureBuilder(
+          // Main section of the custom appbar
           future: context.read<AuthService>().isLoggedIn(),
           builder: (context, snapshot) {
             if (snapshot.hasData) {

@@ -72,7 +72,7 @@ class SmallHomeOwnersWidget extends StatelessWidget {
                   ),
                 )
               ],
-            ),
+            ), /*
             Padding(
               padding: const EdgeInsets.only(top: 60),
               child: SizedBox(
@@ -88,7 +88,7 @@ class SmallHomeOwnersWidget extends StatelessWidget {
                           color: Colors.white,
                         ),
                       ))),
-            )
+            )*/
           ],
         ),
       ),
@@ -189,7 +189,7 @@ class LargeHomeOwnersWidget extends StatelessWidget {
                       ],
                     ),
                   ),
-                  Padding(
+                  /*Padding(
                     padding: const EdgeInsets.only(top: 60),
                     child: SizedBox(
                         height: 35,
@@ -205,7 +205,7 @@ class LargeHomeOwnersWidget extends StatelessWidget {
                                 color: Colors.white,
                               ),
                             ))),
-                  )
+                  )*/
                 ],
               ),
             ),

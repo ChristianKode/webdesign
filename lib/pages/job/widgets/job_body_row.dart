@@ -104,183 +104,180 @@ class _SmallBodyColumnState extends State<SmallBodyColumn> {
   bool onHover0 = false;
   @override
   Widget build(BuildContext context) {
-    return Flexible(
-      child: Column(
-        children: [
-          const SizedBox(
-            height: 150,
+    return Column(
+      children: [
+        const SizedBox(
+          height: 30,
+        ),
+
+        // Main image
+        Container(
+          height: MediaQuery.of(context).size.width,
+          width: MediaQuery.of(context).size.width,
+          child: Image.network(img1, fit: BoxFit.cover),
+        ),
+
+        const SizedBox(
+          height: 20,
+        ),
+
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            // Favorite button
+            const SizedBox(width: 200, height: 40, child: FavoriteButton()),
+            const SizedBox(
+              width: 30,
+            ),
+
+            // Copy button
+            SizedBox(
+              width: 100,
+              height: 40,
+              child: TextButton(
+                  onPressed: () {},
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: const [
+                      Icon(
+                        Icons.ios_share,
+                        color: Colors.blue,
+                      ),
+                      Text(
+                        'Kopier',
+                        style: TextStyle(color: Colors.blue),
+                      )
+                    ],
+                  )),
+            )
+          ],
+        ),
+
+        // Divide line
+        Padding(
+          padding: const EdgeInsets.only(top: 20, bottom: 5),
+          child: Container(
+            height: 2,
+            color: Colors.black12,
           ),
+        ),
 
-          // Main image
-          Padding(
-            padding: const EdgeInsets.only(bottom: 20),
-            child: Container(
-                constraints:
-                    const BoxConstraints(minHeight: 350, maxHeight: 450),
-                child: Image.network(
-                  img1,
-                  fit: BoxFit.cover,
-                )),
+        //Job Title
+        Container(
+          alignment: Alignment.centerLeft,
+          child: Text(
+            title,
+            style: GoogleFonts.tinos(fontSize: 30, fontWeight: FontWeight.w700),
           ),
+        ),
 
-          Row(
-            children: [
-              // Favorite button
-              const SizedBox(width: 200, height: 40, child: FavoriteButton()),
-              const SizedBox(
-                width: 30,
-              ),
-
-              // Copy button
-              SizedBox(
-                width: 100,
-                height: 40,
-                child: TextButton(
-                    onPressed: () {},
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: const [
-                        Icon(
-                          Icons.ios_share,
-                          color: Colors.blue,
-                        ),
-                        Text(
-                          'Kopier',
-                          style: TextStyle(color: Colors.blue),
-                        )
-                      ],
-                    )),
-              )
-            ],
-          ),
-
-          // Divide line
-          Padding(
-            padding: const EdgeInsets.only(top: 20, bottom: 5),
-            child: Container(
-              height: 2,
-              color: Colors.black12,
+        // Description
+        Padding(
+          padding: const EdgeInsets.only(top: 15),
+          child: Text(
+            descprition,
+            style: GoogleFonts.tinos(
+              fontSize: 17,
             ),
           ),
+        ),
 
-          //Job Title
-          Container(
+        // Divide Line
+        Padding(
+          padding: const EdgeInsets.only(top: 20, bottom: 50),
+          child: Container(
+            height: 2,
+            color: Colors.black12,
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.only(left: 5),
+          child: Container(
+            alignment: Alignment.centerLeft,
+            child: const Text(
+              "Se i kart",
+            ),
+          ),
+        ),
+
+        Container(
+            alignment: Alignment.centerLeft,
+            child: Row(
+              children: [
+                const Icon(
+                  Icons.map_outlined,
+                  color: Colors.blue,
+                ),
+                InkWell(
+                  highlightColor: Colors.transparent,
+                  splashColor: Colors.transparent,
+                  hoverColor: Colors.transparent,
+                  onHover: (value) => {
+                    setState(() {
+                      onHover0 = value;
+                    })
+                  },
+                  onTap: () {},
+                  child: Text(
+                    '${zipcode}, ${address}',
+                    style: GoogleFonts.tinos(
+                        color: Colors.blue,
+                        fontSize: 20,
+                        decoration:
+                            !onHover0 ? null : TextDecoration.underline),
+                  ),
+                ),
+              ],
+            )),
+        Padding(
+          padding: const EdgeInsets.only(top: 30),
+          child: Container(
             alignment: Alignment.centerLeft,
             child: Text(
-              title,
+              "Belønning",
               style:
-                  GoogleFonts.tinos(fontSize: 30, fontWeight: FontWeight.w700),
+                  GoogleFonts.tinos(fontSize: 20, fontWeight: FontWeight.w400),
             ),
           ),
-
-          // Description
-          Padding(
-            padding: const EdgeInsets.only(top: 15),
+        ),
+        Padding(
+          padding: const EdgeInsets.only(bottom: 25),
+          child: Container(
+            alignment: Alignment.centerLeft,
             child: Text(
-              descprition,
-              style: GoogleFonts.tinos(
-                fontSize: 17,
-              ),
+              "${price} kr",
+              style:
+                  GoogleFonts.tinos(fontSize: 30, fontWeight: FontWeight.bold),
             ),
           ),
-
-          // Divide Line
-          Padding(
-            padding: const EdgeInsets.only(top: 20, bottom: 50),
-            child: Container(
-              height: 2,
-              color: Colors.black12,
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.only(left: 5),
-            child: Container(
-              alignment: Alignment.centerLeft,
-              child: const Text(
-                "Se i kart",
-              ),
-            ),
-          ),
-
-          Container(
-              alignment: Alignment.centerLeft,
-              child: Row(
-                children: [
-                  const Icon(
-                    Icons.map_outlined,
-                    color: Colors.blue,
-                  ),
-                  InkWell(
-                    highlightColor: Colors.transparent,
-                    splashColor: Colors.transparent,
-                    hoverColor: Colors.transparent,
-                    onHover: (value) => {
-                      setState(() {
-                        onHover0 = value;
-                      })
-                    },
-                    onTap: () {},
-                    child: Text(
-                      '${zipcode}, ${address}',
-                      style: GoogleFonts.tinos(
-                          color: Colors.blue,
-                          fontSize: 20,
-                          decoration:
-                              !onHover0 ? null : TextDecoration.underline),
-                    ),
-                  ),
-                ],
-              )),
-          Padding(
-            padding: const EdgeInsets.only(top: 30),
-            child: Container(
-              alignment: Alignment.centerLeft,
-              child: Text(
-                "Belønning",
-                style: GoogleFonts.tinos(
-                    fontSize: 20, fontWeight: FontWeight.w400),
-              ),
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.only(bottom: 25),
-            child: Container(
-              alignment: Alignment.centerLeft,
-              child: Text(
-                "${price} kr",
-                style: GoogleFonts.tinos(
-                    fontSize: 30, fontWeight: FontWeight.bold),
-              ),
-            ),
-          ),
-          SizedBox(
-              height: 40,
-              child: ElevatedButton(
-                  onPressed: () async {
-                    final messageRef =
-                        FirebaseFirestore.instance.collection('Messages');
-                    FirebaseAuth auth = FirebaseAuth.instance;
-                    if (auth.currentUser != null) {
-                      await messageRef.doc().set({
-                        "u1": FirebaseAuth.instance.currentUser?.uid,
-                        "u2": uid
-                      });
-                      Get.to(() => Chat());
-                    } else {
-                      Get.to(() => Login());
-                    }
-                    print(uid);
-                    print(FirebaseAuth.instance.currentUser?.uid);
-                  },
-                  style: ElevatedButton.styleFrom(
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10)),
-                      backgroundColor: Colors.blue),
-                  child: const Center(
-                    child: Text('Ta kontakt'),
-                  ))),
-        ],
-      ),
+        ),
+        SizedBox(
+            height: 40,
+            child: ElevatedButton(
+                onPressed: () async {
+                  final messageRef =
+                      FirebaseFirestore.instance.collection('Messages');
+                  FirebaseAuth auth = FirebaseAuth.instance;
+                  if (auth.currentUser != null) {
+                    await messageRef.doc().set({
+                      "u1": FirebaseAuth.instance.currentUser?.uid,
+                      "u2": uid
+                    });
+                    Get.to(() => Chat());
+                  } else {
+                    Get.to(() => Login());
+                  }
+                  print(uid);
+                  print(FirebaseAuth.instance.currentUser?.uid);
+                },
+                style: ElevatedButton.styleFrom(
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10)),
+                    backgroundColor: Colors.blue),
+                child: const Center(
+                  child: Text('Ta kontakt'),
+                ))),
+      ],
     );
   }
 }

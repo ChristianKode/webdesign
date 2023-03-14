@@ -32,12 +32,16 @@ class SmallLoginBox extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Text.rich(TextSpan(style: const TextStyle(fontSize: 60), children: [
-            TextSpan(
-                text: 'UNG',
-                style: GoogleFonts.tinos(fontWeight: FontWeight.bold)),
-            TextSpan(text: 'ANSATT', style: GoogleFonts.tinos())
-          ])),
+          FittedBox(
+            fit: BoxFit.scaleDown,
+            child: Text.rich(
+                TextSpan(style: const TextStyle(fontSize: 60), children: [
+              TextSpan(
+                  text: 'UNG',
+                  style: GoogleFonts.tinos(fontWeight: FontWeight.bold)),
+              TextSpan(text: 'ANSATT', style: GoogleFonts.tinos())
+            ])),
+          ),
           Flexible(
             child: Container(
               width: 450,
