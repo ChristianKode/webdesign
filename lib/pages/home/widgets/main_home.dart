@@ -23,20 +23,26 @@ class LargeHome extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      key: scaffoldKey,
-      appBar: appBar(context, scaffoldKey),
-      drawer: const Drawer(
-        child: SideDrawer(),
-      ),
-      body: SingleChildScrollView(
-        child: Column(children: const <Widget>[
-          Top(),
-          HomeCard(),
-          JobList(),
-          HomeOwners(),
-          Footer()
-        ]),
+    return WillPopScope(
+      onWillPop: () async {
+        Navigator.pop(context);
+        return false;
+      },
+      child: Scaffold(
+        key: scaffoldKey,
+        appBar: appBar(context, scaffoldKey),
+        drawer: const Drawer(
+          child: SideDrawer(),
+        ),
+        body: SingleChildScrollView(
+          child: Column(children: const <Widget>[
+            Top(),
+            HomeCard(),
+            JobList(),
+            HomeOwners(),
+            Footer()
+          ]),
+        ),
       ),
     );
   }
