@@ -20,22 +20,28 @@ class _JobViewState extends State<JobView> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      key: scaffoldKey,
-      appBar: appBar(context, scaffoldKey),
-      drawer: const Drawer(
-        child: SideDrawer(),
-      ),
-      body: Column(
-        children: [
-          Expanded(
-            child: SingleChildScrollView(
-              child: Column(
-                children: [BodyRow(), const Footer()],
+    return WillPopScope(
+      onWillPop: () async {
+        Navigator.pop(context);
+        return false;
+      },
+      child: Scaffold(
+        key: scaffoldKey,
+        appBar: appBar(context, scaffoldKey),
+        drawer: const Drawer(
+          child: SideDrawer(),
+        ),
+        body: Column(
+          children: [
+            Expanded(
+              child: SingleChildScrollView(
+                child: Column(
+                  children: [BodyRow(), const Footer()],
+                ),
               ),
-            ),
-          )
-        ],
+            )
+          ],
+        ),
       ),
     );
   }
