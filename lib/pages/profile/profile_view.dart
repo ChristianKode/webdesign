@@ -26,27 +26,26 @@ class ProfileView extends StatefulWidget {
 class _ProfileViewState extends State<ProfileView> {
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey();
 
+  Future<void> getName() async {
+    final dataSnapshot = await userRef.get();
+
+    if (dataSnapshot.exists) {
+      final userData = dataSnapshot.data() as Map<dynamic, dynamic>;
+
+      setState(() {
+        userName = userData['firstname'] + ' ' + userData['lastname'];
+      });
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    getName();
+  }
+
   @override
   Widget build(BuildContext context) {
-    Future<void> getName() async {
-      final dataSnapshot = await userRef.get();
-
-      if (dataSnapshot.exists) {
-        final userData = dataSnapshot.data() as Map<dynamic, dynamic>;
-
-        setState(() {
-          userName = userData['firstname'] + ' ' + userData['lastname'];
-        });
-      }
-    }
-
-    @override
-    void initState() {
-      getName();
-      print(userName + currentUid!);
-      super.initState();
-    }
-
     return Scaffold(
       key: scaffoldKey,
       appBar: appBar(context, scaffoldKey),
