@@ -29,7 +29,8 @@ class ProfilItem extends StatelessWidget {
         height: 35,
         child: TextButton(
           onPressed: () {
-            Get.to(const ProfileView());
+            router.navigateTo(context, '/Profile',
+                transition: TransitionType.fadeIn);
           },
           child: const Text(
             'Profil ',
@@ -54,7 +55,8 @@ class NyAnnonseItem extends StatelessWidget {
         height: 35,
         child: TextButton(
           onPressed: () {
-            Get.to(const NewJob());
+            router.navigateTo(context, '/NewJob',
+                transition: TransitionType.fadeIn);
           },
           child: const Text(
             'Ny Annonse ',
@@ -79,7 +81,8 @@ class ChatItem extends StatelessWidget {
           height: 35,
           child: TextButton(
             onPressed: () {
-              Get.to(const Chat());
+              router.navigateTo(context, '/Chat',
+                  transition: TransitionType.fadeIn);
             },
             child: const Text(
               'Chat ',
@@ -130,7 +133,8 @@ class RegisterItem extends StatelessWidget {
       height: 50,
       child: ElevatedButton(
           onPressed: () {
-            Get.to(const Register());
+            router.navigateTo(context, '/Register',
+                transition: TransitionType.fadeIn);
           },
           style: ElevatedButton.styleFrom(
               shape: RoundedRectangleBorder(
@@ -173,7 +177,7 @@ AppBar appBar(BuildContext context, GlobalKey<ScaffoldState> key) => AppBar(
                         },
                         icon: const Icon(
                           Icons.menu,
-                          color: Colors.blue,
+                          color: Colors.black,
                         ));
               } else {
                 // Logged out

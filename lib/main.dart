@@ -16,7 +16,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fluro/fluro.dart';
 
-final FluroRouter router = FluroRouter();
+final router = FluroRouter();
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -41,13 +41,13 @@ Future<void> main() async {
   router.define('/JobView',
       handler: Handler(handlerFunc: (context, params) => JobView()));
 
-  runApp(MyApp());
+  runApp(MyApp(
+    router: router,
+  ));
 }
 
 class MyApp extends StatefulWidget {
-  MyApp({
-    super.key,
-  });
+  MyApp({required router});
 
   @override
   State<MyApp> createState() => _MyAppState();
@@ -67,26 +67,14 @@ class _MyAppState extends State<MyApp> {
         )
       ],
       child: GetMaterialApp(
+        onGenerateRoute: router.generator,
         debugShowCheckedModeBanner: false,
         title: 'UngAnsatt',
         initialRoute: '/',
         theme: ThemeData(
           primarySwatch: Colors.blue,
         ),
-        home: LargeHome(),
       ),
     );
   }
 }
-
-/*routes: {
-          '/': (_) => LargeHome(),
-          '/main_home': (_) => LargeHome(),
-          '/Register': (_) => const Register(),
-          '/Login': (_) => Login(),
-          '/Forgot': (_) => const Forgot(),
-          '/NewJob': (_) => const NewJob(),
-          '/Profile': (_) => const ProfileView(),
-          '/Chat': (_) => const Chat(),
-          '/JobView': (_) => JobView(),
-        },*/
