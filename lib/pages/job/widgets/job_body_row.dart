@@ -56,6 +56,8 @@ class _BodyRowState extends State<BodyRow> {
 
   bool isFavorited = false;
 
+  
+
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(

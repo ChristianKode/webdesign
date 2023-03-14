@@ -2,6 +2,7 @@ import 'dart:html';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:get/route_manager.dart';
 import 'package:provider/provider.dart';
@@ -112,6 +113,8 @@ class ChatGroupCards extends StatefulWidget {
 
 class _ChatGroupCardsState extends State<ChatGroupCards> {
   late Map<String, DocumentSnapshot> documentSnapshots;
+  late Map<String, dynamic> jobValue;
+  final _realtimeData = FirebaseDatabase.instance.ref();
 
   @override
   void initState() {
@@ -131,16 +134,37 @@ class _ChatGroupCardsState extends State<ChatGroupCards> {
         fireStore.collection('Users').doc(Uid2).get().then((value) {
           setState(() {
             documentSnapshots['user'] = value;
+            print(value.toString());
           });
         });
       } else {
         fireStore.collection('Users').doc(Uid1).get().then((value) {
           setState(() {
             documentSnapshots['user'] = value;
+            print(value.toString());
           });
         });
       }
     });
+  }
+
+  Future<String> findUser(String firstName, String lastName) async {
+    final _firestore = FirebaseFirestore.instance;
+    try {
+      QuerySnapshot<Map<String, dynamic>> querySnapshot = await _firestore
+          .collection('Users')
+          .where('firstname', isEqualTo: firstName)
+          .where('lastname', isEqualTo: lastName)
+          .get();
+
+      if (querySnapshot.docs.isNotEmpty) {
+        return querySnapshot.docs.first.id;
+      } else {
+        return 'No user found with the given first and last names.';
+      }
+    } catch (e) {
+      return 'Error: ${e.toString()}';
+    }
   }
 
   @override
@@ -157,6 +181,28 @@ class _ChatGroupCardsState extends State<ChatGroupCards> {
     final String firstName = userdata['firstname'];
     final String lastName = userdata['lastname'];
     final secondUserName = firstName + ' ' + lastName;
+    String secondUid = '';
+
+    Future<void> getJobValue() async {
+      String secondUid = '';
+      try {
+        // find user
+        final value = await findUser(firstName, lastName);
+        secondUid = value.toString();
+        print(secondUid);
+
+        // retrieve data from Firebase Realtime Database
+        final _currentAdSnapshot =
+            await _realtimeData.child('adventures/$secondUid').get();
+        final jobValue = _currentAdSnapshot.value as Map<String, dynamic>;
+        final img1 = jobValue['data']?['img1']?.toString() ?? '';
+        print(img1);
+        // use the value of img1
+        // ...
+      } catch (e) {
+        print('Error: $e');
+      }
+    }
 
     return InkWell(
       onTap: () {

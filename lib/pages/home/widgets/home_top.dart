@@ -29,34 +29,40 @@ class Top extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  SelectableText.rich(TextSpan(
-                      style: const TextStyle(
-                          fontSize: 34, fontWeight: FontWeight.bold),
-                      children: [
-                        TextSpan(
-                            text: 'Trenger du hjelp, ',
-                            style: GoogleFonts.tinos(
-                                fontWeight: FontWeight.bold,
-                                color: Colors.black)),
-                        TextSpan(
-                            text: 'ring her',
-                            style: GoogleFonts.tinos(
-                              color: const Color.fromARGB(255, 20, 141, 255),
-                            ))
-                      ])),
-                  SelectableText.rich(TextSpan(
-                      style: const TextStyle(
-                          fontSize: 50, fontWeight: FontWeight.bold),
-                      children: [
-                        TextSpan(
-                            text: '+47 ',
-                            style: GoogleFonts.tinos(
-                                fontWeight: FontWeight.bold,
-                                color:
-                                    const Color.fromARGB(255, 20, 141, 255))),
-                        TextSpan(
-                            text: ' 484 50 986', style: GoogleFonts.tinos())
-                      ])),
+                  FittedBox(
+                    fit: BoxFit.scaleDown,
+                    child: SelectableText.rich(TextSpan(
+                        style: const TextStyle(
+                            fontSize: 30, fontWeight: FontWeight.bold),
+                        children: [
+                          TextSpan(
+                              text: 'Trenger du hjelp, ',
+                              style: GoogleFonts.tinos(
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.black)),
+                          TextSpan(
+                              text: 'ring her',
+                              style: GoogleFonts.tinos(
+                                color: const Color.fromARGB(255, 20, 141, 255),
+                              ))
+                        ])),
+                  ),
+                  FittedBox(
+                    fit: BoxFit.scaleDown,
+                    child: SelectableText.rich(TextSpan(
+                        style: const TextStyle(
+                            fontSize: 45, fontWeight: FontWeight.bold),
+                        children: [
+                          TextSpan(
+                              text: '+47 ',
+                              style: GoogleFonts.tinos(
+                                  fontWeight: FontWeight.bold,
+                                  color:
+                                      const Color.fromARGB(255, 20, 141, 255))),
+                          TextSpan(
+                              text: ' 484 50 986', style: GoogleFonts.tinos())
+                        ])),
+                  ),
                 ],
               ),
             )
