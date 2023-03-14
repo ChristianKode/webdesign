@@ -85,234 +85,224 @@ class _LoggedInDrawerState extends State<LoggedInDrawer> {
 
   @override
   Widget build(BuildContext context) {
-    return WillPopScope(
-      onWillPop: () async {
-        Navigator.pop(context);
-        return false;
-      },
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Container(
-            width: MediaQuery.of(context).size.width,
-            height: 200,
-            color: Colors.blue,
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Container(
+          width: MediaQuery.of(context).size.width,
+          height: 200,
+          color: Colors.blue,
+          child: Column(
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(top: 30),
+                child: Container(
+                  height: 100,
+                  width: 100,
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(100),
+                      border: Border.all(color: Colors.white, width: 2)),
+                  child: ClipOval(
+                      child: Image.network(
+                          'https://firebasestorage.googleapis.com/v0/b/ungansatt123.appspot.com/o/assets%2Fprofile-circle-icon-512x512-dt9lf8um.png?alt=media&token=6b6eec31-abc3-43ad-ba01-69b374731ba9')),
+                ),
+              ),
+              SelectableText(
+                userName,
+                style: const TextStyle(fontSize: 22, color: Colors.white),
+              ),
+              SelectableText(
+                userMail,
+                style:
+                    const TextStyle(color: Color.fromARGB(216, 255, 255, 255)),
+              )
+            ],
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.only(top: 20, left: 15),
+          child: SizedBox(
+            height: 300,
             child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                Padding(
-                  padding: const EdgeInsets.only(top: 30),
-                  child: Container(
-                    height: 100,
-                    width: 100,
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(100),
-                        border: Border.all(color: Colors.white, width: 2)),
-                    child: ClipOval(
-                        child: Image.network(
-                            'https://firebasestorage.googleapis.com/v0/b/ungansatt123.appspot.com/o/assets%2Fprofile-circle-icon-512x512-dt9lf8um.png?alt=media&token=6b6eec31-abc3-43ad-ba01-69b374731ba9')),
+                InkWell(
+                  hoverColor: Colors.transparent,
+                  onHover: (value) => {
+                    setState(() {
+                      onHover0 = value;
+                    })
+                  },
+                  onTap: () {
+                    router.navigateTo(context, '/Hjem',
+                        transition: TransitionType.fadeIn);
+                  },
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      const Padding(
+                        padding: EdgeInsets.only(right: 12),
+                        child: Icon(Icons.home_outlined),
+                      ),
+                      Text(
+                        'Hjem',
+                        style: TextStyle(
+                            color: !onHover0 ? Colors.black : Colors.blue),
+                      )
+                    ],
                   ),
                 ),
-                SelectableText(
-                  userName,
-                  style: const TextStyle(fontSize: 22, color: Colors.white),
+                InkWell(
+                  highlightColor: Colors.transparent,
+                  splashColor: Colors.transparent,
+                  hoverColor: Colors.transparent,
+                  onHover: (value) => {
+                    setState(() {
+                      onHover1 = value;
+                    })
+                  },
+                  onTap: () {
+                    router.navigateTo(context, '/NewJob',
+                        transition: TransitionType.fadeIn);
+                  },
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      const Padding(
+                        padding: EdgeInsets.only(right: 12),
+                        child: Icon(Icons.add_business_outlined),
+                      ),
+                      Text(
+                        'Ny annonse',
+                        style: TextStyle(
+                            color: !onHover1 ? Colors.black : Colors.blue),
+                      )
+                    ],
+                  ),
                 ),
-                SelectableText(
-                  userMail,
-                  style: const TextStyle(
-                      color: Color.fromARGB(216, 255, 255, 255)),
-                )
+                InkWell(
+                  highlightColor: Colors.transparent,
+                  splashColor: Colors.transparent,
+                  hoverColor: Colors.transparent,
+                  onHover: (value) => {
+                    setState(() {
+                      onHover2 = value;
+                    })
+                  },
+                  onTap: () {
+                    router.navigateTo(context, '/Chat',
+                        transition: TransitionType.fadeIn);
+                  },
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      const Padding(
+                        padding: EdgeInsets.only(right: 12),
+                        child: Icon(Icons.chat_outlined),
+                      ),
+                      Text(
+                        'Meldinger',
+                        style: TextStyle(
+                            color: !onHover2 ? Colors.black : Colors.blue),
+                      )
+                    ],
+                  ),
+                ),
+                InkWell(
+                  highlightColor: Colors.transparent,
+                  splashColor: Colors.transparent,
+                  hoverColor: Colors.transparent,
+                  onHover: (value) => {
+                    setState(() {
+                      onHover3 = value;
+                    })
+                  },
+                  onTap: () {
+                    router.navigateTo(context, '/Profile',
+                        transition: TransitionType.fadeIn);
+                  },
+                  child: Row(
+                    children: [
+                      const Padding(
+                        padding: EdgeInsets.only(right: 12),
+                        child: Icon(Icons.favorite_border_outlined),
+                      ),
+                      Text(
+                        'Favoritter',
+                        style: TextStyle(
+                            color: !onHover3 ? Colors.black : Colors.blue),
+                      )
+                    ],
+                  ),
+                ),
+                InkWell(
+                  highlightColor: Colors.transparent,
+                  splashColor: Colors.transparent,
+                  hoverColor: Colors.transparent,
+                  onHover: (value) => {
+                    setState(() {
+                      onHover4 = value;
+                    })
+                  },
+                  onTap: () {
+                    router.navigateTo(context, '/Profile',
+                        transition: TransitionType.fadeIn);
+                  },
+                  child: Row(
+                    children: [
+                      const Padding(
+                        padding: EdgeInsets.only(right: 12),
+                        child: Icon(Icons.settings_outlined),
+                      ),
+                      Text(
+                        'Innstillinger',
+                        style: TextStyle(
+                            color: !onHover4 ? Colors.black : Colors.blue),
+                      )
+                    ],
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(right: 30),
+                  child: Container(
+                    width: MediaQuery.of(context).size.width - 250,
+                    height: 0.8,
+                    color: Colors.black,
+                  ),
+                ),
+                InkWell(
+                  highlightColor: Colors.transparent,
+                  splashColor: Colors.transparent,
+                  hoverColor: Colors.transparent,
+                  onHover: (value) => {
+                    setState(() {
+                      onHover5 = value;
+                    })
+                  },
+                  onTap: () async {
+                    await FirebaseAuth.instance.signOut();
+                    router.navigateTo(context, '/Hjem',
+                        transition: TransitionType.fadeIn);
+                  },
+                  child: Row(
+                    children: [
+                      const Padding(
+                        padding: EdgeInsets.only(right: 12),
+                        child: Icon(Icons.logout_outlined),
+                      ),
+                      Text(
+                        'Logg ut',
+                        style: TextStyle(
+                            color: !onHover5 ? Colors.black : Colors.blue),
+                      )
+                    ],
+                  ),
+                ),
               ],
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.only(top: 20, left: 15),
-            child: SizedBox(
-              height: 300,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  InkWell(
-                    hoverColor: Colors.transparent,
-                    onHover: (value) => {
-                      setState(() {
-                        onHover0 = value;
-                      })
-                    },
-                    onTap: () {
-                      router.navigateTo(context, '/Hjem',
-                          transition: TransitionType.fadeIn);
-                    },
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        const Padding(
-                          padding: EdgeInsets.only(right: 12),
-                          child: Icon(Icons.home_outlined),
-                        ),
-                        Text(
-                          'Hjem',
-                          style: TextStyle(
-                              color: !onHover0 ? Colors.black : Colors.blue),
-                        )
-                      ],
-                    ),
-                  ),
-                  InkWell(
-                    highlightColor: Colors.transparent,
-                    splashColor: Colors.transparent,
-                    hoverColor: Colors.transparent,
-                    onHover: (value) => {
-                      setState(() {
-                        onHover1 = value;
-                      })
-                    },
-                    onTap: () {
-                      router.navigateTo(context, '/NewJob',
-                          transition: TransitionType.fadeIn);
-                    },
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        const Padding(
-                          padding: EdgeInsets.only(right: 12),
-                          child: Icon(Icons.add_business_outlined),
-                        ),
-                        Text(
-                          'Ny annonse',
-                          style: TextStyle(
-                              color: !onHover1 ? Colors.black : Colors.blue),
-                        )
-                      ],
-                    ),
-                  ),
-                  InkWell(
-                    highlightColor: Colors.transparent,
-                    splashColor: Colors.transparent,
-                    hoverColor: Colors.transparent,
-                    onHover: (value) => {
-                      setState(() {
-                        onHover2 = value;
-                      })
-                    },
-                    onTap: () {
-                      Navigator.push(context,
-                          MaterialPageRoute(builder: (context) => Chat()));
-                    },
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        const Padding(
-                          padding: EdgeInsets.only(right: 12),
-                          child: Icon(Icons.chat_outlined),
-                        ),
-                        Text(
-                          'Meldinger',
-                          style: TextStyle(
-                              color: !onHover2 ? Colors.black : Colors.blue),
-                        )
-                      ],
-                    ),
-                  ),
-                  InkWell(
-                    highlightColor: Colors.transparent,
-                    splashColor: Colors.transparent,
-                    hoverColor: Colors.transparent,
-                    onHover: (value) => {
-                      setState(() {
-                        onHover3 = value;
-                      })
-                    },
-                    onTap: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => ProfileView()));
-                    },
-                    child: Row(
-                      children: [
-                        const Padding(
-                          padding: EdgeInsets.only(right: 12),
-                          child: Icon(Icons.favorite_border_outlined),
-                        ),
-                        Text(
-                          'Favoritter',
-                          style: TextStyle(
-                              color: !onHover3 ? Colors.black : Colors.blue),
-                        )
-                      ],
-                    ),
-                  ),
-                  InkWell(
-                    highlightColor: Colors.transparent,
-                    splashColor: Colors.transparent,
-                    hoverColor: Colors.transparent,
-                    onHover: (value) => {
-                      setState(() {
-                        onHover4 = value;
-                      })
-                    },
-                    onTap: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => ProfileView()));
-                    },
-                    child: Row(
-                      children: [
-                        const Padding(
-                          padding: EdgeInsets.only(right: 12),
-                          child: Icon(Icons.settings_outlined),
-                        ),
-                        Text(
-                          'Innstillinger',
-                          style: TextStyle(
-                              color: !onHover4 ? Colors.black : Colors.blue),
-                        )
-                      ],
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(right: 30),
-                    child: Container(
-                      width: MediaQuery.of(context).size.width - 250,
-                      height: 0.8,
-                      color: Colors.black,
-                    ),
-                  ),
-                  InkWell(
-                    highlightColor: Colors.transparent,
-                    splashColor: Colors.transparent,
-                    hoverColor: Colors.transparent,
-                    onHover: (value) => {
-                      setState(() {
-                        onHover5 = value;
-                      })
-                    },
-                    onTap: () async {
-                      await FirebaseAuth.instance.signOut();
-                      Navigator.pushReplacement(context,
-                          MaterialPageRoute(builder: (context) => LargeHome()));
-                    },
-                    child: Row(
-                      children: [
-                        const Padding(
-                          padding: EdgeInsets.only(right: 12),
-                          child: Icon(Icons.logout_outlined),
-                        ),
-                        Text(
-                          'Logg ut',
-                          style: TextStyle(
-                              color: !onHover5 ? Colors.black : Colors.blue),
-                        )
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          )
-        ],
-      ),
+        )
+      ],
     );
   }
 }
