@@ -190,8 +190,8 @@ class _LoggedInDrawerState extends State<LoggedInDrawer> {
                     })
                   },
                   onTap: () {
-                    router.navigateTo(context, '/Chat',
-                        transition: TransitionType.fadeIn);
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => Chat()));
                   },
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.start,
@@ -218,8 +218,8 @@ class _LoggedInDrawerState extends State<LoggedInDrawer> {
                     })
                   },
                   onTap: () {
-                    router.navigateTo(context, '/Profile',
-                        transition: TransitionType.fadeIn);
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => ProfileView()));
                   },
                   child: Row(
                     children: [
@@ -245,7 +245,8 @@ class _LoggedInDrawerState extends State<LoggedInDrawer> {
                     })
                   },
                   onTap: () {
-                    Get.to(() => ProfileView());
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => ProfileView()));
                   },
                   child: Row(
                     children: [
