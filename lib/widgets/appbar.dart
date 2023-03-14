@@ -169,7 +169,7 @@ AppBar appBar(BuildContext context, GlobalKey<ScaffoldState> key) => AppBar(
                         },
                         icon: const Icon(
                           Icons.menu,
-                          color: Colors.blue,
+                          color: Colors.black,
                         ));
               } else {
                 return !ResponsiveLayout.isSmallScreen(context)
