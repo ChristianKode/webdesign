@@ -86,8 +86,9 @@ class _LoggedInDrawerState extends State<LoggedInDrawer> {
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
-      onWillPop: () {
+      onWillPop: () async {
         Navigator.pop(context);
+        return false;
       },
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
