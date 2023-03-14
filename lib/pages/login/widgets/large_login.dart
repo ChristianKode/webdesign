@@ -98,12 +98,16 @@ class LoginBox extends StatelessWidget {
           const SizedBox(
             height: 150,
           ),
-          Text.rich(TextSpan(style: const TextStyle(fontSize: 60), children: [
-            TextSpan(
-                text: 'UNG',
-                style: GoogleFonts.tinos(fontWeight: FontWeight.bold)),
-            TextSpan(text: 'ANSATT', style: GoogleFonts.tinos())
-          ])),
+          FittedBox(
+            fit: BoxFit.scaleDown,
+            child: Text.rich(
+                TextSpan(style: const TextStyle(fontSize: 60), children: [
+              TextSpan(
+                  text: 'UNG',
+                  style: GoogleFonts.tinos(fontWeight: FontWeight.bold)),
+              TextSpan(text: 'ANSATT', style: GoogleFonts.tinos())
+            ])),
+          ),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 2, vertical: 0),
             child: SizedBox(

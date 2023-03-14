@@ -107,13 +107,22 @@ class _SmallBodyColumnState extends State<SmallBodyColumn> {
     return Column(
       children: [
         const SizedBox(
-          height: 150,
+          height: 30,
         ),
 
         // Main image
-        Text(img1),
+        Container(
+          height: MediaQuery.of(context).size.width,
+          width: MediaQuery.of(context).size.width,
+          child: Image.network(img1, fit: BoxFit.cover),
+        ),
+
+        const SizedBox(
+          height: 20,
+        ),
 
         Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             // Favorite button
             const SizedBox(width: 200, height: 40, child: FavoriteButton()),
