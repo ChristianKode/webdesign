@@ -115,152 +115,120 @@ class _FillOutState extends State<FillOut> {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Padding(
-          padding: const EdgeInsets.all(30),
+          padding: const EdgeInsets.all(20),
           child: Container(
             height: MediaQuery.of(context).size.height * 0.80,
             width: 450,
             decoration: BoxDecoration(
                 color: Colors.white, borderRadius: BorderRadius.circular(5)),
             child: SingleChildScrollView(
-              child: Flexible(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    const SizedBox(
-                      height: 30,
-                    ),
-                    Text('Hva skal utføres?',
-                        style: GoogleFonts.tinos(
-                            fontSize: 30, fontWeight: FontWeight.bold)),
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    SizedBox(
-                      width: 350,
-                      child: TextField(
-                        controller: titleCon,
-                        decoration: const InputDecoration(
-                          labelText: 'Overskrift',
-                          focusedBorder: OutlineInputBorder(
-                            borderSide:
-                                BorderSide(color: Colors.blue, width: 2),
-                            borderRadius: BorderRadius.all(Radius.circular(2)),
-                          ),
-                          border: OutlineInputBorder(
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(2))),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  const SizedBox(
+                    height: 30,
+                  ),
+                  Text('Hva skal utføres?',
+                      style: GoogleFonts.tinos(
+                          fontSize: 30, fontWeight: FontWeight.bold)),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  SizedBox(
+                    width: 350,
+                    child: TextField(
+                      controller: titleCon,
+                      decoration: const InputDecoration(
+                        labelText: 'Overskrift',
+                        focusedBorder: OutlineInputBorder(
+                          borderSide: BorderSide(color: Colors.blue, width: 2),
+                          borderRadius: BorderRadius.all(Radius.circular(2)),
                         ),
+                        border: OutlineInputBorder(
+                            borderRadius: BorderRadius.all(Radius.circular(2))),
                       ),
                     ),
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    SizedBox(
-                      height: 200,
-                      width: 350,
-                      child: TextField(
-                        controller: descpritionCon,
-                        decoration: const InputDecoration(
-                          labelText: 'Beskrivelse',
-                          focusedBorder: OutlineInputBorder(
-                            borderSide:
-                                BorderSide(color: Colors.blue, width: 2),
-                            borderRadius: BorderRadius.all(Radius.circular(2)),
-                          ),
-                          border: OutlineInputBorder(
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(2))),
+                  ),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  SizedBox(
+                    height: 200,
+                    width: 350,
+                    child: TextField(
+                      controller: descpritionCon,
+                      decoration: const InputDecoration(
+                        labelText: 'Beskrivelse',
+                        focusedBorder: OutlineInputBorder(
+                          borderSide: BorderSide(color: Colors.blue, width: 2),
+                          borderRadius: BorderRadius.all(Radius.circular(2)),
                         ),
-                        minLines: 10,
-                        maxLines: 10,
+                        border: OutlineInputBorder(
+                            borderRadius: BorderRadius.all(Radius.circular(2))),
                       ),
+                      minLines: 10,
+                      maxLines: 10,
                     ),
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    Row(
-                      children: [
-                        Container(
-                          alignment: Alignment.centerLeft,
-                          child: const Padding(
-                            padding:
-                                EdgeInsets.only(left: 50, bottom: 7, top: 10),
-                            child: Text('Bilder'),
-                          ),
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  Row(
+                    children: [
+                      Container(
+                        alignment: Alignment.centerLeft,
+                        child: const Padding(
+                          padding:
+                              EdgeInsets.only(left: 50, bottom: 7, top: 10),
+                          child: Text('Bilder'),
                         ),
-                        Expanded(
-                            child: selectFile.isEmpty
-                                ? const SizedBox(
-                                    height: 1,
-                                  )
-                                : Padding(
-                                    padding: const EdgeInsets.only(bottom: 20),
-                                    child: SizedBox(
-                                        height: 100,
-                                        child:
-                                            Image.memory(selectedImageInBytes)),
-                                  )),
-                      ],
-                    ),
-                    SizedBox(
-                      width: 350,
-                      height: 40,
-                      child: ElevatedButton(
-                          onPressed: () async {
-                            _selectFile(true);
-                          },
-                          style: ElevatedButton.styleFrom(
-                              shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(2)),
-                              backgroundColor: Colors.blue),
-                          child: const Text(
-                            'Last opp',
-                            style: TextStyle(fontSize: 15),
-                          )),
-                    ),
-                    Container(
-                      alignment: Alignment.centerLeft,
-                      child: const Padding(
-                        padding: EdgeInsets.only(left: 50, top: 30),
-                        child: Text('Hvor er dette?'),
                       ),
-                    ),
-                    const SizedBox(
-                      height: 7,
-                    ),
-                    SizedBox(
-                        width: 350,
-                        child: TextField(
-                          controller: addressCon,
-                          decoration: const InputDecoration(
-                            labelText: 'Gate',
-                            focusedBorder: OutlineInputBorder(
-                              borderSide:
-                                  BorderSide(color: Colors.blue, width: 2),
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(2)),
-                            ),
-                            border: OutlineInputBorder(
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(2))),
-                          ),
+                      Expanded(
+                          child: selectFile.isEmpty
+                              ? const SizedBox(
+                                  height: 1,
+                                )
+                              : Padding(
+                                  padding: const EdgeInsets.only(bottom: 20),
+                                  child: SizedBox(
+                                      height: 100,
+                                      child:
+                                          Image.memory(selectedImageInBytes)),
+                                )),
+                    ],
+                  ),
+                  SizedBox(
+                    width: 350,
+                    height: 40,
+                    child: ElevatedButton(
+                        onPressed: () async {
+                          _selectFile(true);
+                        },
+                        style: ElevatedButton.styleFrom(
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(2)),
+                            backgroundColor: Colors.blue),
+                        child: const Text(
+                          'Last opp',
+                          style: TextStyle(fontSize: 15),
                         )),
-                    Container(
-                      alignment: Alignment.centerLeft,
-                      child: const Padding(
-                        padding: EdgeInsets.only(left: 50, top: 30),
-                        child: Text('Hvor er dette?'),
-                      ),
+                  ),
+                  Container(
+                    alignment: Alignment.centerLeft,
+                    child: const Padding(
+                      padding: EdgeInsets.only(left: 50, top: 30),
+                      child: Text('Hvor er dette?'),
                     ),
-                    const SizedBox(
-                      height: 7,
-                    ),
-                    SizedBox(
+                  ),
+                  const SizedBox(
+                    height: 7,
+                  ),
+                  SizedBox(
                       width: 350,
                       child: TextField(
-                        controller: zipcodeCon,
+                        controller: addressCon,
                         decoration: const InputDecoration(
-                          labelText: 'Postnummer',
+                          labelText: 'Gate',
                           focusedBorder: OutlineInputBorder(
                             borderSide:
                                 BorderSide(color: Colors.blue, width: 2),
@@ -270,56 +238,77 @@ class _FillOutState extends State<FillOut> {
                               borderRadius:
                                   BorderRadius.all(Radius.circular(2))),
                         ),
-                      ),
+                      )),
+                  Container(
+                    alignment: Alignment.centerLeft,
+                    child: const Padding(
+                      padding: EdgeInsets.only(left: 50, top: 30),
+                      child: Text('Hvor er dette?'),
                     ),
-                    Container(
-                      alignment: Alignment.centerLeft,
-                      child: const Padding(
-                        padding: EdgeInsets.only(left: 50, top: 30, bottom: 7),
-                        child: Text('Belønning?'),
-                      ),
-                    ),
-                    SizedBox(
-                      width: 350,
-                      child: TextField(
-                        controller: priceCon,
-                        decoration: const InputDecoration(
-                          labelText: 'Pris',
-                          focusedBorder: OutlineInputBorder(
-                            borderSide:
-                                BorderSide(color: Colors.blue, width: 2),
-                            borderRadius: BorderRadius.all(Radius.circular(2)),
-                          ),
-                          border: OutlineInputBorder(
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(2))),
+                  ),
+                  const SizedBox(
+                    height: 7,
+                  ),
+                  SizedBox(
+                    width: 350,
+                    child: TextField(
+                      controller: zipcodeCon,
+                      decoration: const InputDecoration(
+                        labelText: 'Postnummer',
+                        focusedBorder: OutlineInputBorder(
+                          borderSide: BorderSide(color: Colors.blue, width: 2),
+                          borderRadius: BorderRadius.all(Radius.circular(2)),
                         ),
+                        border: OutlineInputBorder(
+                            borderRadius: BorderRadius.all(Radius.circular(2))),
                       ),
                     ),
-                    const SizedBox(
-                      height: 30,
+                  ),
+                  Container(
+                    alignment: Alignment.centerLeft,
+                    child: const Padding(
+                      padding: EdgeInsets.only(left: 50, top: 30, bottom: 7),
+                      child: Text('Belønning?'),
                     ),
-                    SizedBox(
-                      width: 350,
-                      height: 40,
-                      child: ElevatedButton(
-                          onPressed: () {
-                            upload();
-                          },
-                          style: ElevatedButton.styleFrom(
-                              shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(2)),
-                              backgroundColor: Colors.blue),
-                          child: const Text(
-                            'Fullfør',
-                            style: TextStyle(fontSize: 15),
-                          )),
+                  ),
+                  SizedBox(
+                    width: 350,
+                    child: TextField(
+                      controller: priceCon,
+                      decoration: const InputDecoration(
+                        labelText: 'Pris',
+                        focusedBorder: OutlineInputBorder(
+                          borderSide: BorderSide(color: Colors.blue, width: 2),
+                          borderRadius: BorderRadius.all(Radius.circular(2)),
+                        ),
+                        border: OutlineInputBorder(
+                            borderRadius: BorderRadius.all(Radius.circular(2))),
+                      ),
                     ),
-                    const SizedBox(
-                      height: 100,
-                    )
-                  ],
-                ),
+                  ),
+                  const SizedBox(
+                    height: 30,
+                  ),
+                  SizedBox(
+                    width: 350,
+                    height: 40,
+                    child: ElevatedButton(
+                        onPressed: () {
+                          upload();
+                        },
+                        style: ElevatedButton.styleFrom(
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(2)),
+                            backgroundColor: Colors.blue),
+                        child: const Text(
+                          'Fullfør',
+                          style: TextStyle(fontSize: 15),
+                        )),
+                  ),
+                  const SizedBox(
+                    height: 100,
+                  )
+                ],
               ),
             ),
           ),

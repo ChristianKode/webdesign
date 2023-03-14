@@ -101,9 +101,40 @@ class SmallBodyColumn extends StatefulWidget {
 }
 
 class _SmallBodyColumnState extends State<SmallBodyColumn> {
+  late Map<String, DocumentSnapshot> documentSnapshots;
+
+  @override
+  void initState() {
+    super.initState();
+    documentSnapshots = {};
+    _fetchUserDocument();
+  }
+
+  Future<void> _fetchUserDocument() async {
+    try {
+      final userSnapshot =
+          await FirebaseFirestore.instance.collection('Users').doc(uid).get();
+      if (userSnapshot.exists) {
+        setState(() {
+          documentSnapshots['user'] = userSnapshot;
+        });
+      } else {
+        print('User document does not exist');
+      }
+    } catch (e) {
+      print('Error fetching user document: $e');
+    }
+  }
+
   bool onHover0 = false;
   @override
   Widget build(BuildContext context) {
+    final authorIdentity = documentSnapshots.containsKey('user')
+        ? documentSnapshots['user']!.data() as Map<String, dynamic>
+        : null;
+    final authorName = authorIdentity != null
+        ? authorIdentity['firstname'] + ' ' + authorIdentity['lastname']
+        : '';
     return Column(
       children: [
         const SizedBox(
@@ -255,20 +286,78 @@ class _SmallBodyColumnState extends State<SmallBodyColumn> {
             height: 40,
             child: ElevatedButton(
                 onPressed: () async {
-                  final messageRef =
-                      FirebaseFirestore.instance.collection('Messages');
-                  FirebaseAuth auth = FirebaseAuth.instance;
-                  if (auth.currentUser != null) {
-                    await messageRef.doc().set({
-                      "u1": FirebaseAuth.instance.currentUser?.uid,
-                      "u2": uid
-                    });
-                    Get.to(() => Chat());
+                  final authorId = uid;
+                  String existingChatId = '';
+                  List<DocumentSnapshot> results = [];
+
+                  final Uid1querySnapshot = await FirebaseFirestore.instance
+                      .collection('Messages')
+                      .where("Uid1", whereIn: [uid, authorId]).get();
+
+                  final Uid1matchUid = await FirebaseFirestore.instance
+                      .collection('Messages')
+                      .where('Uid2', isEqualTo: authorId)
+                      .get();
+
+                  final Uid1matchAuthorID = await FirebaseFirestore.instance
+                      .collection('Messages')
+                      .where('Uid2', isEqualTo: uid)
+                      .get();
+
+                  Uid1querySnapshot.docs.forEach((doc) {
+                    if (doc.data()['Uid1'] == uid) {
+                      // UID found in 'Uid1' field
+                      print('${doc.id}: UID found');
+                      results.addAll(Uid1matchUid.docs);
+                    } else {
+                      // Author ID found in 'Uid1' field
+
+                      print('${doc.id}: author ID found');
+                      results.addAll(Uid1matchAuthorID.docs);
+                    }
+                  });
+
+                  print('Results:');
+                  results.forEach((doc) {
+                    print('${doc.id}: ${doc.data()}');
+                    if (existingChatId == '') {
+                      existingChatId = doc.id;
+                    }
+                  });
+
+                  if (results.isNotEmpty) {
+                    // take user to existing chat
+                    Get.to(() => ChatUI(
+                        chatGroupId: existingChatId,
+                        secondUserName: authorName));
                   } else {
-                    Get.to(() => Login());
+                    // new chat group
+                    final messageRef =
+                        FirebaseFirestore.instance.collection('Messages');
+                    final currentUser = FirebaseAuth.instance.currentUser?.uid;
+
+                    if (currentUser != null) {
+                      try {
+                        final newDocumentRef = messageRef.doc();
+                        final newDocumentId = newDocumentRef.id;
+
+                        newDocumentRef.set({
+                          "Uid1": currentUser,
+                          "Uid2": uid,
+                        });
+
+                        Get.to(() => ChatUI(
+                              chatGroupId: newDocumentId,
+                              secondUserName: authorName,
+                            ));
+                      } catch (e) {
+                        // Handle the error here
+                        print('Error creating new document: $e');
+                      }
+                    } else {
+                      Get.to(() => Login());
+                    }
                   }
-                  print(uid);
-                  print(FirebaseAuth.instance.currentUser?.uid);
                 },
                 style: ElevatedButton.styleFrom(
                     shape: RoundedRectangleBorder(
@@ -277,6 +366,44 @@ class _SmallBodyColumnState extends State<SmallBodyColumn> {
                 child: const Center(
                   child: Text('Ta kontakt'),
                 ))),
+        const SizedBox(
+          height: 30,
+        ),
+        Container(
+          decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(10),
+              color: Color.fromARGB(255, 212, 235, 255)),
+          child: Padding(
+            padding: const EdgeInsets.all(20.0),
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Container(
+                  height: 50,
+                  width: 50,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(100),
+                  ),
+                  child: ClipOval(
+                      child: Image.network(
+                          'https://firebasestorage.googleapis.com/v0/b/ungansatt123.appspot.com/o/assets%2Fprofile-circle-icon-512x512-dt9lf8um.png?alt=media&token=6b6eec31-abc3-43ad-ba01-69b374731ba9')),
+                ),
+                Flexible(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      SelectableText(
+                        authorName,
+                        style: GoogleFonts.tinos(fontSize: 25),
+                      ),
+                      TextButton(onPressed: () {}, child: Text('Vis profil'))
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
       ],
     );
   }
