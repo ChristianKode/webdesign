@@ -134,8 +134,8 @@ class _LoggedInDrawerState extends State<LoggedInDrawer> {
                     })
                   },
                   onTap: () {
-                    router.navigateTo(context, '/Hjem',
-                        transition: TransitionType.fadeIn);
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => LargeHome()));
                   },
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.start,
@@ -162,8 +162,8 @@ class _LoggedInDrawerState extends State<LoggedInDrawer> {
                     })
                   },
                   onTap: () {
-                    router.navigateTo(context, '/NewJob',
-                        transition: TransitionType.fadeIn);
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => NewJob()));
                   },
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.start,
