@@ -134,8 +134,8 @@ class _LoggedInDrawerState extends State<LoggedInDrawer> {
                     })
                   },
                   onTap: () {
-                    router.navigateTo(context, '/Hjem',
-                        transition: TransitionType.fadeIn);
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => LargeHome()));
                   },
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.start,
@@ -162,8 +162,8 @@ class _LoggedInDrawerState extends State<LoggedInDrawer> {
                     })
                   },
                   onTap: () {
-                    router.navigateTo(context, '/NewJob',
-                        transition: TransitionType.fadeIn);
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => NewJob()));
                   },
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.start,
@@ -190,8 +190,8 @@ class _LoggedInDrawerState extends State<LoggedInDrawer> {
                     })
                   },
                   onTap: () {
-                    router.navigateTo(context, '/Chat',
-                        transition: TransitionType.fadeIn);
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => Chat()));
                   },
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.start,
@@ -218,8 +218,8 @@ class _LoggedInDrawerState extends State<LoggedInDrawer> {
                     })
                   },
                   onTap: () {
-                    router.navigateTo(context, '/Profile',
-                        transition: TransitionType.fadeIn);
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => ProfileView()));
                   },
                   child: Row(
                     children: [
@@ -245,8 +245,8 @@ class _LoggedInDrawerState extends State<LoggedInDrawer> {
                     })
                   },
                   onTap: () {
-                    router.navigateTo(context, '/Profile',
-                        transition: TransitionType.fadeIn);
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => ProfileView()));
                   },
                   child: Row(
                     children: [
@@ -281,8 +281,8 @@ class _LoggedInDrawerState extends State<LoggedInDrawer> {
                   },
                   onTap: () async {
                     await FirebaseAuth.instance.signOut();
-                    router.navigateTo(context, '/Hjem',
-                        transition: TransitionType.fadeIn);
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => LargeHome()));
                   },
                   child: Row(
                     children: [
@@ -351,7 +351,8 @@ class _LoggedOutDrawerState extends State<LoggedOutDrawer> {
               });
             },
             onTap: () {
-              Get.to(() => Login());
+              Navigator.push(
+                  context, MaterialPageRoute(builder: (context) => Login()));
             },
             child: Text(
               "Logg på",
@@ -373,7 +374,8 @@ class _LoggedOutDrawerState extends State<LoggedOutDrawer> {
               });
             },
             onTap: () {
-              Get.to(() => Login());
+              Navigator.push(
+                  context, MaterialPageRoute(builder: (context) => Login()));
             },
             child: Text(
               "Annonser",
