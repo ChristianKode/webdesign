@@ -56,8 +56,6 @@ class _BodyRowState extends State<BodyRow> {
 
   bool isFavorited = false;
 
-  
-
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
@@ -103,9 +101,40 @@ class SmallBodyColumn extends StatefulWidget {
 }
 
 class _SmallBodyColumnState extends State<SmallBodyColumn> {
+  late Map<String, DocumentSnapshot> documentSnapshots;
+
+  @override
+  void initState() {
+    super.initState();
+    documentSnapshots = {};
+    _fetchUserDocument();
+  }
+
+  Future<void> _fetchUserDocument() async {
+    try {
+      final userSnapshot =
+          await FirebaseFirestore.instance.collection('Users').doc(uid).get();
+      if (userSnapshot.exists) {
+        setState(() {
+          documentSnapshots['user'] = userSnapshot;
+        });
+      } else {
+        print('User document does not exist');
+      }
+    } catch (e) {
+      print('Error fetching user document: $e');
+    }
+  }
+
   bool onHover0 = false;
   @override
   Widget build(BuildContext context) {
+    final authorIdentity = documentSnapshots.containsKey('user')
+        ? documentSnapshots['user']!.data() as Map<String, dynamic>
+        : null;
+    final authorName = authorIdentity != null
+        ? authorIdentity['firstname'] + ' ' + authorIdentity['lastname']
+        : '';
     return Column(
       children: [
         const SizedBox(
@@ -257,20 +286,83 @@ class _SmallBodyColumnState extends State<SmallBodyColumn> {
             height: 40,
             child: ElevatedButton(
                 onPressed: () async {
-                  final messageRef =
-                      FirebaseFirestore.instance.collection('Messages');
-                  FirebaseAuth auth = FirebaseAuth.instance;
-                  if (auth.currentUser != null) {
-                    await messageRef.doc().set({
-                      "u1": FirebaseAuth.instance.currentUser?.uid,
-                      "u2": uid
-                    });
-                    Get.to(() => Chat());
+                  final authorId = uid;
+                  String existingChatId = '';
+                  final uid1 = FirebaseAuth.instance.currentUser?.uid;
+                  List<DocumentSnapshot> results = [];
+
+                  final Uid1querySnapshot = await FirebaseFirestore.instance
+                      .collection('Messages')
+                      .where("Uid1", whereIn: [uid1, authorId]).get();
+
+                  final Uid1matchUid = await FirebaseFirestore.instance
+                      .collection('Messages')
+                      .where('Uid2', isEqualTo: authorId)
+                      .get();
+
+                  final Uid1matchAuthorID = await FirebaseFirestore.instance
+                      .collection('Messages')
+                      .where('Uid2', isEqualTo: uid1)
+                      .get();
+
+                  Uid1querySnapshot.docs.forEach((doc) {
+                    if (doc.data()['Uid1'] == uid1) {
+                      // UID found in 'Uid1' field
+                      print('${doc.id}: UID found');
+                      results.addAll(Uid1matchUid.docs);
+                    } else {
+                      // Author ID found in 'Uid1' field
+
+                      print('${doc.id}: author ID found');
+                      results.addAll(Uid1matchAuthorID.docs);
+                    }
+                  });
+
+                  print('Results:');
+                  results.forEach((doc) {
+                    print('${doc.id}: ${doc.data()}');
+                    if (existingChatId == '') {
+                      existingChatId = doc.id;
+                      print(doc.id);
+                      print('docid');
+                    }
+                  });
+
+                  if (results.isNotEmpty) {
+                    // take user to existing chat
+                    Get.to(() => ChatUI(
+                        chatGroupId: existingChatId,
+                        secondUserName: authorName));
                   } else {
-                    Get.to(() => Login());
+                    // new chat group
+                    final messageRef =
+                        FirebaseFirestore.instance.collection('Messages');
+                    final currentUser = FirebaseAuth.instance.currentUser?.uid;
+
+                    if (currentUser != null) {
+                      try {
+                        final newDocumentRef = messageRef.doc();
+                        final newDocumentId = newDocumentRef.id;
+
+                        newDocumentRef.set({
+                          "Uid1": currentUser,
+                          "Uid2": uid,
+                        });
+
+                        Get.to(() => ChatUI(
+                              chatGroupId: newDocumentId,
+                              secondUserName: authorName,
+                            ));
+
+                        print(authorName + 'new');
+                      } catch (e) {
+                        // Handle the error here
+                        print('Error creating new document: $e');
+                      }
+                    } else {
+                      Get.to(() => Login());
+                    }
                   }
-                  print(uid);
-                  print(FirebaseAuth.instance.currentUser?.uid);
                 },
                 style: ElevatedButton.styleFrom(
                     shape: RoundedRectangleBorder(
@@ -475,13 +567,17 @@ class _LargeBodyColumnState extends State<LargeBodyColumn> {
                                   onPressed: () async {
                                     final authorId = uid;
                                     String existingChatId = '';
+                                    final uid1 =
+                                        FirebaseAuth.instance.currentUser?.uid;
                                     List<DocumentSnapshot> results = [];
 
                                     final Uid1querySnapshot =
                                         await FirebaseFirestore.instance
                                             .collection('Messages')
-                                            .where("Uid1",
-                                                whereIn: [uid, authorId]).get();
+                                            .where("Uid1", whereIn: [
+                                      uid1,
+                                      authorId
+                                    ]).get();
 
                                     final Uid1matchUid = await FirebaseFirestore
                                         .instance
@@ -492,11 +588,11 @@ class _LargeBodyColumnState extends State<LargeBodyColumn> {
                                     final Uid1matchAuthorID =
                                         await FirebaseFirestore.instance
                                             .collection('Messages')
-                                            .where('Uid2', isEqualTo: uid)
+                                            .where('Uid2', isEqualTo: uid1)
                                             .get();
 
                                     Uid1querySnapshot.docs.forEach((doc) {
-                                      if (doc.data()['Uid1'] == uid) {
+                                      if (doc.data()['Uid1'] == uid1) {
                                         // UID found in 'Uid1' field
                                         print('${doc.id}: UID found');
                                         results.addAll(Uid1matchUid.docs);
@@ -513,6 +609,8 @@ class _LargeBodyColumnState extends State<LargeBodyColumn> {
                                       print('${doc.id}: ${doc.data()}');
                                       if (existingChatId == '') {
                                         existingChatId = doc.id;
+                                        print(doc.id);
+                                        print('docid');
                                       }
                                     });
 
@@ -545,6 +643,8 @@ class _LargeBodyColumnState extends State<LargeBodyColumn> {
                                                 chatGroupId: newDocumentId,
                                                 secondUserName: authorName,
                                               ));
+
+                                          print(authorName + 'new');
                                         } catch (e) {
                                           // Handle the error here
                                           print(
