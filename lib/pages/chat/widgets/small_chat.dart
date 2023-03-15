@@ -276,7 +276,7 @@ class _SmallChatUIState extends State<SmallChatUI> {
                                     controller: _messageController,
                                     decoration: const InputDecoration(
                                       border: InputBorder.none,
-                                      hintText: 'Type your message',
+                                      hintText: 'Skriv din melding',
                                     ),
                                     onSubmitted: (value) async {
                                       final text =

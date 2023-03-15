@@ -203,7 +203,8 @@ class _ChatUIState extends State<ChatUI> {
 
                                           if (messages.isEmpty) {
                                             return const Center(
-                                              child: Text('No messages found.'),
+                                              child: Text(
+                                                  'Ingen meldinger funnet, gjerne vær den første'),
                                             );
                                           }
 
@@ -331,7 +332,7 @@ class _ChatUIState extends State<ChatUI> {
                                                 decoration:
                                                     const InputDecoration(
                                                   border: InputBorder.none,
-                                                  hintText: 'Type your message',
+                                                  hintText: 'Skriv din melding',
                                                 ),
                                                 onSubmitted: (value) async {
                                                   final text =
