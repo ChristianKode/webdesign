@@ -6,6 +6,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:uuid/uuid.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:file_picker/file_picker.dart';
+import 'package:webdesign/core/utils/responsive/theme.dart';
 import 'package:webdesign/pages/home/widgets/main_home.dart';
 import 'package:get/get.dart';
 import 'package:webdesign/core/utils/widgets/appbar.dart';
@@ -29,7 +30,7 @@ class LargeNewJob extends StatelessWidget {
                   image: NetworkImage(
                       'https://firebasestorage.googleapis.com/v0/b/ungansatt123.appspot.com/o/assets%2Fnewjob_background.jpg?alt=media&token=3c5212e1-dcbf-4a61-a6c8-bb13c9b9bb9e'),
                   fit: BoxFit.cover)),
-          child: FillOut()),
+          child: const FillOut()),
     );
   }
 }
@@ -124,7 +125,7 @@ class _FillOutState extends State<FillOut> {
             child: SingleChildScrollView(
               child: Padding(
                 padding: const EdgeInsets.all(30),
-                child: Container(
+                child: SizedBox(
                   width: 350,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
@@ -145,8 +146,7 @@ class _FillOutState extends State<FillOut> {
                           decoration: const InputDecoration(
                             labelText: 'Overskrift',
                             focusedBorder: OutlineInputBorder(
-                              borderSide:
-                                  BorderSide(color: Colors.blue, width: 2),
+                              borderSide: BorderSide(color: appColor, width: 2),
                               borderRadius:
                                   BorderRadius.all(Radius.circular(2)),
                             ),
@@ -167,8 +167,7 @@ class _FillOutState extends State<FillOut> {
                           decoration: const InputDecoration(
                             labelText: 'Beskrivelse',
                             focusedBorder: OutlineInputBorder(
-                              borderSide:
-                                  BorderSide(color: Colors.blue, width: 2),
+                              borderSide: BorderSide(color: appColor, width: 2),
                               borderRadius:
                                   BorderRadius.all(Radius.circular(2)),
                             ),
@@ -218,7 +217,7 @@ class _FillOutState extends State<FillOut> {
                             style: ElevatedButton.styleFrom(
                                 shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(2)),
-                                backgroundColor: Colors.blue),
+                                backgroundColor: appColor),
                             child: const Text(
                               'Last opp',
                               style: TextStyle(fontSize: 15),
@@ -242,7 +241,7 @@ class _FillOutState extends State<FillOut> {
                               labelText: 'Gate',
                               focusedBorder: OutlineInputBorder(
                                 borderSide:
-                                    BorderSide(color: Colors.blue, width: 2),
+                                    BorderSide(color: appColor, width: 2),
                                 borderRadius:
                                     BorderRadius.all(Radius.circular(2)),
                               ),
@@ -268,8 +267,7 @@ class _FillOutState extends State<FillOut> {
                           decoration: const InputDecoration(
                             labelText: 'Postnummer',
                             focusedBorder: OutlineInputBorder(
-                              borderSide:
-                                  BorderSide(color: Colors.blue, width: 2),
+                              borderSide: BorderSide(color: appColor, width: 2),
                               borderRadius:
                                   BorderRadius.all(Radius.circular(2)),
                             ),
@@ -294,8 +292,7 @@ class _FillOutState extends State<FillOut> {
                           decoration: const InputDecoration(
                             labelText: 'Pris',
                             focusedBorder: OutlineInputBorder(
-                              borderSide:
-                                  BorderSide(color: Colors.blue, width: 2),
+                              borderSide: BorderSide(color: appColor, width: 2),
                               borderRadius:
                                   BorderRadius.all(Radius.circular(2)),
                             ),
@@ -319,7 +316,7 @@ class _FillOutState extends State<FillOut> {
                             style: ElevatedButton.styleFrom(
                                 shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(2)),
-                                backgroundColor: Colors.blue),
+                                backgroundColor: appColor),
                             child: const Text(
                               'Fullfør',
                               style: TextStyle(fontSize: 15),
@@ -361,8 +358,7 @@ class Nav extends StatelessWidget {
                     style: GoogleFonts.tinos(
                         fontWeight: FontWeight.bold, color: Colors.black)),
                 TextSpan(
-                    text: 'ANSATT',
-                    style: GoogleFonts.tinos(color: Colors.blue))
+                    text: 'ANSATT', style: GoogleFonts.tinos(color: appColor))
               ]))))
         ],
       ),

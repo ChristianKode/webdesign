@@ -1,17 +1,15 @@
 // ignore_for_file: sized_box_for_whitespace
 
-import 'dart:js';
-
 import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:webdesign/core/service/authentication_services.dart';
+import 'package:webdesign/core/utils/responsive/responsive.dart';
+import 'package:webdesign/main.dart';
 import 'package:webdesign/pages/home/widgets/main_home.dart';
 import 'package:webdesign/pages/login/login.dart';
-import '../../../main.dart';
-import '../responsive/responsive.dart';
 
 class ProfilItem extends StatelessWidget {
   const ProfilItem({super.key});
@@ -200,7 +198,7 @@ AppBar appBar(BuildContext context, GlobalKey<ScaffoldState> key) => AppBar(
               }
             } else {
               // Firebase error
-              return Login();
+              return const Login();
             }
           }),
       title: FutureBuilder(
@@ -247,16 +245,16 @@ AppBar appBar(BuildContext context, GlobalKey<ScaffoldState> key) => AppBar(
                             Container(
                               width: MediaQuery.of(context).size.width - 760,
                             ),
-                            Padding(
-                                padding: const EdgeInsets.only(
+                            const Padding(
+                                padding: EdgeInsets.only(
                                     right: 5, top: 11, bottom: 11),
                                 child: NyAnnonseItem()),
-                            Padding(
-                                padding: const EdgeInsets.only(
+                            const Padding(
+                                padding: EdgeInsets.only(
                                     right: 5, top: 11, bottom: 11),
                                 child: ChatItem()),
-                            Padding(
-                                padding: const EdgeInsets.only(
+                            const Padding(
+                                padding: EdgeInsets.only(
                                     right: 5, top: 11, bottom: 11),
                                 child: ProfilItem()),
                           ],
@@ -332,15 +330,15 @@ AppBar appBar(BuildContext context, GlobalKey<ScaffoldState> key) => AppBar(
                             ),
                             Container(
                               width: 145,
-                              child: Padding(
-                                  padding: const EdgeInsets.only(
+                              child: const Padding(
+                                  padding: EdgeInsets.only(
                                       right: 10, top: 11, bottom: 11),
                                   child: LoginItem()),
                             ),
-                            SizedBox(
+                            const SizedBox(
                               width: 145,
                               child: Padding(
-                                  padding: const EdgeInsets.only(
+                                  padding: EdgeInsets.only(
                                       right: 8, top: 11, bottom: 11),
                                   child: RegisterItem()),
                             ),
@@ -378,7 +376,7 @@ AppBar appBar(BuildContext context, GlobalKey<ScaffoldState> key) => AppBar(
               }
             } else {
               // No connection with Firebase Auth. . .
-              return Login();
+              return const Login();
             }
           }),
     );

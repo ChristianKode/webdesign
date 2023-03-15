@@ -1,7 +1,7 @@
-// ignore_for_file: depend_on_referenced_packages
+// ignore_for_file: depend_on_referenced_packages, library_private_types_in_public_api,
 
 import 'dart:async';
-
+import 'package:webdesign/core/utils/responsive/theme.dart';
 import 'package:intl/intl.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -60,16 +60,11 @@ class _ChatUIState extends State<ChatUI> {
     super.dispose();
   }
 
-  void _chatChanged() {
-    _chatChangedController.sink.add(true);
-  }
-
   @override
   Widget build(BuildContext context) {
     final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey();
 
     String docid = widget.chatGroupId.isEmpty ? 'asd' : widget.chatGroupId;
-    String _currentName = widget.secondUserName;
 
     final messagesRef = FirebaseFirestore.instance
         .collection('Messages')
@@ -90,7 +85,7 @@ class _ChatUIState extends State<ChatUI> {
           body: ResponsiveLayout.isLargeScreen(context)
               ? Row(
                   children: [
-                    ChatList(),
+                    const ChatList(),
                     Flexible(
                       child: Container(
                         decoration: BoxDecoration(
@@ -156,8 +151,8 @@ class _ChatUIState extends State<ChatUI> {
                                                         constraints) {
                                                   final textSpan = TextSpan(
                                                     text: widget.secondUserName,
-                                                    style:
-                                                        TextStyle(fontSize: 16),
+                                                    style: const TextStyle(
+                                                        fontSize: 16),
                                                   );
                                                   final textPainter =
                                                       TextPainter(
@@ -172,7 +167,7 @@ class _ChatUIState extends State<ChatUI> {
                                                     width:
                                                         textPainter.width + 30,
                                                     height: 1,
-                                                    color: Colors.blue,
+                                                    color: appColor,
                                                   );
                                                 },
                                               ),
@@ -183,7 +178,7 @@ class _ChatUIState extends State<ChatUI> {
                                     ),
                               Expanded(
                                 child: widget.chatGroupId.isEmpty
-                                    ? NoSelectedChats()
+                                    ? const NoSelectedChats()
                                     : StreamBuilder<QuerySnapshot>(
                                         stream: messagesRef.snapshots(),
                                         builder: (context, snapshot) {
@@ -287,7 +282,10 @@ class _ChatUIState extends State<ChatUI> {
                                                         ),
                                                         isCurrentUser
                                                             ? Text(
-                                                                '${DateFormat.yMd().add_jm().format(timestamp.toDate())}',
+                                                                DateFormat.yMd()
+                                                                    .add_jm()
+                                                                    .format(timestamp
+                                                                        .toDate()),
                                                                 style:
                                                                     const TextStyle(
                                                                   fontSize: 12,
@@ -296,7 +294,10 @@ class _ChatUIState extends State<ChatUI> {
                                                                 ),
                                                               )
                                                             : Text(
-                                                                '${DateFormat.yMd().add_jm().format(timestamp.toDate())}',
+                                                                DateFormat.yMd()
+                                                                    .add_jm()
+                                                                    .format(timestamp
+                                                                        .toDate()),
                                                                 style:
                                                                     const TextStyle(
                                                                   fontSize: 12,
@@ -314,7 +315,7 @@ class _ChatUIState extends State<ChatUI> {
                                       ),
                               ),
                               widget.chatGroupId.isEmpty
-                                  ? SizedBox.shrink()
+                                  ? const SizedBox.shrink()
                                   : FocusScope(
                                       child: Container(
                                         decoration: BoxDecoration(
@@ -343,8 +344,7 @@ class _ChatUIState extends State<ChatUI> {
                                                         Timestamp.now();
                                                     final senderId =
                                                         uid; // Replace with the current user's ID
-                                                    const recipientId =
-                                                        'user2'; // Replace with the recipient's user ID
+// Replace with the recipient's user ID
 
                                                     navnesen(senderId, text,
                                                         timestamp, docid);
@@ -366,8 +366,7 @@ class _ChatUIState extends State<ChatUI> {
                                                       Timestamp.now();
                                                   final senderId =
                                                       uid; // Replace with the current user's ID
-                                                  const recipientId =
-                                                      'user2'; // Replace with the recipient's user ID
+// Replace with the recipient's user ID
 
                                                   navnesen(senderId, text,
                                                       timestamp, docid);
@@ -387,7 +386,7 @@ class _ChatUIState extends State<ChatUI> {
                     ),
                   ],
                 )
-              : Row(
+              : const Row(
                   children: [ChatList()],
                 )),
     );
@@ -399,7 +398,7 @@ class NoSelectedChats extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       width: 500,
       child: Column(
         children: [
@@ -413,7 +412,7 @@ class NoSelectedChats extends StatelessWidget {
               onPressed: () {},
               child: const Text(
                 'Sjekk ut populære oppdrag her',
-                style: TextStyle(color: Colors.blue, fontSize: 20),
+                style: TextStyle(color: appColor, fontSize: 20),
               ))
         ],
       ),

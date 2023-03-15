@@ -8,7 +8,7 @@ class Register extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ResponsiveWidget(
+    return const ResponsiveWidget(
         largeScreen: LargeRegister(),
         mediumScreen: LargeRegister(),
         smallScreen: SmallRegister());

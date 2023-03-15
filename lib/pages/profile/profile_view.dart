@@ -1,13 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
-import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:webdesign/pages/chat/widgets/group_chat_list.dart';
 import 'package:webdesign/pages/profile/widgets/profile_components.dart';
 import 'package:webdesign/core/utils/responsive/responsive.dart';
-import 'package:webdesign/core/utils/responsive/responsivebody.dart';
 import 'package:webdesign/core/utils/widgets/appbar.dart';
 import 'package:webdesign/core/utils/widgets/drawer.dart';
 import 'package:webdesign/core/utils/widgets/footer_overall.dart';
@@ -60,9 +55,9 @@ class _ProfileViewState extends State<ProfileView> {
         body: SingleChildScrollView(
           child: Column(
             children: [
-              HeaderInfo(userName, context),
+              headerInfo(userName, context),
               Container(
-                color: Color.fromARGB(6, 0, 0, 0),
+                color: const Color.fromARGB(6, 0, 0, 0),
                 width: MediaQuery.of(context).size.width,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
@@ -74,7 +69,7 @@ class _ProfileViewState extends State<ProfileView> {
                   ],
                 ),
               ),
-              Footer()
+              const Footer()
             ],
           ),
         ),
@@ -97,7 +92,7 @@ class _LargeProfileState extends State<LargeProfile> {
     double width = 320;
     return
         // Body
-        Container(
+        SizedBox(
       width: 1000,
       height: 300,
       child: Row(
@@ -136,7 +131,7 @@ class _SmallProfileState extends State<SmallProfile> {
   Widget build(BuildContext context) {
     double height = 200;
     double width = MediaQuery.of(context).size.width - 40;
-    return Container(
+    return SizedBox(
       width: MediaQuery.of(context).size.width,
       height: 400,
       child: Column(

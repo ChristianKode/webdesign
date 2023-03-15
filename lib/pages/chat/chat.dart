@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:webdesign/pages/chat/smallChat.dart';
-import 'package:webdesign/pages/chat/widgets/large_chat.dart';
 import 'package:webdesign/core/utils/responsive/responsivebody.dart';
 
 class Chat extends StatelessWidget {

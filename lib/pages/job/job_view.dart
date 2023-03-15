@@ -7,7 +7,7 @@ import '../../core/utils/widgets/appbar.dart';
 
 // ignore: must_be_immutable
 class JobView extends StatefulWidget {
-  JobView({
+  const JobView({
     super.key,
   });
 
@@ -31,12 +31,12 @@ class _JobViewState extends State<JobView> {
         drawer: const Drawer(
           child: SideDrawer(),
         ),
-        body: Column(
+        body: const Column(
           children: [
             Expanded(
               child: SingleChildScrollView(
                 child: Column(
-                  children: [BodyRow(), const Footer()],
+                  children: [BodyRow(), Footer()],
                 ),
               ),
             )

@@ -6,9 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:webdesign/main.dart';
 import 'package:webdesign/pages/job/job_view.dart';
-import 'package:webdesign/pages/job/widgets/job_body_row.dart';
 import 'package:webdesign/pages/login/login.dart';
 
 class JobList extends StatefulWidget {
@@ -92,9 +90,9 @@ class _JobListState extends State<JobList> {
                                         .doc(currentUid)
                                         .update({'aid': aid});
 
-                                    Get.to(() => JobView());
+                                    Get.to(() => const JobView());
                                   } else {
-                                    Get.to(() => Login());
+                                    Get.to(() => const Login());
                                   }
                                 },
                                 child: Padding(

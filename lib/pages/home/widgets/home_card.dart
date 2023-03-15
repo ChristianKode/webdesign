@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:webdesign/pages/login/login.dart';
-import 'package:webdesign/pages/newJob/newjob.dart';
 import 'package:webdesign/pages/newJob/widgets/large_newjob.dart';
 import 'package:webdesign/core/utils/responsive/responsive.dart';
 
@@ -77,7 +76,7 @@ class HomeCard extends StatelessWidget {
                                       if (userIn != null) {
                                         Get.to(() => LargeNewJob());
                                       } else {
-                                        Get.to(() => Login());
+                                        Get.to(() => const Login());
                                       }
                                     },
                                     child: const Text(
@@ -159,7 +158,7 @@ class HomeCard extends StatelessWidget {
                                   if (userIn != null) {
                                     Get.to(() => LargeNewJob());
                                   } else {
-                                    Get.to(() => Login());
+                                    Get.to(() => const Login());
                                   }
                                 },
                                 child: const Text(

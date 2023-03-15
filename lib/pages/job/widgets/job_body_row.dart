@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 import 'dart:async';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -6,13 +8,10 @@ import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:get/route_manager.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:uuid/uuid.dart';
-import 'package:webdesign/main.dart';
+import 'package:webdesign/core/utils/responsive/theme.dart';
 import 'package:webdesign/pages/chat/widgets/large_chat.dart';
 import 'package:webdesign/pages/login/login.dart';
 import 'package:webdesign/core/utils/responsive/responsive.dart';
-
-import '../../../core/service/message.dart';
 
 final _auth = FirebaseAuth.instance;
 final _fireStore = FirebaseFirestore.instance;
@@ -30,7 +29,7 @@ String address = '';
 String zipcode = '';
 
 class BodyRow extends StatefulWidget {
-  BodyRow({
+  const BodyRow({
     super.key,
   });
 
@@ -40,18 +39,18 @@ class BodyRow extends StatefulWidget {
 
 class _BodyRowState extends State<BodyRow> {
   Future<void> getAid() async {
-    DocumentSnapshot<Object?> _currentUserSnapshot =
+    DocumentSnapshot<Object?> currentUserSnapshot =
         await _fireStore.collection('Users').doc(_currentUser).get();
-    aid = _currentUserSnapshot.get('aid').toString();
+    aid = currentUserSnapshot.get('aid').toString();
   }
 
   Future<Map<String, dynamic>> getView() async {
     await getAid();
 
-    DataSnapshot _currentAdSnapshot =
-        (await _realtimeData.child('adventures/$aid').get()) as DataSnapshot;
+    DataSnapshot currentAdSnapshot =
+        (await _realtimeData.child('adventures/$aid').get());
 
-    return _currentAdSnapshot.value as Map<String, dynamic>? ?? {};
+    return currentAdSnapshot.value as Map<String, dynamic>? ?? {};
   }
 
   bool isFavorited = false;
@@ -65,7 +64,7 @@ class _BodyRowState extends State<BodyRow> {
           return Container(
               height: MediaQuery.of(context).size.height,
               alignment: Alignment.center,
-              child: CircularProgressIndicator());
+              child: const CircularProgressIndicator());
         } else {
           uid = snapshot.data?['uid']?.toString() ?? '';
           img1 = snapshot.data?['img1']?.toString() ?? '';
@@ -81,8 +80,8 @@ class _BodyRowState extends State<BodyRow> {
               alignment: Alignment.center,
               constraints: const BoxConstraints(maxWidth: 1052),
               child: !ResponsiveLayout.isSmallScreen(context)
-                  ? LargeBodyColumn()
-                  : SmallBodyColumn(),
+                  ? const LargeBodyColumn()
+                  : const SmallBodyColumn(),
             ),
           );
         }
@@ -142,7 +141,7 @@ class _SmallBodyColumnState extends State<SmallBodyColumn> {
         ),
 
         // Main image
-        Container(
+        SizedBox(
           height: MediaQuery.of(context).size.width,
           width: MediaQuery.of(context).size.width,
           child: Image.network(img1, fit: BoxFit.cover),
@@ -167,16 +166,16 @@ class _SmallBodyColumnState extends State<SmallBodyColumn> {
               height: 40,
               child: TextButton(
                   onPressed: () {},
-                  child: Row(
+                  child: const Row(
                     mainAxisAlignment: MainAxisAlignment.center,
-                    children: const [
+                    children: [
                       Icon(
                         Icons.ios_share,
-                        color: Colors.blue,
+                        color: appColor,
                       ),
                       Text(
                         'Kopier',
-                        style: TextStyle(color: Colors.blue),
+                        style: TextStyle(color: appColor),
                       )
                     ],
                   )),
@@ -237,7 +236,7 @@ class _SmallBodyColumnState extends State<SmallBodyColumn> {
               children: [
                 const Icon(
                   Icons.map_outlined,
-                  color: Colors.blue,
+                  color: appColor,
                 ),
                 InkWell(
                   highlightColor: Colors.transparent,
@@ -250,9 +249,9 @@ class _SmallBodyColumnState extends State<SmallBodyColumn> {
                   },
                   onTap: () {},
                   child: Text(
-                    '${zipcode}, ${address}',
+                    '$zipcode, $address',
                     style: GoogleFonts.tinos(
-                        color: Colors.blue,
+                        color: appColor,
                         fontSize: 20,
                         decoration:
                             !onHover0 ? null : TextDecoration.underline),
@@ -276,7 +275,7 @@ class _SmallBodyColumnState extends State<SmallBodyColumn> {
           child: Container(
             alignment: Alignment.centerLeft,
             child: Text(
-              "${price} kr",
+              "$price kr",
               style:
                   GoogleFonts.tinos(fontSize: 30, fontWeight: FontWeight.bold),
             ),
@@ -291,42 +290,42 @@ class _SmallBodyColumnState extends State<SmallBodyColumn> {
                   final uid1 = FirebaseAuth.instance.currentUser?.uid;
                   List<DocumentSnapshot> results = [];
 
-                  final Uid1querySnapshot = await FirebaseFirestore.instance
+                  final uid1querySnapshot = await FirebaseFirestore.instance
                       .collection('Messages')
                       .where("Uid1", whereIn: [uid1, authorId]).get();
 
-                  final Uid1matchUid = await FirebaseFirestore.instance
+                  final uid1matchUid = await FirebaseFirestore.instance
                       .collection('Messages')
                       .where('Uid2', isEqualTo: authorId)
                       .get();
 
-                  final Uid1matchAuthorID = await FirebaseFirestore.instance
+                  final uid1matchAuthorID = await FirebaseFirestore.instance
                       .collection('Messages')
                       .where('Uid2', isEqualTo: uid1)
                       .get();
 
-                  Uid1querySnapshot.docs.forEach((doc) {
+                  for (var doc in uid1querySnapshot.docs) {
                     if (doc.data()['Uid1'] == uid1) {
                       // UID found in 'Uid1' field
                       print('${doc.id}: UID found');
-                      results.addAll(Uid1matchUid.docs);
+                      results.addAll(uid1matchUid.docs);
                     } else {
                       // Author ID found in 'Uid1' field
 
                       print('${doc.id}: author ID found');
-                      results.addAll(Uid1matchAuthorID.docs);
+                      results.addAll(uid1matchAuthorID.docs);
                     }
-                  });
+                  }
 
                   print('Results:');
-                  results.forEach((doc) {
+                  for (var doc in results) {
                     print('${doc.id}: ${doc.data()}');
                     if (existingChatId == '') {
                       existingChatId = doc.id;
                       print(doc.id);
                       print('docid');
                     }
-                  });
+                  }
 
                   if (results.isNotEmpty) {
                     // take user to existing chat
@@ -360,14 +359,14 @@ class _SmallBodyColumnState extends State<SmallBodyColumn> {
                         print('Error creating new document: $e');
                       }
                     } else {
-                      Get.to(() => Login());
+                      Get.to(() => const Login());
                     }
                   }
                 },
                 style: ElevatedButton.styleFrom(
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(10)),
-                    backgroundColor: Colors.blue),
+                    backgroundColor: appColor),
                 child: const Center(
                   child: Text('Ta kontakt'),
                 ))),
@@ -377,7 +376,7 @@ class _SmallBodyColumnState extends State<SmallBodyColumn> {
         Container(
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(10),
-              color: Color.fromARGB(255, 212, 235, 255)),
+              color: const Color.fromARGB(255, 212, 235, 255)),
           child: Padding(
             padding: const EdgeInsets.all(20.0),
             child: Row(
@@ -401,7 +400,8 @@ class _SmallBodyColumnState extends State<SmallBodyColumn> {
                         authorName,
                         style: GoogleFonts.tinos(fontSize: 25),
                       ),
-                      TextButton(onPressed: () {}, child: Text('Vis profil'))
+                      TextButton(
+                          onPressed: () {}, child: const Text('Vis profil'))
                     ],
                   ),
                 ),
@@ -497,16 +497,16 @@ class _LargeBodyColumnState extends State<LargeBodyColumn> {
                             height: 40,
                             child: TextButton(
                                 onPressed: () {},
-                                child: Row(
+                                child: const Row(
                                   mainAxisAlignment: MainAxisAlignment.center,
-                                  children: const [
+                                  children: [
                                     Icon(
                                       Icons.ios_share,
-                                      color: Colors.blue,
+                                      color: appColor,
                                     ),
                                     Text(
                                       'Kopier',
-                                      style: TextStyle(color: Colors.blue),
+                                      style: TextStyle(color: appColor),
                                     )
                                   ],
                                 )),
@@ -586,7 +586,7 @@ class _LargeBodyColumnState extends State<LargeBodyColumn> {
                     Container(
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(10),
-                          border: Border.all(color: Colors.blue)),
+                          border: Border.all(color: appColor)),
                       child: Padding(
                         padding: const EdgeInsets.all(20.0),
                         child: Column(
@@ -609,7 +609,7 @@ class _LargeBodyColumnState extends State<LargeBodyColumn> {
                                         FirebaseAuth.instance.currentUser?.uid;
                                     List<DocumentSnapshot> results = [];
 
-                                    final Uid1querySnapshot =
+                                    final uid1querySnapshot =
                                         await FirebaseFirestore.instance
                                             .collection('Messages')
                                             .where("Uid1", whereIn: [
@@ -617,40 +617,40 @@ class _LargeBodyColumnState extends State<LargeBodyColumn> {
                                       authorId
                                     ]).get();
 
-                                    final Uid1matchUid = await FirebaseFirestore
+                                    final uid1matchUid = await FirebaseFirestore
                                         .instance
                                         .collection('Messages')
                                         .where('Uid2', isEqualTo: authorId)
                                         .get();
 
-                                    final Uid1matchAuthorID =
+                                    final uid1matchAuthorID =
                                         await FirebaseFirestore.instance
                                             .collection('Messages')
                                             .where('Uid2', isEqualTo: uid1)
                                             .get();
 
-                                    Uid1querySnapshot.docs.forEach((doc) {
+                                    for (var doc in uid1querySnapshot.docs) {
                                       if (doc.data()['Uid1'] == uid1) {
                                         // UID found in 'Uid1' field
                                         print('${doc.id}: UID found');
-                                        results.addAll(Uid1matchUid.docs);
+                                        results.addAll(uid1matchUid.docs);
                                       } else {
                                         // Author ID found in 'Uid1' field
 
                                         print('${doc.id}: author ID found');
-                                        results.addAll(Uid1matchAuthorID.docs);
+                                        results.addAll(uid1matchAuthorID.docs);
                                       }
-                                    });
+                                    }
 
                                     print('Results:');
-                                    results.forEach((doc) {
+                                    for (var doc in results) {
                                       print('${doc.id}: ${doc.data()}');
                                       if (existingChatId == '') {
                                         existingChatId = doc.id;
                                         print(doc.id);
                                         print('docid');
                                       }
-                                    });
+                                    }
 
                                     if (results.isNotEmpty) {
                                       // take user to existing chat
@@ -689,7 +689,7 @@ class _LargeBodyColumnState extends State<LargeBodyColumn> {
                                               'Error creating new document: $e');
                                         }
                                       } else {
-                                        Get.to(() => Login());
+                                        Get.to(() => const Login());
                                       }
                                     }
                                   },
@@ -697,7 +697,7 @@ class _LargeBodyColumnState extends State<LargeBodyColumn> {
                                     shape: RoundedRectangleBorder(
                                       borderRadius: BorderRadius.circular(10),
                                     ),
-                                    backgroundColor: Colors.blue,
+                                    backgroundColor: appColor,
                                   ),
                                   child: const Center(
                                     child: Text('Ta kontakt'),
@@ -715,7 +715,7 @@ class _LargeBodyColumnState extends State<LargeBodyColumn> {
                     Container(
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(10),
-                          color: Color.fromARGB(255, 212, 235, 255)),
+                          color: const Color.fromARGB(255, 212, 235, 255)),
                       child: Padding(
                         padding: const EdgeInsets.all(20.0),
                         child: Row(
@@ -741,7 +741,7 @@ class _LargeBodyColumnState extends State<LargeBodyColumn> {
                                   ),
                                   TextButton(
                                       onPressed: () {},
-                                      child: Text('Vis profil'))
+                                      child: const Text('Vis profil'))
                                 ],
                               ),
                             ),
@@ -755,7 +755,7 @@ class _LargeBodyColumnState extends State<LargeBodyColumn> {
                     Container(
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(10),
-                          border: Border.all(color: Colors.blue)),
+                          border: Border.all(color: appColor)),
                       child: Padding(
                         padding: const EdgeInsets.all(20.0),
                         child: Column(
@@ -764,7 +764,7 @@ class _LargeBodyColumnState extends State<LargeBodyColumn> {
                             Padding(
                               padding: const EdgeInsets.only(bottom: 15),
                               child: SelectableText(
-                                '${address}, ${zipcode}',
+                                '$address, $zipcode',
                                 style: GoogleFonts.tinos(fontSize: 25),
                               ),
                             ),
@@ -777,16 +777,16 @@ class _LargeBodyColumnState extends State<LargeBodyColumn> {
                                           borderRadius:
                                               BorderRadius.circular(10)),
                                       backgroundColor: Colors.white),
-                                  child: Row(
+                                  child: const Row(
                                     mainAxisAlignment: MainAxisAlignment.center,
-                                    children: const [
+                                    children: [
                                       Icon(
                                         Icons.map_outlined,
-                                        color: Colors.blue,
+                                        color: appColor,
                                       ),
                                       Text(
                                         'Vis i Kart',
-                                        style: TextStyle(color: Colors.blue),
+                                        style: TextStyle(color: appColor),
                                       )
                                     ],
                                   )),

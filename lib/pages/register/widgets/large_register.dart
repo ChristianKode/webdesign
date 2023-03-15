@@ -1,4 +1,4 @@
-// ignore_for_file: unused_import, non_constant_identifier_names
+// ignore_for_file: unused_import, non_constant_identifier_names, use_build_context_synchronously
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -8,16 +8,16 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:provider/provider.dart';
 import 'package:webdesign/core/service/authentication_services.dart';
 import 'package:get/get.dart';
+import 'package:webdesign/core/utils/responsive/theme.dart';
 import 'package:webdesign/pages/home/widgets/main_home.dart';
 import 'package:webdesign/pages/login/login.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:uuid/uuid.dart';
-
 import '../../../core/utils/widgets/appbar.dart';
 import '../../../core/utils/widgets/drawer.dart';
 
 class LargeRegister extends StatelessWidget {
-  LargeRegister({super.key});
+  const LargeRegister({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -58,10 +58,10 @@ class RegisterBox extends StatelessWidget {
             children: [
               Text(
                 'Velkommen',
-                style: GoogleFonts.tinos(fontSize: 50, color: Colors.blue),
+                style: GoogleFonts.tinos(fontSize: 50, color: appColor),
               ),
               Flexible(
-                child: Container(
+                child: SizedBox(
                   width: 350,
                   height: 350,
                   child: Image.network(
@@ -81,7 +81,7 @@ class RegisterBox extends StatelessWidget {
                             decoration: const InputDecoration(
                               focusedBorder: OutlineInputBorder(
                                   borderSide:
-                                      BorderSide(color: Colors.blue, width: 2),
+                                      BorderSide(color: appColor, width: 2),
                                   borderRadius: BorderRadius.all(
                                     Radius.circular(100),
                                   )),
@@ -107,7 +107,7 @@ class RegisterBox extends StatelessWidget {
                             decoration: const InputDecoration(
                               focusedBorder: OutlineInputBorder(
                                   borderSide:
-                                      BorderSide(color: Colors.blue, width: 2),
+                                      BorderSide(color: appColor, width: 2),
                                   borderRadius: BorderRadius.all(
                                     Radius.circular(100),
                                   )),
@@ -132,8 +132,7 @@ class RegisterBox extends StatelessWidget {
                     controller: emailCon,
                     decoration: const InputDecoration(
                         focusedBorder: OutlineInputBorder(
-                            borderSide:
-                                BorderSide(color: Colors.blue, width: 2),
+                            borderSide: BorderSide(color: appColor, width: 2),
                             borderRadius:
                                 BorderRadius.all(Radius.circular(100))),
                         border: OutlineInputBorder(
@@ -159,7 +158,7 @@ class RegisterBox extends StatelessWidget {
                             decoration: const InputDecoration(
                               focusedBorder: OutlineInputBorder(
                                   borderSide:
-                                      BorderSide(color: Colors.blue, width: 2),
+                                      BorderSide(color: appColor, width: 2),
                                   borderRadius: BorderRadius.all(
                                     Radius.circular(100),
                                   )),
@@ -185,7 +184,7 @@ class RegisterBox extends StatelessWidget {
                             decoration: const InputDecoration(
                               focusedBorder: OutlineInputBorder(
                                   borderSide:
-                                      BorderSide(color: Colors.blue, width: 2),
+                                      BorderSide(color: appColor, width: 2),
                                   borderRadius: BorderRadius.all(
                                     Radius.circular(100),
                                   )),
@@ -226,12 +225,12 @@ class RegisterBox extends StatelessWidget {
                             ScaffoldMessenger.of(context).showSnackBar(
                               SnackBar(
                                 behavior: SnackBarBehavior.floating,
-                                content: Text('Noe gikk galt...'),
+                                content: const Text('Noe gikk galt...'),
                                 duration: const Duration(seconds: 5),
                                 shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(10),
-                                  side:
-                                      BorderSide(color: Colors.blue, width: 2),
+                                  side: const BorderSide(
+                                      color: appColor, width: 2),
                                 ),
                                 action: SnackBarAction(
                                   label: 'Lukk',
@@ -246,7 +245,7 @@ class RegisterBox extends StatelessWidget {
                         style: ElevatedButton.styleFrom(
                             shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(100)),
-                            backgroundColor: Colors.blue),
+                            backgroundColor: appColor),
                         child: const Text(
                           'Lag bruker',
                           style: TextStyle(fontSize: 15),
@@ -260,22 +259,21 @@ class RegisterBox extends StatelessWidget {
                           Get.to(LargeHome());
                         },
                         style: ElevatedButton.styleFrom(
-                          side: const BorderSide(color: Colors.blue),
+                          side: const BorderSide(color: appColor),
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(100)),
                           backgroundColor: Colors.white,
                         ),
-                        child: Row(
+                        child: const Row(
                           mainAxisAlignment: MainAxisAlignment.center,
-                          children: const [
+                          children: [
                             Icon(
                               Icons.arrow_back_ios,
-                              color: Colors.blue,
+                              color: appColor,
                             ),
                             Text(
                               'Tilbake',
-                              style:
-                                  TextStyle(fontSize: 15, color: Colors.blue),
+                              style: TextStyle(fontSize: 15, color: appColor),
                             ),
                           ],
                         )),

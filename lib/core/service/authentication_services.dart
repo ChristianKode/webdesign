@@ -2,7 +2,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
-import 'package:webdesign/core/service/cloud_firestore_services.dart';
 
 class AuthService {
   final FirebaseAuth _auth;
@@ -25,8 +24,6 @@ class AuthService {
   Future<String> signUp(String email, String password, String firstname,
       String lastname, String telephone) async {
     FirebaseFirestore firestore = FirebaseFirestore.instance;
-    String result = "";
-    String uid = FirebaseAuth.instance.currentUser!.uid;
 
     try {
       if (telephone.isNotEmpty &&
@@ -37,10 +34,20 @@ class AuthService {
         await _auth.createUserWithEmailAndPassword(
             email: email, password: password);
 
-      await CloudFirestoreServices()
-          .signUp(uid, firstname, lastname, telephone)
-          .then((value) => {result = value});
-      return result;
+      String uid = FirebaseAuth.instance.currentUser!.uid;
+
+      CollectionReference user = firestore.collection('Users');
+
+      DocumentReference userDoc = user.doc(uid);
+
+      await userDoc.set({
+        'uid': uid,
+        'firstname': firstname,
+        'lastname': lastname,
+        'telephone': telephone
+      });
+
+      return "Success";
     } catch (e) {
       return e.toString();
     }

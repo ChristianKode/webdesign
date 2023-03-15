@@ -1,10 +1,9 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import '../../chat/widgets/group_chat_list.dart';
+import 'package:webdesign/core/utils/responsive/theme.dart';
 import '../../home/widgets/main_home.dart';
 
-HeaderInfo(String userName, context) {
+headerInfo(String userName, context) {
   return SizedBox(
     width: MediaQuery.of(context).size.width,
     height: 300,
@@ -58,7 +57,7 @@ HeaderInfo(String userName, context) {
                           FittedBox(
                             fit: BoxFit.scaleDown,
                             child: Text(
-                              '$userName',
+                              userName,
                               style: const TextStyle(
                                 fontSize: 30,
                                 fontWeight: FontWeight.bold,
@@ -97,7 +96,7 @@ minSide(double width, double height) {
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10),
           border: Border.all(
-            color: Colors.blue,
+            color: appColor,
             width: 2,
           ),
           color: Colors.white,
@@ -108,14 +107,14 @@ minSide(double width, double height) {
           children: [
             const Icon(
               Icons.person_2_outlined,
-              color: Colors.blue,
+              color: appColor,
               size: 100,
             ),
             Expanded(
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Flexible(
+                  const Flexible(
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -142,7 +141,7 @@ minSide(double width, double height) {
                         child: ClipOval(
                           child: TextButton(
                             onPressed: () {},
-                            child: Icon(Icons.arrow_forward_ios),
+                            child: const Icon(Icons.arrow_forward_ios),
                           ),
                         ),
                       ),
@@ -167,7 +166,7 @@ favoritter(double width, double height) {
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10),
           border: Border.all(
-            color: Colors.blue,
+            color: appColor,
             width: 2,
           ),
           color: Colors.white,
@@ -178,14 +177,14 @@ favoritter(double width, double height) {
           children: [
             const Icon(
               Icons.favorite_border_outlined,
-              color: Colors.blue,
+              color: appColor,
               size: 100,
             ),
             Expanded(
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Flexible(
+                  const Flexible(
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -212,7 +211,7 @@ favoritter(double width, double height) {
                         child: ClipOval(
                           child: TextButton(
                             onPressed: () {},
-                            child: Icon(Icons.arrow_forward_ios),
+                            child: const Icon(Icons.arrow_forward_ios),
                           ),
                         ),
                       ),
@@ -237,7 +236,7 @@ mineAnnonser(double width, double height) {
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10),
           border: Border.all(
-            color: Colors.blue,
+            color: appColor,
             width: 2,
           ),
           color: Colors.white,
@@ -248,14 +247,14 @@ mineAnnonser(double width, double height) {
           children: [
             const Icon(
               Icons.add_business_outlined,
-              color: Colors.blue,
+              color: appColor,
               size: 100,
             ),
             Expanded(
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Flexible(
+                  const Flexible(
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -282,7 +281,7 @@ mineAnnonser(double width, double height) {
                         child: ClipOval(
                           child: TextButton(
                             onPressed: () {},
-                            child: Icon(Icons.arrow_forward_ios),
+                            child: const Icon(Icons.arrow_forward_ios),
                           ),
                         ),
                       ),

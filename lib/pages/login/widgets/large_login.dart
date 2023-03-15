@@ -1,19 +1,19 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 import 'package:webdesign/core/service/authentication_services.dart';
+import 'package:webdesign/core/utils/responsive/theme.dart';
 import 'package:webdesign/pages/forgot/forgot.dart';
 import 'package:webdesign/pages/home/widgets/main_home.dart';
-import 'package:webdesign/pages/login/login.dart';
 import '../../../main.dart';
-import '../../../core/utils/widgets/appbar.dart';
-import '../../../core/utils/widgets/drawer.dart';
 import '../../register/register.dart';
 
 class LargeLogin extends StatelessWidget {
-  LargeLogin({super.key});
+  const LargeLogin({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -116,7 +116,7 @@ class LoginBox extends StatelessWidget {
                   controller: mail,
                   decoration: const InputDecoration(
                     focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.blue, width: 2),
+                        borderSide: BorderSide(color: appColor, width: 2),
                         borderRadius: BorderRadius.all(
                           Radius.circular(100),
                         )),
@@ -137,7 +137,7 @@ class LoginBox extends StatelessWidget {
                 obscureText: true,
                 decoration: const InputDecoration(
                   focusedBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.blue, width: 2),
+                      borderSide: BorderSide(color: appColor, width: 2),
                       borderRadius: BorderRadius.all(
                         Radius.circular(100),
                       )),
@@ -164,7 +164,6 @@ class LoginBox extends StatelessWidget {
                     if (loginResult == 'Innlogget') {
                       Get.to(() => LargeHome());
                     } else {
-                      // ignore: use_build_context_synchronously
                       ScaffoldMessenger.of(context).showSnackBar(
                         SnackBar(
                           behavior: SnackBarBehavior.floating,
@@ -172,8 +171,7 @@ class LoginBox extends StatelessWidget {
                           duration: const Duration(seconds: 5),
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(10),
-                            side:
-                                const BorderSide(color: Colors.blue, width: 2),
+                            side: const BorderSide(color: appColor, width: 2),
                           ),
                           action: SnackBarAction(
                             label: 'Lukk',
@@ -188,7 +186,7 @@ class LoginBox extends StatelessWidget {
                   style: ElevatedButton.styleFrom(
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(100)),
-                    backgroundColor: Colors.blue,
+                    backgroundColor: appColor,
                   ),
                   child: const Text(
                     'Logg på',
@@ -208,21 +206,21 @@ class LoginBox extends StatelessWidget {
                           transition: TransitionType.fadeIn);
                     },
                     style: ElevatedButton.styleFrom(
-                      side: const BorderSide(color: Colors.blue),
+                      side: const BorderSide(color: appColor),
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(100)),
                       backgroundColor: Colors.white,
                     ),
-                    child: Row(
+                    child: const Row(
                       mainAxisAlignment: MainAxisAlignment.center,
-                      children: const [
+                      children: [
                         Icon(
                           Icons.arrow_back_ios,
-                          color: Colors.blue,
+                          color: appColor,
                         ),
                         Text(
                           'Tilbake',
-                          style: TextStyle(fontSize: 15, color: Colors.blue),
+                          style: TextStyle(fontSize: 15, color: appColor),
                         ),
                       ],
                     )),
