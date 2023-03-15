@@ -7,11 +7,11 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
-import 'package:webdesign/app_logic/services/firebase_auth.dart';
+import 'package:webdesign/core/service/authentication_services.dart';
 import 'package:webdesign/pages/home/widgets/main_home.dart';
 import 'package:webdesign/pages/login/login.dart';
-import '../main.dart';
-import '../utils/responsive.dart';
+import '../../../main.dart';
+import '../responsive/responsive.dart';
 
 class ProfilItem extends StatelessWidget {
   const ProfilItem({super.key});

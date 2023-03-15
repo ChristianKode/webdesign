@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:webdesign/pages/newJob/widgets/large_newjob.dart';
-import 'package:webdesign/widgets/appbar.dart';
-import 'package:webdesign/widgets/drawer.dart';
+import 'package:webdesign/core/utils/widgets/appbar.dart';
+import 'package:webdesign/core/utils/widgets/drawer.dart';
 
 class SmallNewJob extends StatelessWidget {
   SmallNewJob({super.key});

@@ -2,7 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:webdesign/utils/responsive.dart';
+import 'package:webdesign/core/utils/responsive/responsive.dart';
 
 class HomeOwners extends StatelessWidget {
   const HomeOwners({super.key});

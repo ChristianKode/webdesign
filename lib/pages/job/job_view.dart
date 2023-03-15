@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:webdesign/pages/job/widgets/job_body_row.dart';
-import 'package:webdesign/widgets/drawer.dart';
-import 'package:webdesign/widgets/footer_overall.dart';
+import 'package:webdesign/core/utils/widgets/drawer.dart';
+import 'package:webdesign/core/utils/widgets/footer_overall.dart';
 
-import '../../widgets/appbar.dart';
+import '../../core/utils/widgets/appbar.dart';
 
 // ignore: must_be_immutable
 class JobView extends StatefulWidget {

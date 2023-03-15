@@ -9,7 +9,7 @@ import 'package:provider/provider.dart';
 import 'package:webdesign/pages/chat/smallChat.dart';
 import 'package:webdesign/pages/chat/widgets/large_chat.dart';
 import 'package:webdesign/pages/chat/widgets/small_chat.dart';
-import 'package:webdesign/utils/responsive.dart';
+import 'package:webdesign/core/utils/responsive/responsive.dart';
 
 class ChatList extends StatefulWidget {
   ChatList({Key? key}) : super(key: key);

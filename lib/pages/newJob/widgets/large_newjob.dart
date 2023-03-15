@@ -8,8 +8,8 @@ import 'package:firebase_database/firebase_database.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:webdesign/pages/home/widgets/main_home.dart';
 import 'package:get/get.dart';
-import 'package:webdesign/widgets/appbar.dart';
-import 'package:webdesign/widgets/drawer.dart';
+import 'package:webdesign/core/utils/widgets/appbar.dart';
+import 'package:webdesign/core/utils/widgets/drawer.dart';
 
 class LargeNewJob extends StatelessWidget {
   LargeNewJob({super.key});

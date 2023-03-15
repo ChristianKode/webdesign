@@ -10,9 +10,9 @@ import 'package:uuid/uuid.dart';
 import 'package:webdesign/main.dart';
 import 'package:webdesign/pages/chat/widgets/large_chat.dart';
 import 'package:webdesign/pages/login/login.dart';
-import 'package:webdesign/utils/responsive.dart';
+import 'package:webdesign/core/utils/responsive/responsive.dart';
 
-import '../../../app_logic/services/message.dart';
+import '../../../core/service/message.dart';
 
 final _auth = FirebaseAuth.instance;
 final _fireStore = FirebaseFirestore.instance;

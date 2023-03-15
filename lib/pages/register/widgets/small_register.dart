@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:webdesign/pages/register/widgets/large_register.dart';
 
-import '../../../widgets/appbar.dart';
-import '../../../widgets/drawer.dart';
+import '../../../core/utils/widgets/appbar.dart';
+import '../../../core/utils/widgets/drawer.dart';
 
 class SmallRegister extends StatelessWidget {
   SmallRegister({super.key});

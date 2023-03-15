@@ -6,15 +6,15 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:provider/provider.dart';
-import 'package:webdesign/app_logic/services/firebase_auth.dart';
+import 'package:webdesign/core/service/authentication_services.dart';
 import 'package:get/get.dart';
 import 'package:webdesign/pages/home/widgets/main_home.dart';
 import 'package:webdesign/pages/login/login.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:uuid/uuid.dart';
 
-import '../../../widgets/appbar.dart';
-import '../../../widgets/drawer.dart';
+import '../../../core/utils/widgets/appbar.dart';
+import '../../../core/utils/widgets/drawer.dart';
 
 class LargeRegister extends StatelessWidget {
   LargeRegister({super.key});

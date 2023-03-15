@@ -5,12 +5,12 @@ import 'dart:async';
 import 'package:intl/intl.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:webdesign/app_logic/services/message.dart';
+import 'package:webdesign/core/service/message.dart';
 import 'package:webdesign/pages/chat/widgets/group_chat_list.dart';
-import 'package:webdesign/utils/responsive.dart';
-import 'package:webdesign/widgets/appbar.dart';
+import 'package:webdesign/core/utils/responsive/responsive.dart';
+import 'package:webdesign/core/utils/widgets/appbar.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:webdesign/widgets/drawer.dart';
+import 'package:webdesign/core/utils/widgets/drawer.dart';
 import 'dart:ui' as ui;
 
 StreamController<bool> _chatChangedController =
