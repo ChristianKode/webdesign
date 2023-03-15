@@ -221,8 +221,8 @@ AppBar appBar(BuildContext context, GlobalKey<ScaffoldState> key) => AppBar(
                               splashColor: Colors.transparent,
                               hoverColor: Colors.transparent,
                               onTap: () {
-                                Get.to(() => LargeHome());
-                              },
+router.navigateTo(context, '/',
+                transition: TransitionType.fadeIn);                              },
                               child: FittedBox(
                                 fit: BoxFit.scaleDown,
                                 child: Text.rich(
@@ -267,7 +267,8 @@ AppBar appBar(BuildContext context, GlobalKey<ScaffoldState> key) => AppBar(
                         highlightColor: Colors.transparent,
                         hoverColor: Colors.transparent,
                         onTap: () {
-                          Get.to(() => LargeHome());
+                          router.navigateTo(context, '/',
+                transition: TransitionType.fadeIn);
                         },
                         child: FittedBox(
                           fit: BoxFit.scaleDown,
@@ -304,7 +305,8 @@ AppBar appBar(BuildContext context, GlobalKey<ScaffoldState> key) => AppBar(
                               splashColor: Colors.transparent,
                               hoverColor: Colors.transparent,
                               onTap: () {
-                                Get.to(() => LargeHome());
+                                router.navigateTo(context, '/',
+                transition: TransitionType.fadeIn);
                               },
                               child: FittedBox(
                                 fit: BoxFit.scaleDown,
@@ -352,8 +354,8 @@ AppBar appBar(BuildContext context, GlobalKey<ScaffoldState> key) => AppBar(
                         highlightColor: Colors.transparent,
                         hoverColor: Colors.transparent,
                         onTap: () {
-                          Get.to(() => LargeHome());
-                        },
+router.navigateTo(context, '/',
+                transition: TransitionType.fadeIn);                        },
                         child: FittedBox(
                           fit: BoxFit.scaleDown,
                           child: Text.rich(
