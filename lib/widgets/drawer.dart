@@ -1,5 +1,3 @@
-// ignore_for_file: use_build_context_synchronously
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fluro/fluro.dart';
@@ -11,7 +9,6 @@ import 'package:webdesign/app_logic/services/firebase_auth.dart';
 import 'package:webdesign/pages/home/widgets/main_home.dart';
 import 'package:webdesign/pages/login/login.dart';
 import 'package:webdesign/pages/register/register.dart';
-
 import '../main.dart';
 import '../utils/theme.dart';
 
