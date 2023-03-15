@@ -371,6 +371,44 @@ class _SmallBodyColumnState extends State<SmallBodyColumn> {
                 child: const Center(
                   child: Text('Ta kontakt'),
                 ))),
+        const SizedBox(
+          height: 30,
+        ),
+        Container(
+          decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(10),
+              color: Color.fromARGB(255, 212, 235, 255)),
+          child: Padding(
+            padding: const EdgeInsets.all(20.0),
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Container(
+                  height: 50,
+                  width: 50,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(100),
+                  ),
+                  child: ClipOval(
+                      child: Image.network(
+                          'https://firebasestorage.googleapis.com/v0/b/ungansatt123.appspot.com/o/assets%2Fprofile-circle-icon-512x512-dt9lf8um.png?alt=media&token=6b6eec31-abc3-43ad-ba01-69b374731ba9')),
+                ),
+                Flexible(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      SelectableText(
+                        authorName,
+                        style: GoogleFonts.tinos(fontSize: 25),
+                      ),
+                      TextButton(onPressed: () {}, child: Text('Vis profil'))
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
       ],
     );
   }

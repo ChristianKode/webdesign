@@ -5,11 +5,17 @@ class Footer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return  SizedBox(
+    return Container(
+      width: MediaQuery.of(context).size.width,
       height: 300,
       child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
         children: const [
-          Center(child: Text('KodeKlubben AS')),
+          Text('Ungansatt UB',
+              style: TextStyle(
+                  fontSize: 30,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.blue)),
         ],
       ),
     );
