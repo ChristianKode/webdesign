@@ -290,3 +290,4 @@ class RegisterBox extends StatelessWidget {
     );
   }
 }
+

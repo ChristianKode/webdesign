@@ -35,6 +35,9 @@ class LargeNewJob extends StatelessWidget {
   }
 }
 
+var uuid = const Uuid();
+var aid = uuid.v4();
+
 class FillOut extends StatefulWidget {
   const FillOut({super.key});
 
@@ -49,6 +52,7 @@ class _FillOutState extends State<FillOut> {
   final TextEditingController zipcodeCon = TextEditingController();
   final TextEditingController priceCon = TextEditingController();
   final FirebaseStorage _storage = FirebaseStorage.instance;
+  String uid = FirebaseAuth.instance.currentUser!.uid;
 
   late Uint8List selectedImageInBytes;
   List<Uint8List> pickedImagesInBytes = [];
@@ -78,36 +82,6 @@ class _FillOutState extends State<FillOut> {
     String zipcode = zipcodeCon.text.trim();
     String price = priceCon.text.trim();
     String imageUrl = '';
-
-    var uuid = const Uuid();
-    var aid = uuid.v4();
-
-    // ignore: non_constant_identifier_names
-    final StorageRef = _storage.ref().child(aid).child('/$selectFile');
-
-    final metadata = SettableMetadata(contentType: 'image/jpeg');
-
-    await StorageRef.putData(selectedImageInBytes, metadata);
-
-    try {
-      imageUrl = await StorageRef.getDownloadURL().then((value) => value);
-      // ignore: empty_catches
-    } catch (e) {}
-
-    DatabaseReference ref = FirebaseDatabase.instance.ref("adventures");
-
-    String uid = FirebaseAuth.instance.currentUser!.uid;
-
-    await ref.child(aid).set({
-      "title": title,
-      "descprition": descprition,
-      "address": address,
-      "zipcode": zipcode,
-      "price": price,
-      "uid": uid,
-      "aid": aid,
-      "img1": imageUrl,
-    });
   }
 
   @override

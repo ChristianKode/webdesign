@@ -20,4 +20,15 @@ class CloudFirestoreServices {
     }
     return 'Success';
   }
+
+  Future<String> getUserName(String uid) async {
+    final dataSnapshot = await _firestoreUsers.doc(uid).get();
+    String userName = '';
+
+    final userData = dataSnapshot.data() as Map<dynamic, dynamic>;
+
+    userName = userData['firstname'] + ' ' + userData['lastname'];
+
+    return userName;
+  }
 }

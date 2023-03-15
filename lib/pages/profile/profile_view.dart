@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:webdesign/core/service/cloud_firestore_services.dart';
 import 'package:webdesign/pages/profile/widgets/profile_components.dart';
 import 'package:webdesign/core/utils/responsive/responsive.dart';
 import 'package:webdesign/core/utils/widgets/appbar.dart';
@@ -21,22 +22,9 @@ class ProfileView extends StatefulWidget {
 class _ProfileViewState extends State<ProfileView> {
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey();
 
-  Future<void> getName() async {
-    final dataSnapshot = await userRef.get();
-
-    if (dataSnapshot.exists) {
-      final userData = dataSnapshot.data() as Map<dynamic, dynamic>;
-
-      setState(() {
-        userName = userData['firstname'] + ' ' + userData['lastname'];
-      });
-    }
-  }
-
   @override
   void initState() {
     super.initState();
-    getName();
   }
 
   @override
@@ -52,27 +40,32 @@ class _ProfileViewState extends State<ProfileView> {
         drawer: const Drawer(
           child: SideDrawer(),
         ),
-        body: SingleChildScrollView(
-          child: Column(
-            children: [
-              headerInfo(userName, context),
-              Container(
-                color: const Color.fromARGB(6, 0, 0, 0),
-                width: MediaQuery.of(context).size.width,
+        body: FutureBuilder(
+            future: CloudFirestoreServices().getUserName(currentUid!),
+            builder: (_, snapshot) {
+              userName = snapshot.data!;
+              return SingleChildScrollView(
                 child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    !ResponsiveLayout.isSmallScreen(context)
-                        ? const LargeProfile()
-                        : const SmallProfile(),
+                    headerInfo(userName, context),
+                    Container(
+                      color: const Color.fromARGB(6, 0, 0, 0),
+                      width: MediaQuery.of(context).size.width,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          !ResponsiveLayout.isSmallScreen(context)
+                              ? const LargeProfile()
+                              : const SmallProfile(),
+                        ],
+                      ),
+                    ),
+                    const Footer()
                   ],
                 ),
-              ),
-              const Footer()
-            ],
-          ),
-        ),
+              );
+            }),
       ),
     );
   }
