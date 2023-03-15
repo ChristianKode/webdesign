@@ -1,16 +1,16 @@
-// ignore_for_file: depend_on_referenced_packages, library_private_types_in_public_api, 
+// ignore_for_file: depend_on_referenced_packages, library_private_types_in_public_api,
 
 import 'dart:async';
-import 'package:webdesign/utils/theme.dart';
+import 'package:webdesign/core/utils/responsive/theme.dart';
 import 'package:intl/intl.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:webdesign/app_logic/services/message.dart';
+import 'package:webdesign/core/service/message.dart';
 import 'package:webdesign/pages/chat/widgets/group_chat_list.dart';
-import 'package:webdesign/utils/responsive.dart';
-import 'package:webdesign/widgets/appbar.dart';
+import 'package:webdesign/core/utils/responsive/responsive.dart';
+import 'package:webdesign/core/utils/widgets/appbar.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:webdesign/widgets/drawer.dart';
+import 'package:webdesign/core/utils/widgets/drawer.dart';
 import 'dart:ui' as ui;
 
 StreamController<bool> _chatChangedController =
@@ -23,7 +23,7 @@ final TextEditingController messageController = TextEditingController();
 final senderId = uid; // Replace with the current user's ID
 const recipientId = 'user2'; // Replace with the recipient's user ID
 
-class Chat extends StatefulWidget {  
+class Chat extends StatefulWidget {
   const Chat({super.key});
 
   @override
@@ -43,7 +43,7 @@ class _ChatState extends State<Chat> {
 class ChatUI extends StatefulWidget {
   late String chatGroupId;
   late String secondUserName;
-  
+
   ChatUI({required this.chatGroupId, required this.secondUserName, Key? key})
       : super(key: key);
 
@@ -59,7 +59,6 @@ class _ChatUIState extends State<ChatUI> {
     _chatChangedController.close();
     super.dispose();
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -152,8 +151,8 @@ class _ChatUIState extends State<ChatUI> {
                                                         constraints) {
                                                   final textSpan = TextSpan(
                                                     text: widget.secondUserName,
-                                                    style:
-                                                        const TextStyle(fontSize: 16),
+                                                    style: const TextStyle(
+                                                        fontSize: 16),
                                                   );
                                                   final textPainter =
                                                       TextPainter(
@@ -283,7 +282,10 @@ class _ChatUIState extends State<ChatUI> {
                                                         ),
                                                         isCurrentUser
                                                             ? Text(
-                                                                DateFormat.yMd().add_jm().format(timestamp.toDate()),
+                                                                DateFormat.yMd()
+                                                                    .add_jm()
+                                                                    .format(timestamp
+                                                                        .toDate()),
                                                                 style:
                                                                     const TextStyle(
                                                                   fontSize: 12,
@@ -292,7 +294,10 @@ class _ChatUIState extends State<ChatUI> {
                                                                 ),
                                                               )
                                                             : Text(
-                                                                DateFormat.yMd().add_jm().format(timestamp.toDate()),
+                                                                DateFormat.yMd()
+                                                                    .add_jm()
+                                                                    .format(timestamp
+                                                                        .toDate()),
                                                                 style:
                                                                     const TextStyle(
                                                                   fontSize: 12,

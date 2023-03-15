@@ -5,11 +5,11 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:get/get.dart';
 import 'package:provider/provider.dart';
-import 'package:webdesign/app_logic/services/firebase_auth.dart';
+import 'package:webdesign/core/service/authentication_services.dart';
+import 'package:webdesign/core/utils/responsive/theme.dart';
 import 'package:webdesign/pages/forgot/forgot.dart';
 import 'package:webdesign/pages/home/widgets/main_home.dart';
 import '../../../main.dart';
-import '../../../utils/theme.dart';
 import '../../register/register.dart';
 
 class LargeLogin extends StatelessWidget {
@@ -171,8 +171,7 @@ class LoginBox extends StatelessWidget {
                           duration: const Duration(seconds: 5),
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(10),
-                            side:
-                               const BorderSide(color: appColor, width: 2),
+                            side: const BorderSide(color: appColor, width: 2),
                           ),
                           action: SnackBarAction(
                             label: 'Lukk',

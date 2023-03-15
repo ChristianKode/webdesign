@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:webdesign/app_logic/services/firebase_auth.dart';
+import 'package:webdesign/core/service/authentication_services.dart';
 import 'package:webdesign/pages/chat/widgets/large_chat.dart';
 import 'package:webdesign/pages/forgot/forgot.dart';
 import 'package:webdesign/pages/home/widgets/main_home.dart';
@@ -10,7 +10,7 @@ import 'package:webdesign/pages/newJob/newjob.dart';
 import 'package:webdesign/pages/profile/profile_view.dart';
 import 'package:webdesign/pages/register/register.dart';
 import 'package:get/get.dart';
-import 'firebase_options.dart';
+import 'core/firebase_options.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fluro/fluro.dart';

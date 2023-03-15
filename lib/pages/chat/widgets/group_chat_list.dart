@@ -3,10 +3,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:webdesign/core/utils/responsive/theme.dart';
 import 'package:webdesign/pages/chat/widgets/large_chat.dart';
 import 'package:webdesign/pages/chat/widgets/small_chat.dart';
-import 'package:webdesign/utils/responsive.dart';
-import 'package:webdesign/utils/theme.dart';
+import 'package:webdesign/core/utils/responsive/responsive.dart';
 
 class ChatList extends StatefulWidget {
   const ChatList({Key? key}) : super(key: key);
@@ -176,7 +176,6 @@ class _ChatGroupCardsState extends State<ChatGroupCards> {
     final String firstName = userdata['firstname'];
     final String lastName = userdata['lastname'];
     final secondUserName = '$firstName $lastName';
-
 
     return InkWell(
       onTap: () {

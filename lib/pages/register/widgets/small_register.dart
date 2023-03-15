@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:webdesign/pages/register/widgets/large_register.dart';
 
-
 class SmallRegister extends StatelessWidget {
   const SmallRegister({super.key});
 

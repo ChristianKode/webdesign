@@ -8,10 +8,10 @@ import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:get/route_manager.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:webdesign/core/utils/responsive/theme.dart';
 import 'package:webdesign/pages/chat/widgets/large_chat.dart';
 import 'package:webdesign/pages/login/login.dart';
-import 'package:webdesign/utils/responsive.dart';
-import '../../../utils/theme.dart';
+import 'package:webdesign/core/utils/responsive/responsive.dart';
 
 final _auth = FirebaseAuth.instance;
 final _fireStore = FirebaseFirestore.instance;
@@ -118,7 +118,7 @@ class _SmallBodyColumnState extends State<SmallBodyColumn> {
           documentSnapshots['user'] = userSnapshot;
         });
       } else {
-      print('User document does not exist');
+        print('User document does not exist');
       }
     } catch (e) {
       print('Error fetching user document: $e');
@@ -234,7 +234,7 @@ class _SmallBodyColumnState extends State<SmallBodyColumn> {
             alignment: Alignment.centerLeft,
             child: Row(
               children: [
-               const Icon(
+                const Icon(
                   Icons.map_outlined,
                   color: appColor,
                 ),
@@ -400,7 +400,8 @@ class _SmallBodyColumnState extends State<SmallBodyColumn> {
                         authorName,
                         style: GoogleFonts.tinos(fontSize: 25),
                       ),
-                      TextButton(onPressed: () {}, child: const Text('Vis profil'))
+                      TextButton(
+                          onPressed: () {}, child: const Text('Vis profil'))
                     ],
                   ),
                 ),

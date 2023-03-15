@@ -4,10 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
-import 'package:webdesign/app_logic/services/firebase_auth.dart';
+import 'package:webdesign/core/service/authentication_services.dart';
+import 'package:webdesign/core/utils/responsive/theme.dart';
 import 'package:webdesign/pages/home/widgets/main_home.dart';
 
-import '../../../utils/theme.dart';
 import '../../forgot/forgot.dart';
 
 class SmallLogin extends StatelessWidget {
@@ -106,7 +106,7 @@ class SmallLoginBox extends StatelessWidget {
                         .login(mail.text.trim(), pass.text.trim());
                     if (loginResult == 'Innlogget') {
                       Get.to(() => LargeHome());
-                    } else{
+                    } else {
                       ScaffoldMessenger.of(context).showSnackBar(
                         SnackBar(
                           behavior: SnackBarBehavior.floating,

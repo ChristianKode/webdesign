@@ -1,17 +1,15 @@
 // ignore_for_file: sized_box_for_whitespace
 
-
 import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
-import 'package:webdesign/app_logic/services/firebase_auth.dart';
+import 'package:webdesign/core/service/authentication_services.dart';
+import 'package:webdesign/core/utils/responsive/responsive.dart';
+import 'package:webdesign/main.dart';
 import 'package:webdesign/pages/home/widgets/main_home.dart';
 import 'package:webdesign/pages/login/login.dart';
-import '../main.dart';
-import '../utils/responsive.dart';
-import '../utils/theme.dart';
 
 class ProfilItem extends StatelessWidget {
   const ProfilItem({super.key});
@@ -106,14 +104,14 @@ class LoginItem extends StatelessWidget {
                 transition: TransitionType.fadeIn);
           },
           style: ElevatedButton.styleFrom(
-            side: const BorderSide(color: appColor),
+            side: const BorderSide(color: Colors.blue),
             shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(100)),
             backgroundColor: Colors.white,
           ),
-          child:  const Text(
+          child: const Text(
             'Logg på',
-            style: TextStyle(fontSize: 15, color: appColor),
+            style: TextStyle(fontSize: 15, color: Colors.blue),
           )),
     );
   }
@@ -135,7 +133,7 @@ class RegisterItem extends StatelessWidget {
           style: ElevatedButton.styleFrom(
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(100)),
-              backgroundColor: appColor),
+              backgroundColor: Colors.blue),
           child: const Text(
             'Bli med',
             style: TextStyle(fontSize: 15),

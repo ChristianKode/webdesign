@@ -6,16 +6,15 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:provider/provider.dart';
-import 'package:webdesign/app_logic/services/firebase_auth.dart';
+import 'package:webdesign/core/service/authentication_services.dart';
 import 'package:get/get.dart';
+import 'package:webdesign/core/utils/responsive/theme.dart';
 import 'package:webdesign/pages/home/widgets/main_home.dart';
 import 'package:webdesign/pages/login/login.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:uuid/uuid.dart';
-
-import '../../../utils/theme.dart';
-import '../../../widgets/appbar.dart';
-import '../../../widgets/drawer.dart';
+import '../../../core/utils/widgets/appbar.dart';
+import '../../../core/utils/widgets/drawer.dart';
 
 class LargeRegister extends StatelessWidget {
   const LargeRegister({super.key});
@@ -133,8 +132,7 @@ class RegisterBox extends StatelessWidget {
                     controller: emailCon,
                     decoration: const InputDecoration(
                         focusedBorder: OutlineInputBorder(
-                            borderSide:
-                                BorderSide(color: appColor, width: 2),
+                            borderSide: BorderSide(color: appColor, width: 2),
                             borderRadius:
                                 BorderRadius.all(Radius.circular(100))),
                         border: OutlineInputBorder(
@@ -157,7 +155,7 @@ class RegisterBox extends StatelessWidget {
                         child: TextField(
                             controller: passwordCon,
                             obscureText: true,
-                            decoration:  const InputDecoration(
+                            decoration: const InputDecoration(
                               focusedBorder: OutlineInputBorder(
                                   borderSide:
                                       BorderSide(color: appColor, width: 2),
@@ -231,8 +229,8 @@ class RegisterBox extends StatelessWidget {
                                 duration: const Duration(seconds: 5),
                                 shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(10),
-                                  side:
-                                      const BorderSide(color: appColor, width: 2),
+                                  side: const BorderSide(
+                                      color: appColor, width: 2),
                                 ),
                                 action: SnackBarAction(
                                   label: 'Lukk',
@@ -275,8 +273,7 @@ class RegisterBox extends StatelessWidget {
                             ),
                             Text(
                               'Tilbake',
-                              style:
-                                  TextStyle(fontSize: 15, color: appColor),
+                              style: TextStyle(fontSize: 15, color: appColor),
                             ),
                           ],
                         )),

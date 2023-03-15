@@ -1,6 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import '../../../utils/theme.dart';
+import 'package:webdesign/core/utils/responsive/theme.dart';
 import '../../home/widgets/main_home.dart';
 
 headerInfo(String userName, context) {
@@ -105,7 +105,7 @@ minSide(double width, double height) {
         height: height,
         child: Row(
           children: [
-           const Icon(
+            const Icon(
               Icons.person_2_outlined,
               color: appColor,
               size: 100,
@@ -175,7 +175,7 @@ favoritter(double width, double height) {
         height: height,
         child: Row(
           children: [
-           const Icon(
+            const Icon(
               Icons.favorite_border_outlined,
               color: appColor,
               size: 100,
@@ -245,7 +245,7 @@ mineAnnonser(double width, double height) {
         height: height,
         child: Row(
           children: [
-           const Icon(
+            const Icon(
               Icons.add_business_outlined,
               color: appColor,
               size: 100,

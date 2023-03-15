@@ -2,10 +2,10 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:webdesign/pages/profile/widgets/profile_components.dart';
-import 'package:webdesign/utils/responsive.dart';
-import 'package:webdesign/widgets/appbar.dart';
-import 'package:webdesign/widgets/drawer.dart';
-import 'package:webdesign/widgets/footer_overall.dart';
+import 'package:webdesign/core/utils/responsive/responsive.dart';
+import 'package:webdesign/core/utils/widgets/appbar.dart';
+import 'package:webdesign/core/utils/widgets/drawer.dart';
+import 'package:webdesign/core/utils/widgets/footer_overall.dart';
 
 final String? currentUid = FirebaseAuth.instance.currentUser?.uid;
 final userRef = FirebaseFirestore.instance.collection('Users').doc(currentUid);

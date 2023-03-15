@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:webdesign/pages/forgot/widgets/large_forgot.dart';
 
-import '../../../widgets/appbar.dart';
-import '../../../widgets/drawer.dart';
+import '../../../core/utils/widgets/appbar.dart';
+import '../../../core/utils/widgets/drawer.dart';
 
 class SmallForgot extends StatelessWidget {
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey();

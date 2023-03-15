@@ -5,12 +5,12 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
-import 'package:webdesign/app_logic/services/firebase_auth.dart';
+import 'package:webdesign/core/service/authentication_services.dart';
+import 'package:webdesign/core/utils/responsive/theme.dart';
 import 'package:webdesign/pages/home/widgets/main_home.dart';
 import 'package:webdesign/pages/login/login.dart';
 import 'package:webdesign/pages/register/register.dart';
-import '../main.dart';
-import '../utils/theme.dart';
+import '../../../main.dart';
 
 class SideDrawer extends StatelessWidget {
   const SideDrawer({super.key});
@@ -345,8 +345,8 @@ class _LoggedOutDrawerState extends State<LoggedOutDrawer> {
               });
             },
             onTap: () {
-              Navigator.push(
-                  context, MaterialPageRoute(builder: (context) => const Login()));
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => const Login()));
             },
             child: Text(
               "Logg på",
@@ -368,8 +368,8 @@ class _LoggedOutDrawerState extends State<LoggedOutDrawer> {
               });
             },
             onTap: () {
-              Navigator.push(
-                  context, MaterialPageRoute(builder: (context) => const Login()));
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => const Login()));
             },
             child: Text(
               "Annonser",

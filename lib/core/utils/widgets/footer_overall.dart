@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-
-import '../utils/theme.dart';
+import 'package:webdesign/core/utils/responsive/theme.dart';
 
 class Footer extends StatelessWidget {
   const Footer({super.key});
@@ -15,9 +14,7 @@ class Footer extends StatelessWidget {
         children: [
           Text('Ungansatt UB',
               style: TextStyle(
-                  fontSize: 30,
-                  fontWeight: FontWeight.bold,
-                  color: appColor)),
+                  fontSize: 30, fontWeight: FontWeight.bold, color: appColor)),
         ],
       ),
     );

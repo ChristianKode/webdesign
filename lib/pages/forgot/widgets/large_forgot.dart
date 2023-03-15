@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
-import 'package:webdesign/app_logic/services/firebase_auth.dart';
+import 'package:webdesign/core/service/authentication_services.dart';
 
-import '../../../widgets/appbar.dart';
-import '../../../widgets/drawer.dart';
+import '../../../core/utils/widgets/appbar.dart';
+import '../../../core/utils/widgets/drawer.dart';
 import '../../login/login.dart';
 
 class LargeForgot extends StatelessWidget {

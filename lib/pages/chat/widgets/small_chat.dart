@@ -3,8 +3,8 @@
 import 'dart:async';
 import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
-import 'package:webdesign/app_logic/services/message.dart';
-import 'package:webdesign/utils/theme.dart';
+import 'package:webdesign/core/service/message.dart';
+import 'package:webdesign/core/utils/responsive/theme.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'dart:ui' as ui;
 
@@ -20,7 +20,6 @@ const recipientId = 'user2'; // Replace with the recipient's user ID
 class SmallChatUI extends StatefulWidget {
   late String chatGroupId;
   late String secondUserName;
-
 
   SmallChatUI(
       {required this.chatGroupId, required this.secondUserName, Key? key})
@@ -38,13 +37,11 @@ class _SmallChatUIState extends State<SmallChatUI> {
     super.dispose();
   }
 
-
   @override
   Widget build(BuildContext context) {
     void goBack() {
       Navigator.pop(context);
     }
-
 
     String docid = widget.chatGroupId.isEmpty ? 'asd' : widget.chatGroupId;
 
@@ -90,7 +87,8 @@ class _SmallChatUIState extends State<SmallChatUI> {
                                       children: [
                                         InkWell(
                                             onTap: goBack,
-                                            child: const Icon(Icons.arrow_back)),
+                                            child:
+                                                const Icon(Icons.arrow_back)),
                                         Text(
                                           widget.secondUserName,
                                           style: const TextStyle(
@@ -129,10 +127,9 @@ class _SmallChatUIState extends State<SmallChatUI> {
                                     )..layout(maxWidth: constraints.maxWidth);
 
                                     return Container(
-                                      width: textPainter.width + 300,
-                                      height: 1,
-                                      color: appColor
-                                    );
+                                        width: textPainter.width + 300,
+                                        height: 1,
+                                        color: appColor);
                                   },
                                 ),
                               ],
@@ -228,14 +225,20 @@ class _SmallChatUIState extends State<SmallChatUI> {
                                               ),
                                               isCurrentUser
                                                   ? Text(
-                                                      DateFormat.yMd().add_jm().format(timestamp.toDate()),
+                                                      DateFormat.yMd()
+                                                          .add_jm()
+                                                          .format(timestamp
+                                                              .toDate()),
                                                       style: const TextStyle(
                                                         fontSize: 12,
                                                         color: Colors.white,
                                                       ),
                                                     )
                                                   : Text(
-                                                      DateFormat.yMd().add_jm().format(timestamp.toDate()),
+                                                      DateFormat.yMd()
+                                                          .add_jm()
+                                                          .format(timestamp
+                                                              .toDate()),
                                                       style: const TextStyle(
                                                         fontSize: 12,
                                                         color: Colors.black,
