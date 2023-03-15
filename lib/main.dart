@@ -5,7 +5,6 @@ import 'package:webdesign/pages/chat/widgets/large_chat.dart';
 import 'package:webdesign/pages/forgot/forgot.dart';
 import 'package:webdesign/pages/home/widgets/main_home.dart';
 import 'package:webdesign/pages/job/job_view.dart';
-import 'package:webdesign/pages/job/widgets/job_body_row.dart';
 import 'package:webdesign/pages/login/login.dart';
 import 'package:webdesign/pages/newJob/newjob.dart';
 import 'package:webdesign/pages/profile/profile_view.dart';
@@ -29,7 +28,7 @@ Future<void> main() async {
   router.define('/Register',
       handler: Handler(handlerFunc: (context, params) => const Register()));
   router.define('/Login',
-      handler: Handler(handlerFunc: (context, params) => Login()));
+      handler: Handler(handlerFunc: (context, params) => const Login()));
   router.define('/Forgot',
       handler: Handler(handlerFunc: (context, params) => const Forgot()));
   router.define('/NewJob',
@@ -39,7 +38,7 @@ Future<void> main() async {
   router.define('/Chat',
       handler: Handler(handlerFunc: (context, params) => const Chat()));
   router.define('/JobView',
-      handler: Handler(handlerFunc: (context, params) => JobView()));
+      handler: Handler(handlerFunc: (context, params) => const JobView()));
 
   runApp(MyApp(
     router: router,
@@ -47,7 +46,7 @@ Future<void> main() async {
 }
 
 class MyApp extends StatefulWidget {
-  MyApp({required router});
+  const MyApp({super.key, required router});
 
   @override
   State<MyApp> createState() => _MyAppState();

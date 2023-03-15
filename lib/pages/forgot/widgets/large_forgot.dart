@@ -99,7 +99,7 @@ class ForgotPassBox extends StatelessWidget {
           ),
           TextButton(
               onPressed: () {
-                Get.to(Login());
+                Get.to(const Login());
               },
               child: Text.rich(
                   TextSpan(style: const TextStyle(fontSize: 15), children: [

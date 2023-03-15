@@ -2,21 +2,18 @@
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_database/firebase_database.dart';
 import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:webdesign/app_logic/services/firebase_auth.dart';
-import 'package:webdesign/pages/chat/widgets/large_chat.dart';
 import 'package:webdesign/pages/home/widgets/main_home.dart';
 import 'package:webdesign/pages/login/login.dart';
-import 'package:webdesign/pages/newJob/newjob.dart';
-import 'package:webdesign/pages/profile/profile_view.dart';
 import 'package:webdesign/pages/register/register.dart';
 
 import '../main.dart';
+import '../utils/theme.dart';
 
 class SideDrawer extends StatelessWidget {
   const SideDrawer({super.key});
@@ -32,10 +29,10 @@ class SideDrawer extends StatelessWidget {
               return const LoggedInDrawer();
             } else {
               // Logged out
-              return Column(
+              return const Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 // ignore: prefer_const_constructors
-                children: const [LoggedOutDrawer()],
+                children: [LoggedOutDrawer()],
               );
             }
           } else {
@@ -91,7 +88,7 @@ class _LoggedInDrawerState extends State<LoggedInDrawer> {
         Container(
           width: MediaQuery.of(context).size.width,
           height: 200,
-          color: Colors.blue,
+          color: appColor,
           child: Column(
             children: [
               Padding(
@@ -352,7 +349,7 @@ class _LoggedOutDrawerState extends State<LoggedOutDrawer> {
             },
             onTap: () {
               Navigator.push(
-                  context, MaterialPageRoute(builder: (context) => Login()));
+                  context, MaterialPageRoute(builder: (context) => const Login()));
             },
             child: Text(
               "Logg på",
@@ -375,7 +372,7 @@ class _LoggedOutDrawerState extends State<LoggedOutDrawer> {
             },
             onTap: () {
               Navigator.push(
-                  context, MaterialPageRoute(builder: (context) => Login()));
+                  context, MaterialPageRoute(builder: (context) => const Login()));
             },
             child: Text(
               "Annonser",

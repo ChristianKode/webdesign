@@ -1,18 +1,15 @@
-import 'dart:html';
+// ignore_for_file: avoid_print
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
-import 'package:get/route_manager.dart';
-import 'package:provider/provider.dart';
-import 'package:webdesign/pages/chat/smallChat.dart';
 import 'package:webdesign/pages/chat/widgets/large_chat.dart';
 import 'package:webdesign/pages/chat/widgets/small_chat.dart';
 import 'package:webdesign/utils/responsive.dart';
+import 'package:webdesign/utils/theme.dart';
 
 class ChatList extends StatefulWidget {
-  ChatList({Key? key}) : super(key: key);
+  const ChatList({Key? key}) : super(key: key);
 
   @override
   State<ChatList> createState() => _ChatListState();
@@ -26,10 +23,10 @@ class _ChatListState extends State<ChatList> {
         width: ResponsiveLayout.isLargeScreen(context)
             ? 300
             : MediaQuery.of(context).size.width,
-        color: Colors.blue,
-        child: Padding(
-          padding: const EdgeInsets.only(top: 5),
-          child: const ChatGroupList(),
+        color: appColor,
+        child: const Padding(
+          padding: EdgeInsets.only(top: 5),
+          child: ChatGroupList(),
         ));
   }
 }
@@ -103,7 +100,7 @@ final fireStore = FirebaseFirestore.instance;
 class ChatGroupCards extends StatefulWidget {
   final String documentId;
 
-  ChatGroupCards({
+  const ChatGroupCards({
     Key? key,
     required this.documentId,
   }) : super(key: key);
@@ -115,7 +112,6 @@ class ChatGroupCards extends StatefulWidget {
 class _ChatGroupCardsState extends State<ChatGroupCards> {
   late Map<String, DocumentSnapshot> documentSnapshots;
   late Map<String, dynamic> jobValue;
-  final _realtimeData = FirebaseDatabase.instance.ref();
 
   @override
   void initState() {
@@ -128,18 +124,18 @@ class _ChatGroupCardsState extends State<ChatGroupCards> {
 
       final docdata =
           documentSnapshots['message']!.data() as Map<String, dynamic>;
-      final String Uid1 = docdata['Uid1'];
-      final String Uid2 = docdata['Uid2'];
+      final String uid1 = docdata['Uid1'];
+      final String uid2 = docdata['Uid2'];
 
-      if (Uid1 == uid) {
-        fireStore.collection('Users').doc(Uid2).get().then((value) {
+      if (uid1 == uid) {
+        fireStore.collection('Users').doc(uid2).get().then((value) {
           setState(() {
             documentSnapshots['user'] = value;
             print(value.toString());
           });
         });
       } else {
-        fireStore.collection('Users').doc(Uid1).get().then((value) {
+        fireStore.collection('Users').doc(uid1).get().then((value) {
           setState(() {
             documentSnapshots['user'] = value;
             print(value.toString());
@@ -150,9 +146,9 @@ class _ChatGroupCardsState extends State<ChatGroupCards> {
   }
 
   Future<String> findUser(String firstName, String lastName) async {
-    final _firestore = FirebaseFirestore.instance;
+    final firestore = FirebaseFirestore.instance;
     try {
-      QuerySnapshot<Map<String, dynamic>> querySnapshot = await _firestore
+      QuerySnapshot<Map<String, dynamic>> querySnapshot = await firestore
           .collection('Users')
           .where('firstname', isEqualTo: firstName)
           .where('lastname', isEqualTo: lastName)
@@ -176,34 +172,11 @@ class _ChatGroupCardsState extends State<ChatGroupCards> {
       return const SizedBox();
     }
 
-    final docdata =
-        documentSnapshots['message']!.data() as Map<String, dynamic>;
     final userdata = documentSnapshots['user']!.data() as Map<String, dynamic>;
     final String firstName = userdata['firstname'];
     final String lastName = userdata['lastname'];
-    final secondUserName = firstName + ' ' + lastName;
-    String secondUid = '';
+    final secondUserName = '$firstName $lastName';
 
-    Future<void> getJobValue() async {
-      String secondUid = '';
-      try {
-        // find user
-        final value = await findUser(firstName, lastName);
-        secondUid = value.toString();
-        print(secondUid);
-
-        // retrieve data from Firebase Realtime Database
-        final _currentAdSnapshot =
-            await _realtimeData.child('adventures/$secondUid').get();
-        final jobValue = _currentAdSnapshot.value as Map<String, dynamic>;
-        final img1 = jobValue['data']?['img1']?.toString() ?? '';
-        print(img1);
-        // use the value of img1
-        // ...
-      } catch (e) {
-        print('Error: $e');
-      }
-    }
 
     return InkWell(
       onTap: () {
@@ -233,7 +206,7 @@ class _ChatGroupCardsState extends State<ChatGroupCards> {
               decoration: BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.circular(8),
-                  boxShadow: [
+                  boxShadow: const [
                     BoxShadow(
                       color: Color.fromARGB(59, 0, 0, 0),
                       spreadRadius: 1,
@@ -264,7 +237,7 @@ class _ChatGroupCardsState extends State<ChatGroupCards> {
               decoration: BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.circular(8),
-                  boxShadow: [
+                  boxShadow: const [
                     BoxShadow(
                       color: Color.fromARGB(59, 0, 0, 0),
                       spreadRadius: 1,
@@ -283,7 +256,7 @@ class _ChatGroupCardsState extends State<ChatGroupCards> {
                       height: 50,
                       color: Colors.black,
                     ),
-                    SizedBox(
+                    const SizedBox(
                       width: 30,
                     ),
                     Column(
@@ -299,7 +272,7 @@ class _ChatGroupCardsState extends State<ChatGroupCards> {
                             fontFamily: 'Segoe UI',
                           ),
                         ),
-                        Text(
+                        const Text(
                           'Annonse',
                           style: TextStyle(fontSize: 15),
                         )

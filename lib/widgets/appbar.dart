@@ -1,6 +1,5 @@
 // ignore_for_file: sized_box_for_whitespace
 
-import 'dart:js';
 
 import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
@@ -12,6 +11,7 @@ import 'package:webdesign/pages/home/widgets/main_home.dart';
 import 'package:webdesign/pages/login/login.dart';
 import '../main.dart';
 import '../utils/responsive.dart';
+import '../utils/theme.dart';
 
 class ProfilItem extends StatelessWidget {
   const ProfilItem({super.key});
@@ -106,14 +106,14 @@ class LoginItem extends StatelessWidget {
                 transition: TransitionType.fadeIn);
           },
           style: ElevatedButton.styleFrom(
-            side: const BorderSide(color: Colors.blue),
+            side: const BorderSide(color: appColor),
             shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(100)),
             backgroundColor: Colors.white,
           ),
-          child: const Text(
+          child:  const Text(
             'Logg på',
-            style: TextStyle(fontSize: 15, color: Colors.blue),
+            style: TextStyle(fontSize: 15, color: appColor),
           )),
     );
   }
@@ -135,7 +135,7 @@ class RegisterItem extends StatelessWidget {
           style: ElevatedButton.styleFrom(
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(100)),
-              backgroundColor: Colors.blue),
+              backgroundColor: appColor),
           child: const Text(
             'Bli med',
             style: TextStyle(fontSize: 15),
@@ -200,7 +200,7 @@ AppBar appBar(BuildContext context, GlobalKey<ScaffoldState> key) => AppBar(
               }
             } else {
               // Firebase error
-              return Login();
+              return const Login();
             }
           }),
       title: FutureBuilder(
@@ -247,16 +247,16 @@ AppBar appBar(BuildContext context, GlobalKey<ScaffoldState> key) => AppBar(
                             Container(
                               width: MediaQuery.of(context).size.width - 760,
                             ),
-                            Padding(
-                                padding: const EdgeInsets.only(
+                            const Padding(
+                                padding: EdgeInsets.only(
                                     right: 5, top: 11, bottom: 11),
                                 child: NyAnnonseItem()),
-                            Padding(
-                                padding: const EdgeInsets.only(
+                            const Padding(
+                                padding: EdgeInsets.only(
                                     right: 5, top: 11, bottom: 11),
                                 child: ChatItem()),
-                            Padding(
-                                padding: const EdgeInsets.only(
+                            const Padding(
+                                padding: EdgeInsets.only(
                                     right: 5, top: 11, bottom: 11),
                                 child: ProfilItem()),
                           ],
@@ -332,15 +332,15 @@ AppBar appBar(BuildContext context, GlobalKey<ScaffoldState> key) => AppBar(
                             ),
                             Container(
                               width: 145,
-                              child: Padding(
-                                  padding: const EdgeInsets.only(
+                              child: const Padding(
+                                  padding: EdgeInsets.only(
                                       right: 10, top: 11, bottom: 11),
                                   child: LoginItem()),
                             ),
-                            SizedBox(
+                            const SizedBox(
                               width: 145,
                               child: Padding(
-                                  padding: const EdgeInsets.only(
+                                  padding: EdgeInsets.only(
                                       right: 8, top: 11, bottom: 11),
                                   child: RegisterItem()),
                             ),
@@ -378,7 +378,7 @@ AppBar appBar(BuildContext context, GlobalKey<ScaffoldState> key) => AppBar(
               }
             } else {
               // No connection with Firebase Auth. . .
-              return Login();
+              return const Login();
             }
           }),
     );

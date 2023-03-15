@@ -1,15 +1,11 @@
+// ignore_for_file: depend_on_referenced_packages, library_private_types_in_public_api
+
 import 'dart:async';
-import 'package:get/route_manager.dart';
 import 'package:intl/intl.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:webdesign/app_logic/services/message.dart';
-import 'package:webdesign/pages/chat/smallChat.dart';
-import 'package:webdesign/pages/chat/widgets/group_chat_list.dart';
-import 'package:webdesign/utils/responsive.dart';
-import 'package:webdesign/widgets/appbar.dart';
+import 'package:webdesign/utils/theme.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:webdesign/widgets/drawer.dart';
 import 'dart:ui' as ui;
 
 StreamController<bool> _smallChatChangedController =
@@ -25,10 +21,10 @@ class SmallChatUI extends StatefulWidget {
   late String chatGroupId;
   late String secondUserName;
 
+
   SmallChatUI(
       {required this.chatGroupId, required this.secondUserName, Key? key})
       : super(key: key);
-
   @override
   _SmallChatUIState createState() => _SmallChatUIState();
 }
@@ -42,9 +38,6 @@ class _SmallChatUIState extends State<SmallChatUI> {
     super.dispose();
   }
 
-  void _chatChanged() {
-    _smallChatChangedController.sink.add(true);
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -52,10 +45,8 @@ class _SmallChatUIState extends State<SmallChatUI> {
       Navigator.pop(context);
     }
 
-    final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey();
 
     String docid = widget.chatGroupId.isEmpty ? 'asd' : widget.chatGroupId;
-    String _currentName = widget.secondUserName;
 
     final messagesRef = FirebaseFirestore.instance
         .collection('Messages')
@@ -99,7 +90,7 @@ class _SmallChatUIState extends State<SmallChatUI> {
                                       children: [
                                         InkWell(
                                             onTap: goBack,
-                                            child: Icon(Icons.arrow_back)),
+                                            child: const Icon(Icons.arrow_back)),
                                         Text(
                                           widget.secondUserName,
                                           style: const TextStyle(
@@ -130,7 +121,7 @@ class _SmallChatUIState extends State<SmallChatUI> {
                                       BoxConstraints constraints) {
                                     final textSpan = TextSpan(
                                       text: widget.secondUserName,
-                                      style: TextStyle(fontSize: 16),
+                                      style: const TextStyle(fontSize: 16),
                                     );
                                     final textPainter = TextPainter(
                                       textDirection: ui.TextDirection.ltr,
@@ -140,7 +131,7 @@ class _SmallChatUIState extends State<SmallChatUI> {
                                     return Container(
                                       width: textPainter.width + 300,
                                       height: 1,
-                                      color: Colors.blue,
+                                      color: appColor
                                     );
                                   },
                                 ),
@@ -150,7 +141,7 @@ class _SmallChatUIState extends State<SmallChatUI> {
                         ),
                   Expanded(
                     child: widget.chatGroupId.isEmpty
-                        ? NoSelectedChats()
+                        ? const NoSelectedChats()
                         : StreamBuilder<QuerySnapshot>(
                             stream: messagesRef.snapshots(),
                             builder: (context, snapshot) {
@@ -237,14 +228,14 @@ class _SmallChatUIState extends State<SmallChatUI> {
                                               ),
                                               isCurrentUser
                                                   ? Text(
-                                                      '${DateFormat.yMd().add_jm().format(timestamp.toDate())}',
+                                                      DateFormat.yMd().add_jm().format(timestamp.toDate()),
                                                       style: const TextStyle(
                                                         fontSize: 12,
                                                         color: Colors.white,
                                                       ),
                                                     )
                                                   : Text(
-                                                      '${DateFormat.yMd().add_jm().format(timestamp.toDate())}',
+                                                      DateFormat.yMd().add_jm().format(timestamp.toDate()),
                                                       style: const TextStyle(
                                                         fontSize: 12,
                                                         color: Colors.black,
@@ -261,7 +252,7 @@ class _SmallChatUIState extends State<SmallChatUI> {
                           ),
                   ),
                   widget.chatGroupId.isEmpty
-                      ? SizedBox.shrink()
+                      ? const SizedBox.shrink()
                       : FocusScope(
                           child: Container(
                             decoration: BoxDecoration(
@@ -285,8 +276,7 @@ class _SmallChatUIState extends State<SmallChatUI> {
                                         final timestamp = Timestamp.now();
                                         final senderId =
                                             uid; // Replace with the current user's ID
-                                        const recipientId =
-                                            'user2'; // Replace with the recipient's user ID
+// Replace with the recipient's user ID
 
                                         navnesen(
                                             senderId, text, timestamp, docid);
@@ -305,8 +295,7 @@ class _SmallChatUIState extends State<SmallChatUI> {
                                       final timestamp = Timestamp.now();
                                       final senderId =
                                           uid; // Replace with the current user's ID
-                                      const recipientId =
-                                          'user2'; // Replace with the recipient's user ID
+// Replace with the recipient's user ID
 
                                       navnesen(
                                           senderId, text, timestamp, docid);
@@ -334,7 +323,7 @@ class NoSelectedChats extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       width: 500,
       child: Column(
         children: [
@@ -348,7 +337,7 @@ class NoSelectedChats extends StatelessWidget {
               onPressed: () {},
               child: const Text(
                 'Sjekk ut populære oppdrag her',
-                style: TextStyle(color: Colors.blue, fontSize: 20),
+                style: TextStyle(color: appColor, fontSize: 20),
               ))
         ],
       ),

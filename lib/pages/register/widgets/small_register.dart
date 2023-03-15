@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:webdesign/pages/register/widgets/large_register.dart';
 
-import '../../../widgets/appbar.dart';
-import '../../../widgets/drawer.dart';
 
 class SmallRegister extends StatelessWidget {
-  SmallRegister({super.key});
+  const SmallRegister({super.key});
 
   @override
   Widget build(BuildContext context) {
