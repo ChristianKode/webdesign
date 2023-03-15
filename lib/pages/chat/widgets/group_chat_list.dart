@@ -22,6 +22,7 @@ class _ChatListState extends State<ChatList> {
   @override
   Widget build(BuildContext context) {
     return Container(
+        height: MediaQuery.of(context).size.height,
         width: ResponsiveLayout.isLargeScreen(context)
             ? 300
             : MediaQuery.of(context).size.width,
@@ -69,7 +70,7 @@ class _chatGroupListState extends State<ChatGroupList> {
         List<QueryDocumentSnapshot<Map<String, dynamic>>> querySnapshotList =
             snapshot.data!;
         if (querySnapshotList.isEmpty) {
-          return const Text('No matching documents found');
+          return const Text('Ingen chats funnet, start en chat via annonse');
         }
 
         List<String> documentIds = [];
