@@ -17,12 +17,14 @@ class LargeNewJob extends StatelessWidget {
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey();
   @override
   Widget build(BuildContext context) {
+    // Creates a visual scaffold for Material Design widgets.
     return Scaffold(
       key: scaffoldKey,
       appBar: appBar(context, scaffoldKey),
       drawer: const Drawer(
         child: SideDrawer(),
       ),
+      // Container decorated with an image for the background.
       body: Container(
           width: MediaQuery.of(context).size.width,
           decoration: const BoxDecoration(

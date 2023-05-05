@@ -8,10 +8,18 @@ import 'package:webdesign/core/utils/widgets/appbar.dart';
 import 'package:webdesign/core/utils/widgets/drawer.dart';
 import 'package:webdesign/core/utils/widgets/footer_overall.dart';
 
+// Sets the user's id from Firebase.
 final String? currentUid = FirebaseAuth.instance.currentUser?.uid;
+
+// Sets the user's reference from the database, called collection in Firebase
 final userRef = FirebaseFirestore.instance.collection('Users').doc(currentUid);
+
+// Creates userName variable, will be useful later.
 String userName = '';
 
+// Root widget for this page.
+// It needs to be Stateful, meaning it can redraw it self under running.
+// Will be later explained why.
 class ProfileView extends StatefulWidget {
   const ProfileView({super.key});
 
@@ -34,27 +42,38 @@ class _ProfileViewState extends State<ProfileView> {
         Navigator.pop(context);
         return false;
       },
+      // Creates a visual scaffold for Material Design widgets.
       child: Scaffold(
         key: scaffoldKey,
         appBar: appBar(context, scaffoldKey),
         drawer: const Drawer(
           child: SideDrawer(),
         ),
+        // Futurebuilder is needed to get the Username from the database. 
+        // A Futurebuilder creates a widget based on the latest snapshot from a "Future".
         body: FutureBuilder(
+          // This returns the username from the currentUid it gets.
             future: CloudFirestoreServices().getUserName(currentUid!),
             builder: (_, snapshot) {
+              // Passes the snapshotdata to the userName variable.
               userName = snapshot.data!;
+              // SingleChildScrollView make the widget scrollable.
               return SingleChildScrollView(
+                // Vertical Column for components like Header Widget, Main Body Widgets and the Footer Widget.
                 child: Column(
                   children: [
+                    // Header from the widgets folder
+                    // Context describes the part of the user interface represented by this widget.
                     headerInfo(userName, context),
                     Container(
                       color: const Color.fromARGB(6, 0, 0, 0),
+                      // Width of the current window size.
                       width: MediaQuery.of(context).size.width,
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.center,
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
+                          // Adds responsiveness.
                           !ResponsiveLayout.isSmallScreen(context)
                               ? const LargeProfile()
                               : const SmallProfile(),
@@ -81,6 +100,7 @@ class LargeProfile extends StatefulWidget {
 class _LargeProfileState extends State<LargeProfile> {
   @override
   Widget build(BuildContext context) {
+    // Sets the size for the menu items.
     double height = 250;
     double width = 320;
     return
@@ -94,6 +114,8 @@ class _LargeProfileState extends State<LargeProfile> {
           const SizedBox(
             width: 10,
           ),
+          // Widgets - Profile settings menu.
+          // Height and Width are required fields for these widgets
           minSide(width, height),
           const SizedBox(
             width: 15,
@@ -124,6 +146,7 @@ class _SmallProfileState extends State<SmallProfile> {
   Widget build(BuildContext context) {
     double height = 200;
     double width = MediaQuery.of(context).size.width - 40;
+    // Body
     return SizedBox(
       width: MediaQuery.of(context).size.width,
       height: 400,
@@ -132,6 +155,8 @@ class _SmallProfileState extends State<SmallProfile> {
           const SizedBox(
             height: 20,
           ),
+          // Widgets - Profile settings menu
+          // Height and Width are required fields for these widgets
           minSide(width, height),
           const SizedBox(
             height: 20,

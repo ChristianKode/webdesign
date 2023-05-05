@@ -17,10 +17,14 @@ import 'package:fluro/fluro.dart';
 
 final router = FluroRouter();
 
+// 
 Future<void> main() async {
+  // This binding is important when using a Widget Framework. It binds the Widget Tree to the Flutter Engine.
   WidgetsFlutterBinding.ensureInitialized();
+  // Firebase initialization, await = wait until finished before going to next line.
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
 
+  // Defining routes, if not you could not refresh a page without getting lost.
   router.define('/',
       handler: Handler(handlerFunc: (context, params) => LargeHome()));
   router.define('/main_home',
@@ -45,12 +49,14 @@ Future<void> main() async {
   ));
 }
 
+
 class MyApp extends StatefulWidget {
   const MyApp({super.key, required router});
 
   @override
   State<MyApp> createState() => _MyAppState();
 }
+
 
 class _MyAppState extends State<MyApp> {
   @override

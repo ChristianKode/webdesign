@@ -3,6 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:webdesign/core/utils/responsive/theme.dart';
 import '../../home/widgets/main_home.dart';
 
+
+// Header info widget.
+// Displays user name, profile picture and log out button.
 headerInfo(String userName, context) {
   return SizedBox(
     width: MediaQuery.of(context).size.width,
@@ -24,6 +27,8 @@ headerInfo(String userName, context) {
                     const Text('Min Side'),
                     ElevatedButton(
                       onPressed: () async {
+                        // Signout function with Firebase.
+                        // Afterwards the user is sent to the home page.
                         await FirebaseAuth.instance.signOut();
                         Navigator.pushReplacement(
                             context,
@@ -41,6 +46,7 @@ headerInfo(String userName, context) {
                     SizedBox(
                       height: 150,
                       width: 150,
+                      // Round style for the profile picture
                       child: ClipOval(
                         child: Image.network(
                           'https://firebasestorage.googleapis.com/v0/b/ungansatt123.appspot.com/o/assets%2Fprofile-circle-icon-512x512-dt9lf8um.png?alt=media&token=6b6eec31-abc3-43ad-ba01-69b374731ba9',
@@ -54,6 +60,7 @@ headerInfo(String userName, context) {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
+                          // Display username, it comes from the profile_view.
                           FittedBox(
                             fit: BoxFit.scaleDown,
                             child: Text(
@@ -68,6 +75,7 @@ headerInfo(String userName, context) {
                           FittedBox(
                             fit: BoxFit.scaleDown,
                             child: Text(
+                              // Display email, Stored in Firebase plugin.
                               FirebaseAuth.instance.currentUser!.email
                                   .toString(),
                               style: const TextStyle(fontSize: 20),
@@ -87,9 +95,12 @@ headerInfo(String userName, context) {
   );
 }
 
+// User Settings Widget
+// Min Side page is not created yet.
 minSide(double width, double height) {
   return Flexible(
     child: InkWell(
+      // This will eventually take the user to the User Settings page.
       onTap: () {},
       onHover: (value) => {},
       child: Container(
@@ -157,9 +168,12 @@ minSide(double width, double height) {
   );
 }
 
+// User Favorites Widget
+// Favorites page is not created yet.
 favoritter(double width, double height) {
   return Flexible(
     child: InkWell(
+      // This will eventually take the user to the User Favorites page.
       onTap: () {},
       onHover: (value) => {},
       child: Container(
@@ -227,9 +241,12 @@ favoritter(double width, double height) {
   );
 }
 
+// Users Ads Widget
+// Users Ads page is not created yet.
 mineAnnonser(double width, double height) {
   return Flexible(
     child: InkWell(
+      // This will eventually take the user to the Users Ads page.
       onTap: () {},
       onHover: (value) => {},
       child: Container(

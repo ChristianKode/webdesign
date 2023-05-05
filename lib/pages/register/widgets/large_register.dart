@@ -21,13 +21,17 @@ class LargeRegister extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // Creates a visual scaffold for Material Design Widgets.
     return Scaffold(
+      // Container decorated with an image for the background.
       body: Container(
         decoration: const BoxDecoration(
             image: DecorationImage(
                 image: NetworkImage(
                     'https://firebasestorage.googleapis.com/v0/b/ungansatt123.appspot.com/o/assets%2Fbakgrunn.png?alt=media&token=5dec6ed3-4f53-469f-bf00-9d094e25cf07'),
+                // The image will cover the screen.
                 fit: BoxFit.cover)),
+                // RegisterBox widget displayed.
         child: RegisterBox(),
       ),
     );
@@ -39,11 +43,15 @@ class RegisterBox extends StatelessWidget {
     super.key,
   });
 
+  // Controllers to track input.
   final TextEditingController fornavnCon = TextEditingController();
   final TextEditingController etternavnCon = TextEditingController();
   final TextEditingController emailCon = TextEditingController();
   final TextEditingController passwordCon = TextEditingController();
   final TextEditingController telefonCon = TextEditingController();
+
+  // All the textfields have each controller.
+
 
   @override
   Widget build(BuildContext context) {
@@ -53,6 +61,7 @@ class RegisterBox extends StatelessWidget {
         width: 500,
         child: Padding(
           padding: const EdgeInsets.all(15.0),
+          // This Column includes the main components in this widget. A Column is vertical.
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
@@ -60,6 +69,7 @@ class RegisterBox extends StatelessWidget {
                 'Velkommen',
                 style: GoogleFonts.tinos(fontSize: 50, color: appColor),
               ),
+              // Makes the image in the SizedBox flexible/responsive.
               Flexible(
                 child: SizedBox(
                   width: 350,
@@ -69,6 +79,7 @@ class RegisterBox extends StatelessWidget {
                   ),
                 ),
               ),
+              // A Row is needed to have to widgets horizontally.
               Row(
                 children: [
                   Expanded(
@@ -78,6 +89,7 @@ class RegisterBox extends StatelessWidget {
                       child: SizedBox(
                         child: TextField(
                             controller: fornavnCon,
+                            // Decoration for the field, round corner and custom color.
                             decoration: const InputDecoration(
                               focusedBorder: OutlineInputBorder(
                                   borderSide:
@@ -94,6 +106,7 @@ class RegisterBox extends StatelessWidget {
                       ),
                     ),
                   ),
+                  // Space between the fields.
                   const SizedBox(
                     height: 7,
                   ),
@@ -122,6 +135,7 @@ class RegisterBox extends StatelessWidget {
                   ),
                 ],
               ),
+              // Space between the fields.
               const SizedBox(
                 height: 7,
               ),
@@ -142,6 +156,7 @@ class RegisterBox extends StatelessWidget {
                   ),
                 ),
               ),
+              // Space between the fields.
               const SizedBox(
                 height: 7,
               ),
@@ -171,6 +186,7 @@ class RegisterBox extends StatelessWidget {
                       ),
                     ),
                   ),
+                  // Space between the fields.
                   const SizedBox(
                     height: 7,
                   ),
@@ -199,6 +215,7 @@ class RegisterBox extends StatelessWidget {
                   ),
                 ],
               ),
+              // Space between the fields.
               const SizedBox(
                 height: 7,
               ),
@@ -210,20 +227,29 @@ class RegisterBox extends StatelessWidget {
                     height: 40,
                     child: ElevatedButton(
                         onPressed: () async {
+                          // Register function, connected to backend with Provider plugin. Await is important so it will wait for it to be finished.
                           String registerResult = await context
                               .read<AuthService>()
                               .signUp(
+                                //Linking the controller inputs.
                                   emailCon.text.trim(),
                                   passwordCon.text.trim(),
                                   fornavnCon.text.trim(),
                                   etternavnCon.text.trim(),
                                   telefonCon.text.trim());
 
+                          // .signUp will return Success or a Firebase error message.
+                          // We can use this to information to check if the registration went through or not.
+
                           if (registerResult == 'Success') {
+                            // In this case it went through so the user will be logged in and taken to home page.
                             Get.to(() => LargeHome());
                           } else {
+                            // If not the user will get a snackbar.
+                            // A Snackbar can be used to display error messages.
                             ScaffoldMessenger.of(context).showSnackBar(
                               SnackBar(
+                                // Here is the style set for the snakbar.
                                 behavior: SnackBarBehavior.floating,
                                 content: const Text('Noe gikk galt...'),
                                 duration: const Duration(seconds: 5),
@@ -232,6 +258,7 @@ class RegisterBox extends StatelessWidget {
                                   side: const BorderSide(
                                       color: appColor, width: 2),
                                 ),
+                                // This snackbar has a closing button.
                                 action: SnackBarAction(
                                   label: 'Lukk',
                                   textColor: Colors.white, // set text color
@@ -251,6 +278,7 @@ class RegisterBox extends StatelessWidget {
                           style: TextStyle(fontSize: 15),
                         )),
                   ),
+                  // Back button, if you set a button in a box or container it will take up its whole space.
                   SizedBox(
                     width: 150,
                     height: 40,
@@ -280,6 +308,7 @@ class RegisterBox extends StatelessWidget {
                   )
                 ],
               ),
+              // Space between the fields.
               const SizedBox(
                 height: 30,
               )
