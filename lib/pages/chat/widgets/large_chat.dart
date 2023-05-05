@@ -13,6 +13,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:webdesign/core/utils/widgets/drawer.dart';
 import 'dart:ui' as ui;
 
+// Creating variables, reference to database and making a streamcontroller
+
 StreamController<bool> _chatChangedController =
     StreamController<bool>.broadcast();
 final _focusNode = FocusNode();
@@ -41,6 +43,7 @@ class _ChatState extends State<Chat> {
 }
 
 class ChatUI extends StatefulWidget {
+  // Creating the variables chatGroupId and secondUserName
   late String chatGroupId;
   late String secondUserName;
 
