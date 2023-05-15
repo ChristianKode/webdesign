@@ -9,6 +9,8 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:webdesign/pages/job/job_view.dart';
 import 'package:webdesign/pages/login/login.dart';
 
+
+// List over ad's
 class JobList extends StatefulWidget {
   const JobList({super.key});
 
@@ -57,6 +59,8 @@ class _JobListState extends State<JobList> {
                         );
                       },
                     ),
+                    // Firebase animated list, gets all the ad's from database
+                    // Doesn't show the ad's that the logged in user has created
                     Expanded(
                       child: SizedBox(
                         height: 350,

@@ -24,6 +24,7 @@ class SmallForgot extends StatelessWidget {
                   'https://firebasestorage.googleapis.com/v0/b/ungansatt123.appspot.com/o/assets%2Fforgot_background.png?alt=media&token=5503a57d-7467-4bea-9b0e-3fd4f0b2e743'),
               fit: BoxFit.cover),
         ),
+        // Same widgets as the Large-Forgot
         child: ForgotPassBox(),
       ),
     );

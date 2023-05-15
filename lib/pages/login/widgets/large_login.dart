@@ -157,6 +157,7 @@ class LoginBox extends StatelessWidget {
                 height: 40,
                 child: ElevatedButton(
                   onPressed: () async {
+                    // Login logic, returns innlogget or error code.
                     String loginResult = await context
                         .read<AuthService>()
                         .login(mail.text.trim(), pass.text.trim());
@@ -164,6 +165,7 @@ class LoginBox extends StatelessWidget {
                     if (loginResult == 'Innlogget') {
                       Get.to(() => LargeHome());
                     } else {
+                      // Error Message
                       ScaffoldMessenger.of(context).showSnackBar(
                         SnackBar(
                           behavior: SnackBarBehavior.floating,
@@ -201,6 +203,7 @@ class LoginBox extends StatelessWidget {
                 width: 150,
                 height: 40,
                 child: ElevatedButton(
+                  // Back button
                     onPressed: () {
                       router.navigateTo(context, '/',
                           transition: TransitionType.fadeIn);
@@ -227,6 +230,7 @@ class LoginBox extends StatelessWidget {
               )
             ],
           ),
+          // Forgot pass button
           TextButton(
               onPressed: () {
                 Get.to(() => const Forgot());

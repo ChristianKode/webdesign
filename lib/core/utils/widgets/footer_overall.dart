@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:webdesign/core/utils/responsive/theme.dart';
 
+// Footer
 class Footer extends StatelessWidget {
   const Footer({super.key});
 

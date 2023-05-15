@@ -5,6 +5,8 @@ import 'package:firebase_storage/firebase_storage.dart';
 class StorageServices {
   final _storage = FirebaseStorage.instance.ref();
 
+// Storing image for the uploaded jobs
+// Returns IMG URL, that will be uploaded to database
   Future<String> uploadImage(
       String aid, String selectFile, Uint8List selectedImageInBytes) async {
     String imageUrl = '';

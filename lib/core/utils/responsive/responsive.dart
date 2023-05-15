@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 
+// ResponsiveLayout breakpoints
+// Some pages use this layout, some pages use the other
+// Defines the screen between large, medium and small screen
 class ResponsiveLayout extends StatelessWidget {
   final Widget largeScreen;
   final Widget mediumScreen;

@@ -17,6 +17,7 @@ final TextEditingController messageController = TextEditingController();
 final senderId = uid; // Replace with the current user's ID
 const recipientId = 'user2'; // Replace with the recipient's user ID
 
+// ignore: must_be_immutable
 class SmallChatUI extends StatefulWidget {
   late String chatGroupId;
   late String secondUserName;

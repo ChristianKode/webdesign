@@ -12,6 +12,9 @@ import 'package:webdesign/pages/login/login.dart';
 import 'package:webdesign/pages/register/register.dart';
 import '../../../main.dart';
 
+
+// Custom Drawer
+// Only displayed on smaller screens
 class SideDrawer extends StatelessWidget {
   const SideDrawer({super.key});
 
@@ -56,6 +59,7 @@ class _LoggedInDrawerState extends State<LoggedInDrawer> {
   bool onHover4 = false;
   bool onHover5 = false;
 
+  // Display username
   Future<void> getName() async {
     final uid = FirebaseAuth.instance.currentUser!.uid;
     final userRef = FirebaseFirestore.instance.collection('Users').doc(uid);
@@ -275,6 +279,7 @@ class _LoggedInDrawerState extends State<LoggedInDrawer> {
                   },
                   onTap: () async {
                     await FirebaseAuth.instance.signOut();
+                    // ignore: use_build_context_synchronously
                     router.navigateTo(context, '/main_home',
                         transition: TransitionType.fadeIn);
                   },

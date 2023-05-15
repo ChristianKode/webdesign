@@ -8,6 +8,7 @@ import 'package:webdesign/pages/home/widgets/home_job_list.dart';
 import 'package:webdesign/core/utils/widgets/drawer.dart';
 import 'package:webdesign/core/utils/widgets/footer_overall.dart';
 
+// Check for user auth state
 class Auth {
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
@@ -29,12 +30,14 @@ class LargeHome extends StatelessWidget {
         return false;
       },
       child: Scaffold(
+        // Appbar and drawer
         key: scaffoldKey,
         appBar: appBar(context, scaffoldKey),
         drawer: const Drawer(
           child: SideDrawer(),
         ),
         body: const SingleChildScrollView(
+          // Page Content
           child: Column(children: <Widget>[
             Top(),
             HomeCard(),

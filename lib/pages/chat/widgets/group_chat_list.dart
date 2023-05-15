@@ -8,6 +8,8 @@ import 'package:webdesign/pages/chat/widgets/large_chat.dart';
 import 'package:webdesign/pages/chat/widgets/small_chat.dart';
 import 'package:webdesign/core/utils/responsive/responsive.dart';
 
+// The list of chats you have
+
 class ChatList extends StatefulWidget {
   const ChatList({Key? key}) : super(key: key);
 
@@ -42,11 +44,14 @@ class ChatGroupList extends StatefulWidget {
 
 // ignore: camel_case_types
 class _chatGroupListState extends State<ChatGroupList> {
+  
+  // Local variables
   final fire = FirebaseFirestore.instance.collection('Messages');
   final uid = FirebaseAuth.instance.currentUser?.uid;
 
   @override
   Widget build(BuildContext context) {
+    // Gets all the chats with your uid in and makes it into a list
     return FutureBuilder<List<QueryDocumentSnapshot<Map<String, dynamic>>>>(
       future: Future.wait([
         fire.where('Uid1', whereIn: [uid]).get(),
@@ -70,6 +75,7 @@ class _chatGroupListState extends State<ChatGroupList> {
           return const Text('Ingen chats funnet, start en chat via annonse');
         }
 
+        // All the chats 
         List<String> documentIds = [];
         for (var documentSnapshot in querySnapshotList) {
           String documentId = documentSnapshot.id;
@@ -79,6 +85,7 @@ class _chatGroupListState extends State<ChatGroupList> {
           documentIds.add(documentId);
         }
 
+        // Lists the chats 
         return Column(
           children: documentIds
               .map((documentId) => Padding(
@@ -95,6 +102,7 @@ class _chatGroupListState extends State<ChatGroupList> {
   }
 }
 
+// Refrencing the database
 final fireStore = FirebaseFirestore.instance;
 
 class ChatGroupCards extends StatefulWidget {
@@ -145,6 +153,7 @@ class _ChatGroupCardsState extends State<ChatGroupCards> {
     });
   }
 
+  // Finds the two users in the chat and their names
   Future<String> findUser(String firstName, String lastName) async {
     final firestore = FirebaseFirestore.instance;
     try {
@@ -181,6 +190,7 @@ class _ChatGroupCardsState extends State<ChatGroupCards> {
       onTap: () {
         selectedChatId = widget.documentId;
         ResponsiveLayout.isLargeScreen(context)
+        // Pushes data to next page
             ? Navigator.push(
                 context,
                 MaterialPageRoute(
@@ -189,6 +199,8 @@ class _ChatGroupCardsState extends State<ChatGroupCards> {
                           secondUserName: secondUserName,
                         )),
               )
+                      // Pushes data to next page
+
             : Navigator.push(
                 context,
                 MaterialPageRoute(
@@ -197,6 +209,7 @@ class _ChatGroupCardsState extends State<ChatGroupCards> {
                           secondUserName: secondUserName,
                         )));
       },
+      // Responsive
       child: ResponsiveLayout.isLargeScreen(context)
           ? Container(
               alignment: Alignment.centerLeft,

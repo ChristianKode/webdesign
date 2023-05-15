@@ -19,6 +19,7 @@ class SmallLogin extends StatelessWidget {
   }
 }
 
+// Same logic as Large-Login
 class SmallLoginBox extends StatelessWidget {
   SmallLoginBox({super.key});
   final TextEditingController mail = TextEditingController();

@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 
+
+// ResponsiveLayout breakpoints
+// Some pages use this layout, some pages use the other
+// Defines the screen between large, medium and small screen
 const int largeScreenSize = 1366;
 const int mediumScreenSize = 768;
 const int smallScreenSize = 360;

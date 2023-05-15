@@ -25,6 +25,7 @@ class _JobViewState extends State<JobView> {
         Navigator.pop(context);
         return false;
       },
+      // Drawer and Appbar
       child: Scaffold(
         key: scaffoldKey,
         appBar: appBar(context, scaffoldKey),
@@ -36,6 +37,7 @@ class _JobViewState extends State<JobView> {
             Expanded(
               child: SingleChildScrollView(
                 child: Column(
+                  // Page Content
                   children: [BodyRow(), Footer()],
                 ),
               ),

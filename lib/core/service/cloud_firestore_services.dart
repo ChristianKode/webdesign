@@ -1,11 +1,14 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_database/firebase_database.dart';
 
+// CloudFireStoreServices class, aka database.
 class CloudFirestoreServices {
-  final _firestoreUsers = FirebaseFirestore.instance.collection('Users');
-  final _firestoreMessages = FirebaseFirestore.instance.collection('Messages');
 
+  // Defines route for Users and Messages Collection in Firestore Cloud.
+  final _firestoreUsers = FirebaseFirestore.instance.collection('Users');
+
+   // Signup
   Future<String> signUp(
+    // Adds credentials to database
       String uid, String firstname, String lastname, String telephone) async {
     try {
       await _firestoreUsers.doc(uid).set({
@@ -21,6 +24,7 @@ class CloudFirestoreServices {
     return 'Success';
   }
 
+  // Get username from uid
   Future<String> getUserName(String uid) async {
     final dataSnapshot = await _firestoreUsers.doc(uid).get();
     String userName = '';

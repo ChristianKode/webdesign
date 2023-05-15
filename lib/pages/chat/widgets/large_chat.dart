@@ -42,6 +42,7 @@ class _ChatState extends State<Chat> {
   }
 }
 
+// ignore: must_be_immutable
 class ChatUI extends StatefulWidget {
   // Creating the variables chatGroupId and secondUserName
   late String chatGroupId;
@@ -369,7 +370,8 @@ class _ChatUIState extends State<ChatUI> {
                                                       Timestamp.now();
                                                   final senderId =
                                                       uid; // Replace with the current user's ID
-// Replace with the recipient's user ID
+                                                          
+                                                        // Replace with the recipient's user ID
 
                                                   navnesen(senderId, text,
                                                       timestamp, docid);

@@ -48,6 +48,7 @@ class FillOut extends StatefulWidget {
 }
 
 class _FillOutState extends State<FillOut> {
+  // Controllers for the textfields
   final TextEditingController titleCon = TextEditingController();
   final TextEditingController descpritionCon = TextEditingController();
   final TextEditingController addressCon = TextEditingController();
@@ -56,15 +57,21 @@ class _FillOutState extends State<FillOut> {
   final FirebaseStorage _storage = FirebaseStorage.instance;
   String uid = FirebaseAuth.instance.currentUser!.uid;
 
+  
   late Uint8List selectedImageInBytes;
   List<Uint8List> pickedImagesInBytes = [];
   String selectFile = '';
   int imageCounts = 0;
 
+  // FilePicker
   _selectFile(bool imageFrom) async {
+    
+    // Opens filepicker
     FilePickerResult? fileResult =
         await FilePicker.platform.pickFiles(allowMultiple: true);
 
+
+    // selectFile gets the FilePicker Result
     if (fileResult != null) {
       selectFile = fileResult.files.first.name;
       for (var element in fileResult.files) {
@@ -77,13 +84,42 @@ class _FillOutState extends State<FillOut> {
     }
   }
 
+  // Upload logic
   upload() async {
+    // Local variables for the controller data
     String title = titleCon.text.trim();
     String descprition = descpritionCon.text.trim();
     String address = addressCon.text.trim();
     String zipcode = zipcodeCon.text.trim();
     String price = priceCon.text.trim();
     String imageUrl = '';
+    // Creating a unique id for the new ad
+    var uuid = const Uuid();
+    var aid = uuid.v4();
+
+    // Path for the image upload to Cloud Storage
+    final storageRef = _storage.ref().child(aid).child('/$selectFile');
+    final metadata = SettableMetadata(contentType: 'image/jpeg');
+    await storageRef.putData(selectedImageInBytes, metadata);
+    try {
+      // Getting the URL of the imagge
+      imageUrl = await storageRef.getDownloadURL().then((value) => value);
+    } catch (e) {
+      return e;
+    }
+    // Uploading new AD data + stored Image URL
+    DatabaseReference ref = FirebaseDatabase.instance.ref("adventures");
+    String uid = FirebaseAuth.instance.currentUser!.uid;
+    await ref.child(aid).set({
+      "title": title,
+      "descprition": descprition,
+      "address": address,
+      "zipcode": zipcode,
+      "price": price,
+      "uid": uid,
+      "aid": aid,
+      "img1": imageUrl,
+    });
   }
 
   @override

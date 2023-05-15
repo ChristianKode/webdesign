@@ -1,8 +1,10 @@
 import 'package:firebase_database/firebase_database.dart';
 
+
 class RealtimeDatabaseServices {
   final  _realtimeDb = FirebaseDatabase.instance.ref();
 
+// Upload job to database with all the fields
   Future<void> uploadJob(
       String aid,
       String title,

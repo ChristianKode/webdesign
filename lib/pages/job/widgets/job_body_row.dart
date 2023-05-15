@@ -38,6 +38,9 @@ class BodyRow extends StatefulWidget {
 }
 
 class _BodyRowState extends State<BodyRow> {
+  // Getter for the selected AD ID
+  // The Selected ad is stored in user table, it could not be stored in cookies.
+  // If it is not stored anywhere in dissapears on refresh
   Future<void> getAid() async {
     DocumentSnapshot<Object?> currentUserSnapshot =
         await _fireStore.collection('Users').doc(_currentUser).get();
@@ -57,6 +60,7 @@ class _BodyRowState extends State<BodyRow> {
 
   @override
   Widget build(BuildContext context) {
+    // Builds the view based on the given future, which returns all the data from database.
     return FutureBuilder(
       future: getView(),
       builder: (context, snapshot) {
@@ -102,6 +106,9 @@ class SmallBodyColumn extends StatefulWidget {
 class _SmallBodyColumnState extends State<SmallBodyColumn> {
   late Map<String, DocumentSnapshot> documentSnapshots;
 
+
+  // Loads the ad owner's id
+  // Will be important for chat
   @override
   void initState() {
     super.initState();
@@ -290,6 +297,7 @@ class _SmallBodyColumnState extends State<SmallBodyColumn> {
                   final uid1 = FirebaseAuth.instance.currentUser?.uid;
                   List<DocumentSnapshot> results = [];
 
+                  // Checks if there is an existing chat document between the reader and the owner
                   final uid1querySnapshot = await FirebaseFirestore.instance
                       .collection('Messages')
                       .where("Uid1", whereIn: [uid1, authorId]).get();
@@ -317,6 +325,7 @@ class _SmallBodyColumnState extends State<SmallBodyColumn> {
                     }
                   }
 
+                  // Is there is a matching document:
                   print('Results:');
                   for (var doc in results) {
                     print('${doc.id}: ${doc.data()}');
@@ -326,6 +335,8 @@ class _SmallBodyColumnState extends State<SmallBodyColumn> {
                       print('docid');
                     }
                   }
+
+                  
 
                   if (results.isNotEmpty) {
                     // take user to existing chat
@@ -415,6 +426,7 @@ class _SmallBodyColumnState extends State<SmallBodyColumn> {
 }
 
 // LargeScreen Widget
+// Same logic ad SmallBodyColumn
 class LargeBodyColumn extends StatefulWidget {
   const LargeBodyColumn({
     super.key,
@@ -433,6 +445,8 @@ class _LargeBodyColumnState extends State<LargeBodyColumn> {
     documentSnapshots = {};
     _fetchUserDocument();
   }
+
+
 
   Future<void> _fetchUserDocument() async {
     try {
@@ -806,6 +820,8 @@ class _LargeBodyColumnState extends State<LargeBodyColumn> {
   }
 }
 
+
+// Custom Favorit button
 class FavoriteButton extends StatefulWidget {
   const FavoriteButton({super.key});
 

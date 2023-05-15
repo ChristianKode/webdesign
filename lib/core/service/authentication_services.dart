@@ -1,7 +1,4 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
-import 'package:flutter/foundation.dart';
 import 'package:webdesign/core/service/cloud_firestore_services.dart';
 
 // Authetication Servicces Class
@@ -29,16 +26,16 @@ class AuthService {
   // Returns ok or error message from Firebase.
   Future<String> signUp(String email, String password, String firstname,
       String lastname, String telephone) async {
-    String ok = '';
 
     try {
       if (telephone.isNotEmpty &&
           firstname.isNotEmpty &&
           lastname.isNotEmpty &&
           email.isNotEmpty &&
-          password.isNotEmpty)
+          password.isNotEmpty) {
         await _auth.createUserWithEmailAndPassword(
             email: email, password: password);
+      }
 
       String uid = FirebaseAuth.instance.currentUser!.uid;
       String ok = '';

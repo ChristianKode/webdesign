@@ -6,6 +6,7 @@ import 'package:webdesign/pages/login/login.dart';
 import 'package:webdesign/pages/newJob/widgets/large_newjob.dart';
 import 'package:webdesign/core/utils/responsive/responsive.dart';
 
+// Information card
 class HomeCard extends StatelessWidget {
   const HomeCard({super.key});
 

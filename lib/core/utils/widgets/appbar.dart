@@ -2,14 +2,16 @@
 
 import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:webdesign/core/service/authentication_services.dart';
 import 'package:webdesign/core/utils/responsive/responsive.dart';
 import 'package:webdesign/main.dart';
-import 'package:webdesign/pages/home/widgets/main_home.dart';
 import 'package:webdesign/pages/login/login.dart';
+
+// Custom Appbar
+// Here are the widgets/items on the appbar
+// Built Responsive
 
 class ProfilItem extends StatelessWidget {
   const ProfilItem({super.key});
@@ -142,6 +144,8 @@ class RegisterItem extends StatelessWidget {
   }
 }
 
+// Custom Appbar
+// Statements for defining if screen is small or large, if user is logged in or not
 AppBar appBar(BuildContext context, GlobalKey<ScaffoldState> key) => AppBar(
       backgroundColor: Colors.white,
       toolbarHeight: 80,

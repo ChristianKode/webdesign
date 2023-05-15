@@ -8,6 +8,8 @@ import '../../../core/utils/widgets/appbar.dart';
 import '../../../core/utils/widgets/drawer.dart';
 import '../../login/login.dart';
 
+// Forgot password page
+// Firebase handles email for password recovery
 class LargeForgot extends StatelessWidget {
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey();
 
@@ -84,6 +86,7 @@ class ForgotPassBox extends StatelessWidget {
             height: 40,
             child: ElevatedButton(
                 onPressed: () {
+                  // Logic located backend
                   final String mail = mailCon.text;
 
                   context.read<AuthService>().forgotPass(mail);

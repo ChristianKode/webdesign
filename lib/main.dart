@@ -17,7 +17,7 @@ import 'package:fluro/fluro.dart';
 
 final router = FluroRouter();
 
-// 
+// Routes, firebase init and Root WIdget "MyApp" will be runned from here at the start.
 Future<void> main() async {
   // This binding is important when using a Widget Framework. It binds the Widget Tree to the Flutter Engine.
   WidgetsFlutterBinding.ensureInitialized();
@@ -50,6 +50,7 @@ Future<void> main() async {
 }
 
 
+// Root of the application
 class MyApp extends StatefulWidget {
   const MyApp({super.key, required router});
 
@@ -61,16 +62,21 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
+    // The parameter builder is syntactic sugar for obtaining a [BuildContext] that can read the providers created.
     return MultiProvider(
       providers: [
+
         Provider<AuthService>(
           create: (_) => AuthService(FirebaseAuth.instance),
         ),
+
+        // Checks if user state changes
         StreamProvider(
           create: (context) => context.read<AuthService>().authStateChanges,
           initialData: null,
         )
       ],
+      // MaterialApp info
       child: GetMaterialApp(
         onGenerateRoute: router.generator,
         debugShowCheckedModeBanner: false,

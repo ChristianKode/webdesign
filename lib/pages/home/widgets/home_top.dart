@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:webdesign/core/utils/responsive/responsive.dart';
 
+
+// Header, image and text
 class Top extends StatelessWidget {
   const Top({super.key});
 
